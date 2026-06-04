@@ -82,8 +82,8 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertTrue(SAFE_TEMPLATE.exists())
         contents = SAFE_TEMPLATE.read_text(encoding="utf-8")
 
-        self.assertIn('doc.documentPreferences.pageWidth = "215.9mm";', contents)
-        self.assertIn('doc.documentPreferences.pageHeight = "279.4mm";', contents)
+        self.assertIn('doc.documentPreferences.pageWidth = "279.4mm";', contents)
+        self.assertIn('doc.documentPreferences.pageHeight = "215.9mm";', contents)
         self.assertIn('documentBleedTopOffset = "3.175mm";', contents)
         self.assertIn('return builtinSwatch(doc, ["Black", "[Black]"]);', contents)
         self.assertIn('return builtinSwatch(doc, ["Paper", "[Paper]"]);', contents)
@@ -99,9 +99,9 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertTrue(SAFE_REPORT.exists())
         report = json.loads(SAFE_REPORT.read_text(encoding="utf-8"))
 
-        self.assertEqual(report["trim"]["name"], "US Letter portrait")
-        self.assertEqual(report["trim"]["width_mm"], 215.9)
-        self.assertEqual(report["trim"]["height_mm"], 279.4)
+        self.assertEqual(report["trim"]["name"], "US Letter landscape")
+        self.assertEqual(report["trim"]["width_mm"], 279.4)
+        self.assertEqual(report["trim"]["height_mm"], 215.9)
         self.assertEqual(report["bleed_mm"], 3.175)
         self.assertEqual(report["pages"], 50)
         self.assertEqual(report["swatches"], ["[Black]", "[Paper]"])

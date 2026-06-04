@@ -1,9 +1,9 @@
 {
-  "profile_target": "Digital Publishing preflight-safe variant",
+  "profile_target": "Digital Publishing preflight-safe facing-pages landscape variant",
   "trim": {
-    "width_mm": 215.9,
-    "height_mm": 279.4,
-    "name": "US Letter portrait"
+    "width_mm": 279.4,
+    "height_mm": 215.9,
+    "name": "US Letter landscape"
   },
   "bleed_mm": 3.175,
   "pages": 50,

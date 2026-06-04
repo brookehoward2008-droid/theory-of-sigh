@@ -1,6 +1,6 @@
 // The Visceral Theory of Sight - full 50-page InDesign layout builder
 // Run from InDesign: File > Scripts > Other Script...
-// Builds US Letter facing pages, 0.125in bleed, 12-column grid, K-only linked images, captions, layered editorial modules, PDF, and audit report.
+// Builds US Letter landscape facing pages, 0.125in bleed, 12-column grid, K-only linked images, captions, layered editorial modules, PDF, and audit report.
 
 var ASSETS = [
   {
@@ -426,8 +426,8 @@ var COPY = {
 function mm(v) { return v + "mm"; }
 var DESIGN_W_MM = 210;
 var DESIGN_H_MM = 297;
-var PAGE_W_MM = 215.9;
-var PAGE_H_MM = 279.4;
+var PAGE_W_MM = 279.4;
+var PAGE_H_MM = 215.9;
 function sx(v) { return v * PAGE_W_MM / DESIGN_W_MM; }
 function sy(v) { return v * PAGE_H_MM / DESIGN_H_MM; }
 function b(t, l, bot, r) { return [mm(sy(t)), mm(sx(l)), mm(sy(bot)), mm(sx(r))]; }
@@ -464,18 +464,18 @@ function copyChunk(key, n) {
 
 function setupDoc() {
   var doc = app.documents.add();
-  doc.documentPreferences.pageWidth = "215.9mm";
-  doc.documentPreferences.pageHeight = "279.4mm";
+  doc.documentPreferences.pageWidth = "279.4mm";
+  doc.documentPreferences.pageHeight = "215.9mm";
   doc.documentPreferences.facingPages = true;
   doc.documentPreferences.pagesPerDocument = 50;
   doc.documentPreferences.documentBleedTopOffset = "3.175mm";
   doc.documentPreferences.documentBleedBottomOffset = "3.175mm";
   doc.documentPreferences.documentBleedInsideOrLeftOffset = "3.175mm";
   doc.documentPreferences.documentBleedOutsideOrRightOffset = "3.175mm";
-  doc.marginPreferences.top = "19.558mm";
-  doc.marginPreferences.bottom = "19.558mm";
-  doc.marginPreferences.left = "21.590mm";
-  doc.marginPreferences.right = "16.193mm";
+  doc.marginPreferences.top = "15.113mm";
+  doc.marginPreferences.bottom = "15.113mm";
+  doc.marginPreferences.left = "27.940mm";
+  doc.marginPreferences.right = "20.955mm";
   doc.marginPreferences.columnCount = 12;
   doc.marginPreferences.columnGutter = "5mm";
   return doc;
@@ -593,7 +593,7 @@ function writeBuildReport(doc) {
     generatedAt: new Date().toString(),
     pageCount: doc.pages.length,
     facingPages: doc.documentPreferences.facingPages,
-    trim: "US Letter portrait 215.9mm x 279.4mm",
+    trim: "US Letter landscape 279.4mm x 215.9mm",
     bleed: "3.175mm all sides",
     columns: 12,
     assetCount: ASSETS.length,
@@ -666,7 +666,7 @@ function frontMatter(page, n, doc, ink, cream, gold) {
   if (n === 2) {
     textFrame(page, b(62, 24, 118, 170), "The Visceral\rTheory of Sight", 30, "Bold", ink, 100);
     textFrame(page, b(126, 26, 152, 160), "A 50-page editorial art book on controlled revelation.", 10, "Regular", ink, 100);
-    textFrame(page, b(245, 24, 272, 160), "US Letter preflight layout. 12-column grid. 0.125in bleed. Source and rights verification required before final export.", 7, "Regular", ink, 100);
+    textFrame(page, b(245, 24, 272, 160), "US Letter landscape preflight layout. 12-column grid. 0.125in bleed. Source and rights verification required before final export.", 7, "Regular", ink, 100);
   } else if (n === 3) {
     textFrame(page, b(216, 24, 271, 182), "LEGAL / CREDITS\rThis layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 8, "Regular", ink, 100);
   } else {

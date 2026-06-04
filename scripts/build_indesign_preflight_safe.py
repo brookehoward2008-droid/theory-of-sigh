@@ -12,8 +12,8 @@ except ModuleNotFoundError:
     import build_visceral_book as book
 
 
-LETTER_W_MM = 215.9
-LETTER_H_MM = 279.4
+LETTER_W_MM = 279.4
+LETTER_H_MM = 215.9
 BLEED_MM = 3.175
 
 SAFE_ASSET_DIR = book.ASSET_OUT / "preflight-konly"
@@ -60,7 +60,7 @@ def safe_jsx_from_full(full_jsx: str, assets: list[book.Asset]) -> str:
     jsx = full_jsx
     jsx = jsx.replace(
         "// Builds A4 facing pages, 3mm bleed, 12-column grid, linked images, captions, layered editorial modules, PDF, and audit report.",
-        "// Builds US Letter facing pages, 0.125in bleed, 12-column grid, K-only linked images, captions, layered editorial modules, PDF, and audit report.",
+        "// Builds US Letter landscape facing pages, 0.125in bleed, 12-column grid, K-only linked images, captions, layered editorial modules, PDF, and audit report.",
     )
     jsx = re.sub(r"var ASSETS = \[[\s\S]*?\];\nvar OUTPUT_INDD", "var ASSETS = " + json.dumps(safe_assets, indent=2) + ";\nvar OUTPUT_INDD", jsx, count=1)
     jsx = re.sub(
@@ -95,10 +95,10 @@ def safe_jsx_from_full(full_jsx: str, assets: list[book.Asset]) -> str:
     jsx = jsx.replace('doc.documentPreferences.documentBleedBottomOffset = "3mm";', f'doc.documentPreferences.documentBleedBottomOffset = "{BLEED_MM}mm";')
     jsx = jsx.replace('doc.documentPreferences.documentBleedInsideOrLeftOffset = "3mm";', f'doc.documentPreferences.documentBleedInsideOrLeftOffset = "{BLEED_MM}mm";')
     jsx = jsx.replace('doc.documentPreferences.documentBleedOutsideOrRightOffset = "3mm";', f'doc.documentPreferences.documentBleedOutsideOrRightOffset = "{BLEED_MM}mm";')
-    jsx = jsx.replace('doc.marginPreferences.top = "20.790mm";', 'doc.marginPreferences.top = "19.558mm";')
-    jsx = jsx.replace('doc.marginPreferences.bottom = "20.790mm";', 'doc.marginPreferences.bottom = "19.558mm";')
-    jsx = jsx.replace('doc.marginPreferences.left = "21.000mm";', 'doc.marginPreferences.left = "21.590mm";')
-    jsx = jsx.replace('doc.marginPreferences.right = "15.750mm";', 'doc.marginPreferences.right = "16.193mm";')
+    jsx = jsx.replace('doc.marginPreferences.top = "20.790mm";', 'doc.marginPreferences.top = "15.113mm";')
+    jsx = jsx.replace('doc.marginPreferences.bottom = "20.790mm";', 'doc.marginPreferences.bottom = "15.113mm";')
+    jsx = jsx.replace('doc.marginPreferences.left = "21.000mm";', 'doc.marginPreferences.left = "27.940mm";')
+    jsx = jsx.replace('doc.marginPreferences.right = "15.750mm";', 'doc.marginPreferences.right = "20.955mm";')
     jsx = re.sub(
         r"function addSwatch\(doc, name, values\) \{[\s\S]*?\n\}",
         (
@@ -124,8 +124,8 @@ def safe_jsx_from_full(full_jsx: str, assets: list[book.Asset]) -> str:
         count=1,
     )
     jsx = jsx.replace('page.parent.parent.colors.itemByName("Ink")', 'page.parent.parent.swatches.itemByName("[Black]")')
-    jsx = jsx.replace('"A4 precision layout. 12-column grid. 3mm bleed.', '"US Letter preflight layout. 12-column grid. 0.125in bleed.')
-    jsx = jsx.replace('trim: "A4 portrait 210mm x 297mm"', 'trim: "US Letter portrait 215.9mm x 279.4mm"')
+    jsx = jsx.replace('"A4 precision layout. 12-column grid. 3mm bleed.', '"US Letter landscape preflight layout. 12-column grid. 0.125in bleed.')
+    jsx = jsx.replace('trim: "A4 portrait 210mm x 297mm"', 'trim: "US Letter landscape 279.4mm x 215.9mm"')
     jsx = jsx.replace('bleed: "3mm all sides"', 'bleed: "3.175mm all sides"')
     jsx = jsx.replace('"dark ink and archival cream base",', '"black and paper preflight base",')
     jsx = jsx.replace('"muted gold and slate accents",', '"black-only accent tints for Digital Publishing profile",')
@@ -200,8 +200,8 @@ def main() -> None:
     SAFE_REPORT.write_text(
         json.dumps(
             {
-                "profile_target": "Digital Publishing preflight-safe variant",
-                "trim": {"width_mm": LETTER_W_MM, "height_mm": LETTER_H_MM, "name": "US Letter portrait"},
+                "profile_target": "Digital Publishing preflight-safe facing-pages landscape variant",
+                "trim": {"width_mm": LETTER_W_MM, "height_mm": LETTER_H_MM, "name": "US Letter landscape"},
                 "bleed_mm": BLEED_MM,
                 "pages": 50,
                 "facing_pages": True,
