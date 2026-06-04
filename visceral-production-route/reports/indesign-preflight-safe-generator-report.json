@@ -1,0 +1,18 @@
+{
+  "profile_target": "Digital Publishing preflight-safe variant",
+  "trim": {
+    "width_mm": 215.9,
+    "height_mm": 279.4,
+    "name": "US Letter portrait"
+  },
+  "bleed_mm": 3.175,
+  "pages": 50,
+  "facing_pages": true,
+  "swatches": [
+    "[Black]",
+    "[Paper]"
+  ],
+  "linked_assets": 67,
+  "asset_mode": "grayscale JPEG copies generated from supplied local image assets",
+  "jsx": "C:\\Users\\toddl\\OneDrive\\Documents\\visceral\\visceral-production-route\\templates\\indesign-build-preflight-safe.jsx"
+}

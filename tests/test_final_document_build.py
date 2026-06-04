@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import json
 import unittest
 from pathlib import Path
 
@@ -28,6 +29,7 @@ from scripts.build_visceral_book import (
     scan_assets,
     write_full_layout_jsx,
 )
+from scripts.build_indesign_preflight_safe import SAFE_REPORT, SAFE_TEMPLATE
 
 
 class FinalDocumentBuildTest(unittest.TestCase):
@@ -75,6 +77,33 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertIn("doc.save(inddFile)", contents)
         self.assertIn("doc.exportFile(ExportFormat.INDESIGN_MARKUP, idmlFile)", contents)
         self.assertEqual(INDESIGN_OUT.name, "indesign")
+
+    def test_preflight_safe_indesign_script_matches_digital_publishing_profile(self) -> None:
+        self.assertTrue(SAFE_TEMPLATE.exists())
+        contents = SAFE_TEMPLATE.read_text(encoding="utf-8")
+
+        self.assertIn('doc.documentPreferences.pageWidth = "215.9mm";', contents)
+        self.assertIn('doc.documentPreferences.pageHeight = "279.4mm";', contents)
+        self.assertIn('documentBleedTopOffset = "3.175mm";', contents)
+        self.assertIn('return builtinSwatch(doc, ["Black", "[Black]"]);', contents)
+        self.assertIn('return builtinSwatch(doc, ["Paper", "[Paper]"]);', contents)
+        self.assertIn("preflight-konly/asset-01-konly.jpg", contents)
+        self.assertIn("the-visceral-theory-of-sight-50pp-preflight-safe.indd", contents)
+        self.assertNotIn("ColorSpace.RGB", contents)
+        self.assertNotIn('pageWidth = "210mm"', contents)
+        self.assertNotIn('pageHeight = "297mm"', contents)
+
+    def test_preflight_safe_generator_report_documents_required_targets(self) -> None:
+        self.assertTrue(SAFE_REPORT.exists())
+        report = json.loads(SAFE_REPORT.read_text(encoding="utf-8"))
+
+        self.assertEqual(report["trim"]["name"], "US Letter portrait")
+        self.assertEqual(report["trim"]["width_mm"], 215.9)
+        self.assertEqual(report["trim"]["height_mm"], 279.4)
+        self.assertEqual(report["bleed_mm"], 3.175)
+        self.assertEqual(report["pages"], 50)
+        self.assertEqual(report["swatches"], ["[Black]", "[Paper]"])
+        self.assertEqual(report["linked_assets"], 67)
 
     def test_manifest_rows_have_existing_images(self) -> None:
         rows = load_manifest_rows(MANIFEST_CSV)
