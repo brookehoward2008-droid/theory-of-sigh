@@ -28,6 +28,7 @@ LEDGER_OUT = ROUTE / "ledgers"
 NOTES_OUT = ROUTE / "notes"
 MANIFEST_OUT = ROUTE / "manifest"
 TEMPLATE_OUT = ROUTE / "templates"
+REPORTS_OUT = ROUTE / "reports"
 
 TRIM_W, TRIM_H = A4
 BLEED = 3 * mm
@@ -148,12 +149,12 @@ class Asset:
 
 
 def ensure_dirs() -> None:
-    for path in (ASSET_OUT, PDF_OUT, INDESIGN_OUT, LEDGER_OUT, NOTES_OUT, MANIFEST_OUT, TEMPLATE_OUT, ROOT / "scripts"):
+    for path in (ASSET_OUT, PDF_OUT, INDESIGN_OUT, LEDGER_OUT, NOTES_OUT, MANIFEST_OUT, TEMPLATE_OUT, REPORTS_OUT, ROOT / "scripts"):
         path.mkdir(parents=True, exist_ok=True)
 
 
 def clean_generated_dirs() -> None:
-    for path in (ASSET_OUT, PDF_OUT, INDESIGN_OUT, LEDGER_OUT, NOTES_OUT, MANIFEST_OUT, TEMPLATE_OUT):
+    for path in (ASSET_OUT, PDF_OUT, INDESIGN_OUT, LEDGER_OUT, NOTES_OUT, MANIFEST_OUT, TEMPLATE_OUT, REPORTS_OUT):
         if path == ASSET_OUT:
             path.mkdir(parents=True, exist_ok=True)
             for child in sorted(path.iterdir(), reverse=True):
@@ -1081,18 +1082,35 @@ def write_full_layout_jsx(assets: list[Asset]) -> None:
     )
     output_indd = INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.indd"
     output_idml = INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.idml"
+    output_pdf = PDF_OUT / "the-visceral-theory-of-sight-50pp-indesign-auto.pdf"
+    output_report = REPORTS_OUT / "indesign-full-layout-auto-report.json"
     jsx = f"""// The Visceral Theory of Sight - full 50-page InDesign layout builder
 // Run from InDesign: File > Scripts > Other Script...
-// Builds A4 facing pages, 3mm bleed, 12-column grid, linked images, captions, and layered editorial modules.
+// Builds A4 facing pages, 3mm bleed, 12-column grid, linked images, captions, layered editorial modules, PDF, and audit report.
 
 var ASSETS = {assets_literal};
 var OUTPUT_INDD = {json.dumps(output_indd.as_posix())};
 var OUTPUT_IDML = {json.dumps(output_idml.as_posix())};
+var OUTPUT_PDF = {json.dumps(output_pdf.as_posix())};
+var OUTPUT_REPORT = {json.dumps(output_report.as_posix())};
+
+app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;
 
 var COPY = {copy_literal};
 
 function mm(v) {{ return v + "mm"; }}
 function b(t, l, bot, r) {{ return [mm(t), mm(l), mm(bot), mm(r)]; }}
+function pageBounds(page, bounds) {{
+  var pb = page.bounds;
+  var topOffset = Number(pb[0]);
+  var leftOffset = Number(pb[1]);
+  return [
+    mm(topOffset + parseFloat(bounds[0])),
+    mm(leftOffset + parseFloat(bounds[1])),
+    mm(topOffset + parseFloat(bounds[2])),
+    mm(leftOffset + parseFloat(bounds[3]))
+  ];
+}}
 function asset(i) {{ return ASSETS[i % ASSETS.length]; }}
 function groupAsset(groupName, i) {{
   var matches = [];
@@ -1108,7 +1126,7 @@ function copyChunk(key, n) {{
   var words = text.replace(/\\r|\\n/g, " ").split(/\\s+/);
   var startPage = key === "agency" ? 8 : key === "constraint" ? 17 : key === "mediation" ? 27 : 39;
   var offset = Math.max(0, n - startPage);
-  var wordsPerPage = 86;
+  var wordsPerPage = 52;
   var start = Math.min(offset * wordsPerPage, Math.max(0, words.length - wordsPerPage));
   return words.slice(start, start + wordsPerPage).join(" ");
 }}
@@ -1156,11 +1174,15 @@ function fitText(tf, minSize) {{
 
 function textFrame(page, bounds, text, size, fontStyle, swatch, opacity) {{
   var tf = page.textFrames.add();
-  tf.geometricBounds = bounds;
+  tf.geometricBounds = pageBounds(page, bounds);
   tf.contents = text;
   try {{
     tf.textFramePreferences.insetSpacing = ["2mm", "2mm", "2mm", "2mm"];
     tf.textFramePreferences.verticalJustification = VerticalJustification.TOP_ALIGN;
+    tf.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
+    tf.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
+    tf.textFramePreferences.useMinimumHeightForAutoSizing = true;
+    tf.textFramePreferences.minimumHeightForAutoSizing = 8;
     tf.texts[0].appliedFont = app.fonts.item("Helvetica");
     tf.texts[0].fontStyle = fontStyle || "Regular";
     tf.texts[0].pointSize = size;
@@ -1176,7 +1198,7 @@ function textFrame(page, bounds, text, size, fontStyle, swatch, opacity) {{
 
 function imageFrame(page, bounds, item, opacity) {{
   var rect = page.rectangles.add();
-  rect.geometricBounds = bounds;
+  rect.geometricBounds = pageBounds(page, bounds);
   rect.strokeWeight = 0;
   try {{
     rect.place(File(item.path));
@@ -1191,9 +1213,79 @@ function imageFrame(page, bounds, item, opacity) {{
   return rect;
 }}
 
+function countMissingLinks(doc) {{
+  var missing = 0;
+  for (var i = 0; i < doc.links.length; i++) {{
+    try {{
+      if (doc.links[i].status === LinkStatus.LINK_MISSING) missing++;
+    }} catch (e) {{}}
+  }}
+  return missing;
+}}
+
+function countOversetFrames(doc) {{
+  var overset = 0;
+  for (var i = 0; i < doc.textFrames.length; i++) {{
+    try {{
+      if (doc.textFrames[i].isValid && doc.textFrames[i].overflows) overset++;
+    }} catch (e) {{}}
+  }}
+  return overset;
+}}
+
+function exportPdf(doc) {{
+  var pdfFile = File(OUTPUT_PDF);
+  if (!pdfFile.parent.exists) pdfFile.parent.create();
+  var preset = null;
+  try {{
+    preset = app.pdfExportPresets.itemByName("[High Quality Print]");
+    preset.name;
+  }} catch (e) {{
+    preset = app.pdfExportPresets.item(0);
+  }}
+  doc.exportFile(ExportFormat.PDF_TYPE, pdfFile, false, preset);
+}}
+
+function writeBuildReport(doc) {{
+  var reportFile = File(OUTPUT_REPORT);
+  if (!reportFile.parent.exists) reportFile.parent.create();
+  var report = {{
+    document: "The Visceral Theory of Sight",
+    generatedAt: new Date().toString(),
+    pageCount: doc.pages.length,
+    facingPages: doc.documentPreferences.facingPages,
+    trim: "A4 portrait 210mm x 297mm",
+    bleed: "3mm all sides",
+    columns: 12,
+    assetCount: ASSETS.length,
+    linkCount: doc.links.length,
+    missingLinks: countMissingLinks(doc),
+    textFrameCount: doc.textFrames.length,
+    oversetTextFrames: countOversetFrames(doc),
+    moodyLayoutRules: [
+      "dark ink and archival cream base",
+      "muted gold and slate accents",
+      "large image fields",
+      "overlap captions",
+      "broken text flow",
+      "full-bleed pressure pages",
+      "layered translucent panels"
+    ],
+    outputs: {{
+      indd: OUTPUT_INDD,
+      idml: OUTPUT_IDML,
+      pdf: OUTPUT_PDF
+    }}
+  }};
+  reportFile.encoding = "UTF-8";
+  reportFile.open("w");
+  reportFile.write(JSON.stringify(report, null, 2));
+  reportFile.close();
+}}
+
 function colorPanel(page, bounds, swatch, opacity) {{
   var rect = page.rectangles.add();
-  rect.geometricBounds = bounds;
+  rect.geometricBounds = pageBounds(page, bounds);
   rect.strokeWeight = 0;
   rect.fillColor = swatch;
   try {{ rect.transparencySettings.blendingSettings.opacity = opacity; }} catch (e) {{}}
@@ -1217,6 +1309,8 @@ function saveDesktopFiles(doc) {{
   if (!inddFile.parent.exists) inddFile.parent.create();
   doc.save(inddFile);
   doc.exportFile(ExportFormat.INDESIGN_MARKUP, idmlFile);
+  exportPdf(doc);
+  writeBuildReport(doc);
 }}
 
 function cover(page, doc, ink, cream, gold) {{
@@ -1332,8 +1426,6 @@ for (var i = 0; i < doc.textFrames.length; i++) {{
 }}
 
 saveDesktopFiles(doc);
-
-alert("Full Visceral layout built and saved. INDD: " + OUTPUT_INDD + "\\nIDML: " + OUTPUT_IDML);
 """
     (TEMPLATE_OUT / "indesign-build-full-layout.jsx").write_text(jsx, encoding="utf-8")
 
