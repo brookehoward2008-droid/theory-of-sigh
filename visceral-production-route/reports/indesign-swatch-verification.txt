@@ -1,0 +1,4 @@
+Raw Concrete|true|19,15,16,0
+Stark Void|true|67,60,59,44
+Unbleached Page|true|1,1,4,0
+Incandescent Beam|true|14,57,100,3

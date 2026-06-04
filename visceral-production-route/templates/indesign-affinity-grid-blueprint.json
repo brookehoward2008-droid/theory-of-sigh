@@ -1,0 +1,49 @@
+{
+  "document": {
+    "trim": {
+      "name": "A4 portrait",
+      "width_pt": 595.2755905511812,
+      "height_pt": 841.8897637795277,
+      "width_mm": 210,
+      "height_mm": 297
+    },
+    "bleed": {
+      "all_sides_mm": 3,
+      "all_sides_pt": 8.503937007874017
+    },
+    "media": {
+      "width_pt": 612.2834645669292,
+      "height_pt": 858.8976377952757
+    },
+    "orientation": "portrait",
+    "pages": 50
+  },
+  "grid": {
+    "columns": 12,
+    "gutter_mm": 5,
+    "gutter_pt": 14.173228346456694,
+    "outer_margin_percent_of_width": 7.5,
+    "inner_margin_percent_of_width": 10,
+    "top_margin_percent_of_height": 7,
+    "bottom_margin_percent_of_height": 7,
+    "outer_margin_pt": 44.645669291338585,
+    "inner_margin_pt": 59.52755905511812,
+    "top_margin_pt": 58.93228346456694,
+    "bottom_margin_pt": 58.93228346456694,
+    "live_width_pt": 491.10236220472444,
+    "column_width_pt": 27.933070866141733
+  },
+  "modules": {
+    "standard_text_block": "3-4 columns wide, variable height",
+    "caption": "1-2 columns wide, short fixed height",
+    "pull_quote": "full-bleed horizontal box with accent frame",
+    "gap": "large negative space as conceptual pause"
+  },
+  "execution_rules": [
+    "Use master pages for page numbers, section headers, margins, and grid.",
+    "Let selected images bleed under text blocks.",
+    "Use broken reading flow: paragraph, image interruption, resumed text.",
+    "Layer background image, base text, then labels and quotes.",
+    "Keep source and rights verification visible until final export."
+  ]
+}

@@ -1,0 +1,3 @@
+name=Error
+message=Cannot handle the request because a modal dialog or alert is active.
+line=2

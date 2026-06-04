@@ -1,0 +1,14 @@
+field,value,unit_or_note
+trim_width,210,mm
+trim_height,297,mm
+bleed,3,mm all sides
+columns,12,count
+gutter,5,mm
+outer_margin,15.750,"mm, 7.5 percent trim width"
+inner_margin,21.000,"mm, 10 percent trim width"
+top_margin,20.790,"mm, 7 percent trim height"
+bottom_margin,20.790,"mm, 7 percent trim height"
+column_width,9.854,mm
+standard_text_block,3-4,columns
+caption_module,1-2,columns
+pull_quote_module,full bleed,horizontal accent box

@@ -1,0 +1,132 @@
+{
+  "preflight_input": {
+    "source_report": "C:\\Users\\toddl\\.codex\\attachments\\9f68eab0-e040-40be-b936-0ace6db11bfb\\pasted-text.txt",
+    "report_found": true,
+    "missing_links": [
+      "AdobeStock_720156988.jpeg",
+      "AdobeStock_987045868.jpeg",
+      "AdobeStock_1985396810.jpeg",
+      "houcine-ncib-J3fKbg3mkJs-unsplash.jpg",
+      "AdobeStock_720156988.jpeg",
+      "AdobeStock_987045868.jpeg"
+    ],
+    "missing_link_unique": [
+      "AdobeStock_1985396810.jpeg",
+      "AdobeStock_720156988.jpeg",
+      "AdobeStock_987045868.jpeg",
+      "houcine-ncib-J3fKbg3mkJs-unsplash.jpg"
+    ],
+    "overset_count": 213,
+    "overset_max_characters": 384,
+    "overset_total_characters": 9081
+  },
+  "idml_text_repair": {
+    "source_idml": "C:\\Users\\toddl\\OneDrive\\Desktop\\SCHOOL\\Graph252 booklab\\visceral-theory of sight assets\\visceral_theory_of_sight_precision_layout.idml",
+    "output_idml": "C:\\Users\\toddl\\OneDrive\\Desktop\\SCHOOL\\Graph252 booklab\\visceral-theory of sight assets\\visceral_theory_of_sight_precision_layout_TEXT_SAFE.idml",
+    "original_left_untouched": true,
+    "style_changes": [
+      {
+        "style": "VT Title",
+        "old_point_size": "153.0708661417323",
+        "new_point_size": "36",
+        "old_leading": "missing",
+        "new_leading": "43.92"
+      },
+      {
+        "style": "VT Subtitle",
+        "old_point_size": "42.51968503937008",
+        "new_point_size": "12",
+        "old_leading": "missing",
+        "new_leading": "14.64"
+      },
+      {
+        "style": "VT Section Label",
+        "old_point_size": "22.67716535433071",
+        "new_point_size": "8",
+        "old_leading": "missing",
+        "new_leading": "9.76"
+      },
+      {
+        "style": "VT Heading",
+        "old_point_size": "79.37007874015748",
+        "new_point_size": "18",
+        "old_leading": "missing",
+        "new_leading": "21.96"
+      },
+      {
+        "style": "VT Body",
+        "old_point_size": "26.92913385826772",
+        "new_point_size": "8.5",
+        "old_leading": "missing",
+        "new_leading": "10.37"
+      },
+      {
+        "style": "VT Caption",
+        "old_point_size": "21.25984251968504",
+        "new_point_size": "6.5",
+        "old_leading": "missing",
+        "new_leading": "7.93"
+      },
+      {
+        "style": "VT Caption White",
+        "old_point_size": "21.25984251968504",
+        "new_point_size": "6.5",
+        "old_leading": "missing",
+        "new_leading": "7.93"
+      },
+      {
+        "style": "VT Pull Quote",
+        "old_point_size": "73.70078740157481",
+        "new_point_size": "18",
+        "old_leading": "missing",
+        "new_leading": "21.96"
+      },
+      {
+        "style": "VT Big Quote",
+        "old_point_size": "130.39370078740157",
+        "new_point_size": "30",
+        "old_leading": "missing",
+        "new_leading": "36.6"
+      },
+      {
+        "style": "VT Folio",
+        "old_point_size": "19.84251968503937",
+        "new_point_size": "6.5",
+        "old_leading": "missing",
+        "new_leading": "7.93"
+      }
+    ],
+    "text_frame_preferences_repaired": 215,
+    "story_point_size_overrides_repaired": 0,
+    "output_bytes": 368293
+  },
+  "missing_link_status": [
+    {
+      "name": "AdobeStock_1985396810.jpeg",
+      "exists_in_asset_folder": false,
+      "path": "C:\\Users\\toddl\\OneDrive\\Desktop\\SCHOOL\\Graph252 booklab\\visceral-theory of sight assets\\AdobeStock_1985396810.jpeg"
+    },
+    {
+      "name": "AdobeStock_720156988.jpeg",
+      "exists_in_asset_folder": false,
+      "path": "C:\\Users\\toddl\\OneDrive\\Desktop\\SCHOOL\\Graph252 booklab\\visceral-theory of sight assets\\AdobeStock_720156988.jpeg"
+    },
+    {
+      "name": "AdobeStock_987045868.jpeg",
+      "exists_in_asset_folder": false,
+      "path": "C:\\Users\\toddl\\OneDrive\\Desktop\\SCHOOL\\Graph252 booklab\\visceral-theory of sight assets\\AdobeStock_987045868.jpeg"
+    },
+    {
+      "name": "houcine-ncib-J3fKbg3mkJs-unsplash.jpg",
+      "exists_in_asset_folder": false,
+      "path": "C:\\Users\\toddl\\OneDrive\\Desktop\\SCHOOL\\Graph252 booklab\\visceral-theory of sight assets\\houcine-ncib-J3fKbg3mkJs-unsplash.jpg"
+    }
+  ],
+  "jsx_repair_script": "C:\\Users\\toddl\\OneDrive\\Documents\\visceral\\visceral-production-route\\templates\\indesign-relink-and-fit-current-doc.jsx",
+  "exact_source_files_required_for_zero_link_errors": [
+    "AdobeStock_1985396810.jpeg",
+    "AdobeStock_720156988.jpeg",
+    "AdobeStock_987045868.jpeg",
+    "houcine-ncib-J3fKbg3mkJs-unsplash.jpg"
+  ]
+}

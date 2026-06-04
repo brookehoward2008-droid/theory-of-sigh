@@ -1,0 +1,24 @@
+.vs/
+*.idlk
+__pycache__/
+*.py[cod]
+
+# Generated heavy asset copies and previews.
+visceral-production-route/assets/
+visceral-production-route/tmp/
+visceral-production-route/deliverables/
+visceral-production-route/output/affinity/
+visceral-production-route/*.zip
+
+# Keep production metadata/scripts in Git, but avoid oversized PDFs.
+visceral-production-route/output/pdf/*.pdf
+!visceral-production-route/output/pdf/cover-design.pdf
+!visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-export.pdf
+
+# Local desktop verification screenshots are useful evidence, but too noisy for
+# the repo unless one is explicitly selected for documentation.
+visceral-production-route/reports/*.png
+
+# Local InDesign binaries should stay out of Git unless explicitly packaged.
+*.indd
+*.idml
