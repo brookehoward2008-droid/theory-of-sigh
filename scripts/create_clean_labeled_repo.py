@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import csv
 import json
-import random
 import re
 from pathlib import Path
 
@@ -21,7 +20,18 @@ MANIFEST_JSON = DATA_OUT / "labeled-photo-manifest.json"
 
 MAX_EDGE = 1800
 JPEG_QUALITY = 82
-DISPLAY_RANDOM_SEED = 20260604
+
+# Ordered from the leafy blue portrait outward: botanical occlusion, soft veils,
+# partial-eye pressure, abstract/painted constraint, then least-similar archival/body studies.
+SIMILARITY_SEQUENCE = [
+    "A58", "A23", "A54", "A55", "A66", "A38", "A40", "A39", "A57", "A31", "A27",
+    "A14", "A36", "A20", "A15", "A01", "A26", "A65", "A34", "A44", "A24",
+    "A13", "A22", "A09", "A63", "A64", "A25", "A30", "A43", "A52", "A61",
+    "A50", "A05", "A18", "A02", "A03", "A35", "A45", "A47", "A46", "A37",
+    "A04", "A10", "A19", "A08", "A07", "A06", "A11", "A12", "A16", "A17",
+    "A67", "A21", "A28", "A29", "A32", "A33", "A41", "A42", "A48", "A49",
+    "A51", "A53", "A56", "A59", "A60", "A62",
+]
 
 
 def slugify(value: str, fallback: str) -> str:
@@ -113,8 +123,11 @@ def write_manifest(records: list[dict[str, str]]) -> None:
 
 
 def write_site(records: list[dict[str, str]]) -> None:
-    display_records = records[:]
-    random.Random(DISPLAY_RANDOM_SEED).shuffle(display_records)
+    order = {label: index for index, label in enumerate(SIMILARITY_SEQUENCE)}
+    display_records = sorted(
+        records,
+        key=lambda record: (order.get(record["label"], len(order)), record["sequence"]),
+    )
     STYLE_OUT.mkdir(parents=True, exist_ok=True)
     css = """* { box-sizing: border-box; }
 body {
@@ -206,7 +219,7 @@ figcaption {
 <body>
   <header>
     <h1>The Visceral Theory of Sight</h1>
-    <p class="dek">A clean labeled photo archive for the editorial book. The photos are arranged in a randomized viewing sequence while each image keeps its label, visual group, rights note, and source trace in <code>data/labeled-photo-manifest.csv</code>.</p>
+    <p class="dek">A clean labeled photo archive for the editorial book. The photos begin with the leafy blue portrait and move from most visually similar to least similar while each image keeps its label, visual group, rights note, and source trace in <code>data/labeled-photo-manifest.csv</code>.</p>
   </header>
   <main class="grid">
 {chr(10).join(cards)}
