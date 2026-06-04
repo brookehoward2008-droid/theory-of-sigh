@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+import random
 import re
 from pathlib import Path
 
@@ -20,6 +21,7 @@ MANIFEST_JSON = DATA_OUT / "labeled-photo-manifest.json"
 
 MAX_EDGE = 1800
 JPEG_QUALITY = 82
+DISPLAY_RANDOM_SEED = 20260604
 
 
 def slugify(value: str, fallback: str) -> str:
@@ -111,6 +113,8 @@ def write_manifest(records: list[dict[str, str]]) -> None:
 
 
 def write_site(records: list[dict[str, str]]) -> None:
+    display_records = records[:]
+    random.Random(DISPLAY_RANDOM_SEED).shuffle(display_records)
     STYLE_OUT.mkdir(parents=True, exist_ok=True)
     css = """* { box-sizing: border-box; }
 body {
@@ -180,7 +184,7 @@ figcaption {
     (STYLE_OUT / "site.css").write_text(css, encoding="utf-8")
 
     cards = []
-    for record in records:
+    for record in display_records:
         cards.append(
             f"""    <figure>
       <img src="{record['repo_file']}" alt="{html_escape(record['title'])}">
@@ -202,7 +206,7 @@ figcaption {
 <body>
   <header>
     <h1>The Visceral Theory of Sight</h1>
-    <p class="dek">A clean labeled photo archive for the editorial book. Each image keeps a short label, visual group, rights note, and source trace in <code>data/labeled-photo-manifest.csv</code>.</p>
+    <p class="dek">A clean labeled photo archive for the editorial book. The photos are arranged in a randomized viewing sequence while each image keeps its label, visual group, rights note, and source trace in <code>data/labeled-photo-manifest.csv</code>.</p>
   </header>
   <main class="grid">
 {chr(10).join(cards)}
