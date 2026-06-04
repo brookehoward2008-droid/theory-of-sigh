@@ -7,6 +7,11 @@ from pathlib import Path
 
 from PIL import Image, ImageOps
 
+try:
+    from scripts.build_visceral_book import ARTICLE_BODIES
+except ModuleNotFoundError:
+    from build_visceral_book import ARTICLE_BODIES
+
 
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "visceral-production-route" / "ledgers" / "source-image-ledger.csv"
@@ -20,6 +25,13 @@ MANIFEST_JSON = DATA_OUT / "labeled-photo-manifest.json"
 
 MAX_EDGE = 1800
 JPEG_QUALITY = 82
+ARTICLE_ORDER = [
+    ("Opening Thesis", "The Visceral Theory of Sight", "Sight is never only an act of seeing. It is a negotiation between the body that appears, the culture that disciplines appearance, and the surface that decides what can be touched by the eye. This book moves through agency, constraint, and mediation as one visual pressure system."),
+    ("Article I", "Agency / The Body", ARTICLE_BODIES["Agency"]),
+    ("Article II", "Constraint / The Rule", ARTICLE_BODIES["Constraint"]),
+    ("Article III", "Mediation / The Veil", ARTICLE_BODIES["Mediation"]),
+    ("Synthesis", "Unresolved Sight", ARTICLE_BODIES["Synthesis"]),
+]
 
 # Ordered from the leafy blue portrait outward: botanical occlusion, soft veils,
 # partial-eye pressure, abstract/painted constraint, then least-similar archival/body studies.
@@ -153,6 +165,55 @@ h1 {
   line-height: 1.55;
   color: #4d463c;
 }
+.article-shell {
+  padding: 44px min(7vw, 80px) 18px;
+}
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 22px;
+  max-width: 1280px;
+}
+.article-panel {
+  grid-column: span 6;
+  padding: 22px;
+  background: #151310;
+  color: #f5f0e8;
+  border: 1px solid #2d2922;
+}
+.article-panel:nth-child(1),
+.article-panel:nth-child(5) {
+  grid-column: span 12;
+}
+.article-kicker {
+  display: block;
+  margin-bottom: 8px;
+  font-family: Arial, sans-serif;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #a58242;
+}
+.article-panel h2 {
+  margin: 0 0 14px;
+  font-size: clamp(1.45rem, 3vw, 3.2rem);
+  line-height: 1;
+  font-weight: 400;
+}
+.article-panel p {
+  max-width: 72ch;
+  margin: 0 0 13px;
+  font-size: .96rem;
+  line-height: 1.6;
+}
+.archive-heading {
+  padding: 26px min(7vw, 80px) 0;
+  font-family: Arial, sans-serif;
+  font-size: .75rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #8a6a2e;
+}
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -193,8 +254,26 @@ figcaption {
   line-height: 1.3;
   color: #756e64;
 }
+@media (max-width: 760px) {
+  .article-grid {
+    display: block;
+  }
+  .article-panel {
+    margin-bottom: 18px;
+  }
+}
 """
     (STYLE_OUT / "site.css").write_text(css, encoding="utf-8")
+
+    articles = []
+    for kicker, title, body in ARTICLE_ORDER:
+        articles.append(
+            f"""    <article class="article-panel">
+      <span class="article-kicker">{html_escape(kicker)}</span>
+      <h2>{html_escape(title)}</h2>
+{article_body_html(body)}
+    </article>"""
+        )
 
     cards = []
     for record in display_records:
@@ -219,8 +298,14 @@ figcaption {
 <body>
   <header>
     <h1>The Visceral Theory of Sight</h1>
-    <p class="dek">A clean labeled photo archive for the editorial book. The photos begin with the leafy blue portrait and move from most visually similar to least similar while each image keeps its label, visual group, rights note, and source trace in <code>data/labeled-photo-manifest.csv</code>.</p>
+    <p class="dek">A clean labeled photo archive and article route for the editorial book. Read the core argument first, then move through the photos from the leafy blue portrait toward the least similar visual evidence. Every image keeps its label, visual group, rights note, and source trace in <code>data/labeled-photo-manifest.csv</code>.</p>
   </header>
+  <section class="article-shell" aria-label="Article content">
+    <div class="article-grid">
+{chr(10).join(articles)}
+    </div>
+  </section>
+  <div class="archive-heading">Similarity Image Archive</div>
   <main class="grid">
 {chr(10).join(cards)}
   </main>
@@ -237,6 +322,11 @@ def html_escape(value: str) -> str:
         .replace(">", "&gt;")
         .replace('"', "&quot;")
     )
+
+
+def article_body_html(value: str) -> str:
+    paragraphs = [part.strip() for part in value.split("\n\n") if part.strip()]
+    return "\n".join(f"      <p>{html_escape(paragraph)}</p>" for paragraph in paragraphs)
 
 
 def write_readme(records: list[dict[str, str]]) -> None:
