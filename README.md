@@ -1,2 +1,2 @@
-# theory of sigh
+# theory of sight
 personl book project 
