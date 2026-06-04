@@ -67,9 +67,9 @@ def safe_jsx_from_full(full_jsx: str, assets: list[book.Asset]) -> str:
         r'var OUTPUT_INDD = .*?;\nvar OUTPUT_IDML = .*?;\nvar OUTPUT_PDF = .*?;\nvar OUTPUT_REPORT = .*?;',
         "\n".join(
             [
-                f'var OUTPUT_INDD = {json.dumps((book.INDESIGN_OUT / "the-visceral-theory-of-sight-50pp-preflight-safe.indd").as_posix())};',
-                f'var OUTPUT_IDML = {json.dumps((book.INDESIGN_OUT / "the-visceral-theory-of-sight-50pp-preflight-safe.idml").as_posix())};',
-                f'var OUTPUT_PDF = {json.dumps((book.PDF_OUT / "the-visceral-theory-of-sight-50pp-preflight-safe.pdf").as_posix())};',
+                f'var OUTPUT_INDD = {json.dumps((book.INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.indd").as_posix())};',
+                f'var OUTPUT_IDML = {json.dumps((book.INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.idml").as_posix())};',
+                f'var OUTPUT_PDF = {json.dumps((book.PDF_OUT / "the-visceral-theory-of-sight-50pp-indesign-auto.pdf").as_posix())};',
                 f'var OUTPUT_REPORT = {json.dumps((book.REPORTS_OUT / "indesign-preflight-safe-build-report.json").as_posix())};',
             ]
         ),
@@ -129,6 +129,40 @@ def safe_jsx_from_full(full_jsx: str, assets: list[book.Asset]) -> str:
     jsx = jsx.replace('bleed: "3mm all sides"', 'bleed: "3.175mm all sides"')
     jsx = jsx.replace('"dark ink and archival cream base",', '"black and paper preflight base",')
     jsx = jsx.replace('"muted gold and slate accents",', '"black-only accent tints for Digital Publishing profile",')
+    jsx = jsx.replace(
+        "  if (!inddFile.parent.exists) inddFile.parent.create();\n  doc.save(inddFile);\n  doc.exportFile(ExportFormat.INDESIGN_MARKUP, idmlFile);",
+        (
+            "  if (!inddFile.parent.exists) inddFile.parent.create();\n"
+            "  if (inddFile.exists) inddFile.remove();\n"
+            "  if (idmlFile.exists) idmlFile.remove();\n"
+            "  doc.save(inddFile);\n"
+            "  doc.exportFile(ExportFormat.INDESIGN_MARKUP, idmlFile);"
+        ),
+        1,
+    )
+    jsx = jsx.replace(
+        "var doc = setupDoc();",
+        (
+            "function releaseOpenOutputDoc() {\n"
+            "  var outputFile = File(OUTPUT_INDD);\n"
+            "  for (var d = app.documents.length - 1; d >= 0; d--) {\n"
+            "    try {\n"
+            "      var openDoc = app.documents[d];\n"
+            "      if (openDoc.fullName && openDoc.fullName.fsName === outputFile.fsName) {\n"
+            "        var stamp = new Date().getTime();\n"
+            '        var backup = File(outputFile.parent.fsName + "/the-visceral-theory-of-sight-50pp-preflight-backup-" + stamp + ".indd");\n'
+            "        openDoc.save(backup);\n"
+            "        openDoc.close(SaveOptions.NO);\n"
+            "      }\n"
+            "    } catch (e) {}\n"
+            "  }\n"
+            "}\n"
+            "\n"
+            "releaseOpenOutputDoc();\n"
+            "var doc = setupDoc();"
+        ),
+        1,
+    )
     jsx = jsx.replace(
         "app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;\n\nvar COPY =",
         "app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;\n\ntry {\n\nvar COPY =",

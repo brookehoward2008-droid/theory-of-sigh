@@ -406,9 +406,9 @@ var ASSETS = [
     "group": "Group 2: Social Constraint"
   }
 ];
-var OUTPUT_INDD = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp-preflight-safe.indd";
-var OUTPUT_IDML = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp-preflight-safe.idml";
-var OUTPUT_PDF = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-preflight-safe.pdf";
+var OUTPUT_INDD = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.indd";
+var OUTPUT_IDML = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.idml";
+var OUTPUT_PDF = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-auto.pdf";
 var OUTPUT_REPORT = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/reports/indesign-preflight-safe-build-report.json";
 
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;
@@ -646,6 +646,8 @@ function saveDesktopFiles(doc) {
   var inddFile = File(OUTPUT_INDD);
   var idmlFile = File(OUTPUT_IDML);
   if (!inddFile.parent.exists) inddFile.parent.create();
+  if (inddFile.exists) inddFile.remove();
+  if (idmlFile.exists) idmlFile.remove();
   doc.save(inddFile);
   doc.exportFile(ExportFormat.INDESIGN_MARKUP, idmlFile);
   exportPdf(doc);
@@ -738,6 +740,22 @@ function backMatter(page, n, doc, ink, cream, gold) {
   }
 }
 
+function releaseOpenOutputDoc() {
+  var outputFile = File(OUTPUT_INDD);
+  for (var d = app.documents.length - 1; d >= 0; d--) {
+    try {
+      var openDoc = app.documents[d];
+      if (openDoc.fullName && openDoc.fullName.fsName === outputFile.fsName) {
+        var stamp = new Date().getTime();
+        var backup = File(outputFile.parent.fsName + "/the-visceral-theory-of-sight-50pp-preflight-backup-" + stamp + ".indd");
+        openDoc.save(backup);
+        openDoc.close(SaveOptions.NO);
+      }
+    } catch (e) {}
+  }
+}
+
+releaseOpenOutputDoc();
 var doc = setupDoc();
 var ink = addSwatch(doc, "Ink", [17, 16, 14]);
 var cream = addSwatch(doc, "Archival Cream", [243, 235, 221]);
