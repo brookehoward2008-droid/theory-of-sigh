@@ -36,6 +36,7 @@ img {
 .archive-intro p,
 .backmatter-title p,
 .references-list,
+.source-register,
 .colophon,
 .issue-footer {
   font-family: Arial, Helvetica, sans-serif;
@@ -619,6 +620,60 @@ figcaption {
   overflow-wrap: anywhere;
 }
 
+.source-register {
+  grid-column: 1 / 10;
+  display: grid;
+  grid-template-columns: minmax(180px, 2fr) minmax(0, 7fr);
+  gap: 18px 22px;
+  margin-top: 26px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.source-register h3 {
+  grid-column: 1 / 2;
+  margin: 0;
+  color: var(--veil-blue);
+  font-size: .72rem;
+  letter-spacing: .14em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.source-register p {
+  grid-column: 1 / 2;
+  margin: 34px 0 0;
+  color: color-mix(in srgb, var(--shadow-ink) 76%, var(--leaf-green));
+  font-size: .78rem;
+  line-height: 1.5;
+}
+
+.source-register ol {
+  grid-column: 2 / 3;
+  column-count: 2;
+  column-gap: 22px;
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: .68rem;
+  line-height: 1.38;
+}
+
+.source-register li {
+  break-inside: avoid;
+  margin: 0 0 9px;
+}
+
+.source-register strong,
+.source-register span {
+  display: block;
+}
+
+.source-register em {
+  display: block;
+  color: color-mix(in srgb, var(--shadow-ink) 70%, var(--leaf-green));
+  font-style: normal;
+}
+
 .colophon {
   grid-column: 10 / 13;
   padding-left: 18px;
@@ -698,13 +753,28 @@ figcaption {
 
   .backmatter-title,
   .references-list,
+  .source-register,
   .colophon {
     grid-column: auto;
   }
 
   .references-list,
+  .source-register,
   .colophon {
     margin-top: 22px;
+  }
+
+  .source-register {
+    display: block;
+  }
+
+  .source-register p {
+    margin-top: 12px;
+  }
+
+  .source-register ol {
+    column-count: 1;
+    margin-top: 18px;
   }
 
   .colophon {
