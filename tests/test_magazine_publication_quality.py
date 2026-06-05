@@ -15,16 +15,31 @@ class MagazinePublicationQualityTest(unittest.TestCase):
         html = INDEX.read_text(encoding="utf-8")
 
         required_terms = [
-            "landscape-facing-page sequence",
-            "gutter",
-            "folios",
-            "12-column grid",
-            "plate sequence",
-            "Back Matter Source Register",
+            "Looking begins before language",
+            "A visual psychology issue on gaze, image memory",
+            "Repetition, obstruction, pose, and symbol teach the eye",
+            "Image Source Register",
+            "Image credits and rights notes are gathered here",
+            "Women Through Time",
         ]
 
         for term in required_terms:
             self.assertIn(term, html)
+
+        forbidden_terms = [
+            "landscape-facing-page sequence",
+            "12-column grid",
+            "plate sequence",
+            "plate captions",
+            "column measures",
+            "repeated crops",
+            "text frame",
+            "Back Matter Source Register",
+            "Full source trace",
+        ]
+
+        for term in forbidden_terms:
+            self.assertNotIn(term, html)
 
     def test_plate_captions_are_clean_and_source_register_is_complete(self) -> None:
         html = INDEX.read_text(encoding="utf-8")
