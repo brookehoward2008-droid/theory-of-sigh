@@ -354,7 +354,10 @@ h1 {
   grid-column: span 4;
   margin: 0;
   position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
   min-height: 360px;
+  overflow: hidden;
   background: var(--shadow-ink);
   border: 1px solid var(--line);
   box-shadow: 0 8px 0 var(--leaf-green);
@@ -393,6 +396,7 @@ h1 {
 .plate-run figcaption {
   min-height: 118px;
   background: var(--bone);
+  overflow-wrap: anywhere;
 }
 
 .plate-run figure:nth-of-type(1) figcaption {
@@ -596,6 +600,7 @@ figcaption {
   .plate-run figure:nth-of-type(4n + 2),
   .plate-run figure:nth-of-type(5n + 3),
   .plate-run figure:nth-of-type(7n + 5) {
+    display: block;
     min-height: 0;
     margin-top: 18px;
   }
@@ -603,7 +608,13 @@ figcaption {
   .plate-run img,
   .plate-run figure:nth-of-type(1) img,
   .plate-run figure:nth-of-type(7n + 5) img {
+    height: auto;
     aspect-ratio: 4 / 5;
+  }
+
+  .plate-run figure:nth-of-type(1) figcaption {
+    position: static;
+    width: auto;
   }
 
   .grid figure,
