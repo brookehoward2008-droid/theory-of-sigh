@@ -30,9 +30,12 @@ Original filenames, visual groups, rights notes, and source traces are preserved
 
 Before final export:
 
+- Run the automated test suite and the HTML/source preflight checks.
+- Open the live/local HTML proof in a browser and visually inspect spread rhythm, gutters, captions, text fit, source-register readability, and image crop behavior.
 - Run InDesign preflight for missing links, overset text, bleed, color space, and missing fonts.
 - Confirm every plate has an A-number, visual group, and source-register entry.
 - Confirm no original filename or rights note crowds a front-of-book caption.
 - Confirm references and citation marks resolve to the back matter.
-- Export a PDF and inspect page edges, gutters, captions, and full-bleed image spreads.
+- Export a PDF and inspect page edges, gutters, folios, captions, backmatter, and full-bleed image spreads.
+- Use any available visual inspection tool before approval: browser screenshot checks for the web proof, PDF render checks for exported pages, and InDesign preflight for the `.indd`.
 - Keep the original preflight-safe `.indd` as the rollback file.
