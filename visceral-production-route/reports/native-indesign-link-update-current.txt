@@ -1,0 +1,7 @@
+InDesign link update report
+Version: 21.4.0.74
+Document: C:\Users\toddl\OneDrive\Documents\visceral\visceral-production-route\output\indesign\the-anatomy-of-looking-50pp-indesign-base.indd
+Attempted updates: 55
+Failed updates: 0
+Saved INDD: C:\Users\toddl\OneDrive\Documents\visceral\visceral-production-route\output\indesign\the-anatomy-of-looking-50pp-indesign-base.indd
+Exported IDML: C:\Users\toddl\OneDrive\Documents\visceral\visceral-production-route\output\indesign\the-anatomy-of-looking-50pp-indesign-base.idml
