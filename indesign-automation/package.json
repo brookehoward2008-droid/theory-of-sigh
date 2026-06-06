@@ -1,0 +1,15 @@
+{
+  "name": "brooke-indesign-automation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Original typed editorial automation commands for Brooke's InDesign workflow.",
+  "scripts": {
+    "build": "node scripts/build-commands.cjs",
+    "test": "npm run build && node --test tests/*.test.cjs",
+    "clean": "node scripts/clean.cjs"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "types-for-adobe": "7.2.5"
+  }
+}

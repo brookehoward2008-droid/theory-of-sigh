@@ -1,6 +1,6 @@
-// The Visceral Theory of Sight - full 50-page InDesign layout builder
+// The Anatomy of Looking - full 50-page InDesign issue builder
 // Run from InDesign: File > Scripts > Other Script...
-// Builds A4 facing pages, 3mm bleed, 12-column grid, linked images, captions, layered editorial modules, PDF, and audit report.
+// Builds the print issue, linked image sequence, PDF proof, and audit report.
 
 var ASSETS = [
   {
@@ -8,24 +8,6 @@ var ASSETS = [
     "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-01.jpeg",
     "title": "A photograph of an attractive woman with a white lace blin",
     "group": "Group 3: Mediation"
-  },
-  {
-    "id": "A02",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-02.jpeg",
-    "title": "Abstract Female Portrait Hidden Vision, Pink and Black",
-    "group": "Group 2: Social Constraint"
-  },
-  {
-    "id": "A03",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-03.jpeg",
-    "title": "Abstract Monochrome Portrait of a Woman A Study in Light a",
-    "group": "Group 2: Social Constraint"
-  },
-  {
-    "id": "A04",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-04.jpeg",
-    "title": "AdobeStock_1021442471",
-    "group": "Group 2: Social Constraint"
   },
   {
     "id": "A05",
@@ -415,10 +397,10 @@ app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERAC
 
 var COPY = {
   "intro": "Sight is never only an act of seeing. It is a negotiation between the body that appears, the culture that disciplines appearance, and the surface that decides what can be touched by the eye. This book moves through agency, constraint, and mediation as one visual pressure system.",
-  "agency": "The body becomes the first instrument of authorship before it becomes a subject for interpretation. In the first movement of this book, sight begins with bodily insistence: a hand, a shoulder, a mouth, an eye, or a turned face does not wait for culture to explain it. The figure enters as pressure. It occupies the page with the blunt force of being present, and that presence matters because the viewer has not yet been given a stable rule for reading it.\n\nThe scholarly route through McDermott is used here as a verified-to-be-checked framework rather than as a source of direct quotation. The working idea is that early bodily images can be read as more than passive objects of display. They carry agency through scale, fragment, gesture, and emphasis. A figure can be partial and still be active. A cropped body can still claim space. The page therefore treats the body as origin, not because origin is simple, but because every later system of looking must first meet the fact of the body.\n\nAgency in this layout is close, image-led, and slightly uncomfortable. The images press into the margins. Captions cross edges. Text is broken into short forceful passages so the reader feels the body interrupting analysis. The design does not let the article become smooth because smoothness would weaken the argument. The body is not introduced as an illustration of theory. It is introduced as the condition that makes theory necessary.\n\nThis is also where the neural learning backdrop enters quietly: looking is not passive reception. The eye learns by comparing pressure, repetition, interruption, and contrast. A body seen once is an image. A body seen across a sequence becomes a pattern the reader has to train against. The first article therefore builds a visual lesson in agency: presence arrives before permission.",
-  "constraint": "Culture turns visibility into a protocol. The second movement begins when bodily force is no longer allowed to stand alone. The figure becomes arranged by posture, costume, rank, gender, ritual, and inherited rules of display. A face can still look outward, but it now looks through an architecture of expectation. A body can still occupy the frame, but the frame has begun to instruct it.\n\nThe Havelock and Reeder route is treated as a scholarly placeholder for the cultural body: Greek art, social posture, public presentation, and the disciplined relation between figure and viewer. No direct quotation is used here because the source texts are not supplied in the workspace. Instead, the article synthesizes the assigned idea: visibility becomes social when a culture teaches bodies how to appear, and teaches viewers how to approve that appearance.\n\nConstraint does not erase agency. It redirects it. The body still carries force, but that force is shaped by protocol. The page system responds by tightening. Columns become more formal. Panels sit closer to the grid. Accent color marks pressure points, especially where the terms agency and constraint appear together. This section should feel less wild than the first, but more tense. The reader should sense that the body has entered a room where every gesture is already being measured.\n\nThis matters to the theory of sight because the viewer is also constrained. We do not only look at the ruled body; we learn the rule by looking. The layout asks the reader to notice that training. Each repeated crop, caption, and column teaches a visual habit. The eye becomes disciplined alongside the figure. Seeing is no longer just contact. It is compliance, resistance, and learned interpretation happening at the same time.",
-  "mediation": "The veil is an editing system, not a disappearance. The third movement begins where the body and the rule meet a surface that can interrupt both. Lace, shadow, fabric, blur, flowers, hair, hands, and darkness all become interfaces. They do not simply hide the figure. They decide how slowly the figure can arrive.\n\nThe veiling route is held through iconography, Vera Icona, lace, secrecy, and the larger problem of mediated access. The key point is not that the viewer is denied. The key point is that denial becomes structure. A veil produces a special kind of attention because the eye has to work without full possession. It keeps searching, comparing edges, reading textures, and inventing continuity from fragments.\n\nThis section opens the grid. The design becomes more atmospheric, with more negative space and more surface interruption. Images are allowed to feel secretive. Text becomes quieter, more breath-based, but it still carries an argument: mediation is the place where agency and constraint become visible as tension. The body wants to appear. The rule wants to organize appearance. The veil controls the tempo of access.\n\nFor an ADHD reader, this section should not become vague. The idea stays modular: surface, delay, pressure, partial access. Those repeated terms create a learning path through the atmosphere. The reader can feel the mystery without getting lost inside it. The veil does not remove meaning. It makes meaning arrive through effort.",
-  "synthesis": "Sight becomes visceral when these forces remain active together. The final movement refuses to solve the body, the rule, and the veil into a clean hierarchy. Agency begins the argument, constraint disciplines it, and mediation keeps it unresolved. The image becomes powerful because no single force wins.\n\nThis is the core thesis of the book: psychological pressure does not come from clear depiction alone. It comes from calculated revelation. The viewer feels the image because the image negotiates what can be seen, how quickly it can be seen, and what remains withheld even after attention has been spent. The body is present, but not fully available. Culture is legible, but not neutral. The veil interrupts, but also teaches the eye how to continue.\n\nThe synthesis pages therefore break the grid most visibly. Large images take authority. Text floats beside them or presses into panels that seem slightly displaced. The asymmetry is not decoration. It is the final proof of the argument. A symmetrical page would imply that sight has settled. This book needs sight to remain unstable, because unstable sight is where learning happens.\n\nThe conclusion keeps the claims rights-sensitive and citation-safe. It does not invent quotations, publication details, or license certainty. It names the scholarly routes that still need final verification and holds the visual argument as the completed local production route. What remains is deliberate: source checking, instructor review, and final export. The theory, however, is already visible in the structure."
+  "agency": "The body becomes the first instrument of authorship before it becomes a subject for interpretation. In the first movement of this issue, sight begins with bodily insistence: a hand, a shoulder, a mouth, an eye, or a turned face does not wait for culture to explain it. The figure enters as pressure. It occupies the field with the blunt force of being present, and that presence matters because the viewer has not yet been given a stable rule for reading it.\n\nMcDermott gives this article its earliest time marker: the female body can be read as more than a passive object of display. His argument around Upper Paleolithic figurines opens a different possibility: that bodily representation may also carry evidence of lived perception, self-reference, and embodied seeing. That matters because a body can be partial and still be active. A face can be interrupted and still hold attention. A hand can become the first sign of agency before the viewer has named the person. The issue treats the body as origin, not because origin is simple, but because every later system of looking must first meet the fact of the body.\n\nAgency is close, image-led, and slightly uncomfortable. Faces and fragments interrupt the viewer before the viewer has decided what kind of image this is. A direct stare can feel like contact. A hidden eye can feel like refusal. A turned face can feel like a body protecting its own interior life. The body is not an illustration of theory. It is the condition that makes theory necessary.\n\nThis is also where the neural-learning backdrop enters quietly. Looking is not passive reception. The eye learns by comparing pressure, repetition, interruption, and contrast. A body seen once is an image. A body seen across time becomes a pattern the reader has to interpret. The first article therefore builds a visual lesson in agency: presence arrives before permission.",
+  "constraint": "Culture turns visibility into a protocol. The second movement begins when bodily force is no longer allowed to stand alone. The figure becomes arranged by posture, costume, rank, gender, ritual, and inherited rules of display. A face can still look outward, but it now looks through an architecture of expectation. A body can still occupy the frame, but the frame has begun to instruct it.\n\nThe movement through time matters here. Maternity, labor, beauty, mourning, ordinary weather, and public presence are not separate categories; they are visual roles that cultures attach to women. Mulley's study of Laura Muntz shows how maternity can be made symbolic, intimate, and burdened at once. Morrissy's work on Una Watters brings the woman back into everyday weather and street life, where representation is less idealized and more socially placed.\n\nConstraint does not erase agency. It redirects it. The body still carries force, but that force is shaped by context: who is permitted to look, who is expected to be seen, and what a culture teaches the viewer to accept as natural. This section feels less wild than the first, but more tense. The reader should sense that the body has entered a room where every gesture is already being measured.\n\nThis matters to the theory of sight because the viewer is also constrained. We do not only look at the ruled body; we learn the rule by looking. Repetition, obstruction, pose, and symbol teach the eye how social meaning attaches to bodies through time. The eye becomes disciplined alongside the figure. Seeing is no longer just contact. It is compliance, resistance, and learned interpretation happening at the same time.",
+  "mediation": "The veil is an editing system, not a disappearance. The third movement begins where the body and the rule meet a surface that can interrupt both. Lace, shadow, fabric, blur, flowers, hair, hands, and darkness all become interfaces. They do not simply hide the figure. They decide how slowly the figure can arrive.\n\nThe veiling route is held through iconography, Vera Icona, lace, secrecy, and the larger problem of mediated access. The key point is not that the viewer is denied. The key point is that denial becomes structure. A veil produces a special kind of attention because the eye has to work without full possession. It keeps searching, comparing edges, reading textures, and inventing continuity from fragments.\n\nArt movement history clarifies the pressure. Symbolism treats the visible world as a carrier for inward states; Surrealist image logic turns ordinary surfaces into psychic interruption. The covered eye, the soft obstruction, and the displaced face do not merely hide information. They make interpretation the subject. The viewer is asked to feel the delay between perception and certainty.\n\nThis section becomes more atmospheric, with more surface interruption and slower perception, but it still carries an argument: mediation is the place where agency and constraint become visible as tension. The body wants to appear. The rule wants to organize appearance. The veil controls the tempo of access.\n\nThe idea stays modular: surface, delay, pressure, partial access. Those repeated terms create a learning path through the atmosphere. The reader can feel the mystery without getting lost inside it. The veil does not remove meaning. It makes meaning arrive through effort.",
+  "synthesis": "Sight becomes visceral when these forces remain active together. The final movement refuses to solve the body, the rule, and the veil into a clean hierarchy. Agency begins the argument, constraint disciplines it, and mediation keeps it unresolved. The image becomes powerful because no single force wins.\n\nThis is the core thesis of the book: psychological pressure does not come from clear depiction alone. It comes from calculated revelation. The viewer feels the image because the image negotiates what can be seen, how quickly it can be seen, and what remains withheld even after attention has been spent. The body is present, but not fully available. Culture is legible, but not neutral. The veil interrupts, but also teaches the eye how to continue.\n\nPsychology gives the gaze its behavioral force. Research on gaze cueing and social attention shows that eye direction affects an observer's attention and social interpretation, which is why a portrait can feel active even when nothing in the frame moves. The gaze is not only a theme. It is a human signal system.\n\nThe synthesis refuses easy balance. Large images take authority, and the argument holds sight in motion instead of pretending it has settled. The instability is not decoration. It is the final proof of the argument: unstable sight is where learning happens.\n\nThe conclusion keeps the claims careful. It does not invent quotations, publication details, or license certainty. It names the scholarly routes that support the issue and keeps the theory visible in the reading itself."
 };
 
 function mm(v) { return v + "mm"; }
@@ -435,6 +417,12 @@ function pageBounds(page, bounds) {
   ];
 }
 function asset(i) { return ASSETS[i % ASSETS.length]; }
+function assetById(id) {
+  for (var a = 0; a < ASSETS.length; a++) {
+    if (ASSETS[a].id === id) return ASSETS[a];
+  }
+  return ASSETS[0];
+}
 function groupAsset(groupName, i) {
   var matches = [];
   for (var a = 0; a < ASSETS.length; a++) {
@@ -471,6 +459,24 @@ function setupDoc() {
   doc.marginPreferences.columnCount = 12;
   doc.marginPreferences.columnGutter = "5mm";
   return doc;
+}
+
+function configurePublicationPreflight(doc) {
+  var profileName = "Anatomy of Looking - Color Landscape";
+  var profile;
+  try {
+    profile = app.preflightProfiles.itemByName(profileName);
+    profile.name;
+  } catch (missing) {
+    profile = app.preflightProfiles.itemByName("kDigPubProfileName").duplicate();
+    profile.name = profileName;
+  }
+  profile.description = "Color landscape magazine profile. Keeps Digital Publishing checks while allowing intentional color plates and landscape orientation.";
+  profile.preflightProfileRules.itemByName("ADBE_CMYPlates").flag = 1699890274;
+  profile.preflightProfileRules.itemByName("ADBE_PageSizeOrientation").flag = 1699890274;
+  doc.preflightOptions.preflightWorkingProfile = profile;
+  doc.preflightOptions.preflightOff = false;
+  return profile;
 }
 
 function addSwatch(doc, name, values) {
@@ -559,7 +565,17 @@ function countOversetFrames(doc) {
 function exportPdf(doc) {
   var pdfFile = File(OUTPUT_PDF);
   if (!pdfFile.parent.exists) pdfFile.parent.create();
+  try {
+    app.interactivePDFExportPreferences.exportReaderSpreads = false;
+    app.interactivePDFExportPreferences.generateThumbnails = true;
+    doc.exportFile(ExportFormat.INTERACTIVE_PDF, pdfFile, false);
+    return "interactive";
+  } catch (interactiveErr) {}
   var preset = null;
+  try {
+    app.pdfExportPreferences.includeHyperlinks = true;
+    app.pdfExportPreferences.exportLayers = false;
+  } catch (prefsErr) {}
   try {
     preset = app.pdfExportPresets.itemByName("[High Quality Print]");
     preset.name;
@@ -567,13 +583,14 @@ function exportPdf(doc) {
     preset = app.pdfExportPresets.item(0);
   }
   doc.exportFile(ExportFormat.PDF_TYPE, pdfFile, false, preset);
+  return "print";
 }
 
 function writeBuildReport(doc) {
   var reportFile = File(OUTPUT_REPORT);
   if (!reportFile.parent.exists) reportFile.parent.create();
   var report = {
-    document: "The Visceral Theory of Sight",
+    document: "The Anatomy of Looking",
     generatedAt: new Date().toString(),
     pageCount: doc.pages.length,
     facingPages: doc.documentPreferences.facingPages,
@@ -583,6 +600,13 @@ function writeBuildReport(doc) {
     assetCount: ASSETS.length,
     linkCount: doc.links.length,
     missingLinks: countMissingLinks(doc),
+    hyperlinkCount: doc.hyperlinks.length,
+    tocStyles: doc.tocStyles.length,
+    tocBookmarks: doc.bookmarks.length,
+    tocHyperlinks: doc.hyperlinks.length,
+    preflightProfile: doc.preflightOptions.preflightWorkingProfile,
+    intentionalColorLandscape: true,
+    pdfExportMode: doc.extractLabel("pdfExportMode"),
     textFrameCount: doc.textFrames.length,
     oversetTextFrames: countOversetFrames(doc),
     moodyLayoutRules: [
@@ -592,7 +616,7 @@ function writeBuildReport(doc) {
       "overlap captions",
       "broken text flow",
       "full-bleed pressure pages",
-      "layered translucent panels"
+      "solid paper caption panels"
     ],
     outputs: {
       indd: OUTPUT_INDD,
@@ -616,10 +640,66 @@ function colorPanel(page, bounds, swatch, opacity) {
 }
 
 function caption(page, bounds, item, ink, cream) {
-  var label = item.id + " / " + item.group.replace("Group 1: ", "").replace("Group 2: ", "").replace("Group 3: ", "") + "\ncaption crosses the image edge; rights verify";
-  var tf = textFrame(page, bounds, label, 6.2, "Bold", cream, 100);
-  try { tf.fillColor = ink; tf.transparencySettings.blendingSettings.opacity = 78; } catch(e) {}
+  var label = "A controlled glimpse becomes part of the argument.";
+  colorPanel(page, bounds, cream, 98);
+  var tf = textFrame(page, bounds, label, 6.2, "Bold", ink, 100);
   return tf;
+}
+
+function nativeTocSource(page, title, sourceStyle) {
+  var source = page.textFrames.add();
+  source.geometricBounds = pageBounds(page, b(2, 2, 8, 70));
+  source.contents = title;
+  source.paragraphs.item(0).appliedParagraphStyle = sourceStyle;
+  source.nonprinting = true;
+  return source;
+}
+
+function nativeAdobeToc(doc, ink, gold) {
+  var sourceStyle = doc.paragraphStyles.add({name: "TOC Source Heading"});
+  var entryStyle = doc.paragraphStyles.add({name: "TOC Entry"});
+  var titleStyle = doc.paragraphStyles.add({name: "TOC Title"});
+  try {
+    entryStyle.pointSize = 11;
+    entryStyle.leading = 16;
+    entryStyle.spaceAfter = 10;
+    entryStyle.fillColor = ink;
+    entryStyle.tabStops.add({position: "150mm", alignment: TabStopAlignment.RIGHT_ALIGN});
+    titleStyle.pointSize = 24;
+    titleStyle.leading = 29;
+    titleStyle.spaceAfter = 18;
+    titleStyle.fillColor = ink;
+  } catch (styleErr) {}
+
+  nativeTocSource(doc.pages.item(4), "Opening Thesis", sourceStyle);
+  nativeTocSource(doc.pages.item(7), "The Body", sourceStyle);
+  nativeTocSource(doc.pages.item(16), "The Rule", sourceStyle);
+  nativeTocSource(doc.pages.item(26), "The Veil", sourceStyle);
+  nativeTocSource(doc.pages.item(38), "Synthesis", sourceStyle);
+  nativeTocSource(doc.pages.item(47), "Sources", sourceStyle);
+
+  var tocStyle = doc.tocStyles.add({
+    name: "Magazine Contents",
+    title: "CONTENTS",
+    titleStyle: titleStyle,
+    createBookmarks: true,
+    makeAnchor: true
+  });
+  tocStyle.tocStyleEntries.add(sourceStyle.name, {
+    formatStyle: entryStyle,
+    pageNumberPosition: PageNumberPosition.AFTER_ENTRY,
+    separator: "\t"
+  });
+
+  app.activeWindow.activePage = doc.pages.item(3);
+  doc.createTOC(tocStyle, false, undefined, ["24mm", "28mm"], false, doc.activeLayer);
+  var tocFrame = doc.pages.item(3).textFrames.lastItem();
+  tocFrame.geometricBounds = pageBounds(doc.pages.item(3), b(34, 24, 242, 188));
+  try {
+    tocFrame.textFramePreferences.insetSpacing = ["2mm", "2mm", "2mm", "2mm"];
+    tocFrame.textFramePreferences.verticalJustification = VerticalJustification.TOP_ALIGN;
+  } catch (frameErr) {}
+  fitText(tocFrame, 8);
 }
 
 function pageNum(page, n, ink) {
@@ -632,31 +712,27 @@ function saveDesktopFiles(doc) {
   if (!inddFile.parent.exists) inddFile.parent.create();
   doc.save(inddFile);
   doc.exportFile(ExportFormat.INDESIGN_MARKUP, idmlFile);
-  exportPdf(doc);
+  doc.insertLabel("pdfExportMode", exportPdf(doc));
   writeBuildReport(doc);
 }
 
 function cover(page, doc, ink, cream, gold) {
-  var item = groupAsset("Mediation", 0);
+  var item = assetById("A58");
   colorPanel(page, b(0, 0, 297, 210), ink, 100);
   imageFrame(page, b(30, 24, 232, 186), item, 100);
-  textFrame(page, b(240, 28, 269, 182), "THE VISCERAL\rTHEORY OF SIGHT", 24, "Bold", cream, 100);
-  textFrame(page, b(270, 62, 282, 148), "the body, the gaze, and the veil", 8, "Regular", cream, 100);
+  colorPanel(page, b(236, 24, 286, 186), cream, 100);
+  textFrame(page, b(240, 28, 269, 182), "THE ANATOMY\rOF LOOKING", 24, "Bold", ink, 100);
+  textFrame(page, b(270, 62, 282, 148), "women, attention, and the psychology of sight", 8, "Regular", ink, 100);
 }
 
 function frontMatter(page, n, doc, ink, cream, gold) {
   if (n === 2) {
-    textFrame(page, b(62, 24, 118, 170), "The Visceral\rTheory of Sight", 30, "Bold", ink, 100);
-    textFrame(page, b(126, 26, 152, 160), "A 50-page editorial art book on controlled revelation.", 10, "Regular", ink, 100);
-    textFrame(page, b(245, 24, 272, 160), "A4 precision layout. 12-column grid. 3mm bleed. Source and rights verification required before final export.", 7, "Regular", ink, 100);
+    textFrame(page, b(62, 24, 118, 170), "The Anatomy\rof Looking", 30, "Bold", ink, 100);
+    textFrame(page, b(126, 26, 152, 160), "A 50-page visual psychology issue on attention, image memory, and human sight.", 10, "Regular", ink, 100);
+    textFrame(page, b(245, 24, 272, 160), "Issue dossier: psychology of sight, image memory, Symbolism, Surrealist interruption, and the human habit of reading faces before words.", 7, "Regular", ink, 100);
   } else if (n === 3) {
-    textFrame(page, b(216, 24, 271, 182), "LEGAL / CREDITS\rThis layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 8, "Regular", ink, 100);
-  } else {
-    textFrame(page, b(42, 24, 70, 170), "BODY / RULE / VEIL", 24, "Bold", ink, 100);
-    textFrame(page, b(96, 24, 196, 70), "01 Front Matter\r05 Introduction\r08 The Body", 11, "Regular", ink, 100);
-    textFrame(page, b(126, 88, 226, 134), "17 Constraint\r27 The Veil\r39 Synthesis", 11, "Regular", gold, 100);
-    textFrame(page, b(156, 150, 244, 190), "46 Credits\r48 Sources\r49 Process\r50 Close", 11, "Regular", ink, 100);
-  }
+    textFrame(page, b(216, 24, 271, 182), "CREDITS / RIGHTS NOTE\rImages are credited in the source register at the back. Adobe Stock, Unsplash, archive, and local image files require final rights confirmation before publication.", 8, "Regular", ink, 100);
+  } else {}
 }
 
 function introPage(page, n, doc, ink, cream, gold) {
@@ -664,7 +740,7 @@ function introPage(page, n, doc, ink, cream, gold) {
   imageFrame(page, b(88, 98, 178, 186), groupAsset("Constraint", n), 100);
   imageFrame(page, b(154, 44, 238, 132), groupAsset("Agency", n), 85);
   colorPanel(page, b(188, 18, 252, 156), cream, 88);
-  textFrame(page, b(196, 26, 224, 148), "The Visceral Theory of Sight", 21, "Bold", ink, 100);
+  textFrame(page, b(196, 26, 224, 148), "The Anatomy of Looking", 21, "Bold", ink, 100);
   textFrame(page, b(226, 27, 258, 160), COPY.intro, 8.6, "Regular", ink, 100);
   caption(page, b(124, 72, 145, 134), groupAsset("Mediation", n), ink, cream);
 }
@@ -674,22 +750,22 @@ function articlePage(page, n, section, item, doc, ink, cream, gold, slate) {
   var accent = section === "MEDIATION" ? slate : gold;
   if (mode === 0) {
     imageFrame(page, b(24, 14, 216, 142), item, 100);
-    colorPanel(page, b(144, 122, 205, 194), cream, 86);
+    colorPanel(page, b(144, 122, 205, 194), cream, 96);
     textFrame(page, b(152, 130, 176, 188), section, 18, "Bold", ink, 100);
     textFrame(page, b(176, 130, 204, 188), copyChunk(section.toLowerCase(), n), 7.8, "Regular", ink, 100);
     caption(page, b(196, 24, 216, 92), item, ink, cream);
   } else if (mode === 1) {
     imageFrame(page, b(42, 68, 210, 196), item, 100);
-    colorPanel(page, b(18, 22, 240, 58), accent, 100);
-    textFrame(page, b(44, 28, 198, 52), section, 18, "Bold", cream, 100);
-    colorPanel(page, b(206, 46, 248, 176), cream, 84);
-    textFrame(page, b(212, 52, 246, 168), copyChunk(section.toLowerCase(), n), 7.4, "Regular", ink, 100);
+    colorPanel(page, b(18, 22, 240, 58), cream, 98);
+    textFrame(page, b(44, 28, 198, 52), section, 18, "Bold", ink, 100);
+    colorPanel(page, b(150, 46, 204, 176), cream, 96);
+    textFrame(page, b(156, 52, 198, 168), copyChunk(section.toLowerCase(), n), 7.2, "Regular", ink, 100);
   } else if (mode === 2) {
     imageFrame(page, b(0, 0, 297, 210), item, 100);
-    colorPanel(page, b(78, 0, 116, 210), accent, 82);
-    textFrame(page, b(82, 26, 112, 182), "ONLY ONE EYE REMAINS, THE IMAGE GETS LOUDER.", 18, "Bold", cream, 100);
-    colorPanel(page, b(214, 18, 276, 86), ink, 72);
-    textFrame(page, b(220, 24, 270, 80), copyChunk(section.toLowerCase(), n), 7.2, "Regular", cream, 100);
+    colorPanel(page, b(78, 0, 116, 210), cream, 98);
+    textFrame(page, b(82, 26, 112, 182), "ONLY ONE EYE REMAINS, THE IMAGE GETS LOUDER.", 18, "Bold", ink, 100);
+    colorPanel(page, b(212, 18, 278, 100), cream, 98);
+    textFrame(page, b(218, 24, 272, 94), copyChunk(section.toLowerCase(), n), 7.2, "Regular", ink, 100);
   } else if (mode === 3) {
     imageFrame(page, b(34, 20, 120, 102), item, 100);
     imageFrame(page, b(112, 92, 250, 182), item, 92);
@@ -698,14 +774,14 @@ function articlePage(page, n, section, item, doc, ink, cream, gold, slate) {
     caption(page, b(106, 78, 127, 148), item, ink, cream);
   } else if (mode === 4) {
     imageFrame(page, b(42, 30, 226, 180), item, 100);
-    colorPanel(page, b(214, 0, 260, 210), accent, 88);
-    textFrame(page, b(220, 22, 254, 188), "THE VEIL DOES NOT DISAPPEAR THE BODY.", 16, "Bold", cream, 100);
-    colorPanel(page, b(68, 132, 116, 194), cream, 82);
-    textFrame(page, b(72, 138, 112, 188), copyChunk(section.toLowerCase(), n), 7.2, "Regular", ink, 100);
+    colorPanel(page, b(26, 158, 196, 206), cream, 98);
+    textFrame(page, b(36, 164, 138, 200), "THE VEIL DOES NOT DISAPPEAR THE BODY.", 14, "Bold", ink, 100);
+    colorPanel(page, b(68, 24, 132, 104), cream, 96);
+    textFrame(page, b(74, 30, 126, 98), copyChunk(section.toLowerCase(), n), 7.0, "Regular", ink, 100);
   } else {
     imageFrame(page, b(22, 44, 266, 178), item, 100);
-    colorPanel(page, b(26, 28, 58, 128), cream, 80);
-    textFrame(page, b(30, 34, 54, 122), section + " / controlled visibility", 12, "Bold", ink, 100);
+    colorPanel(page, b(26, 28, 58, 128), cream, 94);
+    textFrame(page, b(30, 34, 54, 122), "LOOKING IS EDITED BY ACCESS.", 12, "Bold", ink, 100);
     caption(page, b(240, 120, 264, 190), item, ink, cream);
   }
 }
@@ -713,16 +789,17 @@ function articlePage(page, n, section, item, doc, ink, cream, gold, slate) {
 function backMatter(page, n, doc, ink, cream, gold) {
   if (n === 50) {
     textFrame(page, b(60, 24, 108, 172), "Sight remains\runfinished.", 28, "Bold", ink, 100);
-    textFrame(page, b(236, 24, 260, 172), "Final export still requires source verification, license verification, and instructor-facing review.", 8, "Regular", ink, 100);
+    textFrame(page, b(226, 24, 258, 172), "Every act of looking leaves a remainder: memory, attention, and the human need to interpret what the eye cannot settle.", 8, "Regular", ink, 100);
   } else {
-    var head = n === 46 ? "IMAGE CREDITS" : n === 47 ? "IMAGE CREDITS CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
+    var head = n === 46 ? "IMAGE CREDITS" : n === 47 ? "IMAGE CREDITS CONTINUED" : n === 48 ? "SOURCE LIST" : "REFERENCES";
     textFrame(page, b(28, 24, 48, 172), head, 16, "Bold", ink, 100);
-    var body = "Assets are linked from the production asset folder. Rights remain verify before final export. The layout uses overlap, broken flow, and layered pull-quote pressure to support agency, constraint, and mediation.";
+    var body = "Images are credited in the register, and rights remain to be confirmed before publication. The issue follows agency, constraint, and mediation as three linked pressures in the psychology of sight.";
     textFrame(page, b(64, 24, 246, 172), body, 8.5, "Regular", ink, 100);
   }
 }
 
 var doc = setupDoc();
+configurePublicationPreflight(doc);
 var ink = addSwatch(doc, "Ink", [17, 16, 14]);
 var cream = addSwatch(doc, "Archival Cream", [243, 235, 221]);
 var gold = addSwatch(doc, "Muted Gold", [165, 130, 66]);
@@ -740,8 +817,10 @@ for (var p = 0; p < doc.pages.length; p++) {
   else if (n <= 38) articlePage(page, n, "MEDIATION", groupAsset("Mediation", n), doc, ink, cream, gold, slate);
   else if (n <= 45) articlePage(page, n, "SYNTHESIS", asset(n), doc, ink, cream, gold, slate);
   else backMatter(page, n, doc, ink, cream, gold);
-  pageNum(page, n, ink);
+  if (n !== 4) pageNum(page, n, ink);
 }
+
+nativeAdobeToc(doc, ink, gold);
 
 // Final overset guard.
 for (var i = 0; i < doc.textFrames.length; i++) {

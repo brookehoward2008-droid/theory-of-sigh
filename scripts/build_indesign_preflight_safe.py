@@ -16,7 +16,7 @@ LETTER_W_MM = 279.4
 LETTER_H_MM = 215.9
 BLEED_MM = 3.175
 
-SAFE_ASSET_DIR = book.ASSET_OUT / "preflight-konly"
+SAFE_ASSET_DIR = book.ASSET_OUT / "preflight-color"
 SAFE_TEMPLATE = book.TEMPLATE_OUT / "indesign-build-preflight-safe.jsx"
 SAFE_REPORT = book.REPORTS_OUT / "indesign-preflight-safe-generator-report.json"
 
@@ -25,10 +25,12 @@ def ensure_safe_assets(assets: list[book.Asset]) -> list[book.Asset]:
     SAFE_ASSET_DIR.mkdir(parents=True, exist_ok=True)
     safe_assets: list[book.Asset] = []
     for asset in assets:
-        safe_path = SAFE_ASSET_DIR / f"{asset.local_path.stem}-konly.jpg"
+        safe_path = SAFE_ASSET_DIR / f"{asset.local_path.stem}-color.jpg"
         with Image.open(asset.local_path) as img:
-            gray = ImageOps.exif_transpose(img).convert("L")
-            gray.save(safe_path, format="JPEG", quality=92, optimize=True)
+            color = ImageOps.exif_transpose(img)
+            if color.mode != "RGB":
+                color = color.convert("RGB")
+            color.save(safe_path, format="JPEG", quality=94, optimize=True)
         safe_assets.append(
             book.Asset(
                 id=asset.id,
@@ -60,7 +62,7 @@ def safe_jsx_from_full(full_jsx: str, assets: list[book.Asset]) -> str:
     jsx = full_jsx
     jsx = jsx.replace(
         "// Builds A4 facing pages, 3mm bleed, 12-column grid, linked images, captions, layered editorial modules, PDF, and audit report.",
-        "// Builds US Letter landscape facing pages, 0.125in bleed, 12-column grid, K-only linked images, captions, layered editorial modules, PDF, and audit report.",
+        "// Builds US Letter landscape facing pages, 0.125in bleed, 12-column grid, color linked images, captions, layered editorial modules, PDF, and audit report.",
     )
     jsx = re.sub(r"var ASSETS = \[[\s\S]*?\];\nvar OUTPUT_INDD", "var ASSETS = " + json.dumps(safe_assets, indent=2) + ";\nvar OUTPUT_INDD", jsx, count=1)
     jsx = re.sub(
@@ -128,7 +130,7 @@ def safe_jsx_from_full(full_jsx: str, assets: list[book.Asset]) -> str:
     jsx = jsx.replace('trim: "A4 portrait 210mm x 297mm"', 'trim: "US Letter landscape 279.4mm x 215.9mm"')
     jsx = jsx.replace('bleed: "3mm all sides"', 'bleed: "3.175mm all sides"')
     jsx = jsx.replace('"dark ink and archival cream base",', '"black and paper preflight base",')
-    jsx = jsx.replace('"muted gold and slate accents",', '"black-only accent tints for Digital Publishing profile",')
+    jsx = jsx.replace('"muted gold and slate accents",', '"color image links with black and paper text swatches",')
     jsx = jsx.replace(
         "  if (!inddFile.parent.exists) inddFile.parent.create();\n  doc.save(inddFile);\n  doc.exportFile(ExportFormat.INDESIGN_MARKUP, idmlFile);",
         (
@@ -193,6 +195,7 @@ def main() -> None:
     book.ensure_dirs()
     assets = book.scan_assets()
     safe_assets = ensure_safe_assets(assets)
+    safe_assets = [asset for asset in safe_assets if asset.id not in book.EXCLUDED_ASSET_IDS]
     book.write_full_layout_jsx(assets)
     full_jsx = (book.TEMPLATE_OUT / "indesign-build-full-layout.jsx").read_text(encoding="utf-8")
     safe_jsx = safe_jsx_from_full(full_jsx, safe_assets)
@@ -200,14 +203,30 @@ def main() -> None:
     SAFE_REPORT.write_text(
         json.dumps(
             {
-                "profile_target": "Digital Publishing preflight-safe facing-pages landscape variant",
+                "profile_target": "Anatomy of Looking - Color Landscape",
+                "intentional_output": {
+                    "color": True,
+                    "orientation": "landscape",
+                    "facing_pages": True,
+                },
+                "disabled_mismatched_rules": [
+                    "ADBE_CMYPlates",
+                    "ADBE_PageSizeOrientation",
+                ],
+                "retained_critical_checks": [
+                    "ADBE_MissingFonts",
+                    "ADBE_MissingModifiedGraphics",
+                    "ADBE_OversetText",
+                    "ADBE_ImageResolution",
+                    "ADBE_BleedTrimHazard",
+                ],
                 "trim": {"width_mm": LETTER_W_MM, "height_mm": LETTER_H_MM, "name": "US Letter landscape"},
                 "bleed_mm": BLEED_MM,
                 "pages": 50,
                 "facing_pages": True,
                 "swatches": ["[Black]", "[Paper]"],
                 "linked_assets": len(safe_assets),
-                "asset_mode": "grayscale JPEG copies generated from supplied local image assets",
+                "asset_mode": "color JPEG copies generated from supplied local image assets",
                 "jsx": str(SAFE_TEMPLATE),
             },
             indent=2,
@@ -216,7 +235,7 @@ def main() -> None:
     )
     print(f"Wrote {SAFE_TEMPLATE}")
     print(f"Wrote {SAFE_REPORT}")
-    print(f"Generated {len(safe_assets)} K-only asset copies in {SAFE_ASSET_DIR}")
+    print(f"Generated {len(safe_assets)} color asset copies in {SAFE_ASSET_DIR}")
 
 
 if __name__ == "__main__":

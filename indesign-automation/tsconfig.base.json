@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "none",
+    "target": "ES5",
+    "noLib": true,
+    "strict": false,
+    "skipLibCheck": true,
+    "removeComments": false
+  }
+}

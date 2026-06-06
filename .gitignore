@@ -2,6 +2,8 @@
 *.idlk
 __pycache__/
 *.py[cod]
+node_modules/
+tmp-*.jsx
 
 # Generated heavy asset copies and previews.
 visceral-production-route/assets/
@@ -18,6 +20,11 @@ visceral-production-route/output/pdf/*.pdf
 # Local desktop verification screenshots are useful evidence, but too noisy for
 # the repo unless one is explicitly selected for documentation.
 visceral-production-route/reports/*.png
+visceral-production-route/reports/*-proof.jpg
+visceral-production-route/reports/page-contact-sheets*/
+visceral-production-route/reports/*-inspection.txt
+visceral-production-route/reports/*-test.txt
+visceral-production-route/reports/pdf-panel-contrast-audit.txt
 
 # Local InDesign binaries should stay out of Git unless explicitly packaged.
 *.indd

@@ -1,5 +1,21 @@
 {
-  "profile_target": "Digital Publishing preflight-safe facing-pages landscape variant",
+  "profile_target": "Anatomy of Looking - Color Landscape",
+  "intentional_output": {
+    "color": true,
+    "orientation": "landscape",
+    "facing_pages": true
+  },
+  "disabled_mismatched_rules": [
+    "ADBE_CMYPlates",
+    "ADBE_PageSizeOrientation"
+  ],
+  "retained_critical_checks": [
+    "ADBE_MissingFonts",
+    "ADBE_MissingModifiedGraphics",
+    "ADBE_OversetText",
+    "ADBE_ImageResolution",
+    "ADBE_BleedTrimHazard"
+  ],
   "trim": {
     "width_mm": 279.4,
     "height_mm": 215.9,
@@ -12,7 +28,7 @@
     "[Black]",
     "[Paper]"
   ],
-  "linked_assets": 67,
-  "asset_mode": "grayscale JPEG copies generated from supplied local image assets",
+  "linked_assets": 64,
+  "asset_mode": "color JPEG copies generated from supplied local image assets",
   "jsx": "C:\\Users\\toddl\\OneDrive\\Documents\\visceral\\visceral-production-route\\templates\\indesign-build-preflight-safe.jsx"
 }

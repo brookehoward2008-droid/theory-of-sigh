@@ -257,7 +257,8 @@ h1 {
   grid-column: 8 / 13;
   grid-row: span 6;
   margin: 0;
-  background: var(--shadow-ink);
+  background: color-mix(in srgb, var(--bone) 96%, white);
+  border: 1px solid var(--line);
 }
 
 .spread-image img {
@@ -267,7 +268,8 @@ h1 {
 
 .spread-image figcaption {
   padding: 12px 14px;
-  color: var(--lace-paper);
+  background: color-mix(in srgb, var(--bone) 96%, white);
+  color: var(--shadow-ink);
   font: .76rem/1.38 Arial, Helvetica, sans-serif;
 }
 
@@ -288,6 +290,52 @@ h1 {
 
 .article-copy p + p {
   margin-top: 12px;
+}
+
+.article-companion {
+  grid-column: 8 / 13;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-self: end;
+  margin-top: 8px;
+}
+
+.spread-constraint .article-companion,
+.spread-synthesis .article-companion {
+  grid-column: 1 / 6;
+}
+
+.article-companion figure {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: 250px;
+  margin: 0;
+  overflow: hidden;
+  background: var(--shadow-ink);
+  border: 1px solid var(--line);
+}
+
+.article-companion img {
+  height: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+.article-companion figcaption {
+  min-height: 84px;
+  padding: 10px 11px;
+  background: var(--bone);
+  color: var(--shadow-ink);
+  font: .68rem/1.35 Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+}
+
+.mini-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--veil-blue);
+  font-weight: 700;
+  letter-spacing: .1em;
 }
 
 sup {
@@ -408,7 +456,7 @@ sup a {
   grid-template-rows: minmax(0, 1fr) auto;
   min-height: 360px;
   overflow: hidden;
-  background: var(--shadow-ink);
+  background: color-mix(in srgb, var(--bone) 96%, white);
   border: 1px solid var(--line);
 }
 
@@ -441,7 +489,8 @@ sup a {
 
 .plate-run figcaption {
   min-height: 118px;
-  background: var(--bone);
+  background: color-mix(in srgb, var(--bone) 96%, white);
+  color: var(--shadow-ink);
   overflow-wrap: anywhere;
 }
 
@@ -451,7 +500,8 @@ sup a {
   bottom: 0;
   width: min(360px, 82%);
   min-height: auto;
-  background: color-mix(in srgb, var(--bone) 92%, white);
+  background: color-mix(in srgb, var(--bone) 98%, white);
+  border: 1px solid color-mix(in srgb, var(--shadow-ink) 14%, transparent);
 }
 
 .plate-run-opening {

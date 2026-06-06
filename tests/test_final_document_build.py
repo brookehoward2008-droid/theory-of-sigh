@@ -78,7 +78,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertIn("doc.exportFile(ExportFormat.INDESIGN_MARKUP, idmlFile)", contents)
         self.assertEqual(INDESIGN_OUT.name, "indesign")
 
-    def test_preflight_safe_indesign_script_matches_digital_publishing_profile(self) -> None:
+    def test_preflight_safe_indesign_script_uses_color_landscape_publication_profile(self) -> None:
         self.assertTrue(SAFE_TEMPLATE.exists())
         contents = SAFE_TEMPLATE.read_text(encoding="utf-8")
 
@@ -87,13 +87,18 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertIn('documentBleedTopOffset = "3.175mm";', contents)
         self.assertIn('return builtinSwatch(doc, ["Black", "[Black]"]);', contents)
         self.assertIn('return builtinSwatch(doc, ["Paper", "[Paper]"]);', contents)
-        self.assertIn("preflight-konly/asset-01-konly.jpg", contents)
+        self.assertIn("preflight-color/asset-01-color.jpg", contents)
         self.assertIn("the-visceral-theory-of-sight-50pp.indd", contents)
         self.assertIn("the-visceral-theory-of-sight-50pp-indesign-auto.pdf", contents)
         self.assertNotIn("the-visceral-theory-of-sight-50pp-preflight-safe.indd", contents)
         self.assertNotIn("ColorSpace.RGB", contents)
         self.assertNotIn('pageWidth = "210mm"', contents)
         self.assertNotIn('pageHeight = "297mm"', contents)
+        self.assertIn("function configurePublicationPreflight(doc)", contents)
+        self.assertIn("Anatomy of Looking - Color Landscape", contents)
+        self.assertIn("ADBE_CMYPlates", contents)
+        self.assertIn("ADBE_PageSizeOrientation", contents)
+        self.assertIn("doc.preflightOptions.preflightWorkingProfile = profile", contents)
 
     def test_preflight_safe_generator_report_documents_required_targets(self) -> None:
         self.assertTrue(SAFE_REPORT.exists())
@@ -105,7 +110,35 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertEqual(report["bleed_mm"], 3.175)
         self.assertEqual(report["pages"], 50)
         self.assertEqual(report["swatches"], ["[Black]", "[Paper]"])
-        self.assertEqual(report["linked_assets"], 67)
+        self.assertEqual(report["linked_assets"], 64)
+        self.assertEqual(report["asset_mode"], "color JPEG copies generated from supplied local image assets")
+        self.assertEqual(report["profile_target"], "Anatomy of Looking - Color Landscape")
+        self.assertEqual(report["intentional_output"]["orientation"], "landscape")
+        self.assertTrue(report["intentional_output"]["color"])
+        self.assertEqual(
+            report["disabled_mismatched_rules"],
+            ["ADBE_CMYPlates", "ADBE_PageSizeOrientation"],
+        )
+
+    def test_typed_indesign_automation_outputs_exist(self) -> None:
+        automation = Path(__file__).resolve().parents[1] / "indesign-automation"
+        required = {
+            "bilingual_precision_layout.jsx",
+            "apply_master_by_content.jsx",
+            "apply_master_by_chapter.jsx",
+            "clean_empty_paragraphs.jsx",
+            "prevent_orphan_subtitles.jsx",
+            "adjust_title_spacing.jsx",
+            "import_markdown_auto.jsx",
+            "convert_heading1_to_chapter.jsx",
+            "convert_normal_to_body.jsx",
+            "format_chapters_gui.jsx",
+            "debug_advanced.jsx",
+            "configure_publication_preflight.jsx",
+        }
+        outputs = {path.name for path in (automation / "dist").glob("*.jsx")}
+
+        self.assertTrue(required.issubset(outputs))
 
     def test_manifest_rows_have_existing_images(self) -> None:
         rows = load_manifest_rows(MANIFEST_CSV)
