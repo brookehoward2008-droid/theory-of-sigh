@@ -116,11 +116,86 @@ class CodexWorkflow:
         
         return True
 
+    def run_publishing_export(self) -> bool:
+        """Run publishing export skills (CSV, index, etc.)."""
+        self.log("INFO", "=== PUBLISHING EXPORT ===")
+        
+        try:
+            if not self.codex.manifest:
+                self.codex.load_manifest()
+            
+            assets = self.codex.manifest.assets
+            
+            # Export manifest as CSV
+            self.log("INFO", "Exporting manifest as CSV...")
+            csv_file = self.codex.reports_dir / "codex-manifest-export.csv"
+            self.codex.publishing.export_manifest_csv(assets, csv_file)
+            self.log("OK", f"Manifest CSV: {csv_file.name}")
+            
+            # Generate asset index
+            self.log("INFO", "Generating asset index...")
+            index_file = self.codex.reports_dir / "codex-asset-index.json"
+            self.codex.publishing.generate_asset_index(assets, index_file)
+            self.log("OK", f"Asset Index: {index_file.name}")
+            
+            return True
+        except Exception as e:
+            self.log("ERROR", f"Publishing export failed: {e}")
+            return False
+    
+    def run_writing_docs(self) -> bool:
+        """Run writing skills (guides, contact sheets, docs)."""
+        self.log("INFO", "=== WRITING DOCUMENTATION ===")
+        
+        try:
+            if not self.codex.manifest:
+                self.codex.load_manifest()
+            
+            assets = self.codex.manifest.assets
+            
+            # Generate HTML contact sheet
+            self.log("INFO", "Generating HTML contact sheet...")
+            html_file = self.codex.reports_dir / "codex-contact-sheet.html"
+            self.codex.writing.write_html_contact_sheet(assets, html_file)
+            self.log("OK", f"Contact Sheet: {html_file.name}")
+            
+            return True
+        except Exception as e:
+            self.log("ERROR", f"Writing documentation failed: {e}")
+            return False
+    
+    def run_preflight_checks(self) -> bool:
+        """Run comprehensive preflight validation."""
+        self.log("INFO", "=== COMPREHENSIVE PREFLIGHT ===")
+        
+        try:
+            if not self.codex.manifest:
+                self.codex.load_manifest()
+            
+            assets = self.codex.manifest.assets
+            
+            # Manifest completeness check
+            self.log("INFO", "Checking manifest completeness...")
+            manifest_check = self.codex.preflight.check_manifest_completeness(assets)
+            self.log("OK" if manifest_check["valid"] else "WARN", 
+                    f"Manifest: {manifest_check['issue_count']} issues")
+            
+            # Generate preflight report
+            self.log("INFO", "Generating preflight report...")
+            preflight_file = self.codex.reports_dir / "codex-preflight-report.json"
+            self.codex.preflight.generate_preflight_report(assets, preflight_file)
+            self.log("OK", f"Preflight Report: {preflight_file.name}")
+            
+            return manifest_check["valid"]
+        except Exception as e:
+            self.log("ERROR", f"Preflight checks failed: {e}")
+            return False
+
     def run_full_workflow(self, indesign_file: Path | None = None) -> bool:
-        """Run complete publication workflow."""
+        """Run complete publication workflow with all skills."""
         self.log("INFO", "")
         self.log("INFO", "╔════════════════════════════════════════════════════╗")
-        self.log("INFO", "║  CODEX PUBLICATION AUTOMATION WORKFLOW v1.0        ║")
+        self.log("INFO", "║  CODEX PUBLICATION AUTOMATION WORKFLOW v1.1        ║")
         self.log("INFO", "║  The Visceral Theory of Sight                      ║")
         self.log("INFO", "╚════════════════════════════════════════════════════╝")
         self.log("INFO", "")
@@ -134,6 +209,20 @@ class CodexWorkflow:
         if not self.generate_reports():
             self.log("ERROR", "Report generation failed. Aborting workflow.")
             return False
+        
+        # Step 3: Publishing Exports
+        if not self.run_publishing_export():
+            self.log("ERROR", "Publishing export failed.")
+            return False
+        
+        # Step 4: Writing Docs
+        if not self.run_writing_docs():
+            self.log("ERROR", "Writing documentation failed.")
+            return False
+        
+        # Step 5: Preflight Checks
+        if not self.run_preflight_checks():
+            self.log("WARN", "Preflight check completed with warnings.")
         
         # Step 3: InDesign Preflight (if file provided)
         if indesign_file:
@@ -182,6 +271,21 @@ def main():
         help="Generate reports only, skip InDesign checks"
     )
     parser.add_argument(
+        "--publish",
+        action="store_true",
+        help="Run publishing export (CSV, index)"
+    )
+    parser.add_argument(
+        "--write",
+        action="store_true",
+        help="Run writing documentation (contact sheets, guides)"
+    )
+    parser.add_argument(
+        "--preflight",
+        action="store_true",
+        help="Run comprehensive preflight checks"
+    )
+    parser.add_argument(
         "--indesign",
         type=Path,
         help="Path to InDesign file for preflight"
@@ -196,6 +300,12 @@ def main():
     try:
         if args.validate_only:
             success = workflow.validate()
+        elif args.publish:
+            success = workflow.run_publishing_export()
+        elif args.write:
+            success = workflow.run_writing_docs()
+        elif args.preflight:
+            success = workflow.run_preflight_checks()
         elif args.report:
             success = workflow.generate_reports()
         else:
