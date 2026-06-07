@@ -1,0 +1,30 @@
+[23:59:07] INFO     | 
+[23:59:07] INFO     | ╔════════════════════════════════════════════════════╗
+[23:59:07] INFO     | ║  CODEX PUBLICATION AUTOMATION WORKFLOW v1.0        ║
+[23:59:07] INFO     | ║  The Visceral Theory of Sight                      ║
+[23:59:07] INFO     | ╚════════════════════════════════════════════════════╝
+[23:59:07] INFO     | 
+[23:59:07] INFO     | === CODEX VALIDATION GATE ===
+[23:59:07] INFO     | Loading manifest...
+[23:59:07] OK       | Loaded 67 assets
+[23:59:07] INFO     | Running validation checks...
+[23:59:07] OK       | All checks passed (67 assets)
+[23:59:07] INFO     | === GENERATING REPORTS ===
+[23:59:07] INFO     | Generating QA gate report...
+[23:59:07] OK       | QA Report: codex-qa-gate-report.json
+[23:59:07] INFO     | Generating source register...
+[23:59:07] OK       | Source Register: codex-source-register.md
+[23:59:07] INFO     | Generating InDesign caption injection script...
+[23:59:07] OK       | Caption Script: codex-caption-injection.jsx
+[23:59:07] INFO     | 
+[23:59:07] OK       | ✓ Workflow completed in 0.0s
+[23:59:07] INFO     | 
+[23:59:07] INFO     | Next steps:
+[23:59:07] INFO     |   1. Review codex-qa-gate-report.json
+[23:59:07] INFO     |   2. Run automated tests
+[23:59:07] INFO     |   3. Run HTML preflight on web proof
+[23:59:07] INFO     |   4. Visual inspection in browser
+[23:59:07] INFO     |   5. Open InDesign and run codex-indesign-bridge.jsx
+[23:59:07] INFO     |   6. Run InDesign preflight
+[23:59:07] INFO     |   7. Export PDF and inspect
+[23:59:07] INFO     | 

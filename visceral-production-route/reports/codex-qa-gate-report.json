@@ -1,0 +1,29 @@
+{
+  "publication": "The Visceral Theory of Sight",
+  "qa_gate_status": "READY",
+  "manifest_validation": {
+    "valid": true,
+    "issue_count": 0,
+    "issues": [],
+    "total_assets": 67
+  },
+  "required_checks": {
+    "automated_tests": false,
+    "html_preflight": false,
+    "browser_visual_inspection": false,
+    "indesign_preflight": false,
+    "pdf_export_validation": false
+  },
+  "checklist": [
+    "\u2713 Run automated test suite",
+    "\u2713 Run HTML/source preflight (TOC, captions, source register)",
+    "\u2713 Visual inspection in browser (caption crowding, text fit, image rhythm)",
+    "\u2713 InDesign preflight (missing links, overset, bleed, color, fonts)",
+    "\u2713 Confirm 67 images have A-number, visual group, source-register entry",
+    "\u2713 No original filenames/rights notes in front-of-book captions",
+    "\u2713 References & citations resolve to backmatter",
+    "\u2713 Export PDF & visually inspect edges, captions, folios, backmatter",
+    "\u2713 Keep preflight-safe .indd as rollback"
+  ],
+  "notes": "All checks must pass before publication approval."
+}
