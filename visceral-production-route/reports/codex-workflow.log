@@ -1,5 +1,43 @@
-[00:09:48] INFO     | === CODEX VALIDATION GATE ===
-[00:09:48] INFO     | Loading manifest...
-[00:09:48] OK       | Loaded 67 assets
-[00:09:48] INFO     | Running validation checks...
-[00:09:48] OK       | All checks passed (67 assets)
+[18:48:51] INFO     | 
+[18:48:51] INFO     | ╔════════════════════════════════════════════════════╗
+[18:48:51] INFO     | ║  CODEX PUBLICATION AUTOMATION WORKFLOW v1.1        ║
+[18:48:51] INFO     | ║  The Visceral Theory of Sight                      ║
+[18:48:51] INFO     | ╚════════════════════════════════════════════════════╝
+[18:48:51] INFO     | 
+[18:48:51] INFO     | === CODEX VALIDATION GATE ===
+[18:48:51] INFO     | Loading manifest...
+[18:48:51] OK       | Loaded 67 assets
+[18:48:51] INFO     | Running validation checks...
+[18:48:51] OK       | All checks passed (67 assets)
+[18:48:51] INFO     | === GENERATING REPORTS ===
+[18:48:51] INFO     | Generating QA gate report...
+[18:48:51] OK       | QA Report: codex-qa-gate-report.json
+[18:48:51] INFO     | Generating source register...
+[18:48:51] OK       | Source Register: codex-source-register.md
+[18:48:51] INFO     | Generating InDesign caption injection script...
+[18:48:51] OK       | Caption Script: codex-caption-injection.jsx
+[18:48:51] INFO     | === PUBLISHING EXPORT ===
+[18:48:51] INFO     | Exporting manifest as CSV...
+[18:48:51] OK       | Manifest CSV: codex-manifest-export.csv
+[18:48:51] INFO     | Generating asset index...
+[18:48:51] OK       | Asset Index: codex-asset-index.json
+[18:48:51] INFO     | === WRITING DOCUMENTATION ===
+[18:48:51] INFO     | Generating HTML contact sheet...
+[18:48:51] OK       | Contact Sheet: codex-contact-sheet.html
+[18:48:51] INFO     | === COMPREHENSIVE PREFLIGHT ===
+[18:48:51] INFO     | Checking manifest completeness...
+[18:48:51] OK       | Manifest: 0 issues
+[18:48:51] INFO     | Generating preflight report...
+[18:48:51] OK       | Preflight Report: codex-preflight-report.json
+[18:48:51] INFO     | 
+[18:48:51] OK       | ✓ Workflow completed in 0.0s
+[18:48:51] INFO     | 
+[18:48:51] INFO     | Next steps:
+[18:48:51] INFO     |   1. Review codex-qa-gate-report.json
+[18:48:51] INFO     |   2. Run automated tests
+[18:48:51] INFO     |   3. Run HTML preflight on web proof
+[18:48:51] INFO     |   4. Visual inspection in browser
+[18:48:51] INFO     |   5. Open InDesign and run codex-indesign-bridge.jsx
+[18:48:51] INFO     |   6. Run InDesign preflight
+[18:48:51] INFO     |   7. Export PDF and inspect
+[18:48:51] INFO     | 
