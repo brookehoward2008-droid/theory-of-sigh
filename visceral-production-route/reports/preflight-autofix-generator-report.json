@@ -2,6 +2,14 @@
   "script": "/home/user/theory-of-sigh/visceral-production-route/templates/indesign-preflight-autofix-current-doc.jsx",
   "target_document": "visceral_theory_of_sight_precision_layout.indd",
   "preflight_profile": "Digital Publishing",
+  "preflight_error_counts": {
+    "color_total": 130,
+    "color_scriptable_fixes": 40,
+    "color_image_content_not_scriptable": 90,
+    "overset_text": 215,
+    "document_setup": 2,
+    "grand_total": 347
+  },
   "fixes": {
     "page_size": {
       "from": "210 mm \u00d7 297 mm  (A4 portrait)",
@@ -10,22 +18,25 @@
     "bleed": {
       "from": "3 mm all sides",
       "to": "3.175 mm all sides"
-    },
-    "color_errors_targeted": 194,
-    "overset_errors_targeted": 199,
-    "document_errors_targeted": 2,
-    "total_preflight_errors_targeted": 395
+    }
   },
   "color_strategy": {
     "paper_like_fills": "\u2192 [Paper]  (matches: paper, cream, white, mist, unbleach, ivory)",
     "all_other_non_black": "\u2192 [Black]",
     "image_frame_strokes": "\u2192 strokeWeight = 0  (removed)",
-    "story_text": "\u2192 [Black]"
+    "story_text": "\u2192 [Black]",
+    "placed_image_content": "NOT FIXABLE by script \u2014 requires K-only grayscale source files"
   },
   "overset_strategy": {
-    "pass_a": "AutoSizingType = HEIGHT_ONLY",
+    "pass_a": "AutoSizingType = HEIGHT_ONLY, minimumHeight 4pt (handles systematic 2-char/21-char oversets)",
     "pass_b": "Expand frame bottom to page safe area",
-    "pass_c": "Reduce point size 0.35 pt per iteration, floor 5.5 pt"
+    "pass_b2": "Expand frame to full page bottom (last resort)",
+    "pass_c": "Reduce point size 0.35 pt per iteration, floor 5.5 pt, max 40 iterations"
   },
+  "limitations": [
+    "Placed image CMY content (*.png, *.jpeg) cannot be recolored by script",
+    "For fully preflight-clean output use indesign-build-preflight-safe.jsx (K-only images)",
+    "Threaded text frames may still show overset if thread partner also needs resizing"
+  ],
   "usage": "In InDesign: File > Scripts > Other Script\u2026 \u2192 select indesign-preflight-autofix-current-doc.jsx"
 }

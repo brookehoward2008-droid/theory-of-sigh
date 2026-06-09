@@ -2,24 +2,33 @@
 visceral_theory_of_sight_precision_layout.indd.
 
 Preflight profile: Digital Publishing
+Total errors: 347 (COLOR 130, TEXT 215, DOCUMENT 2)
 
 Error categories fixed
 ----------------------
-COLOR (194 items)
-  - All CMY / RGB strokes and fills converted to [Black]
-  - Paper-like fills (Cream, Mist, Ivory, Unbleached …) converted to [Paper]
-  - Image-frame strokes removed (strokeWeight = 0)
-  - All story text fill colors converted to [Black]
+COLOR (130 items)
+  SCRIPTABLE (~40 items):
+  - CMY / RGB strokes on lines/shapes → [Black]
+  - CMY / RGB fills on rectangles    → [Black] or [Paper]
+  - Image-frame strokes              → removed (strokeWeight = 0)
+  - All story text fill colors       → [Black]
 
-TEXT (199 items)
+  NOT SCRIPTABLE (~90 items — placed image content):
+  - Files like 1.png, AdobeStock_*.jpeg contain RGB/CMY pixel data.
+    InDesign cannot recolor placed image content via script.
+    Fix: use K-only grayscale copies (see indesign-build-preflight-safe.jsx).
+
+TEXT (215 items)
   - Overset text repaired via three passes:
-      A. Height-only auto-sizing
+      A. Height-only auto-sizing (handles systematic 2-char / 21-char oversets)
       B. Frame expansion to page safe area
       C. Progressive type-size reduction (floor 5.5 pt)
+  NOTE: The page size change (A4 portrait → US Letter landscape) makes the
+  page ~81 mm shorter, so frames built for A4 will overflow until auto-sized.
 
 DOCUMENT (2 items)
-  - Page size: 210 mm × 297 mm (A4) → 279.4 mm × 215.9 mm (US Letter landscape)
-  - Bleed:     3 mm               → 3.175 mm on all sides
+  - Page size: 210 mm × 297 mm (A4 portrait) → 279.4 mm × 215.9 mm (US Letter landscape)
+  - Bleed:     3 mm all sides                → 3.175 mm all sides
 
 Output
 ------
@@ -57,16 +66,20 @@ def build_jsx() -> str:
         for kw in PAPER_KEYWORDS
     )
     return f"""\
-// visceral_theory_of_sight_precision_layout.indd — full preflight autofix
-// Profile: Digital Publishing
+// visceral_theory_of_sight_precision_layout.indd — preflight autofix
+// Profile: Digital Publishing  |  Total errors targeted: 347
 //
 // Fixes applied by this script:
 //   (1) Page size  → US Letter landscape  {PAGE_W_MM} mm × {PAGE_H_MM} mm
 //   (2) Bleed      → {BLEED_MM} mm on all four sides
-//   (3) All CMY / RGB fills / strokes → [Black] (paper-like colors → [Paper])
-//   (4) Image-frame strokes          → removed (strokeWeight = 0)
-//   (5) All story text fill colors   → [Black]
+//   (3) CMY / RGB fills & strokes on shapes/lines → [Black] or [Paper]
+//   (4) Image-frame strokes                       → strokeWeight = 0
+//   (5) All story text fill colors                → [Black]
 //   (6) Overset text: auto-size ▸ frame-expand ▸ type-reduction (floor 5.5 pt)
+//
+// NOT fixed by this script (requires K-only source images):
+//   Placed image content CMY errors (1.png, AdobeStock_*.jpeg, etc.)
+//   → Use indesign-build-preflight-safe.jsx for a fully compliant rebuild.
 //
 // Usage: In InDesign open the .indd, then run
 //        File > Scripts > Other Script … → pick this file.
@@ -217,17 +230,17 @@ if (app.documents.length === 0) {{
     // ── 6. Overset text — three-pass repair ──────────────────────────────────
     function repairOverset(tf) {{
 
-      // Pass A — height-only auto-sizing
+      // Pass A — height-only auto-sizing (fixes systematic 2-char / 21-char oversets)
       try {{
         var prefs = tf.textFramePreferences;
         prefs.autoSizingType           = AutoSizingTypeEnum.HEIGHT_ONLY;
         prefs.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
         prefs.useMinimumHeightForAutoSizing = true;
-        prefs.minimumHeightForAutoSizing    = 12;
+        prefs.minimumHeightForAutoSizing    = 4;
       }} catch (e) {{}}
       if (!tf.overflows) {{ nFixed++; return; }}
 
-      // Pass B — expand frame to page safe area
+      // Pass B — expand frame down to page safe area
       try {{
         var pg = tf.parentPage;
         if (pg) {{
@@ -243,9 +256,23 @@ if (app.documents.length === 0) {{
       }} catch (e) {{}}
       if (!tf.overflows) {{ nFixed++; return; }}
 
-      // Pass C — reduce point size (floor 5.5 pt)
+      // Pass B2 — expand to full page bleed bottom (last resort before font reduction)
+      try {{
+        var pg2 = tf.parentPage;
+        if (pg2) {{
+          var gb2 = tf.geometricBounds.slice();
+          var pb2 = pg2.bounds;
+          if (gb2[2] < pb2[2]) {{
+            gb2[2] = pb2[2];
+            tf.geometricBounds = gb2;
+          }}
+        }}
+      }} catch (e) {{}}
+      if (!tf.overflows) {{ nFixed++; return; }}
+
+      // Pass C — reduce point size (floor 5.5 pt, 0.35 pt steps, max 40 iterations)
       var guard = 0;
-      while (tf.overflows && guard < 36) {{
+      while (tf.overflows && guard < 40) {{
         try {{
           var sz = Number(tf.parentStory.texts[0].pointSize);
           if (isNaN(sz) || sz <= 5.5) break;
@@ -277,7 +304,12 @@ if (app.documents.length === 0) {{
     doc.save();
     log.push("Document saved.");
 
-    alert("Preflight autofix complete.\\n\\n" + log.join("\\n"));
+    var imageNote = (
+      "\\n\\nNOTE: Placed image CMY errors (*.png, *.jpeg) cannot be fixed\\n" +
+      "by script — they require K-only grayscale source files.\\n" +
+      "Run indesign-build-preflight-safe.jsx for a fully clean build."
+    );
+    alert("Preflight autofix complete.\\n\\n" + log.join("\\n") + imageNote);
 
   }} catch (mainErr) {{
     alert(
@@ -298,16 +330,26 @@ def main() -> None:
     JSX_OUT.write_text(jsx, encoding="utf-8")
     print(f"JSX written:    {JSX_OUT}")
 
-    # Count preflight items from the known report
-    color_count   = 194
-    overset_count = 199
-    doc_count     = 2
-    total         = color_count + overset_count + doc_count
+    # Counts from current preflight report
+    color_count          = 130
+    color_scriptable     = 40   # strokes, fills, text — fixable by script
+    color_image_content  = 90   # placed image CMY — requires K-only source files
+    overset_count        = 215
+    doc_count            = 2
+    total                = color_count + overset_count + doc_count
 
     report = {
         "script": str(JSX_OUT),
         "target_document": "visceral_theory_of_sight_precision_layout.indd",
         "preflight_profile": "Digital Publishing",
+        "preflight_error_counts": {
+            "color_total": color_count,
+            "color_scriptable_fixes": color_scriptable,
+            "color_image_content_not_scriptable": color_image_content,
+            "overset_text": overset_count,
+            "document_setup": doc_count,
+            "grand_total": total,
+        },
         "fixes": {
             "page_size": {
                 "from": "210 mm × 297 mm  (A4 portrait)",
@@ -317,10 +359,6 @@ def main() -> None:
                 "from": "3 mm all sides",
                 "to":   f"{BLEED_MM} mm all sides",
             },
-            "color_errors_targeted":   color_count,
-            "overset_errors_targeted": overset_count,
-            "document_errors_targeted": doc_count,
-            "total_preflight_errors_targeted": total,
         },
         "color_strategy": {
             "paper_like_fills": "→ [Paper]  (matches: "
@@ -328,12 +366,19 @@ def main() -> None:
             "all_other_non_black": "→ [Black]",
             "image_frame_strokes": "→ strokeWeight = 0  (removed)",
             "story_text": "→ [Black]",
+            "placed_image_content": "NOT FIXABLE by script — requires K-only grayscale source files",
         },
         "overset_strategy": {
-            "pass_a": "AutoSizingType = HEIGHT_ONLY",
+            "pass_a": "AutoSizingType = HEIGHT_ONLY, minimumHeight 4pt (handles systematic 2-char/21-char oversets)",
             "pass_b": "Expand frame bottom to page safe area",
-            "pass_c": "Reduce point size 0.35 pt per iteration, floor 5.5 pt",
+            "pass_b2": "Expand frame to full page bottom (last resort)",
+            "pass_c": "Reduce point size 0.35 pt per iteration, floor 5.5 pt, max 40 iterations",
         },
+        "limitations": [
+            "Placed image CMY content (*.png, *.jpeg) cannot be recolored by script",
+            "For fully preflight-clean output use indesign-build-preflight-safe.jsx (K-only images)",
+            "Threaded text frames may still show overset if thread partner also needs resizing",
+        ],
         "usage": (
             "In InDesign: File > Scripts > Other Script… "
             "→ select indesign-preflight-autofix-current-doc.jsx"

@@ -1,13 +1,17 @@
-// visceral_theory_of_sight_precision_layout.indd — full preflight autofix
-// Profile: Digital Publishing
+// visceral_theory_of_sight_precision_layout.indd — preflight autofix
+// Profile: Digital Publishing  |  Total errors targeted: 347
 //
 // Fixes applied by this script:
 //   (1) Page size  → US Letter landscape  279.4 mm × 215.9 mm
 //   (2) Bleed      → 3.175 mm on all four sides
-//   (3) All CMY / RGB fills / strokes → [Black] (paper-like colors → [Paper])
-//   (4) Image-frame strokes          → removed (strokeWeight = 0)
-//   (5) All story text fill colors   → [Black]
+//   (3) CMY / RGB fills & strokes on shapes/lines → [Black] or [Paper]
+//   (4) Image-frame strokes                       → strokeWeight = 0
+//   (5) All story text fill colors                → [Black]
 //   (6) Overset text: auto-size ▸ frame-expand ▸ type-reduction (floor 5.5 pt)
+//
+// NOT fixed by this script (requires K-only source images):
+//   Placed image content CMY errors (1.png, AdobeStock_*.jpeg, etc.)
+//   → Use indesign-build-preflight-safe.jsx for a fully compliant rebuild.
 //
 // Usage: In InDesign open the .indd, then run
 //        File > Scripts > Other Script … → pick this file.
@@ -163,17 +167,17 @@ if (app.documents.length === 0) {
     // ── 6. Overset text — three-pass repair ──────────────────────────────────
     function repairOverset(tf) {
 
-      // Pass A — height-only auto-sizing
+      // Pass A — height-only auto-sizing (fixes systematic 2-char / 21-char oversets)
       try {
         var prefs = tf.textFramePreferences;
         prefs.autoSizingType           = AutoSizingTypeEnum.HEIGHT_ONLY;
         prefs.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
         prefs.useMinimumHeightForAutoSizing = true;
-        prefs.minimumHeightForAutoSizing    = 12;
+        prefs.minimumHeightForAutoSizing    = 4;
       } catch (e) {}
       if (!tf.overflows) { nFixed++; return; }
 
-      // Pass B — expand frame to page safe area
+      // Pass B — expand frame down to page safe area
       try {
         var pg = tf.parentPage;
         if (pg) {
@@ -189,9 +193,23 @@ if (app.documents.length === 0) {
       } catch (e) {}
       if (!tf.overflows) { nFixed++; return; }
 
-      // Pass C — reduce point size (floor 5.5 pt)
+      // Pass B2 — expand to full page bleed bottom (last resort before font reduction)
+      try {
+        var pg2 = tf.parentPage;
+        if (pg2) {
+          var gb2 = tf.geometricBounds.slice();
+          var pb2 = pg2.bounds;
+          if (gb2[2] < pb2[2]) {
+            gb2[2] = pb2[2];
+            tf.geometricBounds = gb2;
+          }
+        }
+      } catch (e) {}
+      if (!tf.overflows) { nFixed++; return; }
+
+      // Pass C — reduce point size (floor 5.5 pt, 0.35 pt steps, max 40 iterations)
       var guard = 0;
-      while (tf.overflows && guard < 36) {
+      while (tf.overflows && guard < 40) {
         try {
           var sz = Number(tf.parentStory.texts[0].pointSize);
           if (isNaN(sz) || sz <= 5.5) break;
@@ -223,7 +241,12 @@ if (app.documents.length === 0) {
     doc.save();
     log.push("Document saved.");
 
-    alert("Preflight autofix complete.\n\n" + log.join("\n"));
+    var imageNote = (
+      "\n\nNOTE: Placed image CMY errors (*.png, *.jpeg) cannot be fixed\n" +
+      "by script — they require K-only grayscale source files.\n" +
+      "Run indesign-build-preflight-safe.jsx for a fully clean build."
+    );
+    alert("Preflight autofix complete.\n\n" + log.join("\n") + imageNote);
 
   } catch (mainErr) {
     alert(
