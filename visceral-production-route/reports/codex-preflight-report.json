@@ -1,15 +1,11 @@
 {
-  "timestamp": "2026-06-07T00:09:42.044137",
+  "timestamp": "2026-06-09T18:55:14.332926",
   "publication": "The Visceral Theory of Sight",
   "manifest": {
     "total_assets": 67,
-    "valid": false,
-    "issue_count": 3,
-    "issues": [
-      "A01: Contains smart quotes",
-      "A02: Contains smart quotes",
-      "A66: Contains smart quotes"
-    ]
+    "valid": true,
+    "issue_count": 0,
+    "issues": []
   },
-  "overall_status": "BLOCKED"
+  "overall_status": "READY"
 }

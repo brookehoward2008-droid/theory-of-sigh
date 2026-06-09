@@ -1,0 +1,31 @@
+{
+  "script": "/home/user/theory-of-sigh/visceral-production-route/templates/indesign-preflight-autofix-current-doc.jsx",
+  "target_document": "visceral_theory_of_sight_precision_layout.indd",
+  "preflight_profile": "Digital Publishing",
+  "fixes": {
+    "page_size": {
+      "from": "210 mm \u00d7 297 mm  (A4 portrait)",
+      "to": "279.4 mm \u00d7 215.9 mm  (US Letter landscape)"
+    },
+    "bleed": {
+      "from": "3 mm all sides",
+      "to": "3.175 mm all sides"
+    },
+    "color_errors_targeted": 194,
+    "overset_errors_targeted": 199,
+    "document_errors_targeted": 2,
+    "total_preflight_errors_targeted": 395
+  },
+  "color_strategy": {
+    "paper_like_fills": "\u2192 [Paper]  (matches: paper, cream, white, mist, unbleach, ivory)",
+    "all_other_non_black": "\u2192 [Black]",
+    "image_frame_strokes": "\u2192 strokeWeight = 0  (removed)",
+    "story_text": "\u2192 [Black]"
+  },
+  "overset_strategy": {
+    "pass_a": "AutoSizingType = HEIGHT_ONLY",
+    "pass_b": "Expand frame bottom to page safe area",
+    "pass_c": "Reduce point size 0.35 pt per iteration, floor 5.5 pt"
+  },
+  "usage": "In InDesign: File > Scripts > Other Script\u2026 \u2192 select indesign-preflight-autofix-current-doc.jsx"
+}

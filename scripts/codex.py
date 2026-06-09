@@ -184,7 +184,7 @@ class CodexPreflightSkills:
                 issues.append(f"{asset.label}: Missing title or label")
             if len(asset.title) > 250:
                 issues.append(f"{asset.label}: Title too long ({len(asset.title)} chars)")
-            if any(c in asset.title for c in ['"', '"', ''', ''']):
+            if any(c in asset.title for c in ['“', '”', '‘', '’']):
                 issues.append(f"{asset.label}: Contains smart quotes")
         
         return {
@@ -329,13 +329,16 @@ var captionData = [
 """
         
         for asset in self.manifest.assets:
+            title_esc = asset.title.replace('"', '\\"')
+            rights_esc = asset.rights_license_status.replace('"', '\\"')[:100]
+            section_part = asset.intended_pages_or_section.split('/')[1].strip() if '/' in asset.intended_pages_or_section else 'Unknown'
             script += f"""    {{
         label: "{asset.label}",
-        title: "{asset.title.replace('"', '\\"')}",
+        title: "{title_esc}",
         visual_group: "{asset.visual_group}",
-        section: "{asset.intended_pages_or_section.split('/')[1].strip() if '/' in asset.intended_pages_or_section else 'Unknown'}",
+        section: "{section_part}",
         creator: "{asset.creator_or_institution}",
-        rights: "{asset.rights_license_status.replace('"', '\\"')[:100]}..."
+        rights: "{rights_esc}..."
     }},
 """
 
