@@ -1,415 +1,397 @@
-// The Anatomy of Looking - full 50-page InDesign issue builder
+// The Visceral Theory of Sight - full 50-page InDesign layout builder
 // Run from InDesign: File > Scripts > Other Script...
-// Builds the print issue, linked image sequence, PDF proof, and audit report.
+// Builds US Letter landscape facing pages, 0.125in bleed, 12-column grid, K-only linked images, captions, layered editorial modules, PDF, and audit report.
 
 var ASSETS = [
   {
     "id": "A01",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-01-konly.jpg",
-    "title": "A photograph of an attractive woman with a white lace blin",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-01-konly.jpg",
+    "title": "a01-mediation-a-photograph-of-an-attractive-woman-with-a-w",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A02",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-02-konly.jpg",
-    "title": "Abstract Female Portrait Hidden Vision, Pink and Black",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-02-konly.jpg",
+    "title": "a05-social-constraint-adobestock-1024472839",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A03",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-03-konly.jpg",
-    "title": "Abstract Monochrome Portrait of a Woman A Study in Light a",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-03-konly.jpg",
+    "title": "a06-social-constraint-adobestock-1040196803",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A04",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-04-konly.jpg",
-    "title": "AdobeStock_1021442471",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-04-konly.jpg",
+    "title": "a07-social-constraint-adobestock-1044937382",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A05",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-05-konly.jpg",
-    "title": "AdobeStock_1024472839",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-05-konly.jpg",
+    "title": "a08-social-constraint-adobestock-1225023891",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A06",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-06-konly.jpg",
-    "title": "AdobeStock_1040196803",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-06-konly.jpg",
+    "title": "a09-social-constraint-adobestock-140076283",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A07",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-07-konly.jpg",
-    "title": "AdobeStock_1044937382",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-07-konly.jpg",
+    "title": "a10-social-constraint-adobestock-1462135790",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A08",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-08-konly.jpg",
-    "title": "AdobeStock_1225023891",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-08-konly.jpg",
+    "title": "a11-social-constraint-adobestock-206067082",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A09",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-09-konly.jpg",
-    "title": "AdobeStock_140076283",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-09-konly.jpg",
+    "title": "a12-social-constraint-adobestock-268225510",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A10",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-10-konly.jpg",
-    "title": "AdobeStock_1462135790",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-10-konly.jpg",
+    "title": "a13-social-constraint-adobestock-320500758",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A11",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-11-konly.jpg",
-    "title": "AdobeStock_206067082",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-11-konly.jpg",
+    "title": "a14-social-constraint-adobestock-368079012",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A12",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-12-konly.jpg",
-    "title": "AdobeStock_268225510",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-12-konly.jpg",
+    "title": "a15-social-constraint-adobestock-378198491",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A13",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-13-konly.jpg",
-    "title": "AdobeStock_320500758",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-13-konly.jpg",
+    "title": "a16-social-constraint-adobestock-565582008",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A14",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-14-konly.jpg",
-    "title": "AdobeStock_368079012",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-14-konly.jpg",
+    "title": "a17-social-constraint-adobestock-720156971",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A15",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-15-konly.jpg",
-    "title": "AdobeStock_378198491",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-15-konly.jpg",
+    "title": "a18-social-constraint-adobestock-730927617",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A16",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-16-konly.jpg",
-    "title": "AdobeStock_565582008",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-16-konly.jpg",
+    "title": "a19-social-constraint-adobestock-973721353",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A17",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-17-konly.jpg",
-    "title": "AdobeStock_720156971",
-    "group": "Group 2: Social Constraint"
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-17-konly.jpg",
+    "title": "a20-mediation-alex-bracken-l1sjo7tmvec-unsplash",
+    "group": "Group 3: Mediation"
   },
   {
     "id": "A18",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-18-konly.jpg",
-    "title": "AdobeStock_730927617",
-    "group": "Group 2: Social Constraint"
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-18-konly.jpg",
+    "title": "a21-raw-agency-alexander-krivitskiy-az7rqwlwkhi-unsplash",
+    "group": "Group 1: Raw Agency"
   },
   {
     "id": "A19",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-19-konly.jpg",
-    "title": "AdobeStock_973721353",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-19-konly.jpg",
+    "title": "a22-social-constraint-alexander-krivitskiy-gfopukdkmvo-uns",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A20",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-20-konly.jpg",
-    "title": "alex-bracken-l1SJO7TMVEc-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-20-konly.jpg",
+    "title": "a23-mediation-allef-vinicius-dkrntf-jgtw-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A21",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-21-konly.jpg",
-    "title": "alexander-krivitskiy-az7rqWLWkhI-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-21-konly.jpg",
+    "title": "a24-raw-agency-amir-geshani-2jh8d3chnec-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A22",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-22-konly.jpg",
-    "title": "alexander-krivitskiy-GfOpUKdkMvo-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-22-konly.jpg",
+    "title": "a25-social-constraint-andrey-zvyagintsev-t8iknlqojcq-unspl",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A23",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-23-konly.jpg",
-    "title": "allef-vinicius-DKrNTF_Jgtw-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-23-konly.jpg",
+    "title": "a26-mediation-arielle-allouche-h82rqe4gria-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A24",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-24-konly.jpg",
-    "title": "amir-geshani-2JH8d3ChNec-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-24-konly.jpg",
+    "title": "a27-raw-agency-baran-lotfollahi-lobgof8rurg-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A25",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-25-konly.jpg",
-    "title": "andrey-zvyagintsev-T8IkNlQojCQ-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-25-konly.jpg",
+    "title": "a28-social-constraint-birmingham-museums-trust-oqpbewogd0o",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A26",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-26-konly.jpg",
-    "title": "arielle-allouche-H82Rqe4griA-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-26-konly.jpg",
+    "title": "a29-mediation-boston-public-library-grbfmxpumu4-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A27",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-27-konly.jpg",
-    "title": "baran-lotfollahi-LOBgOf8Rurg-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-27-konly.jpg",
+    "title": "a30-raw-agency-brunxs-monochrome-spniqdcpi9u-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A28",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-28-konly.jpg",
-    "title": "birmingham-museums-trust-oQpbeWoGD0o-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-28-konly.jpg",
+    "title": "a31-social-constraint-caleb-kastein-lmnz6-icim8-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A29",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-29-konly.jpg",
-    "title": "boston-public-library-gRbFMxpUMU4-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-29-konly.jpg",
+    "title": "a32-mediation-camila-quintero-franco-mc852jack1g-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A30",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-30-konly.jpg",
-    "title": "brunxs-monochrome-sPnIqdCPI9U-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-30-konly.jpg",
+    "title": "a33-raw-agency-carl-cheng-o4l-vetcxhy-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A31",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-31-konly.jpg",
-    "title": "caleb-kastein-lmNz6-ICIM8-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-31-konly.jpg",
+    "title": "a34-social-constraint-cole-keister-d6zqt8nfiq4-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A32",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-32-konly.jpg",
-    "title": "camila-quintero-franco-mC852jACK1g-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-32-konly.jpg",
+    "title": "a35-mediation-darius-bashar-3xegkkbinck-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A33",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-33-konly.jpg",
-    "title": "carl-cheng-o4L-veTcXHY-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-33-konly.jpg",
+    "title": "a36-raw-agency-drew-dizzy-graham-ctkgzjtmjqu-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A34",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-34-konly.jpg",
-    "title": "cole-keister-D6zQt8NfIq4-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-34-konly.jpg",
+    "title": "a37-social-constraint-elias-maurer-ssplu7ipc8g-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A35",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-35-konly.jpg",
-    "title": "darius-bashar-3XEgKKBinCk-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-35-konly.jpg",
+    "title": "a38-mediation-elvis-kaiser-rqbk5ez6qa0-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A36",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-36-konly.jpg",
-    "title": "drew-dizzy-graham-cTKGZJTMJQU-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-36-konly.jpg",
+    "title": "a39-raw-agency-enesh-taganova-ioxgidqvqyq-unsplash-1",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A37",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-37-konly.jpg",
-    "title": "elias-maurer-sSpLu7IPC8g-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-37-konly.jpg",
+    "title": "a40-social-constraint-erik-mclean-gjtz5ckgeew-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A38",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-38-konly.jpg",
-    "title": "elvis-kaiser-Rqbk5ez6Qa0-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-38-konly.jpg",
+    "title": "a41-mediation-europeana-lbt8newonko-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A39",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-39-konly.jpg",
-    "title": "enesh-taganova-IoXGIDqVqYQ-unsplash (1)",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-39-konly.jpg",
+    "title": "a42-raw-agency-europeana-wwghncxmcqi-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A40",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-40-konly.jpg",
-    "title": "erik-mclean-gjtz5cKGEEw-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-40-konly.jpg",
+    "title": "a43-social-constraint-evilicio-inc-1hty8zlswls-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A41",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-41-konly.jpg",
-    "title": "europeana-lBt8NEWOnko-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-41-konly.jpg",
+    "title": "a44-mediation-flaviu-costin-vr-sbbcwklc-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A42",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-42-konly.jpg",
-    "title": "europeana-wwgHncxMcQI-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-42-konly.jpg",
+    "title": "a45-raw-agency-good-faces-r8vsytyy2oe-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A43",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-43-konly.jpg",
-    "title": "evilicio-inc-1HTY8zLsWLs-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-43-konly.jpg",
+    "title": "a46-social-constraint-harry-quan-g1iycecw2ei-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A44",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-44-konly.jpg",
-    "title": "flaviu-costin-Vr-sBbCWklc-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-44-konly.jpg",
+    "title": "a47-mediation-igor-rand-giw9ccl3hxa-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A45",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-45-konly.jpg",
-    "title": "good-faces-R8VSYtyY2oE-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-45-konly.jpg",
+    "title": "a48-raw-agency-ilya-mondryk-oceeo0ayn1s-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A46",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-46-konly.jpg",
-    "title": "harry-quan-G1iYCeCW2EI-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-46-konly.jpg",
+    "title": "a49-social-constraint-janko-ferlic-brzt6bdt6na-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A47",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-47-konly.jpg",
-    "title": "igor-rand-GIW9CCL3HxA-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-47-konly.jpg",
+    "title": "a50-mediation-jr-korpa-0lokelbdsbw-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A48",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-48-konly.jpg",
-    "title": "ilya-mondryk-OCEeo0aYN1s-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-48-konly.jpg",
+    "title": "a51-raw-agency-library-of-congress-v0jinhbf3xq-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A49",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-49-konly.jpg",
-    "title": "janko-ferlic-brZT6bdt6NA-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-49-konly.jpg",
+    "title": "a52-social-constraint-lorraine-hill-4dyxkga2gxa-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A50",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-50-konly.jpg",
-    "title": "jr-korpa-0lOkeLbdsBw-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-50-konly.jpg",
+    "title": "a53-mediation-mahdi-bafande-rw-azxeky7q-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A51",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-51-konly.jpg",
-    "title": "library-of-congress-v0jInHBf3XQ-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-51-konly.jpg",
+    "title": "a54-raw-agency-nastia-petruk-f-hajyv3wye-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A52",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-52-konly.jpg",
-    "title": "lorraine-hill-4dyXkga2GxA-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-52-konly.jpg",
+    "title": "a55-social-constraint-nina-zeynep-guler-fjjivsx-bxm-unspla",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A53",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-53-konly.jpg",
-    "title": "mahdi-bafande-rw-AZxeky7Q-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-53-konly.jpg",
+    "title": "a56-mediation-noah-buscher-11ldehfy-ha-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A54",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-54-konly.jpg",
-    "title": "nastia-petruk-F-HAjYv3WyE-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-54-konly.jpg",
+    "title": "a57-raw-agency-ovie-ogege-6bwt4ci-ujs-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A55",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-55-konly.jpg",
-    "title": "nina-zeynep-guler-fjJiVSX-BxM-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-55-konly.jpg",
+    "title": "a58-social-constraint-see-plus-np3s9byoqac-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A56",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-56-konly.jpg",
-    "title": "noah-buscher-11lDEHFy_hA-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-56-konly.jpg",
+    "title": "a59-mediation-smithsonian-elpq3w9epnk-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A57",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-57-konly.jpg",
-    "title": "ovie-ogege-6bwT4cI_UJs-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-57-konly.jpg",
+    "title": "a60-raw-agency-smithsonian-otg-zz0tybe-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A58",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-58-konly.jpg",
-    "title": "see-plus-NP3s9BYOqAc-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-58-konly.jpg",
+    "title": "a61-social-constraint-teslariu-mihai-tk-szddiuis-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A59",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-59-konly.jpg",
-    "title": "smithsonian-ELPq3W9Epnk-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-59-konly.jpg",
+    "title": "a62-mediation-the-new-york-public-library-ndjv4ntdf6g-unsp",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A60",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-60-konly.jpg",
-    "title": "smithsonian-OtG-Zz0tYbE-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-60-konly.jpg",
+    "title": "a63-raw-agency-toa-heftiba-fv1lunshcaw-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A61",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-61-konly.jpg",
-    "title": "teslariu-mihai-tK-SzdDiUIs-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-61-konly.jpg",
+    "title": "a64-social-constraint-umanoide-xjp9ak1oqhw-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A62",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-62-konly.jpg",
-    "title": "the-new-york-public-library-ndJV4ntdF6g-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-62-konly.jpg",
+    "title": "a65-mediation-umesh-soni-hpklbuuel-k-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A63",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-63-konly.jpg",
-    "title": "toa-heftiba-FV1LuNSHcAw-unsplash",
-    "group": "Group 1: Raw Agency"
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-63-konly.jpg",
+    "title": "a66-mediation-woman-obscured-by-white-flowers-creating-a-d",
+    "group": "Group 3: Mediation"
   },
   {
     "id": "A64",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-64-konly.jpg",
-    "title": "umanoide-XJP9Ak1oqHw-unsplash",
-    "group": "Group 2: Social Constraint"
-  },
-  {
-    "id": "A65",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-65-konly.jpg",
-    "title": "umesh-soni-hpklBuuel_k-unsplash",
-    "group": "Group 3: Mediation"
-  },
-  {
-    "id": "A66",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-66-konly.jpg",
-    "title": "Woman obscured by white flowers, creating a dreamy and sur",
-    "group": "Group 3: Mediation"
-  },
-  {
-    "id": "A67",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/preflight-konly/asset-67-konly.jpg",
-    "title": "zachary-kadolph-qBJgfnCTwbU-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/preflight-konly/asset-64-konly.jpg",
+    "title": "a67-social-constraint-zachary-kadolph-qbjgfnctwbu-unsplash",
     "group": "Group 2: Social Constraint"
   }
 ];
-var OUTPUT_INDD = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.indd";
-var OUTPUT_IDML = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.idml";
-var OUTPUT_PDF = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-auto.pdf";
-var OUTPUT_REPORT = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/reports/indesign-preflight-safe-build-report.json";
+var OUTPUT_INDD = "/home/user/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.indd";
+var OUTPUT_IDML = "/home/user/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.idml";
+var OUTPUT_PDF = "/home/user/theory-of-sigh/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-auto.pdf";
+var OUTPUT_REPORT = "/home/user/theory-of-sigh/visceral-production-route/reports/indesign-preflight-safe-build-report.json";
 
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;
 
@@ -417,10 +399,10 @@ try {
 
 var COPY = {
   "intro": "Sight is never only an act of seeing. It is a negotiation between the body that appears, the culture that disciplines appearance, and the surface that decides what can be touched by the eye. This book moves through agency, constraint, and mediation as one visual pressure system.",
-  "agency": "The body becomes the first instrument of authorship before it becomes a subject for interpretation. In the first movement of this book, sight begins with bodily insistence: a hand, a shoulder, a mouth, an eye, or a turned face does not wait for culture to explain it. The figure enters as pressure. It occupies the page with the blunt force of being present, and that presence matters because the viewer has not yet been given a stable rule for reading it.\n\nMcDermott gives this article its earliest time marker: the female body can be read not only as an object of display, but as a possible record of embodied self-representation. The working idea is that early bodily images can carry agency through scale, fragment, gesture, and emphasis. A figure can be partial and still be active. A body can still claim space. The argument treats the body as origin, not because origin is simple, but because every later system of looking must first meet the fact of the body.\n\nAgency is close, image-led, and slightly uncomfortable. Faces and fragments interrupt the viewer before the viewer has decided what kind of image this is. The body is not introduced as an illustration of theory. It is introduced as the condition that makes theory necessary.\n\nThis is also where the neural learning backdrop enters quietly: looking is not passive reception. The eye learns by comparing pressure, repetition, interruption, and contrast. A body seen once is an image. A body seen across a sequence becomes a pattern the reader has to train against. The first article therefore builds a visual lesson in agency: presence arrives before permission.",
-  "constraint": "Culture turns visibility into a protocol. The second movement begins when bodily force is no longer allowed to stand alone. The figure becomes arranged by posture, costume, rank, gender, ritual, and inherited rules of display. A face can still look outward, but it now looks through an architecture of expectation. A body can still occupy the frame, but the frame has begun to instruct it.\n\nArt history gives this section the cultural body: posture, presentation, ritual, social role, and the disciplined relation between figure and viewer. Visibility becomes social when a culture teaches bodies how to appear, and teaches viewers how to approve that appearance.\n\nConstraint does not erase agency. It redirects it. The body still carries force, but that force is shaped by context: who is permitted to look, who is expected to be seen, and what a culture teaches the viewer to accept as natural. The body has entered a room where every gesture is already being measured.\n\nThis matters to the psychology of sight because the viewer is also constrained. We do not only look at the ruled body; we learn the rule by looking. Repetition, obstruction, pose, and symbol teach the eye how social meaning attaches to bodies through time. Seeing is no longer just contact. It is compliance, resistance, and learned interpretation happening at the same time.",
-  "mediation": "The veil is an editing system, not a disappearance. The third movement begins where the body and the rule meet a surface that can interrupt both. Lace, shadow, fabric, blur, flowers, hair, hands, and darkness all become interfaces. They do not simply hide the figure. They decide how slowly the figure can arrive.\n\nThe veiling route is held through iconography, Vera Icona, lace, secrecy, and the larger problem of mediated access. The key point is not that the viewer is denied. The key point is that denial becomes structure. A veil produces a special kind of attention because the eye has to work without full possession. It keeps searching, comparing edges, reading textures, and inventing continuity from fragments.\n\nThis section becomes more atmospheric, with more surface interruption and slower perception. Images are allowed to feel secretive, but the argument stays direct: mediation is the place where agency and constraint become visible as tension. The body wants to appear. The rule wants to organize appearance. The veil controls the tempo of access.\n\nThe idea stays clear: surface, delay, pressure, partial access. Those repeated terms create a learning path through the atmosphere. The reader can feel the mystery without getting lost inside it. The veil does not remove meaning. It makes meaning arrive through effort.",
-  "synthesis": "Sight becomes visceral when these forces remain active together. The final movement refuses to solve the body, the rule, and the veil into a clean hierarchy. Agency begins the argument, constraint disciplines it, and mediation keeps it unresolved. The image becomes powerful because no single force wins.\n\nThis is the core thesis of the book: psychological pressure does not come from clear depiction alone. It comes from calculated revelation. The viewer feels the image because the image negotiates what can be seen, how quickly it can be seen, and what remains withheld even after attention has been spent. The body is present, but not fully available. Culture is legible, but not neutral. The veil interrupts, but also teaches the eye how to continue.\n\nThe synthesis refuses easy balance. Large images take authority, and the argument holds sight in motion instead of pretending it has settled. The instability is not decoration. It is the final proof of the argument: unstable sight is where learning happens.\n\nThe conclusion keeps the claims careful. It does not invent quotations, publication details, or license certainty. It names the scholarly routes that support the issue and keeps the theory visible in the reading itself."
+  "agency": "The body becomes the first instrument of authorship before it becomes a subject for interpretation. In the first movement of this book, sight begins with bodily insistence: a hand, a shoulder, a mouth, an eye, or a turned face does not wait for culture to explain it. The figure enters as pressure. It occupies the page with the blunt force of being present, and that presence matters because the viewer has not yet been given a stable rule for reading it.\n\nThe scholarly route through McDermott is used here as a verified-to-be-checked framework rather than as a source of direct quotation. The working idea is that early bodily images can be read as more than passive objects of display. They carry agency through scale, fragment, gesture, and emphasis. A figure can be partial and still be active. A cropped body can still claim space. The page therefore treats the body as origin, not because origin is simple, but because every later system of looking must first meet the fact of the body.\n\nAgency in this layout is close, image-led, and slightly uncomfortable. The images press into the margins. Captions cross edges. Text is broken into short forceful passages so the reader feels the body interrupting analysis. The design does not let the article become smooth because smoothness would weaken the argument. The body is not introduced as an illustration of theory. It is introduced as the condition that makes theory necessary.\n\nThis is also where the neural learning backdrop enters quietly: looking is not passive reception. The eye learns by comparing pressure, repetition, interruption, and contrast. A body seen once is an image. A body seen across a sequence becomes a pattern the reader has to train against. The first article therefore builds a visual lesson in agency: presence arrives before permission.",
+  "constraint": "Culture turns visibility into a protocol. The second movement begins when bodily force is no longer allowed to stand alone. The figure becomes arranged by posture, costume, rank, gender, ritual, and inherited rules of display. A face can still look outward, but it now looks through an architecture of expectation. A body can still occupy the frame, but the frame has begun to instruct it.\n\nThe Havelock and Reeder route is treated as a scholarly placeholder for the cultural body: Greek art, social posture, public presentation, and the disciplined relation between figure and viewer. No direct quotation is used here because the source texts are not supplied in the workspace. Instead, the article synthesizes the assigned idea: visibility becomes social when a culture teaches bodies how to appear, and teaches viewers how to approve that appearance.\n\nConstraint does not erase agency. It redirects it. The body still carries force, but that force is shaped by protocol. The page system responds by tightening. Columns become more formal. Panels sit closer to the grid. Accent color marks pressure points, especially where the terms agency and constraint appear together. This section should feel less wild than the first, but more tense. The reader should sense that the body has entered a room where every gesture is already being measured.\n\nThis matters to the theory of sight because the viewer is also constrained. We do not only look at the ruled body; we learn the rule by looking. The layout asks the reader to notice that training. Each repeated crop, caption, and column teaches a visual habit. The eye becomes disciplined alongside the figure. Seeing is no longer just contact. It is compliance, resistance, and learned interpretation happening at the same time.",
+  "mediation": "The veil is an editing system, not a disappearance. The third movement begins where the body and the rule meet a surface that can interrupt both. Lace, shadow, fabric, blur, flowers, hair, hands, and darkness all become interfaces. They do not simply hide the figure. They decide how slowly the figure can arrive.\n\nThe veiling route is held through iconography, Vera Icona, lace, secrecy, and the larger problem of mediated access. The key point is not that the viewer is denied. The key point is that denial becomes structure. A veil produces a special kind of attention because the eye has to work without full possession. It keeps searching, comparing edges, reading textures, and inventing continuity from fragments.\n\nThis section opens the grid. The design becomes more atmospheric, with more negative space and more surface interruption. Images are allowed to feel secretive. Text becomes quieter, more breath-based, but it still carries an argument: mediation is the place where agency and constraint become visible as tension. The body wants to appear. The rule wants to organize appearance. The veil controls the tempo of access.\n\nFor an ADHD reader, this section should not become vague. The idea stays modular: surface, delay, pressure, partial access. Those repeated terms create a learning path through the atmosphere. The reader can feel the mystery without getting lost inside it. The veil does not remove meaning. It makes meaning arrive through effort.",
+  "synthesis": "Sight becomes visceral when these forces remain active together. The final movement refuses to solve the body, the rule, and the veil into a clean hierarchy. Agency begins the argument, constraint disciplines it, and mediation keeps it unresolved. The image becomes powerful because no single force wins.\n\nThis is the core thesis of the book: psychological pressure does not come from clear depiction alone. It comes from calculated revelation. The viewer feels the image because the image negotiates what can be seen, how quickly it can be seen, and what remains withheld even after attention has been spent. The body is present, but not fully available. Culture is legible, but not neutral. The veil interrupts, but also teaches the eye how to continue.\n\nThe synthesis pages therefore break the grid most visibly. Large images take authority. Text floats beside them or presses into panels that seem slightly displaced. The asymmetry is not decoration. It is the final proof of the argument. A symmetrical page would imply that sight has settled. This book needs sight to remain unstable, because unstable sight is where learning happens.\n\nThe conclusion keeps the claims rights-sensitive and citation-safe. It does not invent quotations, publication details, or license certainty. It names the scholarly routes that still need final verification and holds the visual argument as the completed local production route. What remains is deliberate: source checking, instructor review, and final export. The theory, however, is already visible in the structure."
 };
 
 function mm(v) { return v + "mm"; }
@@ -632,7 +614,7 @@ function colorPanel(page, bounds, swatch, opacity) {
 }
 
 function caption(page, bounds, item, ink, cream) {
-  var label = item.id + " / " + item.group.replace("Group 1: ", "").replace("Group 2: ", "").replace("Group 3: ", "") + "\nA controlled glimpse becomes part of the argument.";
+  var label = item.id + " / " + item.group.replace("Group 1: ", "").replace("Group 2: ", "").replace("Group 3: ", "") + "\ncaption crosses the image edge; rights verify";
   var tf = textFrame(page, bounds, label, 6.2, "Bold", cream, 100);
   try { tf.fillColor = ink; tf.transparencySettings.blendingSettings.opacity = 78; } catch(e) {}
   return tf;
@@ -666,14 +648,14 @@ function frontMatter(page, n, doc, ink, cream, gold) {
   if (n === 2) {
     textFrame(page, b(62, 24, 118, 170), "The Visceral\rTheory of Sight", 30, "Bold", ink, 100);
     textFrame(page, b(126, 26, 152, 160), "A 50-page editorial art book on controlled revelation.", 10, "Regular", ink, 100);
-    textFrame(page, b(245, 24, 272, 160), "Issue dossier: psychology of sight, image memory, Symbolism, Surrealist interruption, and the human habit of reading faces before words.", 7, "Regular", ink, 100);
+    textFrame(page, b(245, 24, 272, 160), "US Letter landscape preflight layout. 12-column grid. 0.125in bleed. Source and rights verification required before final export.", 7, "Regular", ink, 100);
   } else if (n === 3) {
-    textFrame(page, b(216, 24, 271, 182), "CREDITS / RIGHTS NOTE\rImages are credited in the source register at the back. Adobe Stock, Unsplash, archive, and local image files require final rights confirmation before publication.", 8, "Regular", ink, 100);
+    textFrame(page, b(216, 24, 271, 182), "LEGAL / CREDITS\rThis layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 8, "Regular", ink, 100);
   } else {
     textFrame(page, b(42, 24, 70, 170), "BODY / RULE / VEIL", 24, "Bold", ink, 100);
     textFrame(page, b(96, 24, 196, 70), "01 Front Matter\r05 Introduction\r08 The Body", 11, "Regular", ink, 100);
     textFrame(page, b(126, 88, 226, 134), "17 Constraint\r27 The Veil\r39 Synthesis", 11, "Regular", gold, 100);
-    textFrame(page, b(156, 150, 244, 190), "46 Credits\r48 Sources\r49 Image Register\r50 Close", 11, "Regular", ink, 100);
+    textFrame(page, b(156, 150, 244, 190), "46 Credits\r48 Sources\r49 Process\r50 Close", 11, "Regular", ink, 100);
   }
 }
 
@@ -731,11 +713,11 @@ function articlePage(page, n, section, item, doc, ink, cream, gold, slate) {
 function backMatter(page, n, doc, ink, cream, gold) {
   if (n === 50) {
     textFrame(page, b(60, 24, 108, 172), "Sight remains\runfinished.", 28, "Bold", ink, 100);
-    textFrame(page, b(236, 24, 260, 172), "Publication requires final source and license confirmation before release.", 8, "Regular", ink, 100);
+    textFrame(page, b(236, 24, 260, 172), "Final export still requires source verification, license verification, and instructor-facing review.", 8, "Regular", ink, 100);
   } else {
-    var head = n === 46 ? "IMAGE CREDITS" : n === 47 ? "IMAGE CREDITS CONTINUED" : n === 48 ? "SOURCE LIST" : "EDITOR'S NOTE";
+    var head = n === 46 ? "IMAGE CREDITS" : n === 47 ? "IMAGE CREDITS CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
     textFrame(page, b(28, 24, 48, 172), head, 16, "Bold", ink, 100);
-    var body = "Images are credited in the register, and rights remain to be confirmed before publication. The issue follows agency, constraint, and mediation as three linked pressures in the psychology of sight.";
+    var body = "Assets are linked from the production asset folder. Rights remain verify before final export. The layout uses overlap, broken flow, and layered pull-quote pressure to support agency, constraint, and mediation.";
     textFrame(page, b(64, 24, 246, 172), body, 8.5, "Regular", ink, 100);
   }
 }
@@ -784,7 +766,7 @@ for (var i = 0; i < doc.textFrames.length; i++) {
 
 saveDesktopFiles(doc);
 } catch (err) {
-  var errorFile = File("C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/reports/indesign-preflight-safe-error.txt");
+  var errorFile = File("/home/user/theory-of-sigh/visceral-production-route/reports/indesign-preflight-safe-error.txt");
   if (!errorFile.parent.exists) errorFile.parent.create();
   errorFile.encoding = "UTF-8";
   errorFile.open("w");
@@ -792,4 +774,3 @@ saveDesktopFiles(doc);
   errorFile.close();
   throw err;
 }
-

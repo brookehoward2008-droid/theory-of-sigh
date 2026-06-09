@@ -1,4 +1,0 @@
-Wed Jun 03 2026 18:33:48 GMT-0700 | start export
-Wed Jun 03 2026 18:33:48 GMT-0700 | opened pages=50
-Wed Jun 03 2026 18:34:25 GMT-0700 | exported pdf=C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-export.pdf
-Wed Jun 03 2026 18:34:25 GMT-0700 | saved source

@@ -13,13 +13,18 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
-from pypdf import PdfReader, PdfWriter
+try:
+    from pypdf import PdfReader, PdfWriter
+    _PYPDF_OK = True
+except BaseException:
+    _PYPDF_OK = False
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ASSETS = Path(
+_WINDOWS_ASSETS = Path(
     r"C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets"
 )
+SOURCE_ASSETS = _WINDOWS_ASSETS if _WINDOWS_ASSETS.exists() else ROOT / "images" / "labeled"
 ROUTE = ROOT / "visceral-production-route"
 ASSET_OUT = ROUTE / "assets"
 PDF_OUT = ROUTE / "output" / "pdf"
@@ -187,6 +192,8 @@ def clean_generated_dirs() -> None:
 
 
 def apply_print_boxes(pdf_path: Path) -> None:
+    if not _PYPDF_OK:
+        return
     reader = PdfReader(str(pdf_path))
     writer = PdfWriter()
     for page in reader.pages:

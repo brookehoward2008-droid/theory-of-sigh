@@ -5,411 +5,393 @@
 var ASSETS = [
   {
     "id": "A01",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-01.jpeg",
-    "title": "A photograph of an attractive woman with a white lace blin",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-01.jpg",
+    "title": "a01-mediation-a-photograph-of-an-attractive-woman-with-a-w",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A02",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-02.jpeg",
-    "title": "Abstract Female Portrait Hidden Vision, Pink and Black",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-02.jpg",
+    "title": "a05-social-constraint-adobestock-1024472839",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A03",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-03.jpeg",
-    "title": "Abstract Monochrome Portrait of a Woman A Study in Light a",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-03.jpg",
+    "title": "a06-social-constraint-adobestock-1040196803",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A04",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-04.jpeg",
-    "title": "AdobeStock_1021442471",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-04.jpg",
+    "title": "a07-social-constraint-adobestock-1044937382",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A05",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-05.jpeg",
-    "title": "AdobeStock_1024472839",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-05.jpg",
+    "title": "a08-social-constraint-adobestock-1225023891",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A06",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-06.jpeg",
-    "title": "AdobeStock_1040196803",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-06.jpg",
+    "title": "a09-social-constraint-adobestock-140076283",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A07",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-07.jpeg",
-    "title": "AdobeStock_1044937382",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-07.jpg",
+    "title": "a10-social-constraint-adobestock-1462135790",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A08",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-08.jpeg",
-    "title": "AdobeStock_1225023891",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-08.jpg",
+    "title": "a11-social-constraint-adobestock-206067082",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A09",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-09.jpeg",
-    "title": "AdobeStock_140076283",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-09.jpg",
+    "title": "a12-social-constraint-adobestock-268225510",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A10",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-10.jpeg",
-    "title": "AdobeStock_1462135790",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-10.jpg",
+    "title": "a13-social-constraint-adobestock-320500758",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A11",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-11.jpeg",
-    "title": "AdobeStock_206067082",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-11.jpg",
+    "title": "a14-social-constraint-adobestock-368079012",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A12",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-12.jpeg",
-    "title": "AdobeStock_268225510",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-12.jpg",
+    "title": "a15-social-constraint-adobestock-378198491",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A13",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-13.jpeg",
-    "title": "AdobeStock_320500758",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-13.jpg",
+    "title": "a16-social-constraint-adobestock-565582008",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A14",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-14.jpeg",
-    "title": "AdobeStock_368079012",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-14.jpg",
+    "title": "a17-social-constraint-adobestock-720156971",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A15",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-15.jpeg",
-    "title": "AdobeStock_378198491",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-15.jpg",
+    "title": "a18-social-constraint-adobestock-730927617",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A16",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-16.jpeg",
-    "title": "AdobeStock_565582008",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-16.jpg",
+    "title": "a19-social-constraint-adobestock-973721353",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A17",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-17.jpeg",
-    "title": "AdobeStock_720156971",
-    "group": "Group 2: Social Constraint"
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-17.jpg",
+    "title": "a20-mediation-alex-bracken-l1sjo7tmvec-unsplash",
+    "group": "Group 3: Mediation"
   },
   {
     "id": "A18",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-18.jpeg",
-    "title": "AdobeStock_730927617",
-    "group": "Group 2: Social Constraint"
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-18.jpg",
+    "title": "a21-raw-agency-alexander-krivitskiy-az7rqwlwkhi-unsplash",
+    "group": "Group 1: Raw Agency"
   },
   {
     "id": "A19",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-19.jpeg",
-    "title": "AdobeStock_973721353",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-19.jpg",
+    "title": "a22-social-constraint-alexander-krivitskiy-gfopukdkmvo-uns",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A20",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-20.jpg",
-    "title": "alex-bracken-l1SJO7TMVEc-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-20.jpg",
+    "title": "a23-mediation-allef-vinicius-dkrntf-jgtw-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A21",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-21.jpg",
-    "title": "alexander-krivitskiy-az7rqWLWkhI-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-21.jpg",
+    "title": "a24-raw-agency-amir-geshani-2jh8d3chnec-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A22",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-22.jpg",
-    "title": "alexander-krivitskiy-GfOpUKdkMvo-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-22.jpg",
+    "title": "a25-social-constraint-andrey-zvyagintsev-t8iknlqojcq-unspl",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A23",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-23.jpg",
-    "title": "allef-vinicius-DKrNTF_Jgtw-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-23.jpg",
+    "title": "a26-mediation-arielle-allouche-h82rqe4gria-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A24",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-24.jpg",
-    "title": "amir-geshani-2JH8d3ChNec-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-24.jpg",
+    "title": "a27-raw-agency-baran-lotfollahi-lobgof8rurg-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A25",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-25.jpg",
-    "title": "andrey-zvyagintsev-T8IkNlQojCQ-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-25.jpg",
+    "title": "a28-social-constraint-birmingham-museums-trust-oqpbewogd0o",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A26",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-26.jpg",
-    "title": "arielle-allouche-H82Rqe4griA-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-26.jpg",
+    "title": "a29-mediation-boston-public-library-grbfmxpumu4-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A27",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-27.jpg",
-    "title": "baran-lotfollahi-LOBgOf8Rurg-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-27.jpg",
+    "title": "a30-raw-agency-brunxs-monochrome-spniqdcpi9u-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A28",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-28.jpg",
-    "title": "birmingham-museums-trust-oQpbeWoGD0o-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-28.jpg",
+    "title": "a31-social-constraint-caleb-kastein-lmnz6-icim8-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A29",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-29.jpg",
-    "title": "boston-public-library-gRbFMxpUMU4-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-29.jpg",
+    "title": "a32-mediation-camila-quintero-franco-mc852jack1g-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A30",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-30.jpg",
-    "title": "brunxs-monochrome-sPnIqdCPI9U-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-30.jpg",
+    "title": "a33-raw-agency-carl-cheng-o4l-vetcxhy-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A31",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-31.jpg",
-    "title": "caleb-kastein-lmNz6-ICIM8-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-31.jpg",
+    "title": "a34-social-constraint-cole-keister-d6zqt8nfiq4-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A32",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-32.jpg",
-    "title": "camila-quintero-franco-mC852jACK1g-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-32.jpg",
+    "title": "a35-mediation-darius-bashar-3xegkkbinck-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A33",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-33.jpg",
-    "title": "carl-cheng-o4L-veTcXHY-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-33.jpg",
+    "title": "a36-raw-agency-drew-dizzy-graham-ctkgzjtmjqu-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A34",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-34.jpg",
-    "title": "cole-keister-D6zQt8NfIq4-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-34.jpg",
+    "title": "a37-social-constraint-elias-maurer-ssplu7ipc8g-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A35",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-35.jpg",
-    "title": "darius-bashar-3XEgKKBinCk-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-35.jpg",
+    "title": "a38-mediation-elvis-kaiser-rqbk5ez6qa0-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A36",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-36.jpg",
-    "title": "drew-dizzy-graham-cTKGZJTMJQU-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-36.jpg",
+    "title": "a39-raw-agency-enesh-taganova-ioxgidqvqyq-unsplash-1",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A37",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-37.jpg",
-    "title": "elias-maurer-sSpLu7IPC8g-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-37.jpg",
+    "title": "a40-social-constraint-erik-mclean-gjtz5ckgeew-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A38",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-38.jpg",
-    "title": "elvis-kaiser-Rqbk5ez6Qa0-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-38.jpg",
+    "title": "a41-mediation-europeana-lbt8newonko-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A39",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-39.jpg",
-    "title": "enesh-taganova-IoXGIDqVqYQ-unsplash (1)",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-39.jpg",
+    "title": "a42-raw-agency-europeana-wwghncxmcqi-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A40",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-40.jpg",
-    "title": "erik-mclean-gjtz5cKGEEw-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-40.jpg",
+    "title": "a43-social-constraint-evilicio-inc-1hty8zlswls-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A41",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-41.jpg",
-    "title": "europeana-lBt8NEWOnko-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-41.jpg",
+    "title": "a44-mediation-flaviu-costin-vr-sbbcwklc-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A42",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-42.jpg",
-    "title": "europeana-wwgHncxMcQI-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-42.jpg",
+    "title": "a45-raw-agency-good-faces-r8vsytyy2oe-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A43",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-43.jpg",
-    "title": "evilicio-inc-1HTY8zLsWLs-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-43.jpg",
+    "title": "a46-social-constraint-harry-quan-g1iycecw2ei-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A44",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-44.jpg",
-    "title": "flaviu-costin-Vr-sBbCWklc-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-44.jpg",
+    "title": "a47-mediation-igor-rand-giw9ccl3hxa-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A45",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-45.jpg",
-    "title": "good-faces-R8VSYtyY2oE-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-45.jpg",
+    "title": "a48-raw-agency-ilya-mondryk-oceeo0ayn1s-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A46",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-46.jpg",
-    "title": "harry-quan-G1iYCeCW2EI-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-46.jpg",
+    "title": "a49-social-constraint-janko-ferlic-brzt6bdt6na-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A47",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-47.jpg",
-    "title": "igor-rand-GIW9CCL3HxA-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-47.jpg",
+    "title": "a50-mediation-jr-korpa-0lokelbdsbw-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A48",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-48.jpg",
-    "title": "ilya-mondryk-OCEeo0aYN1s-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-48.jpg",
+    "title": "a51-raw-agency-library-of-congress-v0jinhbf3xq-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A49",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-49.jpg",
-    "title": "janko-ferlic-brZT6bdt6NA-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-49.jpg",
+    "title": "a52-social-constraint-lorraine-hill-4dyxkga2gxa-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A50",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-50.jpg",
-    "title": "jr-korpa-0lOkeLbdsBw-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-50.jpg",
+    "title": "a53-mediation-mahdi-bafande-rw-azxeky7q-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A51",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-51.jpg",
-    "title": "library-of-congress-v0jInHBf3XQ-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-51.jpg",
+    "title": "a54-raw-agency-nastia-petruk-f-hajyv3wye-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A52",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-52.jpg",
-    "title": "lorraine-hill-4dyXkga2GxA-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-52.jpg",
+    "title": "a55-social-constraint-nina-zeynep-guler-fjjivsx-bxm-unspla",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A53",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-53.jpg",
-    "title": "mahdi-bafande-rw-AZxeky7Q-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-53.jpg",
+    "title": "a56-mediation-noah-buscher-11ldehfy-ha-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A54",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-54.jpg",
-    "title": "nastia-petruk-F-HAjYv3WyE-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-54.jpg",
+    "title": "a57-raw-agency-ovie-ogege-6bwt4ci-ujs-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A55",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-55.jpg",
-    "title": "nina-zeynep-guler-fjJiVSX-BxM-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-55.jpg",
+    "title": "a58-social-constraint-see-plus-np3s9byoqac-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A56",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-56.jpg",
-    "title": "noah-buscher-11lDEHFy_hA-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-56.jpg",
+    "title": "a59-mediation-smithsonian-elpq3w9epnk-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A57",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-57.jpg",
-    "title": "ovie-ogege-6bwT4cI_UJs-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-57.jpg",
+    "title": "a60-raw-agency-smithsonian-otg-zz0tybe-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A58",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-58.jpg",
-    "title": "see-plus-NP3s9BYOqAc-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-58.jpg",
+    "title": "a61-social-constraint-teslariu-mihai-tk-szddiuis-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A59",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-59.jpg",
-    "title": "smithsonian-ELPq3W9Epnk-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-59.jpg",
+    "title": "a62-mediation-the-new-york-public-library-ndjv4ntdf6g-unsp",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A60",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-60.jpg",
-    "title": "smithsonian-OtG-Zz0tYbE-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-60.jpg",
+    "title": "a63-raw-agency-toa-heftiba-fv1lunshcaw-unsplash",
     "group": "Group 1: Raw Agency"
   },
   {
     "id": "A61",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-61.jpg",
-    "title": "teslariu-mihai-tK-SzdDiUIs-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-61.jpg",
+    "title": "a64-social-constraint-umanoide-xjp9ak1oqhw-unsplash",
     "group": "Group 2: Social Constraint"
   },
   {
     "id": "A62",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-62.jpg",
-    "title": "the-new-york-public-library-ndJV4ntdF6g-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-62.jpg",
+    "title": "a65-mediation-umesh-soni-hpklbuuel-k-unsplash",
     "group": "Group 3: Mediation"
   },
   {
     "id": "A63",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-63.jpg",
-    "title": "toa-heftiba-FV1LuNSHcAw-unsplash",
-    "group": "Group 1: Raw Agency"
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-63.jpg",
+    "title": "a66-mediation-woman-obscured-by-white-flowers-creating-a-d",
+    "group": "Group 3: Mediation"
   },
   {
     "id": "A64",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-64.jpg",
-    "title": "umanoide-XJP9Ak1oqHw-unsplash",
-    "group": "Group 2: Social Constraint"
-  },
-  {
-    "id": "A65",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-65.jpg",
-    "title": "umesh-soni-hpklBuuel_k-unsplash",
-    "group": "Group 3: Mediation"
-  },
-  {
-    "id": "A66",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-66.jpeg",
-    "title": "Woman obscured by white flowers, creating a dreamy and sur",
-    "group": "Group 3: Mediation"
-  },
-  {
-    "id": "A67",
-    "path": "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/assets/asset-67.jpg",
-    "title": "zachary-kadolph-qBJgfnCTwbU-unsplash",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-64.jpg",
+    "title": "a67-social-constraint-zachary-kadolph-qbjgfnctwbu-unsplash",
     "group": "Group 2: Social Constraint"
   }
 ];
-var OUTPUT_INDD = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.indd";
-var OUTPUT_IDML = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.idml";
-var OUTPUT_PDF = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-auto.pdf";
-var OUTPUT_REPORT = "C:/Users/toddl/OneDrive/Documents/visceral/visceral-production-route/reports/indesign-full-layout-auto-report.json";
+var OUTPUT_INDD = "/home/user/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.indd";
+var OUTPUT_IDML = "/home/user/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.idml";
+var OUTPUT_PDF = "/home/user/theory-of-sigh/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-auto.pdf";
+var OUTPUT_REPORT = "/home/user/theory-of-sigh/visceral-production-route/reports/indesign-full-layout-auto-report.json";
 
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;
 
