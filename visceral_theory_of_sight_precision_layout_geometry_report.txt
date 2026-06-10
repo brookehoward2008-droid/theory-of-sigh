@@ -1,0 +1,29 @@
+VISceral Theory of Sight — Geometry Report
+Generated: Tue Jun 09 2026 12:11:46 GMT-0700
+
+Document: A4 portrait, 210 mm x 297 mm, facing pages ON
+Pages: 50
+Bleed: 3 mm all sides
+Margins: inside 21 mm, outside 16 mm, top/bottom 21 mm
+Grid: 12 columns, 5 mm gutters
+Calculated column width: 9.833 mm
+Baseline: starts at 21 mm, increment 4 mm
+Asset folder: C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets
+
+Expected images: 44
+Missing exact-name matches: 15
+MISSING: A photograph of an attractive woman with a white lace blindfold, roses on her headband, long blonde hair, soft features.jpeg
+MISSING: Abstract Female Portrait Hidden Vision, Pink and Black.jpeg
+MISSING: Abstract Monochrome Portrait of a Woman A Study in Light and Shadow.jpeg
+MISSING: AdobeStock_720156988.jpeg
+MISSING: AdobeStock_987045868.jpeg
+MISSING: AdobeStock_1985396810.jpeg
+MISSING: houcine-ncib-J3fKbg3mkJs-unsplash.jpg
+MISSING: Mysterious Woman with Blood Tears and Lace Blindfold Against a Crimson Background.jpeg
+MISSING: Woman obscured by white flowers, creating a dreamy and surreal portrait against a dark green background.jpeg
+MISSING: A photograph of an attractive woman with a white lace blindfold, roses on her headband, long blonde hair, soft features.jpeg
+MISSING: Abstract Female Portrait Hidden Vision, Pink and Black.jpeg
+MISSING: Abstract Monochrome Portrait of a Woman A Study in Light and Shadow.jpeg
+MISSING: AdobeStock_720156988.jpeg
+MISSING: AdobeStock_987045868.jpeg
+MISSING: Woman obscured by white flowers, creating a dreamy and surreal portrait against a dark green background.jpeg
