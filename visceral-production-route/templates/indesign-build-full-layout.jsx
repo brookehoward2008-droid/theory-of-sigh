@@ -1,6 +1,6 @@
 // The Visceral Theory of Sight - full 50-page InDesign layout builder
 // Run from InDesign: File > Scripts > Other Script...
-// Builds A4 facing pages, 3mm bleed, 12-column grid, linked images, captions, layered editorial modules, PDF, and audit report.
+// Builds US Letter landscape facing pages, 3.175mm bleed, full-bleed section title pages with descriptions, multi-image spreads, captions, PDF, and audit report.
 
 var ASSETS = [
   {
@@ -403,6 +403,33 @@ var COPY = {
   "synthesis": "Sight becomes visceral when these forces remain active together. The final movement refuses to solve the body, the rule, and the veil into a clean hierarchy. Agency begins the argument, constraint disciplines it, and mediation keeps it unresolved. The image becomes powerful because no single force wins.\n\nThis is the core thesis of the book: psychological pressure does not come from clear depiction alone. It comes from calculated revelation. The viewer feels the image because the image negotiates what can be seen, how quickly it can be seen, and what remains withheld even after attention has been spent. The body is present, but not fully available. Culture is legible, but not neutral. The veil interrupts, but also teaches the eye how to continue.\n\nThe synthesis pages therefore break the grid most visibly. Large images take authority. Text floats beside them or presses into panels that seem slightly displaced. The asymmetry is not decoration. It is the final proof of the argument. A symmetrical page would imply that sight has settled. This book needs sight to remain unstable, because unstable sight is where learning happens.\n\nThe conclusion keeps the claims rights-sensitive and citation-safe. It does not invent quotations, publication details, or license certainty. It names the scholarly routes that still need final verification and holds the visual argument as the completed local production route. What remains is deliberate: source checking, instructor review, and final export. The theory, however, is already visible in the structure."
 };
 
+var SECTION = {
+  "Agency": {
+    "numeral": "I",
+    "title": "Agency",
+    "sub": "The Body / presence before permission",
+    "blurb": "Agency is the body as its own first statement: a hand, an eye, a turned face that claims attention as pressure, before any rule arrives to explain it."
+  },
+  "Constraint": {
+    "numeral": "II",
+    "title": "Constraint",
+    "sub": "The Rule / visibility as protocol",
+    "blurb": "Constraint is culture turning visibility into protocol: pose, costume, rank, and ritual teach a body how it may appear, and teach the viewer how to approve it."
+  },
+  "Mediation": {
+    "numeral": "III",
+    "title": "Mediation",
+    "sub": "The Veil / the tempo of access",
+    "blurb": "Mediation is the veil as an editing system: lace, shadow, fabric, and blur do not simply hide the body, they decide how slowly it is allowed to be seen."
+  },
+  "Synthesis": {
+    "numeral": "IV",
+    "title": "Synthesis",
+    "sub": "Sight that refuses to settle",
+    "blurb": "Synthesis is sight that refuses to settle: body, rule, and veil stay active at once, so looking stays unfinished and the image keeps its pressure."
+  }
+};
+
 function mm(v) { return v + "mm"; }
 function b(t, l, bot, r) { return [mm(t), mm(l), mm(bot), mm(r)]; }
 function pageBounds(page, bounds) {
@@ -438,18 +465,18 @@ function copyChunk(key, n) {
 
 function setupDoc() {
   var doc = app.documents.add();
-  doc.documentPreferences.pageWidth = "210mm";
-  doc.documentPreferences.pageHeight = "297mm";
+  doc.documentPreferences.pageWidth = "279.4mm";
+  doc.documentPreferences.pageHeight = "215.9mm";
   doc.documentPreferences.facingPages = true;
   doc.documentPreferences.pagesPerDocument = 50;
-  doc.documentPreferences.documentBleedTopOffset = "3mm";
-  doc.documentPreferences.documentBleedBottomOffset = "3mm";
-  doc.documentPreferences.documentBleedInsideOrLeftOffset = "3mm";
-  doc.documentPreferences.documentBleedOutsideOrRightOffset = "3mm";
-  doc.marginPreferences.top = "20.790mm";
-  doc.marginPreferences.bottom = "20.790mm";
-  doc.marginPreferences.left = "21.000mm";
-  doc.marginPreferences.right = "15.750mm";
+  doc.documentPreferences.documentBleedTopOffset = "3.175mm";
+  doc.documentPreferences.documentBleedBottomOffset = "3.175mm";
+  doc.documentPreferences.documentBleedInsideOrLeftOffset = "3.175mm";
+  doc.documentPreferences.documentBleedOutsideOrRightOffset = "3.175mm";
+  doc.marginPreferences.top = "16mm";
+  doc.marginPreferences.bottom = "16mm";
+  doc.marginPreferences.left = "16mm";
+  doc.marginPreferences.right = "16mm";
   doc.marginPreferences.columnCount = 12;
   doc.marginPreferences.columnGutter = "5mm";
   return doc;
@@ -559,8 +586,8 @@ function writeBuildReport(doc) {
     generatedAt: new Date().toString(),
     pageCount: doc.pages.length,
     facingPages: doc.documentPreferences.facingPages,
-    trim: "A4 portrait 210mm x 297mm",
-    bleed: "3mm all sides",
+    trim: "US Letter landscape 279.4mm x 215.9mm",
+    bleed: "3.175mm all sides",
     columns: 12,
     assetCount: ASSETS.length,
     linkCount: doc.links.length,
@@ -605,7 +632,7 @@ function caption(page, bounds, item, ink, cream) {
 }
 
 function pageNum(page, n, ink) {
-  textFrame(page, b(282, 184, 289, 202), ("0" + n).slice(-2), 6.5, "Regular", ink, 100);
+  textFrame(page, b(204, 250, 212, 270), ("0" + n).slice(-2), 6.5, "Regular", ink, 100);
 }
 
 function saveDesktopFiles(doc) {
@@ -620,87 +647,108 @@ function saveDesktopFiles(doc) {
 
 function cover(page, doc, ink, cream, gold) {
   var item = groupAsset("Mediation", 0);
-  colorPanel(page, b(0, 0, 297, 210), ink, 100);
-  imageFrame(page, b(30, 24, 232, 186), item, 100);
-  textFrame(page, b(240, 28, 269, 182), "THE VISCERAL\rTHEORY OF SIGHT", 24, "Bold", cream, 100);
-  textFrame(page, b(270, 62, 282, 148), "the body, the gaze, and the veil", 8, "Regular", cream, 100);
+  imageFrame(page, b(-4, -4, 220, 284), item, 100);
+  colorPanel(page, b(120, -4, 220, 284), ink, 46);
+  textFrame(page, b(150, 18, 162, 230), "THE ANATOMY OF LOOKING", 10, "Bold", gold, 100);
+  textFrame(page, b(164, 18, 198, 252), "THE VISCERAL\rTHEORY OF SIGHT", 33, "Bold", cream, 100);
+  textFrame(page, b(198, 18, 210, 232), "the body, the gaze, and the veil", 11, "Regular", cream, 100);
+}
+
+function sectionTitle(page, key, ink, cream, gold) {
+  var meta = SECTION[key];
+  imageFrame(page, b(-4, -4, 220, 284), groupAsset(key, 1), 100);
+  colorPanel(page, b(-4, -4, 220, 284), ink, 56);
+  textFrame(page, b(94, 18, 106, 180), "ARTICLE " + meta.numeral, 11, "Bold", gold, 100);
+  textFrame(page, b(108, 18, 150, 252), meta.title, 38, "Bold", cream, 100);
+  textFrame(page, b(150, 18, 164, 250), meta.sub, 12, "Italic", cream, 100);
+  textFrame(page, b(166, 18, 202, 230), meta.blurb, 10, "Regular", cream, 100);
 }
 
 function frontMatter(page, n, doc, ink, cream, gold) {
   if (n === 2) {
-    textFrame(page, b(62, 24, 118, 170), "The Visceral\rTheory of Sight", 30, "Bold", ink, 100);
-    textFrame(page, b(126, 26, 152, 160), "A 50-page editorial art book on controlled revelation.", 10, "Regular", ink, 100);
-    textFrame(page, b(245, 24, 272, 160), "A4 precision layout. 12-column grid. 3mm bleed. Source and rights verification required before final export.", 7, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 78, 230), "The Visceral\rTheory of Sight", 30, "Bold", ink, 100);
+    textFrame(page, b(86, 18, 110, 240), "A 50-page editorial art book on controlled revelation.", 11, "Regular", ink, 100);
+    textFrame(page, b(176, 18, 200, 255), "US Letter landscape. 12-column grid. 3.175mm bleed. Source and rights verification required before final export.", 8, "Regular", ink, 100);
   } else if (n === 3) {
-    textFrame(page, b(216, 24, 271, 182), "LEGAL / CREDITS\rThis layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 8, "Regular", ink, 100);
+    textFrame(page, b(18, 18, 32, 160), "LEGAL / CREDITS", 12, "Bold", gold, 100);
+    textFrame(page, b(40, 18, 180, 255), "This layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 10, "Regular", ink, 100);
   } else {
-    textFrame(page, b(42, 24, 70, 170), "BODY / RULE / VEIL", 24, "Bold", ink, 100);
-    textFrame(page, b(96, 24, 196, 70), "01 Front Matter\r05 Introduction\r08 The Body", 11, "Regular", ink, 100);
-    textFrame(page, b(126, 88, 226, 134), "17 Constraint\r27 The Veil\r39 Synthesis", 11, "Regular", gold, 100);
-    textFrame(page, b(156, 150, 244, 190), "46 Credits\r48 Sources\r49 Process\r50 Close", 11, "Regular", ink, 100);
+    textFrame(page, b(18, 18, 46, 220), "BODY / RULE / VEIL", 24, "Bold", ink, 100);
+    textFrame(page, b(58, 18, 150, 112), "01 Front Matter\r05 Introduction\r08 Agency / The Body", 12, "Regular", ink, 100);
+    textFrame(page, b(58, 120, 150, 220), "17 Constraint / The Rule\r27 Mediation / The Veil\r39 Synthesis", 12, "Regular", gold, 100);
+    textFrame(page, b(152, 18, 196, 220), "46 Source Register\r48 Sources\r49 Process\r50 Close", 11, "Regular", ink, 100);
   }
 }
 
 function introPage(page, n, doc, ink, cream, gold) {
-  imageFrame(page, b(32, 24, 132, 84), groupAsset("Mediation", n), 100);
-  imageFrame(page, b(88, 98, 178, 186), groupAsset("Constraint", n), 100);
-  imageFrame(page, b(154, 44, 238, 132), groupAsset("Agency", n), 85);
-  colorPanel(page, b(188, 18, 252, 156), cream, 88);
-  textFrame(page, b(196, 26, 224, 148), "The Visceral Theory of Sight", 21, "Bold", ink, 100);
-  textFrame(page, b(226, 27, 258, 160), COPY.intro, 8.6, "Regular", ink, 100);
-  caption(page, b(124, 72, 145, 134), groupAsset("Mediation", n), ink, cream);
+  if (n === 5) {
+    textFrame(page, b(20, 18, 52, 200), "The Visceral Theory of Sight", 26, "Bold", ink, 100);
+    textFrame(page, b(58, 18, 180, 150), COPY.intro, 10.5, "Regular", ink, 100);
+    imageFrame(page, b(20, 158, 118, 252), groupAsset("Mediation", n), 100);
+    imageFrame(page, b(122, 158, 199, 252), groupAsset("Agency", n), 100);
+    caption(page, b(102, 162, 118, 248), groupAsset("Mediation", n), ink, cream);
+  } else if (n === 6) {
+    imageFrame(page, b(-4, -4, 220, 284), groupAsset("Constraint", n), 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 48);
+    textFrame(page, b(148, 18, 186, 250), "The image does not give itself all at once.", 26, "Bold", cream, 100);
+    textFrame(page, b(186, 18, 200, 252), "Controlled revelation is the method. Tension is the evidence.", 11, "Regular", cream, 100);
+  } else {
+    textFrame(page, b(18, 18, 30, 220), "THE THREE PRESSURES", 12, "Bold", gold, 100);
+    textFrame(page, b(40, 18, 70, 96), "AGENCY\rbody as force", 14, "Bold", ink, 100);
+    textFrame(page, b(40, 100, 70, 178), "CONSTRAINT\rbody as protocol", 14, "Bold", ink, 100);
+    textFrame(page, b(40, 182, 70, 262), "MEDIATION\rveil as edit", 14, "Bold", ink, 100);
+    imageFrame(page, b(80, 18, 150, 263), groupAsset("Agency", n), 100);
+    textFrame(page, b(156, 18, 198, 255), COPY.intro, 9.5, "Regular", ink, 100);
+  }
 }
 
-function articlePage(page, n, section, item, doc, ink, cream, gold, slate) {
-  var mode = n % 6;
-  var accent = section === "MEDIATION" ? slate : gold;
+function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold, slate) {
+  var mode = n % 3;
+  var body = copyChunk(section.toLowerCase(), n);
   if (mode === 0) {
-    imageFrame(page, b(24, 14, 216, 142), item, 100);
-    colorPanel(page, b(144, 122, 205, 194), cream, 86);
-    textFrame(page, b(152, 130, 176, 188), section, 18, "Bold", ink, 100);
-    textFrame(page, b(176, 130, 204, 188), copyChunk(section.toLowerCase(), n), 7.8, "Regular", ink, 100);
-    caption(page, b(196, 24, 216, 92), item, ink, cream);
+    // Dominant image left, text column right.
+    imageFrame(page, b(16, 16, 199, 150), item, 100);
+    textFrame(page, b(20, 160, 44, 262), section, 20, "Bold", ink, 100);
+    textFrame(page, b(46, 160, 199, 262), body, 9.2, "Regular", ink, 100);
+    caption(page, b(180, 20, 199, 110), item, ink, cream);
   } else if (mode === 1) {
-    imageFrame(page, b(42, 68, 210, 196), item, 100);
-    colorPanel(page, b(18, 22, 240, 58), accent, 100);
-    textFrame(page, b(44, 28, 198, 52), section, 18, "Bold", cream, 100);
-    colorPanel(page, b(206, 46, 248, 176), cream, 84);
-    textFrame(page, b(212, 52, 246, 168), copyChunk(section.toLowerCase(), n), 7.4, "Regular", ink, 100);
-  } else if (mode === 2) {
-    imageFrame(page, b(0, 0, 297, 210), item, 100);
-    colorPanel(page, b(78, 0, 116, 210), accent, 82);
-    textFrame(page, b(82, 26, 112, 182), "ONLY ONE EYE REMAINS, THE IMAGE GETS LOUDER.", 18, "Bold", cream, 100);
-    colorPanel(page, b(214, 18, 276, 86), ink, 72);
-    textFrame(page, b(220, 24, 270, 80), copyChunk(section.toLowerCase(), n), 7.2, "Regular", cream, 100);
-  } else if (mode === 3) {
-    imageFrame(page, b(34, 20, 120, 102), item, 100);
-    imageFrame(page, b(112, 92, 250, 182), item, 92);
-    textFrame(page, b(124, 28, 164, 128), "A body becomes legible through pressure.", 13, "Bold", ink, 100);
-    textFrame(page, b(166, 28, 210, 118), copyChunk(section.toLowerCase(), n), 7.6, "Regular", ink, 100);
-    caption(page, b(106, 78, 127, 148), item, ink, cream);
-  } else if (mode === 4) {
-    imageFrame(page, b(42, 30, 226, 180), item, 100);
-    colorPanel(page, b(214, 0, 260, 210), accent, 88);
-    textFrame(page, b(220, 22, 254, 188), "THE VEIL DOES NOT DISAPPEAR THE BODY.", 16, "Bold", cream, 100);
-    colorPanel(page, b(68, 132, 116, 194), cream, 82);
-    textFrame(page, b(72, 138, 112, 188), copyChunk(section.toLowerCase(), n), 7.2, "Regular", ink, 100);
+    // Full-bleed image, scrim, pull statement, body panel.
+    imageFrame(page, b(-4, -4, 220, 284), item, 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 50);
+    textFrame(page, b(20, 18, 26, 170), "ARTICLE / " + section, 8, "Bold", gold, 100);
+    textFrame(page, b(30, 18, 74, 240), "Only one eye remains; the image gets louder.", 24, "Bold", cream, 100);
+    colorPanel(page, b(150, 12, 200, 150), ink, 58);
+    textFrame(page, b(154, 18, 198, 146), body, 8.6, "Regular", cream, 100);
   } else {
-    imageFrame(page, b(22, 44, 266, 178), item, 100);
-    colorPanel(page, b(26, 28, 58, 128), cream, 80);
-    textFrame(page, b(30, 34, 54, 122), section + " / controlled visibility", 12, "Bold", ink, 100);
-    caption(page, b(240, 120, 264, 190), item, ink, cream);
+    // Triptych: three images across, text band beneath (multi-image spread).
+    imageFrame(page, b(16, 16, 132, 95), item, 100);
+    imageFrame(page, b(16, 100, 132, 179), item2, 100);
+    imageFrame(page, b(16, 184, 132, 263), item3, 100);
+    textFrame(page, b(140, 16, 162, 262), section + " / SEQUENCE", 16, "Bold", ink, 100);
+    textFrame(page, b(164, 16, 199, 262), body, 9, "Regular", ink, 100);
+    caption(page, b(116, 104, 132, 175), item2, ink, cream);
   }
 }
 
 function backMatter(page, n, doc, ink, cream, gold) {
   if (n === 50) {
-    textFrame(page, b(60, 24, 108, 172), "Sight remains\runfinished.", 28, "Bold", ink, 100);
-    textFrame(page, b(236, 24, 260, 172), "Final export still requires source verification, license verification, and instructor-facing review.", 8, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 96, 230), "Sight remains\runfinished.", 34, "Bold", ink, 100);
+    textFrame(page, b(150, 18, 190, 250), "Final export still requires source verification, license verification, and instructor-facing review.", 10, "Regular", ink, 100);
+    return;
+  }
+  var head = n === 46 ? "IMAGE SOURCE REGISTER" : n === 47 ? "IMAGE SOURCE REGISTER / CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
+  textFrame(page, b(18, 18, 34, 255), head, 14, "Bold", gold, 100);
+  if (n === 46 || n === 47) {
+    var startIdx = n === 46 ? 0 : 32;
+    var lines = "";
+    for (var i = startIdx; i < Math.min(startIdx + 32, ASSETS.length); i++) {
+      lines += ASSETS[i].id + "  " + ASSETS[i].title + " - rights verify\r";
+    }
+    textFrame(page, b(40, 18, 200, 255), lines, 8, "Regular", ink, 100);
+  } else if (n === 48) {
+    textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", ink, 100);
   } else {
-    var head = n === 46 ? "IMAGE CREDITS" : n === 47 ? "IMAGE CREDITS CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
-    textFrame(page, b(28, 24, 48, 172), head, 16, "Bold", ink, 100);
-    var body = "Assets are linked from the production asset folder. Rights remain verify before final export. The layout uses overlap, broken flow, and layered pull-quote pressure to support agency, constraint, and mediation.";
-    textFrame(page, b(64, 24, 246, 172), body, 8.5, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 200, 255), "The grid uses a 12-column logic but refuses a fully settled rhythm. Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance. Captions overlap image edges; pull statements carry the argument.", 10, "Regular", ink, 100);
   }
 }
 
@@ -713,14 +761,18 @@ var slate = addSwatch(doc, "Slate Blue", [82, 107, 122]);
 for (var p = 0; p < doc.pages.length; p++) {
   var page = doc.pages[p];
   var n = p + 1;
-  colorPanel(page, b(0, 0, 297, 210), cream, 100);
+  colorPanel(page, b(-4, -4, 220, 284), cream, 100);
   if (n === 1) cover(page, doc, ink, cream, gold);
   else if (n <= 4) frontMatter(page, n, doc, ink, cream, gold);
   else if (n <= 7) introPage(page, n, doc, ink, cream, gold);
-  else if (n <= 16) articlePage(page, n, "AGENCY", groupAsset("Agency", n), doc, ink, cream, gold, slate);
-  else if (n <= 26) articlePage(page, n, "CONSTRAINT", groupAsset("Constraint", n), doc, ink, cream, gold, slate);
-  else if (n <= 38) articlePage(page, n, "MEDIATION", groupAsset("Mediation", n), doc, ink, cream, gold, slate);
-  else if (n <= 45) articlePage(page, n, "SYNTHESIS", asset(n), doc, ink, cream, gold, slate);
+  else if (n === 8) sectionTitle(page, "Agency", ink, cream, gold);
+  else if (n <= 16) articlePage(page, n, "AGENCY", groupAsset("Agency", n), groupAsset("Agency", n + 1), groupAsset("Agency", n + 2), doc, ink, cream, gold, slate);
+  else if (n === 17) sectionTitle(page, "Constraint", ink, cream, gold);
+  else if (n <= 26) articlePage(page, n, "CONSTRAINT", groupAsset("Constraint", n), groupAsset("Constraint", n + 1), groupAsset("Constraint", n + 2), doc, ink, cream, gold, slate);
+  else if (n === 27) sectionTitle(page, "Mediation", ink, cream, gold);
+  else if (n <= 38) articlePage(page, n, "MEDIATION", groupAsset("Mediation", n), groupAsset("Mediation", n + 1), groupAsset("Mediation", n + 2), doc, ink, cream, gold, slate);
+  else if (n === 39) sectionTitle(page, "Synthesis", ink, cream, gold);
+  else if (n <= 45) articlePage(page, n, "SYNTHESIS", asset(n), asset(n + 1), asset(n + 2), doc, ink, cream, gold, slate);
   else backMatter(page, n, doc, ink, cream, gold);
   pageNum(page, n, ink);
 }
