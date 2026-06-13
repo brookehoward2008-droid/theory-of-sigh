@@ -106,8 +106,13 @@ def main() -> int:
 
     try:
         import win32com.client  # noqa: F401
-    except ImportError:
-        print("ERROR: pywin32 is required. Install with: pip install pywin32")
+    except Exception as exc:  # ImportError, or pywin32 DLL-load failure
+        print("ERROR: could not import win32com (pywin32).")
+        print(f"  running python: {sys.executable}")
+        print(f"  real error:     {exc!r}")
+        print("  Fix it for THIS interpreter, then re-run:")
+        print(f'    "{sys.executable}" -m pip install --upgrade pywin32')
+        print(f'    "{sys.executable}" -m pywin32_postinstall -install')
         return 1
 
     print("Step 2/2: launch InDesign and run the builder ...")
