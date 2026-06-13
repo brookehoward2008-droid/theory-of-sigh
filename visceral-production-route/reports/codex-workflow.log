@@ -1,43 +1,43 @@
-[18:55:14] INFO     | 
-[18:55:14] INFO     | ╔════════════════════════════════════════════════════╗
-[18:55:14] INFO     | ║  CODEX PUBLICATION AUTOMATION WORKFLOW v1.1        ║
-[18:55:14] INFO     | ║  The Visceral Theory of Sight                      ║
-[18:55:14] INFO     | ╚════════════════════════════════════════════════════╝
-[18:55:14] INFO     | 
-[18:55:14] INFO     | === CODEX VALIDATION GATE ===
-[18:55:14] INFO     | Loading manifest...
-[18:55:14] OK       | Loaded 67 assets
-[18:55:14] INFO     | Running validation checks...
-[18:55:14] OK       | All checks passed (67 assets)
-[18:55:14] INFO     | === GENERATING REPORTS ===
-[18:55:14] INFO     | Generating QA gate report...
-[18:55:14] OK       | QA Report: codex-qa-gate-report.json
-[18:55:14] INFO     | Generating source register...
-[18:55:14] OK       | Source Register: codex-source-register.md
-[18:55:14] INFO     | Generating InDesign caption injection script...
-[18:55:14] OK       | Caption Script: codex-caption-injection.jsx
-[18:55:14] INFO     | === PUBLISHING EXPORT ===
-[18:55:14] INFO     | Exporting manifest as CSV...
-[18:55:14] OK       | Manifest CSV: codex-manifest-export.csv
-[18:55:14] INFO     | Generating asset index...
-[18:55:14] OK       | Asset Index: codex-asset-index.json
-[18:55:14] INFO     | === WRITING DOCUMENTATION ===
-[18:55:14] INFO     | Generating HTML contact sheet...
-[18:55:14] OK       | Contact Sheet: codex-contact-sheet.html
-[18:55:14] INFO     | === COMPREHENSIVE PREFLIGHT ===
-[18:55:14] INFO     | Checking manifest completeness...
-[18:55:14] OK       | Manifest: 0 issues
-[18:55:14] INFO     | Generating preflight report...
-[18:55:14] OK       | Preflight Report: codex-preflight-report.json
-[18:55:14] INFO     | 
-[18:55:14] OK       | ✓ Workflow completed in 0.0s
-[18:55:14] INFO     | 
-[18:55:14] INFO     | Next steps:
-[18:55:14] INFO     |   1. Review codex-qa-gate-report.json
-[18:55:14] INFO     |   2. Run automated tests
-[18:55:14] INFO     |   3. Run HTML preflight on web proof
-[18:55:14] INFO     |   4. Visual inspection in browser
-[18:55:14] INFO     |   5. Open InDesign and run codex-indesign-bridge.jsx
-[18:55:14] INFO     |   6. Run InDesign preflight
-[18:55:14] INFO     |   7. Export PDF and inspect
-[18:55:14] INFO     | 
+[16:43:51] INFO     | 
+[16:43:51] INFO     | ╔════════════════════════════════════════════════════╗
+[16:43:51] INFO     | ║  CODEX PUBLICATION AUTOMATION WORKFLOW v1.1        ║
+[16:43:51] INFO     | ║  The Visceral Theory of Sight                      ║
+[16:43:51] INFO     | ╚════════════════════════════════════════════════════╝
+[16:43:51] INFO     | 
+[16:43:51] INFO     | === CODEX VALIDATION GATE ===
+[16:43:51] INFO     | Loading manifest...
+[16:43:51] OK       | Loaded 64 assets
+[16:43:51] INFO     | Running validation checks...
+[16:43:51] OK       | All checks passed (64 assets)
+[16:43:51] INFO     | === GENERATING REPORTS ===
+[16:43:51] INFO     | Generating QA gate report...
+[16:43:51] OK       | QA Report: codex-qa-gate-report.json
+[16:43:51] INFO     | Generating source register...
+[16:43:51] OK       | Source Register: codex-source-register.md
+[16:43:51] INFO     | Generating InDesign caption injection script...
+[16:43:51] OK       | Caption Script: codex-caption-injection.jsx
+[16:43:51] INFO     | === PUBLISHING EXPORT ===
+[16:43:51] INFO     | Exporting manifest as CSV...
+[16:43:51] OK       | Manifest CSV: codex-manifest-export.csv
+[16:43:51] INFO     | Generating asset index...
+[16:43:51] OK       | Asset Index: codex-asset-index.json
+[16:43:51] INFO     | === WRITING DOCUMENTATION ===
+[16:43:51] INFO     | Generating HTML contact sheet...
+[16:43:51] OK       | Contact Sheet: codex-contact-sheet.html
+[16:43:51] INFO     | === COMPREHENSIVE PREFLIGHT ===
+[16:43:51] INFO     | Checking manifest completeness...
+[16:43:51] OK       | Manifest: 0 issues
+[16:43:51] INFO     | Generating preflight report...
+[16:43:51] OK       | Preflight Report: codex-preflight-report.json
+[16:43:51] INFO     | 
+[16:43:51] OK       | ✓ Workflow completed in 0.0s
+[16:43:51] INFO     | 
+[16:43:51] INFO     | Next steps:
+[16:43:51] INFO     |   1. Review codex-qa-gate-report.json
+[16:43:51] INFO     |   2. Run automated tests
+[16:43:51] INFO     |   3. Run HTML preflight on web proof
+[16:43:51] INFO     |   4. Visual inspection in browser
+[16:43:51] INFO     |   5. Open InDesign and run codex-indesign-bridge.jsx
+[16:43:51] INFO     |   6. Run InDesign preflight
+[16:43:51] INFO     |   7. Export PDF and inspect
+[16:43:51] INFO     | 

@@ -1,6 +1,6 @@
 # Image Source Register
 
-Back matter documentation for all 67 images in the publication.
+Back matter documentation for all 64 images in the publication.
 
 ## Group 1: Raw Agency
 
@@ -170,39 +170,6 @@ Back matter documentation for all 67 images in the publication.
 ---
 
 ## Group 2: Social Constraint
-
-### A02: Abstract Female Portrait Hidden Vision, Pink and Black
-
-- **Section:** Pages 17-26 / Article II, The Constraint
-- **Creator/Source:** Creator not verified
-- **Rights Status:** Local/generated/unknown source; verify creator, source, and usage rights before final export.
-- **Original Path:** C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets\Abstract Female Portrait Hidden Vision, Pink and Black.jpeg
-- **Repository File:** images/labeled/a02-social-constraint-abstract-female-portrait-hidden-vision-pink-and-black.jpg
-- **Dimensions:** 4096x4096 (original) → 1800x1800 (web)
-
----
-
-### A03: Abstract Monochrome Portrait of a Woman A Study in Light and Shadow
-
-- **Section:** Pages 17-26 / Article II, The Constraint
-- **Creator/Source:** Creator not verified
-- **Rights Status:** Local/generated/unknown source; verify creator, source, and usage rights before final export.
-- **Original Path:** C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets\Abstract Monochrome Portrait of a Woman A Study in Light and Shadow.jpeg
-- **Repository File:** images/labeled/a03-social-constraint-abstract-monochrome-portrait-of-a-woman-a-study-in-light-and-shadow.jpg
-- **Dimensions:** 4096x4096 (original) → 1800x1800 (web)
-
----
-
-### A04: AdobeStock_1021442471
-
-- **Section:** Pages 17-26 / Article II, The Constraint
-- **Creator/Source:** Adobe Stock contributor not verified
-- **Rights Status:** Adobe Stock filename present; verify local license before final export.
-- **Original Path:** C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets\AdobeStock_1021442471.jpeg
-- **Repository File:** images/labeled/a04-social-constraint-adobestock-1021442471.jpg
-- **Dimensions:** 4176x5544 (original) → 1356x1800 (web)
-
----
 
 ### A05: AdobeStock_1024472839
 

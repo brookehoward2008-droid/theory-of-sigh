@@ -4,7 +4,7 @@
 
 ## What Codex Does
 
-- **Validates** the photo manifest (67 images with metadata)
+- **Validates** the photo manifest (64 images with metadata)
 - **Generates** InDesign ExtendScript for automatic caption injection
 - **Creates** the backmatter source register from metadata
 - **Reports** QA gate status before final handoff
@@ -19,7 +19,7 @@ python scripts/codex_workflow.py
 ```
 
 This will:
-- Validate all 67 assets
+- Validate all 64 assets
 - Generate QA gate report
 - Generate source register markdown
 - Generate caption injection script for InDesign
@@ -74,7 +74,7 @@ from codex import Codex
 codex = Codex(root)
 
 # Load manifest
-manifest = codex.load_manifest()  # 67 assets
+manifest = codex.load_manifest()  # 64 assets
 
 # Validate
 validation = codex.validate_manifest()
@@ -131,10 +131,10 @@ ExtendScript for InDesign automation:
 Before publication, Codex validates:
 
 - ✓ Automated test suite passes
-- ✓ HTML/source preflight (TOC, captions, 67 source-register entries)
+- ✓ HTML/source preflight (TOC, captions, 64 source-register entries)
 - ✓ Browser visual inspection (caption crowding, text fit, image rhythm)
 - ✓ InDesign preflight (missing links, overset, bleed, color, fonts)
-- ✓ 67 images with A-number, visual group, source-register entry
+- ✓ 64 images with A-number, visual group, source-register entry
 - ✓ No original filenames/rights notes in front-of-book captions
 - ✓ References & citations resolve to backmatter
 - ✓ PDF export validation (trim, bleed, gutters, folios, captions)
@@ -253,7 +253,7 @@ Inspect exported PDF for:
   "manifest_validation": {
     "valid": true,
     "issue_count": 0,
-    "total_assets": 67
+    "total_assets": 64
   },
   "checklist": [
     "✓ Run automated test suite",
@@ -267,7 +267,7 @@ Inspect exported PDF for:
 
 `codex-source-register.md`:
 
-Backmatter documentation for all 67 images:
+Backmatter documentation for all 64 images:
 
 ```markdown
 ## Group 3: Mediation
@@ -290,8 +290,8 @@ Timestamped execution log for debugging:
 
 ```
 [23:59:07] INFO     | === CODEX VALIDATION GATE ===
-[23:59:07] OK       | Loaded 67 assets
-[23:59:07] OK       | All checks passed (67 assets)
+[23:59:07] OK       | Loaded 64 assets
+[23:59:07] OK       | All checks passed (64 assets)
 ```
 
 ## Customization
@@ -333,7 +333,7 @@ def generate_qa_report(self) -> dict:
 
 ```
 ┌─────────────────────────────────────────────────┐
-│  labeled-photo-manifest.json (67 assets)        │
+│  labeled-photo-manifest.json (64 assets)        │
 └────────────────┬────────────────────────────────┘
                  │
                  ▼

@@ -355,9 +355,9 @@ var captionData = [
         if not self.manifest:
             self.load_manifest()
 
-        md = """# Image Source Register
+        md = f"""# Image Source Register
 
-Back matter documentation for all 67 images in the publication.
+Back matter documentation for all {len(self.manifest.assets)} images in the publication.
 
 """
         
@@ -411,7 +411,7 @@ Back matter documentation for all 67 images in the publication.
                 "✓ Run HTML/source preflight (TOC, captions, source register)",
                 "✓ Visual inspection in browser (caption crowding, text fit, image rhythm)",
                 "✓ InDesign preflight (missing links, overset, bleed, color, fonts)",
-                "✓ Confirm 67 images have A-number, visual group, source-register entry",
+                f"✓ Confirm {validation['total_assets']} images have A-number, visual group, source-register entry",
                 "✓ No original filenames/rights notes in front-of-book captions",
                 "✓ References & citations resolve to backmatter",
                 "✓ Export PDF & visually inspect edges, captions, folios, backmatter",

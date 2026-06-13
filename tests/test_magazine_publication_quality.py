@@ -51,8 +51,8 @@ class MagazinePublicationQualityTest(unittest.TestCase):
             html,
         )
 
-        self.assertEqual(len(plate_labels), 67)
-        self.assertEqual(len(source_entries), 67)
+        self.assertEqual(len(plate_labels), 64)
+        self.assertEqual(len(source_entries), 64)
         self.assertTrue(front_caption_blocks)
 
         crowded_source_tokens = re.compile(r"unsplash|AdobeStock_|\.jpeg|\.jpg|rights before final export", re.I)

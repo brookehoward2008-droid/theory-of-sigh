@@ -137,7 +137,7 @@ def test_manifest_loads():
     root = Path(__file__).resolve().parents[1]
     codex = Codex(root)
     manifest = codex.load_manifest()
-    assert manifest.asset_count == 67
+    assert manifest.asset_count == 64
 
 def test_validation_passes():
     codex = Codex(root)

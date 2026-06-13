@@ -66,10 +66,10 @@ look for:
 
 ## Open Items To Resolve Before Final Export
 
-- **Asset count 64 vs 67.** The web proof and source register present 67 plates,
-  but only 64 image assets are tracked and linked. Either source the 3 missing
-  images or bring the published count down to 64 across the proof, register, and
-  reports. Do not export final until this is one number.
+- **Asset count: 64 (resolved).** Three plates (A02–A04) were deleted from the
+  source set, so 64 is the canonical count. The manifest, web proof, source
+  register, generated reports, and tests are reconciled to 64. Plate numbering
+  keeps its original labels (A01, A05–A67) with a gap where A02–A04 were.
 - **Citations.** Scholarly references are still marked to verify; replace
   placeholders with exact bibliographic records before public release.
 - **Rights.** Confirm every Adobe Stock and Unsplash asset against a real license,

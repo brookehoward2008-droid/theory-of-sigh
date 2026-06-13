@@ -17,30 +17,6 @@ var captionData = [
         rights: "Local/generated/unknown source; verify creator, source, and usage rights before final export...."
     },
     {
-        label: "A02",
-        title: "Abstract Female Portrait Hidden Vision, Pink and Black",
-        visual_group: "Group 2: Social Constraint",
-        section: "Article II, The Constraint",
-        creator: "Creator not verified",
-        rights: "Local/generated/unknown source; verify creator, source, and usage rights before final export...."
-    },
-    {
-        label: "A03",
-        title: "Abstract Monochrome Portrait of a Woman A Study in Light and Shadow",
-        visual_group: "Group 2: Social Constraint",
-        section: "Article II, The Constraint",
-        creator: "Creator not verified",
-        rights: "Local/generated/unknown source; verify creator, source, and usage rights before final export...."
-    },
-    {
-        label: "A04",
-        title: "AdobeStock_1021442471",
-        visual_group: "Group 2: Social Constraint",
-        section: "Article II, The Constraint",
-        creator: "Adobe Stock contributor not verified",
-        rights: "Adobe Stock filename present; verify local license before final export...."
-    },
-    {
         label: "A05",
         title: "AdobeStock_1024472839",
         visual_group: "Group 2: Social Constraint",

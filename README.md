@@ -12,7 +12,7 @@ Clean GitHub-ready archive for the book layout and labeled photo set.
 
 ## Photo Count
 
-67 labeled photos generated from the production source ledger.
+64 labeled photos generated from the production source ledger.
 
 ## Rights Note
 

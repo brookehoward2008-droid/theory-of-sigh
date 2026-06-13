@@ -105,7 +105,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertEqual(report["bleed_mm"], 3.175)
         self.assertEqual(report["pages"], 50)
         self.assertEqual(report["swatches"], ["[Black]", "[Paper]"])
-        self.assertEqual(report["linked_assets"], 67)
+        self.assertEqual(report["linked_assets"], 64)
 
     def test_manifest_rows_have_existing_images(self) -> None:
         rows = load_manifest_rows(MANIFEST_CSV)
