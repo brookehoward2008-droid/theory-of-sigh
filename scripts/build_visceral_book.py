@@ -35,17 +35,28 @@ MANIFEST_OUT = ROUTE / "manifest"
 TEMPLATE_OUT = ROUTE / "templates"
 REPORTS_OUT = ROUTE / "reports"
 
-TRIM_W, TRIM_H = A4
-BLEED = 3 * mm
+# US Letter landscape trim. Matches the InDesign preflight-safe route and the
+# committed 50pp proof: facing pages, multi-image spreads, full-bleed section
+# title pages.
+TRIM_W, TRIM_H = 279.4 * mm, 215.9 * mm  # 11 x 8.5 in
+BLEED = 3.175 * mm
 PAGE_W, PAGE_H = TRIM_W + (2 * BLEED), TRIM_H + (2 * BLEED)
-OUTER_MARGIN = TRIM_W * 0.075
-INNER_MARGIN = TRIM_W * 0.10
-TOP_MARGIN = TRIM_H * 0.07
-BOTTOM_MARGIN = TRIM_H * 0.07
+MARGIN = 16 * mm
 GUTTER = 5 * mm
 COLUMNS = 12
-LIVE_W = TRIM_W - INNER_MARGIN - OUTER_MARGIN
+# Safe content rectangle in page (bleed-inclusive) coordinates.
+CONTENT_L = BLEED + MARGIN
+CONTENT_R = PAGE_W - BLEED - MARGIN
+CONTENT_B = BLEED + MARGIN
+CONTENT_T = PAGE_H - BLEED - MARGIN
+LIVE_W = CONTENT_R - CONTENT_L
+LIVE_H = CONTENT_T - CONTENT_B
 COLUMN_W = (LIVE_W - (GUTTER * (COLUMNS - 1))) / COLUMNS
+# Legacy aliases (kept so any stray references stay valid).
+OUTER_MARGIN = MARGIN
+INNER_MARGIN = MARGIN
+TOP_MARGIN = MARGIN
+BOTTOM_MARGIN = MARGIN
 INK = colors.HexColor("#11100E")
 CREAM = colors.HexColor("#F3EBDD")
 GOLD = colors.HexColor("#A58242")
@@ -130,11 +141,12 @@ ARTICLE_BODIES = {
     ),
 }
 
+# First *content* page of each section (the page after its full-bleed title page).
 SECTION_PAGE_START = {
-    "Agency": 8,
-    "Constraint": 17,
-    "Mediation": 27,
-    "Synthesis": 39,
+    "Agency": 9,
+    "Constraint": 18,
+    "Mediation": 28,
+    "Synthesis": 40,
 }
 
 
@@ -405,34 +417,98 @@ def article_excerpt(section: str, page: int, target_chars: int = 520) -> str:
     return " ".join(excerpt_words)
 
 
-def draw_cover(c: canvas.Canvas, asset: Asset, page_num: int | None = None) -> None:
-    draw_bg(c, dark=True)
-    image_box(c, asset, 66, 138, PAGE_W - 132, PAGE_H * 0.68)
-    c.setFillColor(CREAM)
-    c.setFont("Helvetica-Bold", 37)
-    c.drawCentredString(PAGE_W / 2, 103, "THE VISCERAL")
-    c.drawCentredString(PAGE_W / 2, 66, "THEORY OF SIGHT")
-    c.setFont("Times-Roman", 10)
-    c.drawCentredString(PAGE_W / 2, 43, "the body, the gaze, and the veil")
+def scrim(c: canvas.Canvas, alpha: float = 0.42, dark: bool = True) -> None:
+    """Full-page wash over an image so overlaid type stays legible."""
+    c.saveState()
+    base = 0.04 if dark else 0.95
+    c.setFillColor(colors.Color(base, base, base, alpha=alpha))
+    c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+    c.restoreState()
+
+
+SECTION_TITLES = {
+    "Agency": ("I", "Agency", "The Body / presence before permission"),
+    "Constraint": ("II", "Constraint", "The Rule / visibility as protocol"),
+    "Mediation": ("III", "Mediation", "The Veil / the tempo of access"),
+    "Synthesis": ("IV", "Synthesis", "Sight that refuses to settle"),
+}
+
+# One-sentence meaning printed under each section title.
+SECTION_BLURB = {
+    "Agency": (
+        "Agency is the body as its own first statement: a hand, an eye, a turned "
+        "face that claims attention as pressure, before any rule arrives to explain it."
+    ),
+    "Constraint": (
+        "Constraint is culture turning visibility into protocol: pose, costume, rank, "
+        "and ritual teach a body how it may appear, and teach the viewer how to approve it."
+    ),
+    "Mediation": (
+        "Mediation is the veil as an editing system: lace, shadow, fabric, and blur do "
+        "not simply hide the body, they decide how slowly it is allowed to be seen."
+    ),
+    "Synthesis": (
+        "Synthesis is sight that refuses to settle: body, rule, and veil stay active at "
+        "once, so looking stays unfinished and the image keeps its pressure."
+    ),
+}
+
+
+def draw_section_title(c: canvas.Canvas, page: int, section: str, asset: Asset) -> None:
+    """Full-bleed image spread carrying the section title and its meaning."""
+    numeral, title, sub = SECTION_TITLES.get(section, ("", section, ""))
+    blurb = SECTION_BLURB.get(section, "")
+    image_box(c, asset, 0, 0, PAGE_W, PAGE_H)
+    scrim(c, alpha=0.56, dark=True)
+    x = CONTENT_L
+    c.setFillColor(GOLD)
+    c.setFont("Helvetica-Bold", 14)
+    c.drawString(x, CONTENT_B + 230, "ARTICLE " + numeral)
     c.setStrokeColor(GOLD)
-    c.setLineWidth(1)
-    c.line(138, 124, PAGE_W - 138, 124)
+    c.setLineWidth(1.4)
+    c.line(x, CONTENT_B + 214, x + 150, CONTENT_B + 214)
+    c.setFillColor(CREAM)
+    c.setFont("Helvetica-Bold", 54)
+    c.drawString(x, CONTENT_B + 150, title)
+    c.setFont("Times-Italic", 15)
+    c.drawString(x, CONTENT_B + 120, sub)
+    # Subtext under the title: what this section means.
+    draw_text_block(c, blurb, x, CONTENT_B + 92, width_chars=74, leading=15, size=10.5, color=CREAM)
+    draw_page_number(c, page, dark=True)
+
+
+def draw_cover(c: canvas.Canvas, asset: Asset, page_num: int | None = None) -> None:
+    image_box(c, asset, 0, 0, PAGE_W, PAGE_H)
+    scrim(c, alpha=0.34, dark=True)
+    x = CONTENT_L
+    c.setFillColor(GOLD)
+    c.setFont("Helvetica-Bold", 11)
+    c.drawString(x, CONTENT_B + 150, "THE ANATOMY OF LOOKING")
+    c.setStrokeColor(GOLD)
+    c.setLineWidth(1.2)
+    c.line(x, CONTENT_B + 134, x + 260, CONTENT_B + 134)
+    c.setFillColor(CREAM)
+    c.setFont("Helvetica-Bold", 52)
+    c.drawString(x, CONTENT_B + 78, "THE VISCERAL")
+    c.drawString(x, CONTENT_B + 30, "THEORY OF SIGHT")
+    c.setFont("Times-Roman", 13)
+    c.drawString(x, CONTENT_B + 8, "the body, the gaze, and the veil")
     if page_num:
         draw_page_number(c, page_num, dark=True)
 
 
 def draw_title_page(c: canvas.Canvas) -> None:
     draw_bg(c)
-    draw_label(c, "title page", 72, PAGE_H - 90)
+    draw_label(c, "title page", CONTENT_L, CONTENT_T - 6)
     c.setFillColor(INK)
-    c.setFont("Helvetica-Bold", 40)
-    c.drawString(72, PAGE_H - 185, "The Visceral")
-    c.drawString(72, PAGE_H - 228, "Theory of Sight")
-    c.setFont("Times-Roman", 13)
-    c.drawString(74, PAGE_H - 270, "A 50-page editorial art book on controlled revelation.")
-    c.setFont("Helvetica", 8)
-    c.drawString(74, 90, "Compiled and designed as an alternate local production route.")
-    c.drawString(74, 76, "All citations and rights marked for verification before final export.")
+    c.setFont("Helvetica-Bold", 46)
+    c.drawString(CONTENT_L, CONTENT_T - 120, "The Visceral")
+    c.drawString(CONTENT_L, CONTENT_T - 168, "Theory of Sight")
+    c.setFont("Times-Roman", 14)
+    c.drawString(CONTENT_L, CONTENT_T - 200, "A 50-page editorial art book on controlled revelation.")
+    c.setFont("Helvetica", 8.5)
+    c.drawString(CONTENT_L, CONTENT_B + 30, "Compiled and designed as an alternate local production route.")
+    c.drawString(CONTENT_L, CONTENT_B + 16, "All citations and rights marked for verification before final export.")
     draw_page_number(c, 2)
 
 
@@ -449,7 +525,7 @@ def draw_legal(c: canvas.Canvas) -> None:
         "lace, and mediation theory. Exact article titles, page numbers, and quotations remain verify "
         "before final export unless source PDFs are added to the workspace."
     )
-    draw_text_block(c, text, 78, 185, width_chars=78, leading=13, size=9)
+    draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=108, leading=14, size=10)
     draw_page_number(c, 3)
 
 
@@ -484,171 +560,206 @@ def draw_toc(c: canvas.Canvas) -> None:
 
 
 def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
-    draw_bg(c, dark=page == 6)
     dark = page == 6
+    draw_bg(c, dark=dark)
     if page == 5:
-        image_box(c, assets[0], 54, 370, 190, 285)
-        image_box(c, assets[5], 260, 300, 285, 175)
-        image_box(c, assets[10], 340, 500, 170, 130)
-        draw_label(c, "introduction", 72, 250)
-        c.setFont("Helvetica-Bold", 30)
+        draw_label(c, "introduction", CONTENT_L, CONTENT_T - 6)
         c.setFillColor(INK)
-        c.drawString(72, 212, "The Visceral Theory")
-        c.drawString(72, 178, "of Sight")
-        draw_text_block(c, intro_copy(), 74, 138, width_chars=70, leading=13, size=9.5)
+        c.setFont("Helvetica-Bold", 34)
+        c.drawString(CONTENT_L, CONTENT_T - 72, "The Visceral Theory")
+        c.drawString(CONTENT_L, CONTENT_T - 110, "of Sight")
+        draw_text_block(c, intro_copy(), CONTENT_L, CONTENT_T - 156, width_chars=44, leading=14, size=10.5)
+        # Staggered image cluster fills the right half of the landscape spread.
+        image_box(c, assets[0], 432, CONTENT_T - 250, 196, 250)
+        image_box(c, assets[5 % len(assets)], 638, CONTENT_T - 250, 118, 250)
+        image_box(c, assets[10 % len(assets)], 432, CONTENT_B, 324, 168)
+        overlay_caption(c, assets[0], 444, CONTENT_T - 236, 170, dark=True)
     elif page == 6:
-        image_box(c, assets[2], 48, 118, PAGE_W - 96, PAGE_H - 190)
+        image_box(c, assets[2 % len(assets)], 0, 0, PAGE_W, PAGE_H)
+        scrim(c, alpha=0.5, dark=True)
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 24)
-        c.drawString(72, PAGE_H - 88, "The image does not give itself all at once.")
-        draw_text_block(c, "Controlled revelation is the method. Tension is the evidence.", 74, 92, 62, 13, 10, color=CREAM)
+        c.setFont("Helvetica-Bold", 30)
+        c.drawString(CONTENT_L, CONTENT_T - 44, "The image does not give")
+        c.drawString(CONTENT_L, CONTENT_T - 80, "itself all at once.")
+        draw_text_block(c, "Controlled revelation is the method. Tension is the evidence.", CONTENT_L, CONTENT_B + 44, width_chars=78, leading=14, size=11, color=CREAM)
     else:
-        cols = [(72, 510), (246, 430), (420, 350)]
+        draw_label(c, "the three pressures", CONTENT_L, CONTENT_T - 6)
+        cols = [CONTENT_L, CONTENT_L + 238, CONTENT_L + 476]
         labels = [("AGENCY", "body as force"), ("CONSTRAINT", "body as protocol"), ("MEDIATION", "veil as edit")]
-        for (x, y), (head, sub) in zip(cols, labels):
+        top = CONTENT_T - 48
+        for x, (head, sub) in zip(cols, labels):
             c.setFillColor(GOLD)
-            c.rect(x, y, 92, 3, fill=1, stroke=0)
+            c.rect(x, top, 92, 3, fill=1, stroke=0)
             c.setFillColor(INK)
-            c.setFont("Helvetica-Bold", 16)
-            c.drawString(x, y - 32, head)
+            c.setFont("Helvetica-Bold", 18)
+            c.drawString(x, top - 30, head)
             c.setFont("Times-Roman", 11)
-            c.drawString(x, y - 51, sub)
-        draw_text_block(c, intro_copy(), 72, 235, width_chars=76, leading=14, size=10)
+            c.drawString(x, top - 48, sub)
+        image_box(c, assets[7 % len(assets)], CONTENT_L, CONTENT_B + 92, LIVE_W, 150)
+        draw_text_block(c, intro_copy(), CONTENT_L, CONTENT_B + 70, width_chars=112, leading=13, size=9.5)
     draw_page_number(c, page, dark=dark)
 
 
-def draw_article_page(c: canvas.Canvas, page: int, section: str, asset: Asset, variant: int) -> None:
-    dark = variant in {2, 5}
+def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets: list[Asset], offset: int) -> None:
+    """Landscape editorial page. Variants 1 and 3 carry multiple images per spread."""
+    variant = offset % 5
+    dark = variant == 2
     draw_bg(c, dark=dark)
     fg = CREAM if dark else INK
-    accent = GOLD if section != "Mediation" else SLATE
+    accent = SLATE if section == "Mediation" else GOLD
     body_text = article_excerpt(section, page)
+    n = len(section_assets)
+    a0 = section_assets[offset % n]
+    a1 = section_assets[(offset + 1) % n]
+    a2 = section_assets[(offset + 2) % n]
     if variant == 0:
-        image_box(c, asset, 48, 170, 356, 510)
-        translucent_panel(c, 360, 470, 178, 155, dark=dark, alpha=0.88)
-        c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 24)
-        c.drawString(374, 590, section.upper())
-        draw_text_block(c, body_text, 376, 552, 29, 12.2, 8.2, color=fg)
-        overlay_caption(c, asset, 72, 186, 210, dark=True)
-    elif variant == 1:
-        image_box(c, asset, 176, 238, 390, 365)
+        # Dominant image left, text column right.
+        iw = LIVE_W * 0.56
+        image_box(c, a0, CONTENT_L, CONTENT_B, iw, LIVE_H)
+        tx = CONTENT_L + iw + 26
         c.setFillColor(accent)
-        c.rect(64, 112, 104, 548, fill=1, stroke=0)
-        c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 25)
-        c.saveState()
-        c.translate(105, 180)
-        c.rotate(90)
-        c.drawString(0, 0, section.upper())
-        c.restoreState()
-        translucent_panel(c, 148, 188, 345, 86, dark=dark, alpha=0.80)
-        draw_text_block(c, body_text, 164, 250, 55, 11, 7.7, color=fg, max_lines=8)
-        overlay_caption(c, asset, 408, 252, 138, dark=True)
+        c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
+        c.setFillColor(fg)
+        c.setFont("Helvetica-Bold", 22)
+        c.drawString(tx, CONTENT_T - 64, section.upper())
+        draw_text_block(c, body_text, tx, CONTENT_T - 92, width_chars=33, leading=13, size=9.2, color=fg)
+        overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 220, dark=True)
+    elif variant == 1:
+        # Two stacked images left, text right.
+        iw = LIVE_W * 0.46
+        h = (LIVE_H - 18) / 2
+        image_box(c, a0, CONTENT_L, CONTENT_B + h + 18, iw, h)
+        image_box(c, a1, CONTENT_L, CONTENT_B, iw, h)
+        tx = CONTENT_L + iw + 30
+        c.setFillColor(accent)
+        c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
+        c.setFillColor(fg)
+        c.setFont("Helvetica-Bold", 22)
+        c.drawString(tx, CONTENT_T - 64, section.upper())
+        draw_text_block(c, body_text, tx, CONTENT_T - 92, width_chars=40, leading=13.5, size=9.4, color=fg)
+        overlay_caption(c, a1, CONTENT_L + 14, CONTENT_B + 16, 200, dark=True)
     elif variant == 2:
-        image_box(c, asset, 0, 0, PAGE_W, PAGE_H)
-        c.setFillColor(colors.Color(0, 0, 0, alpha=0.46))
-        c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
-        draw_pull_quote(c, ["ONLY ONE", "EYE REMAINS,", "THE IMAGE", "GETS LOUDER."], PAGE_H - 280, dark=True)
-        c.setFillColor(colors.Color(0, 0, 0, alpha=0.66))
-        c.rect(54, 72, 228, 260, fill=1, stroke=0)
-        draw_label(c, f"article / {section}", 72, 386, color=accent)
-        draw_text_block(c, body_text, 72, 302, 38, 11.2, 7.8, color=CREAM, max_lines=17)
+        # Full-bleed single image, scrim, pull statement, text panel.
+        image_box(c, a0, 0, 0, PAGE_W, PAGE_H)
+        scrim(c, alpha=0.52, dark=True)
+        draw_label(c, f"article / {section}", CONTENT_L, CONTENT_T - 10, color=accent)
+        c.setFillColor(CREAM)
+        c.setFont("Helvetica-Bold", 30)
+        c.drawString(CONTENT_L, CONTENT_T - 56, "Only one eye remains;")
+        c.drawString(CONTENT_L, CONTENT_T - 90, "the image gets louder.")
+        translucent_panel(c, CONTENT_L - 6, CONTENT_B - 6, LIVE_W * 0.48 + 12, 152, dark=True, alpha=0.58)
+        draw_text_block(c, body_text, CONTENT_L + 8, CONTENT_B + 128, width_chars=46, leading=12.5, size=8.6, color=CREAM, max_lines=10)
     elif variant == 3:
-        image_box(c, asset, 54, 420, 260, 238)
-        image_box(c, asset, 286, 118, 260, 402)
-        c.setStrokeColor(accent)
-        c.setLineWidth(2.2)
-        c.line(54, 410, 548, 518)
-        translucent_panel(c, 72, 272, 292, 98, dark=dark, alpha=0.78)
+        # Triptych: three images across, text band beneath.
+        gap = 16
+        iw = (LIVE_W - 2 * gap) / 3
+        ih = LIVE_H * 0.6
+        ytop = CONTENT_T - ih
+        for k, a in enumerate((a0, a1, a2)):
+            image_box(c, a, CONTENT_L + k * (iw + gap), ytop, iw, ih)
+        c.setFillColor(accent)
+        c.rect(CONTENT_L, ytop - 22, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
         c.setFont("Helvetica-Bold", 18)
-        c.drawString(84, 343, "A body becomes legible through pressure.")
-        draw_text_block(c, body_text, 86, 318, 52, 10.6, 7.5, color=fg, max_lines=8)
-        overlay_caption(c, asset, 330, 490, 150, dark=True)
-    elif variant == 4:
-        c.setStrokeColor(accent)
-        for i in range(12):
-            x = INNER_MARGIN + BLEED + i * (COLUMN_W + GUTTER)
-            c.line(x, 58, x, PAGE_H - 58)
-        image_box(c, asset, 82, 170, 438, 456)
-        draw_pull_quote(c, ["THE VEIL", "DOES NOT", "DISAPPEAR", "THE BODY."], 112, dark=False)
-        c.setFillColor(CREAM if section == "Mediation" else SOFT_BLACK)
-        c.rect(356, 468, 190, 108, fill=1, stroke=0)
-        draw_text_block(c, body_text, 370, 548, 31, 10.2, 7.4, color=INK if section == "Mediation" else CREAM, max_lines=10)
+        c.drawString(CONTENT_L, ytop - 50, f"{section.upper()} / SEQUENCE")
+        draw_text_block(c, body_text, CONTENT_L, ytop - 72, width_chars=112, leading=12.5, size=9, color=fg, max_lines=5)
+        overlay_caption(c, a1, CONTENT_L + iw + gap + 12, ytop + 12, 180, dark=True)
     else:
-        image_box(c, asset, 112, 95, 410, 605)
-        translucent_panel(c, 62, 598, 278, 68, dark=dark, alpha=0.76)
+        # Text left, dominant image right.
+        iw = LIVE_W * 0.56
+        ix = CONTENT_R - iw
+        image_box(c, a0, ix, CONTENT_B, iw, LIVE_H)
+        c.setFillColor(accent)
+        c.rect(CONTENT_L, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 17)
-        c.drawString(78, 638, f"{section} / controlled visibility")
-        draw_text_block(c, body_text, 74, 112, 38, 10.4, 7.4, color=fg, max_lines=12)
-        overlay_caption(c, asset, 344, 116, 150, dark=True)
+        c.setFont("Helvetica-Bold", 22)
+        c.drawString(CONTENT_L, CONTENT_T - 64, section.upper())
+        draw_text_block(c, body_text, CONTENT_L, CONTENT_T - 92, width_chars=33, leading=13, size=9.2, color=fg)
+        overlay_caption(c, a0, ix + 14, CONTENT_B + 18, 200, dark=True)
     draw_page_number(c, page, dark=dark)
 
 
-def draw_synthesis(c: canvas.Canvas, page: int, asset: Asset, variant: int) -> None:
-    dark = variant % 2 == 0
+def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], offset: int) -> None:
+    variant = offset % 2
+    dark = variant == 0
     draw_bg(c, dark=dark)
     fg = CREAM if dark else INK
     body_text = article_excerpt("Synthesis", page)
-    if variant in {0, 3}:
-        image_box(c, asset, 38, 76, 392, 642)
-        c.setFillColor(colors.Color(0, 0, 0, alpha=0.30) if dark else colors.Color(0.953, 0.922, 0.866, alpha=0.35))
-        c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
-        translucent_panel(c, 382, 452, 176, 190, dark=dark, alpha=0.82)
-        c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 20)
-        c.drawString(404, 610, "Unresolved Sight")
-        draw_text_block(c, body_text, 404, 574, 28, 11.2, 7.8, color=fg)
-        overlay_caption(c, asset, 76, 104, 180, dark=True)
+    n = len(section_assets)
+    a0 = section_assets[offset % n]
+    a1 = section_assets[(offset + 1) % n]
+    if variant == 0:
+        # Full-bleed image, text column on the right.
+        image_box(c, a0, 0, 0, PAGE_W, PAGE_H)
+        scrim(c, alpha=0.46, dark=True)
+        tx = CONTENT_L + LIVE_W * 0.54
+        c.setFillColor(GOLD)
+        c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
+        c.setFillColor(CREAM)
+        c.setFont("Helvetica-Bold", 22)
+        c.drawString(tx, CONTENT_T - 64, "Unresolved Sight")
+        draw_text_block(c, body_text, tx, CONTENT_T - 92, width_chars=33, leading=13, size=9.2, color=CREAM)
+        overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 200, dark=True)
     else:
-        image_box(c, asset, 132, 132, 426, 492)
+        # Image left, second image upper-right, framed closing text.
+        iw = LIVE_W * 0.5
+        image_box(c, a0, CONTENT_L, CONTENT_B, iw - 12, LIVE_H)
+        image_box(c, a1, CONTENT_L + iw + 12, CONTENT_T - LIVE_H * 0.5, LIVE_W - iw - 12, LIVE_H * 0.5)
+        tx = CONTENT_L + iw + 12
         c.setStrokeColor(GOLD)
-        c.setLineWidth(2)
-        c.rect(64, 94, 418, 552, fill=0, stroke=1)
-        draw_pull_quote(c, ["LOOKING", "NEVER", "ARRIVES", "CLEAN."], PAGE_H - 198, dark=dark)
-        translucent_panel(c, 84, 82, 404, 70, dark=dark, alpha=0.78)
-        draw_text_block(c, body_text, 96, 132, 76, 10, 7.4, color=fg, max_lines=7)
+        c.setLineWidth(1.6)
+        c.line(tx, CONTENT_B + LIVE_H * 0.44, CONTENT_R, CONTENT_B + LIVE_H * 0.44)
+        c.setFillColor(INK)
+        c.setFont("Helvetica-Bold", 20)
+        c.drawString(tx, CONTENT_B + LIVE_H * 0.37, "Looking never arrives clean.")
+        draw_text_block(c, body_text, tx, CONTENT_B + LIVE_H * 0.31, width_chars=44, leading=13, size=9.2, color=INK, max_lines=10)
     draw_page_number(c, page, dark=dark)
 
 
 def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
     draw_bg(c)
-    if page == 46:
-        draw_label(c, "image credits", 72, PAGE_H - 72)
-        y = PAGE_H - 110
-        for asset in assets[:14]:
-            line = f"{asset.id}. {asset.title[:42]} | {asset.creator[:26]} | rights verify"
-            y = draw_text_block(c, line, 72, y, 86, 10, 7.5)
-    elif page == 47:
-        draw_label(c, "image credits continued", 72, PAGE_H - 72)
-        y = PAGE_H - 110
-        for asset in assets[14:]:
-            line = f"{asset.id}. {asset.title[:42]} | {asset.creator[:26]} | rights verify"
-            y = draw_text_block(c, line, 72, y, 86, 10, 7.5)
+    if page in (46, 47):
+        first = page == 46
+        draw_label(c, "image source register" if first else "image source register / continued", CONTENT_L, CONTENT_T - 6)
+        subset = assets[:32] if first else assets[32:]
+        col_x = [CONTENT_L, CONTENT_L + LIVE_W / 2 + 12]
+        per_col = (len(subset) + 1) // 2
+        for ci, cx in enumerate(col_x):
+            chunk = subset[ci * per_col:(ci + 1) * per_col]
+            y = CONTENT_T - 40
+            for asset in chunk:
+                c.setFillColor(GOLD)
+                c.setFont("Helvetica-Bold", 8)
+                c.drawString(cx, y, asset.id)
+                c.setFillColor(INK)
+                c.setFont("Times-Roman", 8)
+                c.drawString(cx + 30, y, asset.title[:40])
+                c.setFillColor(SOFT_BLACK)
+                c.setFont("Helvetica", 6.5)
+                c.drawString(cx + 30, y - 9, f"{asset.creator[:38]} - rights verify")
+                y -= 26
     elif page == 48:
-        draw_label(c, "source list", 72, PAGE_H - 72)
+        draw_label(c, "source list", CONTENT_L, CONTENT_T - 6)
         text = (
             "McDermott: Paleolithic agency and the body. Verify exact article/book details before final export.\n\n"
             "Havelock/Reeder: Greek art, cultural constraint, posture, social rule, and controlled body. Verify exact source details before final export.\n\n"
             "Veiling iconography / Vera Icona / lace / mediation theory. Verify exact scholarly source details before final export.\n\n"
             "No direct quotations are used in this proof because the source texts were not supplied in the current workspace."
         )
-        draw_text_block(c, text, 72, PAGE_H - 120, 82, 14, 10)
+        draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10)
     elif page == 49:
-        draw_label(c, "process / critical notes", 72, PAGE_H - 72)
+        draw_label(c, "process / critical notes", CONTENT_L, CONTENT_T - 6)
         text = (
             "The grid uses a 12-column logic but refuses a fully settled rhythm. Images slip across columns, captions compress, and text blocks narrow when the argument becomes more controlled. "
             "The design supports the argument by changing pressure: Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance."
         )
-        draw_text_block(c, text, 72, PAGE_H - 120, 82, 14, 10)
+        draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10)
     else:
-        c.setFont("Helvetica-Bold", 34)
+        c.setFont("Helvetica-Bold", 40)
         c.setFillColor(INK)
-        c.drawString(72, PAGE_H - 180, "Sight remains")
-        c.drawString(72, PAGE_H - 220, "unfinished.")
-        draw_text_block(c, "Final export still requires source verification, license verification, and instructor-facing review.", 74, 150, 72, 14, 10)
+        c.drawString(CONTENT_L, CONTENT_T - 120, "Sight remains")
+        c.drawString(CONTENT_L, CONTENT_T - 168, "unfinished.")
+        draw_text_block(c, "Final export still requires source verification, license verification, and instructor-facing review.", CONTENT_L, CONTENT_B + 96, width_chars=92, leading=14, size=10)
     draw_page_number(c, page)
 
 
@@ -1468,17 +1579,30 @@ def generate_book(assets: list[Asset]) -> None:
     constraint_assets = [a for a in assets if "Constraint" in a.group] or assets
     med_assets = [a for a in assets if "Mediation" in a.group] or assets
     page_assets = assets.copy()
+    # Each section opens with a full-bleed image + title page, then content pages.
     for offset, page in enumerate(range(8, 17)):
-        draw_article_page(c, page, "Agency", agency_assets[offset % len(agency_assets)], offset % 6)
+        if offset == 0:
+            draw_section_title(c, page, "Agency", agency_assets[3 % len(agency_assets)])
+        else:
+            draw_article_page(c, page, "Agency", agency_assets, offset - 1)
         c.showPage()
     for offset, page in enumerate(range(17, 27)):
-        draw_article_page(c, page, "Constraint", constraint_assets[offset % len(constraint_assets)], offset % 6)
+        if offset == 0:
+            draw_section_title(c, page, "Constraint", constraint_assets[1 % len(constraint_assets)])
+        else:
+            draw_article_page(c, page, "Constraint", constraint_assets, offset - 1)
         c.showPage()
     for offset, page in enumerate(range(27, 39)):
-        draw_article_page(c, page, "Mediation", med_assets[offset % len(med_assets)], offset % 6)
+        if offset == 0:
+            draw_section_title(c, page, "Mediation", med_assets[2 % len(med_assets)])
+        else:
+            draw_article_page(c, page, "Mediation", med_assets, offset - 1)
         c.showPage()
     for offset, page in enumerate(range(39, 46)):
-        draw_synthesis(c, page, page_assets[(offset + 18) % len(page_assets)], offset % 5)
+        if offset == 0:
+            draw_section_title(c, page, "Synthesis", page_assets[20 % len(page_assets)])
+        else:
+            draw_synthesis(c, page, page_assets, offset - 1)
         c.showPage()
     for page in range(46, 51):
         draw_back_matter(c, page, assets)
