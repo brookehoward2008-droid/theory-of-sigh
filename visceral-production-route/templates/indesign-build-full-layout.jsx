@@ -622,7 +622,7 @@ function addSwatch(doc, name, values) {
 
 function fitText(tf, minSize) {
   var attempts = 0;
-  while (tf.overflows && attempts < 18) {
+  while (tf.overflows && attempts < 40) {
     try {
       var txt = tf.texts[0];
       txt.pointSize = Math.max(minSize, txt.pointSize - 0.35);
@@ -640,7 +640,7 @@ function textFrame(page, bounds, text, size, fontStyle, swatch, opacity) {
     tf.textFramePreferences.insetSpacing = ["2mm", "2mm", "2mm", "2mm"];
     tf.textFramePreferences.verticalJustification = VerticalJustification.TOP_ALIGN;
     tf.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
-    tf.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
+    tf.textFramePreferences.autoSizingType = AutoSizingTypeEnum.OFF;
     tf.textFramePreferences.useMinimumHeightForAutoSizing = true;
     tf.textFramePreferences.minimumHeightForAutoSizing = 8;
     tf.texts[0].appliedFont = app.fonts.item("Helvetica");
@@ -652,7 +652,7 @@ function textFrame(page, bounds, text, size, fontStyle, swatch, opacity) {
   if (opacity < 100) {
     try { tf.transparencySettings.blendingSettings.opacity = opacity; } catch (e2) {}
   }
-  fitText(tf, 6.5);
+  fitText(tf, 5.5);
   return tf;
 }
 
@@ -756,12 +756,12 @@ function caption(page, bounds, item, ink, cream) {
   var theme = item.group.replace("Group 1: ", "").replace("Group 2: ", "").replace("Group 3: ", "");
   var label = item.id + " / " + theme + "\n" + (item.short_caption || item.caption || "");
   var tf = textFrame(page, bounds, label, 6.4, "Bold", cream, 100);
-  try { tf.fillColor = ink; tf.transparencySettings.blendingSettings.opacity = 78; } catch(e) {}
+  try { tf.fillColor = cream; tf.transparencySettings.blendingSettings.opacity = 92; } catch(e) {}
   return tf;
 }
 
 function pageNum(page, n, ink) {
-  textFrame(page, b(204, 250, 212, 270), ("0" + n).slice(-2), 6.5, "Regular", ink, 100);
+  textFrame(page, b(204, 250, 212, 270), ("0" + n).slice(-2), 6.5, "Regular", cream, 100);
 }
 
 function configurePreflight(doc) {
@@ -815,24 +815,24 @@ function sectionTitle(page, key, ink, cream, gold) {
 
 function frontMatter(page, n, doc, ink, cream, gold) {
   if (n === 2) {
-    textFrame(page, b(40, 18, 78, 230), "The Visceral\rTheory of Sight", 30, "Bold", ink, 100);
-    textFrame(page, b(86, 18, 110, 240), "A 50-page editorial art book on controlled revelation.", 11, "Regular", ink, 100);
-    textFrame(page, b(176, 18, 200, 255), "US Letter landscape. 12-column grid. 3.175mm bleed. Source and rights verification required before final export.", 8, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 78, 230), "The Visceral\rTheory of Sight", 30, "Bold", cream, 100);
+    textFrame(page, b(86, 18, 110, 240), "A 50-page editorial art book on controlled revelation.", 11, "Regular", cream, 100);
+    textFrame(page, b(176, 18, 200, 255), "US Letter landscape. 12-column grid. 3.175mm bleed. Source and rights verification required before final export.", 8, "Regular", cream, 100);
   } else if (n === 3) {
     textFrame(page, b(18, 18, 32, 160), "LEGAL / CREDITS", 12, "Bold", gold, 100);
-    textFrame(page, b(40, 18, 180, 255), "This layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 10, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 180, 255), "This layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   } else {
-    textFrame(page, b(18, 18, 46, 220), "BODY / RULE / VEIL", 24, "Bold", ink, 100);
-    textFrame(page, b(58, 18, 150, 112), "01 Front Matter\r05 Introduction\r08 Agency / The Body", 12, "Regular", ink, 100);
+    textFrame(page, b(18, 18, 46, 220), "BODY / RULE / VEIL", 24, "Bold", cream, 100);
+    textFrame(page, b(58, 18, 150, 112), "01 Front Matter\r05 Introduction\r08 Agency / The Body", 12, "Regular", cream, 100);
     textFrame(page, b(58, 120, 150, 220), "17 Constraint / The Rule\r27 Mediation / The Veil\r39 Synthesis", 12, "Regular", gold, 100);
-    textFrame(page, b(152, 18, 196, 220), "46 Source Register\r48 Sources\r49 Process\r50 Close", 11, "Regular", ink, 100);
+    textFrame(page, b(152, 18, 196, 220), "46 Source Register\r48 Sources\r49 Process\r50 Close", 11, "Regular", cream, 100);
   }
 }
 
 function introPage(page, n, doc, ink, cream, gold) {
   if (n === 5) {
-    textFrame(page, b(20, 18, 52, 200), "The Visceral Theory of Sight", 26, "Bold", ink, 100);
-    textFrame(page, b(58, 18, 180, 150), COPY.intro, 10.5, "Regular", ink, 100);
+    textFrame(page, b(20, 18, 52, 200), "The Visceral Theory of Sight", 26, "Bold", cream, 100);
+    textFrame(page, b(58, 18, 180, 150), COPY.intro, 10.5, "Regular", cream, 100);
     imageFrame(page, b(20, 158, 118, 252), groupAsset("Mediation", n), 100);
     imageFrame(page, b(122, 158, 199, 252), groupAsset("Agency", n), 100);
     caption(page, b(102, 162, 118, 248), groupAsset("Mediation", n), ink, cream);
@@ -843,11 +843,11 @@ function introPage(page, n, doc, ink, cream, gold) {
     textFrame(page, b(186, 18, 200, 252), "Controlled revelation is the method. Tension is the evidence.", 11, "Regular", cream, 100);
   } else {
     textFrame(page, b(18, 18, 30, 220), "THE THREE PRESSURES", 12, "Bold", gold, 100);
-    textFrame(page, b(40, 18, 70, 96), "AGENCY\rbody as force", 14, "Bold", ink, 100);
-    textFrame(page, b(40, 100, 70, 178), "CONSTRAINT\rbody as protocol", 14, "Bold", ink, 100);
-    textFrame(page, b(40, 182, 70, 262), "MEDIATION\rveil as edit", 14, "Bold", ink, 100);
+    textFrame(page, b(40, 18, 70, 96), "AGENCY\rbody as force", 14, "Bold", cream, 100);
+    textFrame(page, b(40, 100, 70, 178), "CONSTRAINT\rbody as protocol", 14, "Bold", cream, 100);
+    textFrame(page, b(40, 182, 70, 262), "MEDIATION\rveil as edit", 14, "Bold", cream, 100);
     imageFrame(page, b(80, 18, 150, 263), groupAsset("Agency", n), 100);
-    textFrame(page, b(156, 18, 198, 255), COPY.intro, 9.5, "Regular", ink, 100);
+    textFrame(page, b(156, 18, 198, 255), COPY.intro, 9.5, "Regular", cream, 100);
   }
 }
 
@@ -857,8 +857,8 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
   if (mode === 0) {
     // Dominant image left, text column right.
     imageFrame(page, b(16, 16, 199, 150), item, 100);
-    textFrame(page, b(20, 160, 44, 262), section, 20, "Bold", ink, 100);
-    textFrame(page, b(46, 160, 199, 262), body, 9.2, "Regular", ink, 100);
+    textFrame(page, b(20, 160, 44, 262), section, 20, "Bold", cream, 100);
+    textFrame(page, b(46, 160, 199, 262), body, 9.2, "Regular", cream, 100);
     caption(page, b(180, 20, 199, 110), item, ink, cream);
   } else if (mode === 1) {
     // Full-bleed image, scrim, pull statement, body panel.
@@ -873,16 +873,16 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
     imageFrame(page, b(16, 16, 132, 95), item, 100);
     imageFrame(page, b(16, 100, 132, 179), item2, 100);
     imageFrame(page, b(16, 184, 132, 263), item3, 100);
-    textFrame(page, b(140, 16, 162, 262), section + " / SEQUENCE", 16, "Bold", ink, 100);
-    textFrame(page, b(164, 16, 199, 262), body, 9, "Regular", ink, 100);
+    textFrame(page, b(140, 16, 162, 262), section + " / SEQUENCE", 16, "Bold", cream, 100);
+    textFrame(page, b(164, 16, 199, 262), body, 9, "Regular", cream, 100);
     caption(page, b(116, 104, 132, 175), item2, ink, cream);
   }
 }
 
 function backMatter(page, n, doc, ink, cream, gold) {
   if (n === 50) {
-    textFrame(page, b(40, 18, 96, 230), "Sight remains\runfinished.", 34, "Bold", ink, 100);
-    textFrame(page, b(150, 18, 190, 250), "Final export still requires source verification, license verification, and instructor-facing review.", 10, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 96, 230), "Sight remains\runfinished.", 34, "Bold", cream, 100);
+    textFrame(page, b(150, 18, 190, 250), "Final export still requires source verification, license verification, and instructor-facing review.", 10, "Regular", cream, 100);
     return;
   }
   var head = n === 46 ? "IMAGE SOURCE REGISTER" : n === 47 ? "IMAGE SOURCE REGISTER / CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
@@ -893,11 +893,11 @@ function backMatter(page, n, doc, ink, cream, gold) {
     for (var i = startIdx; i < Math.min(startIdx + 32, ASSETS.length); i++) {
       lines += ASSETS[i].id + "  " + ASSETS[i].title + " - rights verify\r";
     }
-    textFrame(page, b(40, 18, 200, 255), lines, 8, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 200, 255), lines, 8, "Regular", cream, 100);
   } else if (n === 48) {
-    textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   } else {
-    textFrame(page, b(40, 18, 200, 255), "The grid uses a 12-column logic but refuses a fully settled rhythm. Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance. Captions overlap image edges; pull statements carry the argument.", 10, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 200, 255), "The grid uses a 12-column logic but refuses a fully settled rhythm. Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance. Captions overlap image edges; pull statements carry the argument.", 10, "Regular", cream, 100);
   }
 }
 
@@ -910,7 +910,7 @@ var slate = addSwatch(doc, "Slate Blue", [82, 107, 122]);
 for (var p = 0; p < doc.pages.length; p++) {
   var page = doc.pages[p];
   var n = p + 1;
-  colorPanel(page, b(-4, -4, 220, 284), cream, 100);
+  colorPanel(page, b(-4, -4, 220, 284), ink, 100);
   if (n === 1) cover(page, doc, ink, cream, gold);
   else if (n <= 4) frontMatter(page, n, doc, ink, cream, gold);
   else if (n <= 7) introPage(page, n, doc, ink, cream, gold);
@@ -928,7 +928,7 @@ for (var p = 0; p < doc.pages.length; p++) {
 
 // Final overset guard.
 for (var i = 0; i < doc.textFrames.length; i++) {
-  if (doc.textFrames[i].overflows) fitText(doc.textFrames[i], 6.5);
+  if (doc.textFrames[i].overflows) fitText(doc.textFrames[i], 5.5);
 }
 
 configurePreflight(doc);

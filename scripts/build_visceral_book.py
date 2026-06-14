@@ -365,8 +365,9 @@ def scan_assets() -> list[Asset]:
     return assets
 
 
-def draw_bg(c: canvas.Canvas, dark: bool = False) -> None:
-    c.setFillColor(SOFT_BLACK if dark else CREAM)
+def draw_bg(c: canvas.Canvas, dark: bool = True) -> None:
+    # Whole magazine runs black-background / white-text.
+    c.setFillColor(SOFT_BLACK)
     c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
 
 
@@ -379,7 +380,7 @@ def draw_text_block(
     leading: float = 14,
     size: float = 10,
     font: str = "Times-Roman",
-    color=INK,
+    color=CREAM,
     max_lines: int | None = None,
 ) -> float:
     c.setFont(font, size)
@@ -404,7 +405,7 @@ def draw_label(c: canvas.Canvas, text: str, x: float, y: float, color=GOLD) -> N
     c.drawString(x, y, text.upper())
 
 
-def draw_page_number(c: canvas.Canvas, page: int, dark: bool = False) -> None:
+def draw_page_number(c: canvas.Canvas, page: int, dark: bool = True) -> None:
     c.setFont("Helvetica", 7)
     c.setFillColor(CREAM if dark else INK)
     c.drawRightString(PAGE_W - 36, 24, f"{page:02d}")
@@ -574,7 +575,7 @@ def draw_cover(c: canvas.Canvas, asset: Asset, page_num: int | None = None) -> N
 def draw_title_page(c: canvas.Canvas) -> None:
     draw_bg(c)
     draw_label(c, "title page", CONTENT_L, CONTENT_T - 6)
-    c.setFillColor(INK)
+    c.setFillColor(CREAM)
     c.setFont("Helvetica-Bold", 46)
     c.drawString(CONTENT_L, CONTENT_T - 120, "The Visceral")
     c.drawString(CONTENT_L, CONTENT_T - 168, "Theory of Sight")
@@ -607,7 +608,7 @@ def draw_toc(c: canvas.Canvas) -> None:
     draw_bg(c)
     draw_label(c, "contents", 72, PAGE_H - 90)
     c.setFont("Helvetica-Bold", 30)
-    c.setFillColor(INK)
+    c.setFillColor(CREAM)
     c.drawString(72, PAGE_H - 150, "Body / Rule / Veil")
     entries = [
         ("Front Matter", "01-04"),
@@ -628,17 +629,17 @@ def draw_toc(c: canvas.Canvas) -> None:
         c.setFillColor(GOLD if i % 2 else INK)
         c.drawString(x, y, pages)
         c.setFont("Times-Roman", 11)
-        c.setFillColor(INK)
+        c.setFillColor(CREAM)
         draw_text_block(c, title, x, y - 19, width_chars=19, leading=12, size=10)
     draw_page_number(c, 4)
 
 
 def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
-    dark = page == 6
+    dark = True
     draw_bg(c, dark=dark)
     if page == 5:
         draw_label(c, "introduction", CONTENT_L, CONTENT_T - 6)
-        c.setFillColor(INK)
+        c.setFillColor(CREAM)
         c.setFont("Helvetica-Bold", 34)
         c.drawString(CONTENT_L, CONTENT_T - 72, "The Visceral Theory")
         c.drawString(CONTENT_L, CONTENT_T - 110, "of Sight")
@@ -664,7 +665,7 @@ def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
         for x, (head, sub) in zip(cols, labels):
             c.setFillColor(GOLD)
             c.rect(x, top, 92, 3, fill=1, stroke=0)
-            c.setFillColor(INK)
+            c.setFillColor(CREAM)
             c.setFont("Helvetica-Bold", 18)
             c.drawString(x, top - 30, head)
             c.setFont("Times-Roman", 11)
@@ -677,7 +678,7 @@ def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
 def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets: list[Asset], offset: int) -> None:
     """Landscape editorial page. Variants 1 and 3 carry multiple images per spread."""
     variant = offset % 5
-    dark = variant == 2
+    dark = True
     draw_bg(c, dark=dark)
     fg = CREAM if dark else INK
     accent = SLATE if section == "Mediation" else GOLD
@@ -755,7 +756,7 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
 
 def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], offset: int) -> None:
     variant = offset % 2
-    dark = variant == 0
+    dark = True
     draw_bg(c, dark=dark)
     fg = CREAM if dark else INK
     body_text = article_excerpt("Synthesis", page)
@@ -783,18 +784,18 @@ def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], off
         c.setStrokeColor(GOLD)
         c.setLineWidth(1.6)
         c.line(tx, CONTENT_B + LIVE_H * 0.44, CONTENT_R, CONTENT_B + LIVE_H * 0.44)
-        c.setFillColor(INK)
+        c.setFillColor(CREAM)
         c.setFont("Helvetica-Bold", 20)
         c.drawString(tx, CONTENT_B + LIVE_H * 0.37, "Looking never arrives clean.")
-        draw_text_block(c, body_text, tx, CONTENT_B + LIVE_H * 0.31, width_chars=44, leading=13, size=9.2, color=INK, max_lines=10)
+        draw_text_block(c, body_text, tx, CONTENT_B + LIVE_H * 0.31, width_chars=44, leading=13, size=9.2, color=CREAM, max_lines=10)
     draw_page_number(c, page, dark=dark)
 
 
 def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
-    draw_bg(c)
+    draw_bg(c, dark=True)
     if page in (46, 47):
         first = page == 46
-        draw_label(c, "image source register" if first else "image source register / continued", CONTENT_L, CONTENT_T - 6)
+        draw_label(c, "image source register" if first else "image source register / continued", CONTENT_L, CONTENT_T - 6, color=CREAM)
         subset = assets[:32] if first else assets[32:]
         col_x = [CONTENT_L, CONTENT_L + LIVE_W / 2 + 12]
         per_col = (len(subset) + 1) // 2
@@ -805,15 +806,15 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
                 c.setFillColor(GOLD)
                 c.setFont("Helvetica-Bold", 8)
                 c.drawString(cx, y, asset.id)
-                c.setFillColor(INK)
+                c.setFillColor(CREAM)
                 c.setFont("Times-Roman", 8)
                 c.drawString(cx + 30, y, asset.title[:40])
-                c.setFillColor(SOFT_BLACK)
+                c.setFillColor(MIST)
                 c.setFont("Helvetica", 6.5)
                 c.drawString(cx + 30, y - 9, f"{asset.creator[:38]} - rights verify")
                 y -= 26
     elif page == 48:
-        draw_label(c, "works consulted", CONTENT_L, CONTENT_T - 6)
+        draw_label(c, "works consulted", CONTENT_L, CONTENT_T - 6, color=CREAM)
         text = (
             "[1] LeRoy McDermott. \"Self-Representation in Upper Paleolithic Female Figurines.\" "
             "Current Anthropology 37, no. 2 (1996): 227-275.\n\n"
@@ -825,21 +826,21 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
             "[5] The Metropolitan Museum of Art. \"Symbolism.\" Heilbrunn Timeline of Art History.\n\n"
             "Editions, page ranges, and image licenses to be confirmed before final print."
         )
-        draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=13, size=9.5)
+        draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     elif page == 49:
-        draw_label(c, "process / critical notes", CONTENT_L, CONTENT_T - 6)
+        draw_label(c, "process / critical notes", CONTENT_L, CONTENT_T - 6, color=CREAM)
         text = (
             "The grid uses a 12-column logic but refuses a fully settled rhythm. Images slip across columns, captions compress, and text blocks narrow when the argument becomes more controlled. "
             "The design supports the argument by changing pressure: Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance."
         )
-        draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10)
+        draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     else:
         c.setFont("Helvetica-Bold", 40)
-        c.setFillColor(INK)
+        c.setFillColor(CREAM)
         c.drawString(CONTENT_L, CONTENT_T - 120, "Sight remains")
         c.drawString(CONTENT_L, CONTENT_T - 168, "unfinished.")
-        draw_text_block(c, "Final export still requires source verification, license verification, and instructor-facing review.", CONTENT_L, CONTENT_B + 96, width_chars=92, leading=14, size=10)
-    draw_page_number(c, page)
+        draw_text_block(c, "Final export still requires source verification, license verification, and instructor-facing review.", CONTENT_L, CONTENT_B + 96, width_chars=92, leading=14, size=10, color=CREAM)
+    draw_page_number(c, page, dark=True)
 
 
 def write_ledger(assets: list[Asset]) -> None:
@@ -1373,7 +1374,7 @@ function addSwatch(doc, name, values) {{
 
 function fitText(tf, minSize) {{
   var attempts = 0;
-  while (tf.overflows && attempts < 18) {{
+  while (tf.overflows && attempts < 40) {{
     try {{
       var txt = tf.texts[0];
       txt.pointSize = Math.max(minSize, txt.pointSize - 0.35);
@@ -1391,7 +1392,7 @@ function textFrame(page, bounds, text, size, fontStyle, swatch, opacity) {{
     tf.textFramePreferences.insetSpacing = ["2mm", "2mm", "2mm", "2mm"];
     tf.textFramePreferences.verticalJustification = VerticalJustification.TOP_ALIGN;
     tf.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
-    tf.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
+    tf.textFramePreferences.autoSizingType = AutoSizingTypeEnum.OFF;
     tf.textFramePreferences.useMinimumHeightForAutoSizing = true;
     tf.textFramePreferences.minimumHeightForAutoSizing = 8;
     tf.texts[0].appliedFont = app.fonts.item("Helvetica");
@@ -1403,7 +1404,7 @@ function textFrame(page, bounds, text, size, fontStyle, swatch, opacity) {{
   if (opacity < 100) {{
     try {{ tf.transparencySettings.blendingSettings.opacity = opacity; }} catch (e2) {{}}
   }}
-  fitText(tf, 6.5);
+  fitText(tf, 5.5);
   return tf;
 }}
 
@@ -1507,12 +1508,12 @@ function caption(page, bounds, item, ink, cream) {{
   var theme = item.group.replace("Group 1: ", "").replace("Group 2: ", "").replace("Group 3: ", "");
   var label = item.id + " / " + theme + "\\n" + (item.short_caption || item.caption || "");
   var tf = textFrame(page, bounds, label, 6.4, "Bold", cream, 100);
-  try {{ tf.fillColor = ink; tf.transparencySettings.blendingSettings.opacity = 78; }} catch(e) {{}}
+  try {{ tf.fillColor = cream; tf.transparencySettings.blendingSettings.opacity = 92; }} catch(e) {{}}
   return tf;
 }}
 
 function pageNum(page, n, ink) {{
-  textFrame(page, b(204, 250, 212, 270), ("0" + n).slice(-2), 6.5, "Regular", ink, 100);
+  textFrame(page, b(204, 250, 212, 270), ("0" + n).slice(-2), 6.5, "Regular", cream, 100);
 }}
 
 function configurePreflight(doc) {{
@@ -1566,24 +1567,24 @@ function sectionTitle(page, key, ink, cream, gold) {{
 
 function frontMatter(page, n, doc, ink, cream, gold) {{
   if (n === 2) {{
-    textFrame(page, b(40, 18, 78, 230), "The Visceral\\rTheory of Sight", 30, "Bold", ink, 100);
-    textFrame(page, b(86, 18, 110, 240), "A 50-page editorial art book on controlled revelation.", 11, "Regular", ink, 100);
-    textFrame(page, b(176, 18, 200, 255), "US Letter landscape. 12-column grid. 3.175mm bleed. Source and rights verification required before final export.", 8, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 78, 230), "The Visceral\\rTheory of Sight", 30, "Bold", cream, 100);
+    textFrame(page, b(86, 18, 110, 240), "A 50-page editorial art book on controlled revelation.", 11, "Regular", cream, 100);
+    textFrame(page, b(176, 18, 200, 255), "US Letter landscape. 12-column grid. 3.175mm bleed. Source and rights verification required before final export.", 8, "Regular", cream, 100);
   }} else if (n === 3) {{
     textFrame(page, b(18, 18, 32, 160), "LEGAL / CREDITS", 12, "Bold", gold, 100);
-    textFrame(page, b(40, 18, 180, 255), "This layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 10, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 180, 255), "This layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   }} else {{
-    textFrame(page, b(18, 18, 46, 220), "BODY / RULE / VEIL", 24, "Bold", ink, 100);
-    textFrame(page, b(58, 18, 150, 112), "01 Front Matter\\r05 Introduction\\r08 Agency / The Body", 12, "Regular", ink, 100);
+    textFrame(page, b(18, 18, 46, 220), "BODY / RULE / VEIL", 24, "Bold", cream, 100);
+    textFrame(page, b(58, 18, 150, 112), "01 Front Matter\\r05 Introduction\\r08 Agency / The Body", 12, "Regular", cream, 100);
     textFrame(page, b(58, 120, 150, 220), "17 Constraint / The Rule\\r27 Mediation / The Veil\\r39 Synthesis", 12, "Regular", gold, 100);
-    textFrame(page, b(152, 18, 196, 220), "46 Source Register\\r48 Sources\\r49 Process\\r50 Close", 11, "Regular", ink, 100);
+    textFrame(page, b(152, 18, 196, 220), "46 Source Register\\r48 Sources\\r49 Process\\r50 Close", 11, "Regular", cream, 100);
   }}
 }}
 
 function introPage(page, n, doc, ink, cream, gold) {{
   if (n === 5) {{
-    textFrame(page, b(20, 18, 52, 200), "The Visceral Theory of Sight", 26, "Bold", ink, 100);
-    textFrame(page, b(58, 18, 180, 150), COPY.intro, 10.5, "Regular", ink, 100);
+    textFrame(page, b(20, 18, 52, 200), "The Visceral Theory of Sight", 26, "Bold", cream, 100);
+    textFrame(page, b(58, 18, 180, 150), COPY.intro, 10.5, "Regular", cream, 100);
     imageFrame(page, b(20, 158, 118, 252), groupAsset("Mediation", n), 100);
     imageFrame(page, b(122, 158, 199, 252), groupAsset("Agency", n), 100);
     caption(page, b(102, 162, 118, 248), groupAsset("Mediation", n), ink, cream);
@@ -1594,11 +1595,11 @@ function introPage(page, n, doc, ink, cream, gold) {{
     textFrame(page, b(186, 18, 200, 252), "Controlled revelation is the method. Tension is the evidence.", 11, "Regular", cream, 100);
   }} else {{
     textFrame(page, b(18, 18, 30, 220), "THE THREE PRESSURES", 12, "Bold", gold, 100);
-    textFrame(page, b(40, 18, 70, 96), "AGENCY\\rbody as force", 14, "Bold", ink, 100);
-    textFrame(page, b(40, 100, 70, 178), "CONSTRAINT\\rbody as protocol", 14, "Bold", ink, 100);
-    textFrame(page, b(40, 182, 70, 262), "MEDIATION\\rveil as edit", 14, "Bold", ink, 100);
+    textFrame(page, b(40, 18, 70, 96), "AGENCY\\rbody as force", 14, "Bold", cream, 100);
+    textFrame(page, b(40, 100, 70, 178), "CONSTRAINT\\rbody as protocol", 14, "Bold", cream, 100);
+    textFrame(page, b(40, 182, 70, 262), "MEDIATION\\rveil as edit", 14, "Bold", cream, 100);
     imageFrame(page, b(80, 18, 150, 263), groupAsset("Agency", n), 100);
-    textFrame(page, b(156, 18, 198, 255), COPY.intro, 9.5, "Regular", ink, 100);
+    textFrame(page, b(156, 18, 198, 255), COPY.intro, 9.5, "Regular", cream, 100);
   }}
 }}
 
@@ -1608,8 +1609,8 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
   if (mode === 0) {{
     // Dominant image left, text column right.
     imageFrame(page, b(16, 16, 199, 150), item, 100);
-    textFrame(page, b(20, 160, 44, 262), section, 20, "Bold", ink, 100);
-    textFrame(page, b(46, 160, 199, 262), body, 9.2, "Regular", ink, 100);
+    textFrame(page, b(20, 160, 44, 262), section, 20, "Bold", cream, 100);
+    textFrame(page, b(46, 160, 199, 262), body, 9.2, "Regular", cream, 100);
     caption(page, b(180, 20, 199, 110), item, ink, cream);
   }} else if (mode === 1) {{
     // Full-bleed image, scrim, pull statement, body panel.
@@ -1624,16 +1625,16 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
     imageFrame(page, b(16, 16, 132, 95), item, 100);
     imageFrame(page, b(16, 100, 132, 179), item2, 100);
     imageFrame(page, b(16, 184, 132, 263), item3, 100);
-    textFrame(page, b(140, 16, 162, 262), section + " / SEQUENCE", 16, "Bold", ink, 100);
-    textFrame(page, b(164, 16, 199, 262), body, 9, "Regular", ink, 100);
+    textFrame(page, b(140, 16, 162, 262), section + " / SEQUENCE", 16, "Bold", cream, 100);
+    textFrame(page, b(164, 16, 199, 262), body, 9, "Regular", cream, 100);
     caption(page, b(116, 104, 132, 175), item2, ink, cream);
   }}
 }}
 
 function backMatter(page, n, doc, ink, cream, gold) {{
   if (n === 50) {{
-    textFrame(page, b(40, 18, 96, 230), "Sight remains\\runfinished.", 34, "Bold", ink, 100);
-    textFrame(page, b(150, 18, 190, 250), "Final export still requires source verification, license verification, and instructor-facing review.", 10, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 96, 230), "Sight remains\\runfinished.", 34, "Bold", cream, 100);
+    textFrame(page, b(150, 18, 190, 250), "Final export still requires source verification, license verification, and instructor-facing review.", 10, "Regular", cream, 100);
     return;
   }}
   var head = n === 46 ? "IMAGE SOURCE REGISTER" : n === 47 ? "IMAGE SOURCE REGISTER / CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
@@ -1644,11 +1645,11 @@ function backMatter(page, n, doc, ink, cream, gold) {{
     for (var i = startIdx; i < Math.min(startIdx + 32, ASSETS.length); i++) {{
       lines += ASSETS[i].id + "  " + ASSETS[i].title + " - rights verify\\r";
     }}
-    textFrame(page, b(40, 18, 200, 255), lines, 8, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 200, 255), lines, 8, "Regular", cream, 100);
   }} else if (n === 48) {{
-    textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   }} else {{
-    textFrame(page, b(40, 18, 200, 255), "The grid uses a 12-column logic but refuses a fully settled rhythm. Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance. Captions overlap image edges; pull statements carry the argument.", 10, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 200, 255), "The grid uses a 12-column logic but refuses a fully settled rhythm. Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance. Captions overlap image edges; pull statements carry the argument.", 10, "Regular", cream, 100);
   }}
 }}
 
@@ -1661,7 +1662,7 @@ var slate = addSwatch(doc, "Slate Blue", [82, 107, 122]);
 for (var p = 0; p < doc.pages.length; p++) {{
   var page = doc.pages[p];
   var n = p + 1;
-  colorPanel(page, b(-4, -4, 220, 284), cream, 100);
+  colorPanel(page, b(-4, -4, 220, 284), ink, 100);
   if (n === 1) cover(page, doc, ink, cream, gold);
   else if (n <= 4) frontMatter(page, n, doc, ink, cream, gold);
   else if (n <= 7) introPage(page, n, doc, ink, cream, gold);
@@ -1679,7 +1680,7 @@ for (var p = 0; p < doc.pages.length; p++) {{
 
 // Final overset guard.
 for (var i = 0; i < doc.textFrames.length; i++) {{
-  if (doc.textFrames[i].overflows) fitText(doc.textFrames[i], 6.5);
+  if (doc.textFrames[i].overflows) fitText(doc.textFrames[i], 5.5);
 }}
 
 configurePreflight(doc);
