@@ -66,6 +66,8 @@ def regenerate_layout() -> int:
     try:
         b.generate_cover(assets)
         b.generate_book(assets)
+        import export_facing_pages
+        export_facing_pages.export_facing_pages()
     except Exception as exc:  # proof is a bonus; never block the InDesign run
         print(f"  (reportlab proof regen skipped: {exc})")
     print(f"  regenerated builder JSX and copied {len(assets)} assets")
