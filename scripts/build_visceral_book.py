@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
@@ -163,6 +164,8 @@ class Asset:
     creator: str
     title: str
     reason: str
+    caption: str = ""
+    short_caption: str = ""
 
 
 def ensure_dirs() -> None:
@@ -260,12 +263,66 @@ def infer_reason(group: str, name: str) -> str:
     return "Fabric, lace, blur, flower, veil, or partial face makes sight mediated rather than simply hidden."
 
 
+CAPTION_MANIFEST = ROOT / "data" / "visceral-caption-manifest.csv"
+_CAPTION_FALLBACK = {
+    "Agency": "Presence arrives before permission; the body speaks first.",
+    "Constraint": "The pose turns looking into a rule already agreed to.",
+    "Mediation": "A surface intervenes, and sight has to earn the face.",
+}
+
+
+def _norm(text: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", text.lower())
+
+
+def _asset_core(filename: str) -> str:
+    """Strip the repo 'aNN-theme-' prefix so the original name can match the manifest."""
+    stem = filename.rsplit(".", 1)[0]
+    stem = re.sub(r"^a\d+-(mediation|social-constraint|raw-agency)-", "", stem)
+    return _norm(stem)
+
+
+def load_caption_index() -> list[tuple[str, str, str]]:
+    index: list[tuple[str, str, str]] = []
+    if not CAPTION_MANIFEST.exists():
+        return index
+    with CAPTION_MANIFEST.open("r", encoding="utf-8-sig", newline="") as handle:
+        for row in csv.DictReader(handle):
+            name = (row.get("filename") or "").strip()
+            if name:
+                index.append(
+                    (
+                        _norm(name.rsplit(".", 1)[0]),
+                        (row.get("short_caption") or "").strip(),
+                        (row.get("caption") or "").strip(),
+                    )
+                )
+    return index
+
+
+def caption_for(asset: Asset, index: list[tuple[str, str, str]]) -> tuple[str, str]:
+    """Return (short_caption, caption) for an asset, matched by original filename."""
+    core = _asset_core(asset.filename)
+    best: tuple[str, str] | None = None
+    best_len = 0
+    for key, short_cap, full_cap in index:
+        if key and (key in core or core in key) and len(key) > best_len:
+            best = (short_cap, full_cap)
+            best_len = len(key)
+    if best:
+        return best
+    group = "Agency" if "Agency" in asset.group else "Constraint" if "Constraint" in asset.group else "Mediation"
+    fallback = _CAPTION_FALLBACK[group]
+    return (fallback, fallback)
+
+
 def scan_assets() -> list[Asset]:
     files = sorted(
         [p for p in SOURCE_ASSETS.iterdir() if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}],
         key=lambda p: p.name.lower(),
     )
     assets: list[Asset] = []
+    caption_index = load_caption_index()
     for i, path in enumerate(files, start=1):
         out_name = f"asset-{i:02d}{path.suffix.lower()}"
         local = ASSET_OUT / out_name
@@ -274,21 +331,21 @@ def scan_assets() -> list[Asset]:
             width, height = img.size
         group = infer_group(i, path.name)
         title = path.stem
-        assets.append(
-            Asset(
-                id=f"A{i:02d}",
-                source_path=path,
-                local_path=local,
-                filename=path.name,
-                width=width,
-                height=height,
-                group=group,
-                rights=infer_rights(path.name),
-                creator=infer_creator(path.name),
-                title=title,
-                reason=infer_reason(group, path.name),
-            )
+        asset = Asset(
+            id=f"A{i:02d}",
+            source_path=path,
+            local_path=local,
+            filename=path.name,
+            width=width,
+            height=height,
+            group=group,
+            rights=infer_rights(path.name),
+            creator=infer_creator(path.name),
+            title=title,
+            reason=infer_reason(group, path.name),
         )
+        asset.short_caption, asset.caption = caption_for(asset, caption_index)
+        assets.append(asset)
     return assets
 
 
@@ -354,9 +411,9 @@ def image_box(c: canvas.Canvas, asset: Asset, x: float, y: float, w: float, h: f
 
 def image_caption(c: canvas.Canvas, asset: Asset, x: float, y: float, w: float, dark: bool = False) -> None:
     c.setFillColor(CREAM if dark else INK)
-    c.setFont("Helvetica", 6.5)
-    caption = f"{asset.id} / {asset.title[:68]} / rights: verify"
-    c.drawString(x, y, caption[:100])
+    c.setFont("Helvetica-Oblique", 6.5)
+    caption = f"{asset.id} / {(asset.short_caption or asset.caption)}"
+    c.drawString(x, y, caption[:104])
     c.setStrokeColor(GOLD)
     c.setLineWidth(0.4)
     c.line(x, y - 5, x + w, y - 5)
@@ -377,8 +434,8 @@ def overlay_caption(c: canvas.Canvas, asset: Asset, x: float, y: float, w: float
     c.setFont("Helvetica-Bold", 6.5)
     c.setFillColor(CREAM if dark else INK)
     c.drawString(x, y + 2, f"{asset.id} / {asset.group.split(': ')[-1].upper()}")
-    c.setFont("Helvetica", 6.2)
-    c.drawString(x, y - 7, "caption crosses the image edge; rights verify before final export")
+    c.setFont("Helvetica-Oblique", 6.2)
+    c.drawString(x, y - 7, (asset.short_caption or asset.caption)[:80])
 
 
 def draw_pull_quote(c: canvas.Canvas, lines: list[str], y: float, dark: bool = False) -> None:
@@ -1184,6 +1241,8 @@ def write_full_layout_jsx(assets: list[Asset]) -> None:
             "path": asset.local_path.as_posix(),
             "title": asset.title[:58],
             "group": asset.group,
+            "caption": asset.caption,
+            "short_caption": asset.short_caption,
         }
         for asset in assets
     ]
@@ -1423,8 +1482,9 @@ function colorPanel(page, bounds, swatch, opacity) {{
 }}
 
 function caption(page, bounds, item, ink, cream) {{
-  var label = item.id + " / " + item.group.replace("Group 1: ", "").replace("Group 2: ", "").replace("Group 3: ", "") + "\\ncaption crosses the image edge; rights verify";
-  var tf = textFrame(page, bounds, label, 6.2, "Bold", cream, 100);
+  var theme = item.group.replace("Group 1: ", "").replace("Group 2: ", "").replace("Group 3: ", "");
+  var label = item.id + " / " + theme + "\\n" + (item.short_caption || item.caption || "");
+  var tf = textFrame(page, bounds, label, 6.4, "Bold", cream, 100);
   try {{ tf.fillColor = ink; tf.transparencySettings.blendingSettings.opacity = 78; }} catch(e) {{}}
   return tf;
 }}
