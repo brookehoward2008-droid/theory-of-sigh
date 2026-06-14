@@ -764,6 +764,26 @@ function pageNum(page, n, ink) {
   textFrame(page, b(204, 250, 212, 270), ("0" + n).slice(-2), 6.5, "Regular", ink, 100);
 }
 
+function configurePreflight(doc) {
+  // Color landscape magazine profile: duplicate Digital Publishing but allow
+  // CMY plates (color photos) and landscape orientation. Mirrors the
+  // Brooke Automation configurePublicationPreflight command.
+  var profileName = "Anatomy of Looking - Color Landscape";
+  var profile = null;
+  try { profile = app.preflightProfiles.itemByName(profileName); profile.name; }
+  catch (e) {
+    try { profile = app.preflightProfiles.itemByName("kDigPubProfileName").duplicate(); profile.name = profileName; }
+    catch (e2) { try { profile = app.preflightProfiles.add(); profile.name = profileName; } catch (e3) { return; } }
+  }
+  try { profile.description = "Color landscape magazine profile; CMY plates and landscape orientation intentionally allowed."; } catch (e4) {}
+  try { profile.preflightProfileRules.itemByName("ADBE_CMYPlates").flag = 1699890274; } catch (e5) {}
+  try { profile.preflightProfileRules.itemByName("ADBE_PageSizeOrientation").flag = 1699890274; } catch (e6) {}
+  try {
+    doc.preflightOptions.preflightWorkingProfile = profile;
+    doc.preflightOptions.preflightOff = false;
+  } catch (e7) {}
+}
+
 function saveDesktopFiles(doc) {
   var inddFile = File(OUTPUT_INDD);
   var idmlFile = File(OUTPUT_IDML);
@@ -911,4 +931,5 @@ for (var i = 0; i < doc.textFrames.length; i++) {
   if (doc.textFrames[i].overflows) fitText(doc.textFrames[i], 6.5);
 }
 
+configurePreflight(doc);
 saveDesktopFiles(doc);

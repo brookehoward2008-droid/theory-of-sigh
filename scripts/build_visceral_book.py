@@ -306,11 +306,37 @@ def caption_for(asset: Asset, index: list[tuple[str, str, str]]) -> tuple[str, s
     return (fallback, fallback)
 
 
+def _canonical_cores() -> set[str]:
+    """Original-name cores of the canonical plates (the repo's 64-image labeled set)."""
+    repo_dir = ROOT / "images" / "labeled"
+    cores: set[str] = set()
+    if repo_dir.exists():
+        for p in repo_dir.iterdir():
+            if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}:
+                cores.add(_asset_core(p.name))
+    return cores
+
+
+def _filter_to_canonical(files: list[Path]) -> list[Path]:
+    """Keep only source files matching a canonical plate, so a full-res source folder
+    that still holds the deleted originals (67) is locked back to the published 64."""
+    cores = _canonical_cores()
+    if not cores:
+        return files
+    kept: list[Path] = []
+    for p in files:
+        core = _asset_core(p.name)
+        if any(c and (c in core or core in c) for c in cores):
+            kept.append(p)
+    return kept
+
+
 def scan_assets() -> list[Asset]:
     files = sorted(
         [p for p in SOURCE_ASSETS.iterdir() if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}],
         key=lambda p: p.name.lower(),
     )
+    files = _filter_to_canonical(files)
     assets: list[Asset] = []
     caption_index = load_caption_index()
     for i, path in enumerate(files, start=1):
@@ -668,9 +694,9 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         c.setFillColor(accent)
         c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 22)
+        c.setFont("Helvetica-Bold", 26)
         c.drawString(tx, CONTENT_T - 64, section.upper())
-        draw_text_block(c, body_text, tx, CONTENT_T - 92, width_chars=33, leading=13, size=9.2, color=fg)
+        draw_text_block(c, body_text, tx, CONTENT_T - 96, width_chars=31, leading=14.5, size=10.4, color=fg)
         overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 220, dark=True)
     elif variant == 1:
         # Two stacked images left, text right.
@@ -682,9 +708,9 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         c.setFillColor(accent)
         c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 22)
+        c.setFont("Helvetica-Bold", 26)
         c.drawString(tx, CONTENT_T - 64, section.upper())
-        draw_text_block(c, body_text, tx, CONTENT_T - 92, width_chars=40, leading=13.5, size=9.4, color=fg)
+        draw_text_block(c, body_text, tx, CONTENT_T - 96, width_chars=37, leading=14.5, size=10.4, color=fg)
         overlay_caption(c, a1, CONTENT_L + 14, CONTENT_B + 16, 200, dark=True)
     elif variant == 2:
         # Full-bleed single image, scrim, pull statement, text panel.
@@ -720,9 +746,9 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         c.setFillColor(accent)
         c.rect(CONTENT_L, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 22)
+        c.setFont("Helvetica-Bold", 26)
         c.drawString(CONTENT_L, CONTENT_T - 64, section.upper())
-        draw_text_block(c, body_text, CONTENT_L, CONTENT_T - 92, width_chars=33, leading=13, size=9.2, color=fg)
+        draw_text_block(c, body_text, CONTENT_L, CONTENT_T - 96, width_chars=31, leading=14.5, size=10.4, color=fg)
         overlay_caption(c, a0, ix + 14, CONTENT_B + 18, 200, dark=True)
     draw_page_number(c, page, dark=dark)
 
@@ -744,7 +770,7 @@ def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], off
         c.setFillColor(GOLD)
         c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 22)
+        c.setFont("Helvetica-Bold", 26)
         c.drawString(tx, CONTENT_T - 64, "Unresolved Sight")
         draw_text_block(c, body_text, tx, CONTENT_T - 92, width_chars=33, leading=13, size=9.2, color=CREAM)
         overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 200, dark=True)
@@ -1489,6 +1515,26 @@ function pageNum(page, n, ink) {{
   textFrame(page, b(204, 250, 212, 270), ("0" + n).slice(-2), 6.5, "Regular", ink, 100);
 }}
 
+function configurePreflight(doc) {{
+  // Color landscape magazine profile: duplicate Digital Publishing but allow
+  // CMY plates (color photos) and landscape orientation. Mirrors the
+  // Brooke Automation configurePublicationPreflight command.
+  var profileName = "Anatomy of Looking - Color Landscape";
+  var profile = null;
+  try {{ profile = app.preflightProfiles.itemByName(profileName); profile.name; }}
+  catch (e) {{
+    try {{ profile = app.preflightProfiles.itemByName("kDigPubProfileName").duplicate(); profile.name = profileName; }}
+    catch (e2) {{ try {{ profile = app.preflightProfiles.add(); profile.name = profileName; }} catch (e3) {{ return; }} }}
+  }}
+  try {{ profile.description = "Color landscape magazine profile; CMY plates and landscape orientation intentionally allowed."; }} catch (e4) {{}}
+  try {{ profile.preflightProfileRules.itemByName("ADBE_CMYPlates").flag = 1699890274; }} catch (e5) {{}}
+  try {{ profile.preflightProfileRules.itemByName("ADBE_PageSizeOrientation").flag = 1699890274; }} catch (e6) {{}}
+  try {{
+    doc.preflightOptions.preflightWorkingProfile = profile;
+    doc.preflightOptions.preflightOff = false;
+  }} catch (e7) {{}}
+}}
+
 function saveDesktopFiles(doc) {{
   var inddFile = File(OUTPUT_INDD);
   var idmlFile = File(OUTPUT_IDML);
@@ -1636,6 +1682,7 @@ for (var i = 0; i < doc.textFrames.length; i++) {{
   if (doc.textFrames[i].overflows) fitText(doc.textFrames[i], 6.5);
 }}
 
+configurePreflight(doc);
 saveDesktopFiles(doc);
 """
     (TEMPLATE_OUT / "indesign-build-full-layout.jsx").write_text(jsx, encoding="utf-8")
