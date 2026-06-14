@@ -815,12 +815,14 @@ function sectionTitle(page, key, ink, cream, gold) {
 
 function frontMatter(page, n, doc, ink, cream, gold) {
   if (n === 2) {
-    textFrame(page, b(40, 18, 78, 230), "The Visceral\rTheory of Sight", 30, "Bold", cream, 100);
-    textFrame(page, b(86, 18, 110, 240), "A 50-page editorial art book on controlled revelation.", 11, "Regular", cream, 100);
-    textFrame(page, b(176, 18, 200, 255), "US Letter landscape. 12-column grid. 3.175mm bleed. Source and rights verification required before final export.", 8, "Regular", cream, 100);
+    imageFrame(page, b(-4, -4, 220, 284), groupAsset("Mediation", 1), 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 40);
+    textFrame(page, b(190, 18, 202, 220), "THE ANATOMY OF LOOKING", 10, "Bold", gold, 100);
   } else if (n === 3) {
-    textFrame(page, b(18, 18, 32, 160), "LEGAL / CREDITS", 12, "Bold", gold, 100);
-    textFrame(page, b(40, 18, 180, 255), "This layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
+    textFrame(page, b(18, 18, 30, 120), "TITLE", 11, "Bold", gold, 100);
+    textFrame(page, b(34, 18, 96, 250), "THE VISCERAL\rTHEORY OF SIGHT", 40, "Bold", cream, 100);
+    textFrame(page, b(98, 18, 118, 250), "A visual psychology issue on gaze, image memory, and the veil.", 13, "Regular", cream, 100);
+    textFrame(page, b(150, 18, 200, 250), "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets require license and source verification before public release. Citations are real and listed in Works Consulted; exact editions, page ranges, and licenses are confirmed before final print.", 9, "Regular", cream, 100);
   } else {
     textFrame(page, b(18, 18, 46, 220), "BODY / RULE / VEIL", 24, "Bold", cream, 100);
     textFrame(page, b(58, 18, 150, 112), "01 Front Matter\r05 Introduction\r08 Agency / The Body", 12, "Regular", cream, 100);

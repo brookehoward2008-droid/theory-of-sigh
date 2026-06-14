@@ -572,6 +572,34 @@ def draw_cover(c: canvas.Canvas, asset: Asset, page_num: int | None = None) -> N
         draw_page_number(c, page_num, dark=True)
 
 
+def draw_title_spread(c: canvas.Canvas, asset: Asset, side: str) -> None:
+    """Two-page title spread: full-bleed image (left page) facing the title (right page)."""
+    if side == "left":
+        image_box(c, asset, 0, 0, PAGE_W, PAGE_H)
+        scrim(c, alpha=0.42, dark=True)
+        draw_label(c, "the anatomy of looking", CONTENT_L, CONTENT_B + 40, color=GOLD)
+        draw_page_number(c, 2, dark=True)
+    else:
+        draw_bg(c, dark=True)
+        c.setFillColor(GOLD)
+        c.setFont("Helvetica-Bold", 11)
+        c.drawString(CONTENT_L, CONTENT_T - 30, "TITLE")
+        c.setFillColor(CREAM)
+        c.setFont("Helvetica-Bold", 56)
+        c.drawString(CONTENT_L, CONTENT_T - 132, "THE VISCERAL")
+        c.drawString(CONTENT_L, CONTENT_T - 190, "THEORY OF SIGHT")
+        c.setFont("Times-Italic", 15)
+        c.drawString(CONTENT_L, CONTENT_T - 222, "A visual psychology issue on gaze, image memory, and the veil.")
+        text = (
+            "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets "
+            "require license and source verification before public release; locally generated or unknown "
+            "files require creator and usage confirmation. Citations are real and listed in Works "
+            "Consulted; exact editions, page ranges, and licenses are confirmed before final print."
+        )
+        draw_text_block(c, text, CONTENT_L, CONTENT_B + 116, width_chars=70, leading=13, size=9.5, color=MIST)
+        draw_page_number(c, 3, dark=True)
+
+
 def draw_title_page(c: canvas.Canvas) -> None:
     draw_bg(c)
     draw_label(c, "title page", CONTENT_L, CONTENT_T - 6)
@@ -1567,12 +1595,14 @@ function sectionTitle(page, key, ink, cream, gold) {{
 
 function frontMatter(page, n, doc, ink, cream, gold) {{
   if (n === 2) {{
-    textFrame(page, b(40, 18, 78, 230), "The Visceral\\rTheory of Sight", 30, "Bold", cream, 100);
-    textFrame(page, b(86, 18, 110, 240), "A 50-page editorial art book on controlled revelation.", 11, "Regular", cream, 100);
-    textFrame(page, b(176, 18, 200, 255), "US Letter landscape. 12-column grid. 3.175mm bleed. Source and rights verification required before final export.", 8, "Regular", cream, 100);
+    imageFrame(page, b(-4, -4, 220, 284), groupAsset("Mediation", 1), 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 40);
+    textFrame(page, b(190, 18, 202, 220), "THE ANATOMY OF LOOKING", 10, "Bold", gold, 100);
   }} else if (n === 3) {{
-    textFrame(page, b(18, 18, 32, 160), "LEGAL / CREDITS", 12, "Bold", gold, 100);
-    textFrame(page, b(40, 18, 180, 255), "This layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
+    textFrame(page, b(18, 18, 30, 120), "TITLE", 11, "Bold", gold, 100);
+    textFrame(page, b(34, 18, 96, 250), "THE VISCERAL\\rTHEORY OF SIGHT", 40, "Bold", cream, 100);
+    textFrame(page, b(98, 18, 118, 250), "A visual psychology issue on gaze, image memory, and the veil.", 13, "Regular", cream, 100);
+    textFrame(page, b(150, 18, 200, 250), "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets require license and source verification before public release. Citations are real and listed in Works Consulted; exact editions, page ranges, and licenses are confirmed before final print.", 9, "Regular", cream, 100);
   }} else {{
     textFrame(page, b(18, 18, 46, 220), "BODY / RULE / VEIL", 24, "Bold", cream, 100);
     textFrame(page, b(58, 18, 150, 112), "01 Front Matter\\r05 Introduction\\r08 Agency / The Body", 12, "Regular", cream, 100);
@@ -1703,11 +1733,12 @@ def generate_book(assets: list[Asset]) -> None:
     book = PDF_OUT / "the-visceral-theory-of-sight-50pp.pdf"
     c = canvas.Canvas(str(book), pagesize=(PAGE_W, PAGE_H))
     cover_asset = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
+    title_asset = next((a for a in assets if "Mediation" in a.group and a is not cover_asset), assets[1])
     draw_cover(c, cover_asset, page_num=1)
     c.showPage()
-    draw_title_page(c)
+    draw_title_spread(c, title_asset, "left")
     c.showPage()
-    draw_legal(c)
+    draw_title_spread(c, title_asset, "right")
     c.showPage()
     draw_toc(c)
     c.showPage()
