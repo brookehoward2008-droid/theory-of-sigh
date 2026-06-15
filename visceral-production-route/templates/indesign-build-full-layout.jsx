@@ -833,10 +833,12 @@ function frontMatter(page, n, doc, ink, cream, gold) {
     textFrame(page, b(98, 18, 118, 250), "A visual psychology issue on gaze, image memory, and the veil.", 13, "Regular", cream, 100);
     textFrame(page, b(150, 18, 200, 250), "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets require license and source verification before public release. Citations are real and listed in Works Consulted; exact editions, page ranges, and licenses are confirmed before final print.", 9, "Regular", cream, 100);
   } else {
-    textFrame(page, b(18, 18, 46, 220), "BODY / RULE / VEIL", 24, "Bold", cream, 100);
-    textFrame(page, b(58, 18, 150, 112), "01 Front Matter\r05 Introduction\r08 Agency / The Body", 12, "Regular", cream, 100);
-    textFrame(page, b(58, 120, 150, 220), "17 Constraint / The Rule\r27 Mediation / The Veil\r39 Synthesis", 12, "Regular", gold, 100);
-    textFrame(page, b(152, 18, 196, 220), "46 Source Register\r48 Sources\r49 Process\r50 Close", 11, "Regular", cream, 100);
+    textFrame(page, b(18, 18, 30, 220), "CONTENTS", 11, "Bold", gold, 100);
+    textFrame(page, b(34, 18, 82, 250), "Body / Rule / Veil", 34, "Bold", cream, 100);
+    var tocTitles = "Front Matter\rIntroduction: The Visceral Theory of Sight\rI. The Body\rII. The Constraint\rIII. The Veil\rSynthesis and Reflection\rBack Matter";
+    textFrame(page, b(96, 18, 200, 215), tocTitles, 13, "Regular", cream, 100);
+    var pf = textFrame(page, b(96, 215, 200, 255), "01\r05\r08\r17\r27\r39\r46", 13, "Bold", gold, 100);
+    try { pf.texts[0].justification = Justification.RIGHT_ALIGN; } catch (e) {}
   }
 }
 

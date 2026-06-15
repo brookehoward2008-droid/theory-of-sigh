@@ -658,32 +658,35 @@ def draw_legal(c: canvas.Canvas) -> None:
 
 
 def draw_toc(c: canvas.Canvas) -> None:
-    draw_bg(c)
-    draw_label(c, "contents", 72, PAGE_H - 90)
-    c.setFont("Helvetica-Bold", 30)
+    draw_bg(c, dark=True)
+    draw_label(c, "contents", CONTENT_L, CONTENT_T - 6, color=GOLD)
     c.setFillColor(CREAM)
-    c.drawString(72, PAGE_H - 150, "Body / Rule / Veil")
+    c.setFont("Helvetica-Bold", 34)
+    c.drawString(CONTENT_L, CONTENT_T - 64, "Body / Rule / Veil")
     entries = [
-        ("Front Matter", "01-04"),
-        ("Introduction: The Visceral Theory of Sight", "05-07"),
-        ("I. The Body", "08-16"),
-        ("II. The Constraint", "17-26"),
-        ("III. The Veil", "27-38"),
-        ("Synthesis and Reflection", "39-45"),
-        ("Back Matter", "46-50"),
+        ("Front Matter", "01"),
+        ("Introduction: The Visceral Theory of Sight", "05"),
+        ("I. The Body", "08"),
+        ("II. The Constraint", "17"),
+        ("III. The Veil", "27"),
+        ("Synthesis and Reflection", "39"),
+        ("Back Matter", "46"),
     ]
-    x_positions = [72, 245, 420]
-    y = PAGE_H - 235
-    for i, (title, pages) in enumerate(entries):
-        x = x_positions[i % 3]
-        if i and i % 3 == 0:
-            y -= 115
-        c.setFont("Helvetica-Bold", 11)
-        c.setFillColor(GOLD if i % 2 else INK)
-        c.drawString(x, y, pages)
-        c.setFont("Times-Roman", 11)
+    y = CONTENT_T - 122
+    for title, page in entries:
+        c.setFont("Times-Roman", 14)
         c.setFillColor(CREAM)
-        draw_text_block(c, title, x, y - 19, width_chars=19, leading=12, size=10)
+        c.drawString(CONTENT_L, y, title)
+        title_w = c.stringWidth(title, "Times-Roman", 14)
+        c.setStrokeColor(MIST)
+        c.setLineWidth(0.6)
+        c.setDash([1, 3])
+        c.line(CONTENT_L + title_w + 12, y + 3, CONTENT_R - 34, y + 3)
+        c.setDash([])
+        c.setFont("Helvetica-Bold", 13)
+        c.setFillColor(GOLD)
+        c.drawRightString(CONTENT_R, y, page)
+        y -= 36
     draw_page_number(c, 4)
 
 
@@ -1639,10 +1642,12 @@ function frontMatter(page, n, doc, ink, cream, gold) {{
     textFrame(page, b(98, 18, 118, 250), "A visual psychology issue on gaze, image memory, and the veil.", 13, "Regular", cream, 100);
     textFrame(page, b(150, 18, 200, 250), "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets require license and source verification before public release. Citations are real and listed in Works Consulted; exact editions, page ranges, and licenses are confirmed before final print.", 9, "Regular", cream, 100);
   }} else {{
-    textFrame(page, b(18, 18, 46, 220), "BODY / RULE / VEIL", 24, "Bold", cream, 100);
-    textFrame(page, b(58, 18, 150, 112), "01 Front Matter\\r05 Introduction\\r08 Agency / The Body", 12, "Regular", cream, 100);
-    textFrame(page, b(58, 120, 150, 220), "17 Constraint / The Rule\\r27 Mediation / The Veil\\r39 Synthesis", 12, "Regular", gold, 100);
-    textFrame(page, b(152, 18, 196, 220), "46 Source Register\\r48 Sources\\r49 Process\\r50 Close", 11, "Regular", cream, 100);
+    textFrame(page, b(18, 18, 30, 220), "CONTENTS", 11, "Bold", gold, 100);
+    textFrame(page, b(34, 18, 82, 250), "Body / Rule / Veil", 34, "Bold", cream, 100);
+    var tocTitles = "Front Matter\\rIntroduction: The Visceral Theory of Sight\\rI. The Body\\rII. The Constraint\\rIII. The Veil\\rSynthesis and Reflection\\rBack Matter";
+    textFrame(page, b(96, 18, 200, 215), tocTitles, 13, "Regular", cream, 100);
+    var pf = textFrame(page, b(96, 215, 200, 255), "01\\r05\\r08\\r17\\r27\\r39\\r46", 13, "Bold", gold, 100);
+    try {{ pf.texts[0].justification = Justification.RIGHT_ALIGN; }} catch (e) {{}}
   }}
 }}
 
