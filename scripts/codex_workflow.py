@@ -101,7 +101,7 @@ class CodexWorkflow:
         self.log("INFO", f"Document: {indesign_file.name}")
         self.log("INFO", "Preflight checks:")
         self.log("INFO", "  - Checking layers (Captions, Source Register)")
-        self.log("INFO", "  - Checking image links (should be 67)")
+        self.log("INFO", "  - Checking image links (should be 64)")
         self.log("INFO", "  - Checking for overset text")
         self.log("INFO", "  - Checking color space and fonts")
         

@@ -1,406 +1,963 @@
 // The Visceral Theory of Sight - full 50-page InDesign layout builder
 // Run from InDesign: File > Scripts > Other Script...
-// Builds A4 facing pages, 3mm bleed, 12-column grid, linked images, captions, layered editorial modules, PDF, and audit report.
+// Builds US Letter landscape facing pages, 3.175mm bleed, full-bleed section title pages with descriptions, multi-image spreads, captions, PDF, and audit report.
 
 var ASSETS = [
   {
     "id": "A01",
+<<<<<<< Updated upstream
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-01.jpg",
     "title": "a01-mediation-a-photograph-of-an-attractive-woman-with-a-w",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "The flowers soften the restraint, but do not remove its force.",
+    "short_caption": "Beauty becomes the blindfold\u2019s alibi."
   },
   {
     "id": "A02",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-02.jpg",
     "title": "a05-social-constraint-adobestock-1024472839",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The image fractures the face into signal and noise, leaving one eye to survive the interference.",
+    "short_caption": "The gaze glitches, but remains."
   },
   {
     "id": "A03",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-03.jpg",
     "title": "a06-social-constraint-adobestock-1040196803",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The flowers bloom exactly where recognition should happen.",
+    "short_caption": "Beauty replaces sight."
   },
   {
     "id": "A04",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-04.jpg",
     "title": "a07-social-constraint-adobestock-1044937382",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The white stroke silences the gaze with surgical calm.",
+    "short_caption": "The eye is edited out."
   },
   {
     "id": "A05",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-05.jpg",
     "title": "a08-social-constraint-adobestock-1225023891",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "Her face becomes a garden, but the flowers still perform the work of concealment.",
+    "short_caption": "Bloom as blindfold."
   },
   {
     "id": "A06",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-06.jpg",
     "title": "a09-social-constraint-adobestock-140076283",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The hands do not fully hide her. They make the act of hiding visible.",
+    "short_caption": "Defense becomes gesture."
   },
   {
     "id": "A07",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-07.jpg",
     "title": "a10-social-constraint-adobestock-1462135790",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "Gold catches the light while the face withdraws into shadow.",
+    "short_caption": "Adornment becomes armor."
   },
   {
     "id": "A08",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-08.jpg",
     "title": "a11-social-constraint-adobestock-206067082",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "She covers her sight, then paints another gaze over the absence.",
+    "short_caption": "A false eye performs the feeling."
   },
   {
     "id": "A09",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-09.jpg",
     "title": "a12-social-constraint-adobestock-268225510",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A10",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-10.jpg",
     "title": "a13-social-constraint-adobestock-320500758",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The veil does not block the gaze; it makes looking feel forbidden.",
+    "short_caption": "Lace turns vision into trespass."
   },
   {
     "id": "A11",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-11.jpg",
     "title": "a14-social-constraint-adobestock-368079012",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "One eye meets us through the flower\u2019s shadow, half invitation, half defense.",
+    "short_caption": "Nature becomes a mask."
   },
   {
     "id": "A12",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-12.jpg",
     "title": "a15-social-constraint-adobestock-378198491",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The blue fabric does not conceal her completely; it makes her appear underwater, suspended between access and refusal.",
+    "short_caption": "Visibility dissolves into blue."
   },
   {
     "id": "A13",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-13.jpg",
     "title": "a16-social-constraint-adobestock-565582008",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The face breaks apart, but the eyes remain \u2014 watchful, multiplied, impossible to silence.",
+    "short_caption": "Fragments still look back."
   },
   {
     "id": "A14",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-14.jpg",
     "title": "a17-social-constraint-adobestock-720156971",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A15",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-15.jpg",
     "title": "a18-social-constraint-adobestock-730927617",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The repeated faces turn the gaze into public noise: many eyes, no single witness.",
+    "short_caption": "The gaze becomes a crowd."
   },
   {
     "id": "A16",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-16.jpg",
     "title": "a19-social-constraint-adobestock-973721353",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "Clouds and trees cross the face like a second memory, replacing sight with interior weather.",
+    "short_caption": "The mind becomes the landscape."
   },
   {
     "id": "A17",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-17.jpg",
     "title": "a20-mediation-alex-bracken-l1sjo7tmvec-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "The veil softens the mouth and fractures the gaze into texture.",
+    "short_caption": "The face becomes fabric."
   },
   {
     "id": "A18",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-18.jpg",
     "title": "a21-raw-agency-alexander-krivitskiy-az7rqwlwkhi-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
     "id": "A19",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-19.jpg",
     "title": "a22-social-constraint-alexander-krivitskiy-gfopukdkmvo-uns",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The eye remains visible through the lace, making the act of looking feel intimate and forbidden.",
+    "short_caption": "Lace makes looking trespass."
   },
   {
     "id": "A20",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-20.jpg",
     "title": "a23-mediation-allef-vinicius-dkrntf-jgtw-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "Leaves interrupt the portrait gently, as if nature itself has chosen what may be seen.",
+    "short_caption": "The gaze hides in green."
   },
   {
     "id": "A21",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-21.jpg",
     "title": "a24-raw-agency-amir-geshani-2jh8d3chnec-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "She holds the obstruction herself, turning concealment into control.",
+    "short_caption": "She edits the view."
   },
   {
     "id": "A22",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-22.jpg",
     "title": "a25-social-constraint-andrey-zvyagintsev-t8iknlqojcq-unspl",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A23",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-23.jpg",
     "title": "a26-mediation-arielle-allouche-h82rqe4gria-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A24",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-24.jpg",
     "title": "a27-raw-agency-baran-lotfollahi-lobgof8rurg-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "The closed eye turns the image inward; the fabric makes silence feel physical.",
+    "short_caption": "Sight folds into silence."
   },
   {
     "id": "A25",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-25.jpg",
     "title": "a28-social-constraint-birmingham-museums-trust-oqpbewogd0o",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A26",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-26.jpg",
     "title": "a29-mediation-boston-public-library-grbfmxpumu4-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A27",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-27.jpg",
     "title": "a30-raw-agency-brunxs-monochrome-spniqdcpi9u-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "The shadows do not cover her completely; they divide the gaze into risk and revelation.",
+    "short_caption": "One eye survives the dark."
   },
   {
     "id": "A28",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-28.jpg",
     "title": "a31-social-constraint-caleb-kastein-lmnz6-icim8-unsplash",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The eye survives the dark, but the rest of the face slips out of reach.",
+    "short_caption": "One eye holds the room."
   },
   {
     "id": "A29",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-29.jpg",
     "title": "a32-mediation-camila-quintero-franco-mc852jack1g-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A30",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-30.jpg",
     "title": "a33-raw-agency-carl-cheng-o4l-vetcxhy-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "The covered lenses turn sight into repair, damage, and evidence.",
+    "short_caption": "Vision becomes patched evidence."
   },
   {
     "id": "A31",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-31.jpg",
     "title": "a34-social-constraint-cole-keister-d6zqt8nfiq4-unsplash",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The foil frames the gaze like something precious, trapped, and half-protected.",
+    "short_caption": "The gaze cuts through gold."
   },
   {
     "id": "A32",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-32.jpg",
     "title": "a35-mediation-darius-bashar-3xegkkbinck-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "The face moves faster than recognition, leaving the eye as the only anchor.",
+    "short_caption": "Identity slips; the eye remains."
   },
   {
     "id": "A33",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-33.jpg",
     "title": "a36-raw-agency-drew-dizzy-graham-ctkgzjtmjqu-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
     "id": "A34",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-34.jpg",
     "title": "a37-social-constraint-elias-maurer-ssplu7ipc8g-unsplash",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "Text covers the face, but the eye reads back through the surface.",
+    "short_caption": "The archive looks back."
   },
   {
     "id": "A35",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-35.jpg",
     "title": "a38-mediation-elvis-kaiser-rqbk5ez6qa0-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A36",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-36.jpg",
     "title": "a39-raw-agency-enesh-taganova-ioxgidqvqyq-unsplash-1",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
     "id": "A37",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-37.jpg",
     "title": "a40-social-constraint-erik-mclean-gjtz5ckgeew-unsplash",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The darkness does not hide the gaze; it sharpens its accusation.",
+    "short_caption": "The eye becomes evidence."
   },
   {
     "id": "A38",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-38.jpg",
     "title": "a41-mediation-europeana-lbt8newonko-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A39",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-39.jpg",
     "title": "a42-raw-agency-europeana-wwghncxmcqi-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
     "id": "A40",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-40.jpg",
     "title": "a43-social-constraint-evilicio-inc-1hty8zlswls-unsplash",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A41",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-41.jpg",
     "title": "a44-mediation-flaviu-costin-vr-sbbcwklc-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "The cloth protects and confines at once, leaving one eye to carry the whole portrait.",
+    "short_caption": "One opening, one witness."
   },
   {
     "id": "A42",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-42.jpg",
     "title": "a45-raw-agency-good-faces-r8vsytyy2oe-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "The face dissolves into motion, as if memory cannot hold it still.",
+    "short_caption": "Recognition loses focus."
   },
   {
     "id": "A43",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-43.jpg",
     "title": "a46-social-constraint-harry-quan-g1iycecw2ei-unsplash",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A44",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-44.jpg",
     "title": "a47-mediation-igor-rand-giw9ccl3hxa-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A45",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-45.jpg",
     "title": "a48-raw-agency-ilya-mondryk-oceeo0ayn1s-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
     "id": "A46",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-46.jpg",
     "title": "a49-social-constraint-janko-ferlic-brzt6bdt6na-unsplash",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A47",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-47.jpg",
     "title": "a50-mediation-jr-korpa-0lokelbdsbw-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "The face appears twice, but neither version offers certainty.",
+    "short_caption": "Doubling does not reveal."
   },
   {
     "id": "A48",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-48.jpg",
     "title": "a51-raw-agency-library-of-congress-v0jinhbf3xq-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
     "id": "A49",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-49.jpg",
     "title": "a52-social-constraint-lorraine-hill-4dyxkga2gxa-unsplash",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The eye peers through a torn aperture, caught between protection and surveillance.",
+    "short_caption": "A small hole becomes a gaze."
   },
   {
     "id": "A50",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-50.jpg",
     "title": "a53-mediation-mahdi-bafande-rw-azxeky7q-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "Light cuts across the eye like a wound; the rest of the face falls silent.",
+    "short_caption": "Light becomes incision."
   },
   {
     "id": "A51",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-51.jpg",
     "title": "a54-raw-agency-nastia-petruk-f-hajyv3wye-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "The leaves interrupt the portrait softly, but the gaze remains direct and unhidden.",
+    "short_caption": "Nature edits the face."
   },
   {
     "id": "A52",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-52.jpg",
     "title": "a55-social-constraint-nina-zeynep-guler-fjjivsx-bxm-unspla",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A53",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-53.jpg",
     "title": "a56-mediation-noah-buscher-11ldehfy-ha-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "Play becomes obstruction; sweetness performs the work of concealment.",
+    "short_caption": "Candy becomes a mask."
   },
   {
     "id": "A54",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-54.jpg",
     "title": "a57-raw-agency-ovie-ogege-6bwt4ci-ujs-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "The glasses split the face into surface and shadow, making style feel like defense.",
+    "short_caption": "Coolness becomes cover."
   },
   {
     "id": "A55",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-55.jpg",
     "title": "a58-social-constraint-see-plus-np3s9byoqac-unsplash",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A56",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-56.jpg",
     "title": "a59-mediation-smithsonian-elpq3w9epnk-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A57",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-57.jpg",
     "title": "a60-raw-agency-smithsonian-otg-zz0tybe-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
     "id": "A58",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-58.jpg",
     "title": "a61-social-constraint-teslariu-mihai-tk-szddiuis-unsplash",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A59",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-59.jpg",
     "title": "a62-mediation-the-new-york-public-library-ndjv4ntdf6g-unsp",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A60",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-60.jpg",
     "title": "a63-raw-agency-toa-heftiba-fv1lunshcaw-unsplash",
-    "group": "Group 1: Raw Agency"
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
     "id": "A61",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-61.jpg",
     "title": "a64-social-constraint-umanoide-xjp9ak1oqhw-unsplash",
-    "group": "Group 2: Social Constraint"
+    "group": "Group 2: Social Constraint",
+    "caption": "False eyes replace the real ones, turning the portrait into a performance of seeing.",
+    "short_caption": "The mask learns to look."
   },
   {
     "id": "A62",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-62.jpg",
     "title": "a65-mediation-umesh-soni-hpklbuuel-k-unsplash",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A63",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-63.jpg",
     "title": "a66-mediation-woman-obscured-by-white-flowers-creating-a-d",
-    "group": "Group 3: Mediation"
+    "group": "Group 3: Mediation",
+    "caption": "The flowers are gentle, but their placement is absolute: beauty refuses access.",
+    "short_caption": "Softness blocks the gaze."
   },
   {
     "id": "A64",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-64.jpg",
     "title": "a67-social-constraint-zachary-kadolph-qbjgfnctwbu-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+=======
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-01.jpeg",
+    "title": "A photograph of an attractive woman with a white lace blin",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A02",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-02.jpeg",
+    "title": "Abstract Female Portrait Hidden Vision, Pink and Black",
     "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A03",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-03.jpeg",
+    "title": "Abstract Monochrome Portrait of a Woman A Study in Light a",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A04",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-04.jpeg",
+    "title": "AdobeStock_1021442471",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A05",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-05.jpeg",
+    "title": "AdobeStock_1024472839",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A06",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-06.jpeg",
+    "title": "AdobeStock_1040196803",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A07",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-07.jpeg",
+    "title": "AdobeStock_1044937382",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A08",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-08.jpeg",
+    "title": "AdobeStock_1225023891",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A09",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-09.jpeg",
+    "title": "AdobeStock_140076283",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A10",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-10.jpeg",
+    "title": "AdobeStock_1462135790",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A11",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-11.jpeg",
+    "title": "AdobeStock_206067082",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A12",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-12.jpeg",
+    "title": "AdobeStock_268225510",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A13",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-13.jpeg",
+    "title": "AdobeStock_320500758",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A14",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-14.jpeg",
+    "title": "AdobeStock_368079012",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A15",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-15.jpeg",
+    "title": "AdobeStock_378198491",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A16",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-16.jpeg",
+    "title": "AdobeStock_565582008",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A17",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-17.jpeg",
+    "title": "AdobeStock_720156971",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A18",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-18.jpeg",
+    "title": "AdobeStock_730927617",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A19",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-19.jpeg",
+    "title": "AdobeStock_973721353",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A20",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-20.jpg",
+    "title": "alex-bracken-l1SJO7TMVEc-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A21",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-21.jpg",
+    "title": "alexander-krivitskiy-az7rqWLWkhI-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A22",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-22.jpg",
+    "title": "alexander-krivitskiy-GfOpUKdkMvo-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A23",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-23.jpg",
+    "title": "allef-vinicius-DKrNTF_Jgtw-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A24",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-24.jpg",
+    "title": "amir-geshani-2JH8d3ChNec-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A25",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-25.jpg",
+    "title": "andrey-zvyagintsev-T8IkNlQojCQ-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A26",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-26.jpg",
+    "title": "arielle-allouche-H82Rqe4griA-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A27",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-27.jpg",
+    "title": "baran-lotfollahi-LOBgOf8Rurg-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A28",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-28.jpg",
+    "title": "birmingham-museums-trust-oQpbeWoGD0o-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A29",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-29.jpg",
+    "title": "boston-public-library-gRbFMxpUMU4-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A30",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-30.jpg",
+    "title": "brunxs-monochrome-sPnIqdCPI9U-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A31",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-31.jpg",
+    "title": "caleb-kastein-lmNz6-ICIM8-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A32",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-32.jpg",
+    "title": "camila-quintero-franco-mC852jACK1g-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A33",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-33.jpg",
+    "title": "carl-cheng-o4L-veTcXHY-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A34",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-34.jpg",
+    "title": "cole-keister-D6zQt8NfIq4-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A35",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-35.jpg",
+    "title": "darius-bashar-3XEgKKBinCk-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A36",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-36.jpg",
+    "title": "drew-dizzy-graham-cTKGZJTMJQU-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A37",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-37.jpg",
+    "title": "elias-maurer-sSpLu7IPC8g-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A38",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-38.jpg",
+    "title": "elvis-kaiser-Rqbk5ez6Qa0-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A39",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-39.jpg",
+    "title": "enesh-taganova-IoXGIDqVqYQ-unsplash (1)",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A40",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-40.jpg",
+    "title": "erik-mclean-gjtz5cKGEEw-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A41",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-41.jpg",
+    "title": "europeana-lBt8NEWOnko-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A42",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-42.jpg",
+    "title": "europeana-wwgHncxMcQI-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A43",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-43.jpg",
+    "title": "evilicio-inc-1HTY8zLsWLs-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A44",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-44.jpg",
+    "title": "flaviu-costin-Vr-sBbCWklc-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A45",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-45.jpg",
+    "title": "good-faces-R8VSYtyY2oE-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A46",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-46.jpg",
+    "title": "harry-quan-G1iYCeCW2EI-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A47",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-47.jpg",
+    "title": "igor-rand-GIW9CCL3HxA-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A48",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-48.jpg",
+    "title": "ilya-mondryk-OCEeo0aYN1s-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A49",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-49.jpg",
+    "title": "janko-ferlic-brZT6bdt6NA-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A50",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-50.jpg",
+    "title": "jr-korpa-0lOkeLbdsBw-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A51",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-51.jpg",
+    "title": "library-of-congress-v0jInHBf3XQ-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A52",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-52.jpg",
+    "title": "lorraine-hill-4dyXkga2GxA-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A53",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-53.jpg",
+    "title": "mahdi-bafande-rw-AZxeky7Q-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A54",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-54.jpg",
+    "title": "nastia-petruk-F-HAjYv3WyE-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A55",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-55.jpg",
+    "title": "nina-zeynep-guler-fjJiVSX-BxM-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A56",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-56.jpg",
+    "title": "noah-buscher-11lDEHFy_hA-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A57",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-57.jpg",
+    "title": "ovie-ogege-6bwT4cI_UJs-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A58",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-58.jpg",
+    "title": "see-plus-NP3s9BYOqAc-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A59",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-59.jpg",
+    "title": "smithsonian-ELPq3W9Epnk-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A60",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-60.jpg",
+    "title": "smithsonian-OtG-Zz0tYbE-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A61",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-61.jpg",
+    "title": "teslariu-mihai-tK-SzdDiUIs-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A62",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-62.jpg",
+    "title": "the-new-york-public-library-ndJV4ntdF6g-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A63",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-63.jpg",
+    "title": "toa-heftiba-FV1LuNSHcAw-unsplash",
+    "group": "Group 1: Raw Agency"
+  },
+  {
+    "id": "A64",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-64.jpg",
+    "title": "umanoide-XJP9Ak1oqHw-unsplash",
+    "group": "Group 2: Social Constraint"
+  },
+  {
+    "id": "A65",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-65.jpg",
+    "title": "umesh-soni-hpklBuuel_k-unsplash",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A66",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-66.jpeg",
+    "title": "Woman obscured by white flowers, creating a dreamy and sur",
+    "group": "Group 3: Mediation"
+  },
+  {
+    "id": "A67",
+    "path": "C:/Users/toddl/theory-of-sigh/visceral-production-route/assets/asset-67.jpg",
+    "title": "zachary-kadolph-qBJgfnCTwbU-unsplash",
+    "group": "Group 2: Social Constraint"
+>>>>>>> Stashed changes
   }
 ];
-var OUTPUT_INDD = "/home/user/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.indd";
-var OUTPUT_IDML = "/home/user/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.idml";
-var OUTPUT_PDF = "/home/user/theory-of-sigh/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-auto.pdf";
-var OUTPUT_REPORT = "/home/user/theory-of-sigh/visceral-production-route/reports/indesign-full-layout-auto-report.json";
+var OUTPUT_INDD = "C:/Users/toddl/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.indd";
+var OUTPUT_IDML = "C:/Users/toddl/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.idml";
+var OUTPUT_PDF = "C:/Users/toddl/theory-of-sigh/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-auto.pdf";
+var OUTPUT_REPORT = "C:/Users/toddl/theory-of-sigh/visceral-production-route/reports/indesign-full-layout-auto-report.json";
 
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;
 
 var COPY = {
-  "intro": "Sight is never only an act of seeing. It is a negotiation between the body that appears, the culture that disciplines appearance, and the surface that decides what can be touched by the eye. This book moves through agency, constraint, and mediation as one visual pressure system.",
-  "agency": "The body becomes the first instrument of authorship before it becomes a subject for interpretation. In the first movement of this book, sight begins with bodily insistence: a hand, a shoulder, a mouth, an eye, or a turned face does not wait for culture to explain it. The figure enters as pressure. It occupies the page with the blunt force of being present, and that presence matters because the viewer has not yet been given a stable rule for reading it.\n\nThe scholarly route through McDermott is used here as a verified-to-be-checked framework rather than as a source of direct quotation. The working idea is that early bodily images can be read as more than passive objects of display. They carry agency through scale, fragment, gesture, and emphasis. A figure can be partial and still be active. A cropped body can still claim space. The page therefore treats the body as origin, not because origin is simple, but because every later system of looking must first meet the fact of the body.\n\nAgency in this layout is close, image-led, and slightly uncomfortable. The images press into the margins. Captions cross edges. Text is broken into short forceful passages so the reader feels the body interrupting analysis. The design does not let the article become smooth because smoothness would weaken the argument. The body is not introduced as an illustration of theory. It is introduced as the condition that makes theory necessary.\n\nThis is also where the neural learning backdrop enters quietly: looking is not passive reception. The eye learns by comparing pressure, repetition, interruption, and contrast. A body seen once is an image. A body seen across a sequence becomes a pattern the reader has to train against. The first article therefore builds a visual lesson in agency: presence arrives before permission.",
-  "constraint": "Culture turns visibility into a protocol. The second movement begins when bodily force is no longer allowed to stand alone. The figure becomes arranged by posture, costume, rank, gender, ritual, and inherited rules of display. A face can still look outward, but it now looks through an architecture of expectation. A body can still occupy the frame, but the frame has begun to instruct it.\n\nThe Havelock and Reeder route is treated as a scholarly placeholder for the cultural body: Greek art, social posture, public presentation, and the disciplined relation between figure and viewer. No direct quotation is used here because the source texts are not supplied in the workspace. Instead, the article synthesizes the assigned idea: visibility becomes social when a culture teaches bodies how to appear, and teaches viewers how to approve that appearance.\n\nConstraint does not erase agency. It redirects it. The body still carries force, but that force is shaped by protocol. The page system responds by tightening. Columns become more formal. Panels sit closer to the grid. Accent color marks pressure points, especially where the terms agency and constraint appear together. This section should feel less wild than the first, but more tense. The reader should sense that the body has entered a room where every gesture is already being measured.\n\nThis matters to the theory of sight because the viewer is also constrained. We do not only look at the ruled body; we learn the rule by looking. The layout asks the reader to notice that training. Each repeated crop, caption, and column teaches a visual habit. The eye becomes disciplined alongside the figure. Seeing is no longer just contact. It is compliance, resistance, and learned interpretation happening at the same time.",
-  "mediation": "The veil is an editing system, not a disappearance. The third movement begins where the body and the rule meet a surface that can interrupt both. Lace, shadow, fabric, blur, flowers, hair, hands, and darkness all become interfaces. They do not simply hide the figure. They decide how slowly the figure can arrive.\n\nThe veiling route is held through iconography, Vera Icona, lace, secrecy, and the larger problem of mediated access. The key point is not that the viewer is denied. The key point is that denial becomes structure. A veil produces a special kind of attention because the eye has to work without full possession. It keeps searching, comparing edges, reading textures, and inventing continuity from fragments.\n\nThis section opens the grid. The design becomes more atmospheric, with more negative space and more surface interruption. Images are allowed to feel secretive. Text becomes quieter, more breath-based, but it still carries an argument: mediation is the place where agency and constraint become visible as tension. The body wants to appear. The rule wants to organize appearance. The veil controls the tempo of access.\n\nFor an ADHD reader, this section should not become vague. The idea stays modular: surface, delay, pressure, partial access. Those repeated terms create a learning path through the atmosphere. The reader can feel the mystery without getting lost inside it. The veil does not remove meaning. It makes meaning arrive through effort.",
-  "synthesis": "Sight becomes visceral when these forces remain active together. The final movement refuses to solve the body, the rule, and the veil into a clean hierarchy. Agency begins the argument, constraint disciplines it, and mediation keeps it unresolved. The image becomes powerful because no single force wins.\n\nThis is the core thesis of the book: psychological pressure does not come from clear depiction alone. It comes from calculated revelation. The viewer feels the image because the image negotiates what can be seen, how quickly it can be seen, and what remains withheld even after attention has been spent. The body is present, but not fully available. Culture is legible, but not neutral. The veil interrupts, but also teaches the eye how to continue.\n\nThe synthesis pages therefore break the grid most visibly. Large images take authority. Text floats beside them or presses into panels that seem slightly displaced. The asymmetry is not decoration. It is the final proof of the argument. A symmetrical page would imply that sight has settled. This book needs sight to remain unstable, because unstable sight is where learning happens.\n\nThe conclusion keeps the claims rights-sensitive and citation-safe. It does not invent quotations, publication details, or license certainty. It names the scholarly routes that still need final verification and holds the visual argument as the completed local production route. What remains is deliberate: source checking, instructor review, and final export. The theory, however, is already visible in the structure."
+  "intro": "Sight is never only an act of seeing. It is a negotiation between the body that appears, the culture that disciplines appearance, and the surface that decides what the eye is allowed to touch. This issue moves through agency, constraint, and mediation as one continuous pressure system: the anatomy of looking, traced from the body outward to the veil.",
+  "agency": "The body becomes the first instrument of authorship before it becomes a subject for interpretation. A hand, a shoulder, a mouth, a turned face: the figure enters as pressure, not as explanation. It claims the page by being present, and that presence unsettles the viewer who has not yet been handed a rule for reading it.\n\nThis is the oldest grammar of looking. In LeRoy McDermott's study of Upper Paleolithic female figurines, the strange proportions of the earliest carved bodies read not as another person's gaze but as self-representation, the body seen from within by the one who inhabits it.[1] Sight begins as ownership before it becomes display.\n\nA figure can be partial and still be active. A cropped body still claims space; a single eye still returns the look. So the opening pages stay close, image-led, and a little uncomfortable, letting presence arrive before permission. Looking here is not passive reception. The eye learns by pressure, repetition, and contrast, and a body seen across a sequence becomes a pattern the viewer is slowly trained to recognize. Before culture explains the figure, the figure has already insisted on being seen.",
+  "constraint": "Culture turns visibility into a protocol. Bodily force is no longer allowed to stand alone; it is arranged by posture, costume, rank, ritual, maternity, and inherited rules of display. A face still looks outward, but now it looks through an architecture of expectation.\n\nElizabeth Mulley's study of Laura Muntz gives this constraint an intimate register: womanhood represented through maternity, care, loss, and symbolic burden, the body made legible by the roles it is asked to carry.[2] Mary Morrissy's account of Una Watters adds the everyday, where the woman is set inside ordinary weather, labor, and street life rather than idealized apart from it.[3]\n\nConstraint does not erase agency; it redirects it. The body still carries force, but that force is shaped by who is permitted to look and who is expected to be seen. The viewer is disciplined too. Each repeated crop, pose, and symbol teaches a visual habit, until seeing is no longer simple contact but compliance, resistance, and learned interpretation happening at once. The room has rules, and the eye has already agreed to most of them before it knows that it is choosing to obey.",
+  "mediation": "The veil is an editing system, not a disappearance. Where the body and the rule meet a surface that can interrupt both, lace, shadow, fabric, blur, flowers, hair, and darkness become interfaces. They do not simply hide the figure; they decide how slowly it is allowed to arrive.\n\nA blocked face increases attention, because the viewer has to complete the missing information. Denial becomes structure. This is the logic the art of obstruction has always understood: Symbolism treats the visible world as a carrier for inward states, and Surrealism turns ordinary surfaces into dream pressure and psychological interruption.[4][5] The covered eye and the displaced face push the viewer toward interpretation rather than recognition.\n\nSo this section opens its grid and lets the images feel secretive, with more negative space and more surface. The body wants to appear; the rule wants to organize appearance; the veil controls the tempo of access. The point is not mystery for its own sake but cognitive pressure. A hidden gaze makes the eye work, and meaning arrives only through that effort. What is withheld is not absence; it is the part of the image still being decided.",
+  "synthesis": "Sight becomes visceral when these forces remain active together. The final movement refuses to resolve the body, the rule, and the veil into a clean hierarchy. Agency begins the argument, constraint disciplines it, and mediation keeps it unresolved, and the image grows powerful precisely because no single force wins.\n\nThis is the thesis the whole issue has been building toward: psychological pressure does not come from clear depiction. It comes from calculated revelation, the image negotiating what can be seen, how quickly, and what stays withheld even after attention has been spent. The body is present but not fully available. Culture is legible but never neutral. The veil interrupts, yet it also teaches the eye how to continue.\n\nSo the closing pages keep the layout asymmetrical. Large images take authority; text presses beside them, slightly displaced. A symmetrical page would imply that sight had settled, and this argument needs sight to stay unstable, because instability is where looking turns into learning. The anatomy of looking is never finished. It only changes the surface it has to cross next, and asks the eye to begin the work again."
+};
+
+var SECTION = {
+  "Agency": {
+    "numeral": "I",
+    "title": "Agency",
+    "sub": "The Body / presence before permission",
+    "blurb": "Agency is the body as its own first statement: a hand, an eye, a turned face that claims attention as pressure, before any rule arrives to explain it."
+  },
+  "Constraint": {
+    "numeral": "II",
+    "title": "Constraint",
+    "sub": "The Rule / visibility as protocol",
+    "blurb": "Constraint is culture turning visibility into protocol: pose, costume, rank, and ritual teach a body how it may appear, and teach the viewer how to approve it."
+  },
+  "Mediation": {
+    "numeral": "III",
+    "title": "Mediation",
+    "sub": "The Veil / the tempo of access",
+    "blurb": "Mediation is the veil as an editing system: lace, shadow, fabric, and blur do not simply hide the body, they decide how slowly it is allowed to be seen."
+  },
+  "Synthesis": {
+    "numeral": "IV",
+    "title": "Synthesis",
+    "sub": "Sight that refuses to settle",
+    "blurb": "Synthesis is sight that refuses to settle: body, rule, and veil stay active at once, so looking stays unfinished and the image keeps its pressure."
+  }
 };
 
 function mm(v) { return v + "mm"; }
@@ -438,18 +995,18 @@ function copyChunk(key, n) {
 
 function setupDoc() {
   var doc = app.documents.add();
-  doc.documentPreferences.pageWidth = "210mm";
-  doc.documentPreferences.pageHeight = "297mm";
+  doc.documentPreferences.pageWidth = "279.4mm";
+  doc.documentPreferences.pageHeight = "215.9mm";
   doc.documentPreferences.facingPages = true;
   doc.documentPreferences.pagesPerDocument = 50;
-  doc.documentPreferences.documentBleedTopOffset = "3mm";
-  doc.documentPreferences.documentBleedBottomOffset = "3mm";
-  doc.documentPreferences.documentBleedInsideOrLeftOffset = "3mm";
-  doc.documentPreferences.documentBleedOutsideOrRightOffset = "3mm";
-  doc.marginPreferences.top = "20.790mm";
-  doc.marginPreferences.bottom = "20.790mm";
-  doc.marginPreferences.left = "21.000mm";
-  doc.marginPreferences.right = "15.750mm";
+  doc.documentPreferences.documentBleedTopOffset = "3.175mm";
+  doc.documentPreferences.documentBleedBottomOffset = "3.175mm";
+  doc.documentPreferences.documentBleedInsideOrLeftOffset = "3.175mm";
+  doc.documentPreferences.documentBleedOutsideOrRightOffset = "3.175mm";
+  doc.marginPreferences.top = "16mm";
+  doc.marginPreferences.bottom = "16mm";
+  doc.marginPreferences.left = "16mm";
+  doc.marginPreferences.right = "16mm";
   doc.marginPreferences.columnCount = 12;
   doc.marginPreferences.columnGutter = "5mm";
   return doc;
@@ -467,7 +1024,7 @@ function addSwatch(doc, name, values) {
 
 function fitText(tf, minSize) {
   var attempts = 0;
-  while (tf.overflows && attempts < 18) {
+  while (tf.overflows && attempts < 40) {
     try {
       var txt = tf.texts[0];
       txt.pointSize = Math.max(minSize, txt.pointSize - 0.35);
@@ -485,7 +1042,7 @@ function textFrame(page, bounds, text, size, fontStyle, swatch, opacity) {
     tf.textFramePreferences.insetSpacing = ["2mm", "2mm", "2mm", "2mm"];
     tf.textFramePreferences.verticalJustification = VerticalJustification.TOP_ALIGN;
     tf.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
-    tf.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
+    tf.textFramePreferences.autoSizingType = AutoSizingTypeEnum.OFF;
     tf.textFramePreferences.useMinimumHeightForAutoSizing = true;
     tf.textFramePreferences.minimumHeightForAutoSizing = 8;
     tf.texts[0].appliedFont = app.fonts.item("Helvetica");
@@ -497,7 +1054,7 @@ function textFrame(page, bounds, text, size, fontStyle, swatch, opacity) {
   if (opacity < 100) {
     try { tf.transparencySettings.blendingSettings.opacity = opacity; } catch (e2) {}
   }
-  fitText(tf, 6.5);
+  fitText(tf, 5.5);
   return tf;
 }
 
@@ -559,8 +1116,8 @@ function writeBuildReport(doc) {
     generatedAt: new Date().toString(),
     pageCount: doc.pages.length,
     facingPages: doc.documentPreferences.facingPages,
-    trim: "A4 portrait 210mm x 297mm",
-    bleed: "3mm all sides",
+    trim: "US Letter landscape 279.4mm x 215.9mm",
+    bleed: "3.175mm all sides",
     columns: 12,
     assetCount: ASSETS.length,
     linkCount: doc.links.length,
@@ -598,14 +1155,35 @@ function colorPanel(page, bounds, swatch, opacity) {
 }
 
 function caption(page, bounds, item, ink, cream) {
-  var label = item.id + " / " + item.group.replace("Group 1: ", "").replace("Group 2: ", "").replace("Group 3: ", "") + "\ncaption crosses the image edge; rights verify";
-  var tf = textFrame(page, bounds, label, 6.2, "Bold", cream, 100);
-  try { tf.fillColor = ink; tf.transparencySettings.blendingSettings.opacity = 78; } catch(e) {}
+  var theme = item.group.replace("Group 1: ", "").replace("Group 2: ", "").replace("Group 3: ", "");
+  var label = item.id + " / " + theme + "\n" + (item.short_caption || item.caption || "");
+  var tf = textFrame(page, bounds, label, 6.4, "Bold", cream, 100);
+  try { tf.fillColor = cream; tf.transparencySettings.blendingSettings.opacity = 92; } catch(e) {}
   return tf;
 }
 
 function pageNum(page, n, ink) {
-  textFrame(page, b(282, 184, 289, 202), ("0" + n).slice(-2), 6.5, "Regular", ink, 100);
+  textFrame(page, b(204, 250, 212, 270), ("0" + n).slice(-2), 6.5, "Regular", cream, 100);
+}
+
+function configurePreflight(doc) {
+  // Color landscape magazine profile: duplicate Digital Publishing but allow
+  // CMY plates (color photos) and landscape orientation. Mirrors the
+  // Brooke Automation configurePublicationPreflight command.
+  var profileName = "Anatomy of Looking - Color Landscape";
+  var profile = null;
+  try { profile = app.preflightProfiles.itemByName(profileName); profile.name; }
+  catch (e) {
+    try { profile = app.preflightProfiles.itemByName("kDigPubProfileName").duplicate(); profile.name = profileName; }
+    catch (e2) { try { profile = app.preflightProfiles.add(); profile.name = profileName; } catch (e3) { return; } }
+  }
+  try { profile.description = "Color landscape magazine profile; CMY plates and landscape orientation intentionally allowed."; } catch (e4) {}
+  try { profile.preflightProfileRules.itemByName("ADBE_CMYPlates").flag = 1699890274; } catch (e5) {}
+  try { profile.preflightProfileRules.itemByName("ADBE_PageSizeOrientation").flag = 1699890274; } catch (e6) {}
+  try {
+    doc.preflightOptions.preflightWorkingProfile = profile;
+    doc.preflightOptions.preflightOff = false;
+  } catch (e7) {}
 }
 
 function saveDesktopFiles(doc) {
@@ -620,87 +1198,110 @@ function saveDesktopFiles(doc) {
 
 function cover(page, doc, ink, cream, gold) {
   var item = groupAsset("Mediation", 0);
-  colorPanel(page, b(0, 0, 297, 210), ink, 100);
-  imageFrame(page, b(30, 24, 232, 186), item, 100);
-  textFrame(page, b(240, 28, 269, 182), "THE VISCERAL\rTHEORY OF SIGHT", 24, "Bold", cream, 100);
-  textFrame(page, b(270, 62, 282, 148), "the body, the gaze, and the veil", 8, "Regular", cream, 100);
+  imageFrame(page, b(-4, -4, 220, 284), item, 100);
+  colorPanel(page, b(120, -4, 220, 284), ink, 46);
+  textFrame(page, b(150, 18, 162, 230), "THE ANATOMY OF LOOKING", 10, "Bold", gold, 100);
+  textFrame(page, b(164, 18, 198, 252), "THE VISCERAL\rTHEORY OF SIGHT", 33, "Bold", cream, 100);
+  textFrame(page, b(198, 18, 210, 232), "the body, the gaze, and the veil", 11, "Regular", cream, 100);
+}
+
+function sectionTitle(page, key, ink, cream, gold) {
+  var meta = SECTION[key];
+  imageFrame(page, b(-4, -4, 220, 284), groupAsset(key, 1), 100);
+  colorPanel(page, b(-4, -4, 220, 284), ink, 56);
+  textFrame(page, b(94, 18, 106, 180), "ARTICLE " + meta.numeral, 11, "Bold", gold, 100);
+  textFrame(page, b(108, 18, 150, 252), meta.title, 38, "Bold", cream, 100);
+  textFrame(page, b(150, 18, 164, 250), meta.sub, 12, "Italic", cream, 100);
+  textFrame(page, b(166, 18, 202, 230), meta.blurb, 10, "Regular", cream, 100);
 }
 
 function frontMatter(page, n, doc, ink, cream, gold) {
   if (n === 2) {
-    textFrame(page, b(62, 24, 118, 170), "The Visceral\rTheory of Sight", 30, "Bold", ink, 100);
-    textFrame(page, b(126, 26, 152, 160), "A 50-page editorial art book on controlled revelation.", 10, "Regular", ink, 100);
-    textFrame(page, b(245, 24, 272, 160), "A4 precision layout. 12-column grid. 3mm bleed. Source and rights verification required before final export.", 7, "Regular", ink, 100);
+    imageFrame(page, b(-4, -4, 220, 284), groupAsset("Mediation", 1), 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 40);
+    textFrame(page, b(190, 18, 202, 220), "THE ANATOMY OF LOOKING", 10, "Bold", gold, 100);
   } else if (n === 3) {
-    textFrame(page, b(216, 24, 271, 182), "LEGAL / CREDITS\rThis layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 8, "Regular", ink, 100);
+    textFrame(page, b(18, 18, 30, 120), "TITLE", 11, "Bold", gold, 100);
+    textFrame(page, b(34, 18, 96, 250), "THE VISCERAL\rTHEORY OF SIGHT", 40, "Bold", cream, 100);
+    textFrame(page, b(98, 18, 118, 250), "A visual psychology issue on gaze, image memory, and the veil.", 13, "Regular", cream, 100);
+    textFrame(page, b(150, 18, 200, 250), "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets require license and source verification before public release. Citations are real and listed in Works Consulted; exact editions, page ranges, and licenses are confirmed before final print.", 9, "Regular", cream, 100);
   } else {
-    textFrame(page, b(42, 24, 70, 170), "BODY / RULE / VEIL", 24, "Bold", ink, 100);
-    textFrame(page, b(96, 24, 196, 70), "01 Front Matter\r05 Introduction\r08 The Body", 11, "Regular", ink, 100);
-    textFrame(page, b(126, 88, 226, 134), "17 Constraint\r27 The Veil\r39 Synthesis", 11, "Regular", gold, 100);
-    textFrame(page, b(156, 150, 244, 190), "46 Credits\r48 Sources\r49 Process\r50 Close", 11, "Regular", ink, 100);
+    textFrame(page, b(18, 18, 46, 220), "BODY / RULE / VEIL", 24, "Bold", cream, 100);
+    textFrame(page, b(58, 18, 150, 112), "01 Front Matter\r05 Introduction\r08 Agency / The Body", 12, "Regular", cream, 100);
+    textFrame(page, b(58, 120, 150, 220), "17 Constraint / The Rule\r27 Mediation / The Veil\r39 Synthesis", 12, "Regular", gold, 100);
+    textFrame(page, b(152, 18, 196, 220), "46 Source Register\r48 Sources\r49 Process\r50 Close", 11, "Regular", cream, 100);
   }
 }
 
 function introPage(page, n, doc, ink, cream, gold) {
-  imageFrame(page, b(32, 24, 132, 84), groupAsset("Mediation", n), 100);
-  imageFrame(page, b(88, 98, 178, 186), groupAsset("Constraint", n), 100);
-  imageFrame(page, b(154, 44, 238, 132), groupAsset("Agency", n), 85);
-  colorPanel(page, b(188, 18, 252, 156), cream, 88);
-  textFrame(page, b(196, 26, 224, 148), "The Visceral Theory of Sight", 21, "Bold", ink, 100);
-  textFrame(page, b(226, 27, 258, 160), COPY.intro, 8.6, "Regular", ink, 100);
-  caption(page, b(124, 72, 145, 134), groupAsset("Mediation", n), ink, cream);
+  if (n === 5) {
+    textFrame(page, b(20, 18, 52, 200), "The Visceral Theory of Sight", 26, "Bold", cream, 100);
+    textFrame(page, b(58, 18, 180, 150), COPY.intro, 10.5, "Regular", cream, 100);
+    imageFrame(page, b(20, 158, 118, 252), groupAsset("Mediation", n), 100);
+    imageFrame(page, b(122, 158, 199, 252), groupAsset("Agency", n), 100);
+    caption(page, b(102, 162, 118, 248), groupAsset("Mediation", n), ink, cream);
+  } else if (n === 6) {
+    imageFrame(page, b(-4, -4, 220, 284), groupAsset("Constraint", n), 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 48);
+    textFrame(page, b(148, 18, 186, 250), "The image does not give itself all at once.", 26, "Bold", cream, 100);
+    textFrame(page, b(186, 18, 200, 252), "Controlled revelation is the method. Tension is the evidence.", 11, "Regular", cream, 100);
+  } else {
+    textFrame(page, b(18, 18, 30, 220), "THE THREE PRESSURES", 12, "Bold", gold, 100);
+    textFrame(page, b(40, 18, 70, 96), "AGENCY\rbody as force", 14, "Bold", cream, 100);
+    textFrame(page, b(40, 100, 70, 178), "CONSTRAINT\rbody as protocol", 14, "Bold", cream, 100);
+    textFrame(page, b(40, 182, 70, 262), "MEDIATION\rveil as edit", 14, "Bold", cream, 100);
+    imageFrame(page, b(80, 18, 150, 263), groupAsset("Agency", n), 100);
+    textFrame(page, b(156, 18, 198, 255), COPY.intro, 9.5, "Regular", cream, 100);
+  }
 }
 
-function articlePage(page, n, section, item, doc, ink, cream, gold, slate) {
-  var mode = n % 6;
-  var accent = section === "MEDIATION" ? slate : gold;
+function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold, slate) {
+  var mode = n % 3;
+  var body = copyChunk(section.toLowerCase(), n);
   if (mode === 0) {
-    imageFrame(page, b(24, 14, 216, 142), item, 100);
-    colorPanel(page, b(144, 122, 205, 194), cream, 86);
-    textFrame(page, b(152, 130, 176, 188), section, 18, "Bold", ink, 100);
-    textFrame(page, b(176, 130, 204, 188), copyChunk(section.toLowerCase(), n), 7.8, "Regular", ink, 100);
-    caption(page, b(196, 24, 216, 92), item, ink, cream);
+    // Dominant image left, text column right.
+    imageFrame(page, b(16, 16, 199, 150), item, 100);
+    textFrame(page, b(20, 160, 44, 262), section, 20, "Bold", cream, 100);
+    textFrame(page, b(46, 160, 199, 262), body, 9.2, "Regular", cream, 100);
+    caption(page, b(180, 20, 199, 110), item, ink, cream);
   } else if (mode === 1) {
-    imageFrame(page, b(42, 68, 210, 196), item, 100);
-    colorPanel(page, b(18, 22, 240, 58), accent, 100);
-    textFrame(page, b(44, 28, 198, 52), section, 18, "Bold", cream, 100);
-    colorPanel(page, b(206, 46, 248, 176), cream, 84);
-    textFrame(page, b(212, 52, 246, 168), copyChunk(section.toLowerCase(), n), 7.4, "Regular", ink, 100);
-  } else if (mode === 2) {
-    imageFrame(page, b(0, 0, 297, 210), item, 100);
-    colorPanel(page, b(78, 0, 116, 210), accent, 82);
-    textFrame(page, b(82, 26, 112, 182), "ONLY ONE EYE REMAINS, THE IMAGE GETS LOUDER.", 18, "Bold", cream, 100);
-    colorPanel(page, b(214, 18, 276, 86), ink, 72);
-    textFrame(page, b(220, 24, 270, 80), copyChunk(section.toLowerCase(), n), 7.2, "Regular", cream, 100);
-  } else if (mode === 3) {
-    imageFrame(page, b(34, 20, 120, 102), item, 100);
-    imageFrame(page, b(112, 92, 250, 182), item, 92);
-    textFrame(page, b(124, 28, 164, 128), "A body becomes legible through pressure.", 13, "Bold", ink, 100);
-    textFrame(page, b(166, 28, 210, 118), copyChunk(section.toLowerCase(), n), 7.6, "Regular", ink, 100);
-    caption(page, b(106, 78, 127, 148), item, ink, cream);
-  } else if (mode === 4) {
-    imageFrame(page, b(42, 30, 226, 180), item, 100);
-    colorPanel(page, b(214, 0, 260, 210), accent, 88);
-    textFrame(page, b(220, 22, 254, 188), "THE VEIL DOES NOT DISAPPEAR THE BODY.", 16, "Bold", cream, 100);
-    colorPanel(page, b(68, 132, 116, 194), cream, 82);
-    textFrame(page, b(72, 138, 112, 188), copyChunk(section.toLowerCase(), n), 7.2, "Regular", ink, 100);
+    // Full-bleed image, scrim, pull statement, body panel.
+    imageFrame(page, b(-4, -4, 220, 284), item, 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 50);
+    textFrame(page, b(20, 18, 26, 170), "ARTICLE / " + section, 8, "Bold", gold, 100);
+    textFrame(page, b(30, 18, 74, 240), "Only one eye remains; the image gets louder.", 24, "Bold", cream, 100);
+    colorPanel(page, b(150, 12, 200, 150), ink, 58);
+    textFrame(page, b(154, 18, 198, 146), body, 8.6, "Regular", cream, 100);
   } else {
-    imageFrame(page, b(22, 44, 266, 178), item, 100);
-    colorPanel(page, b(26, 28, 58, 128), cream, 80);
-    textFrame(page, b(30, 34, 54, 122), section + " / controlled visibility", 12, "Bold", ink, 100);
-    caption(page, b(240, 120, 264, 190), item, ink, cream);
+    // Triptych: three images across, text band beneath (multi-image spread).
+    imageFrame(page, b(16, 16, 132, 95), item, 100);
+    imageFrame(page, b(16, 100, 132, 179), item2, 100);
+    imageFrame(page, b(16, 184, 132, 263), item3, 100);
+    textFrame(page, b(140, 16, 162, 262), section + " / SEQUENCE", 16, "Bold", cream, 100);
+    textFrame(page, b(164, 16, 199, 262), body, 9, "Regular", cream, 100);
+    caption(page, b(116, 104, 132, 175), item2, ink, cream);
   }
 }
 
 function backMatter(page, n, doc, ink, cream, gold) {
   if (n === 50) {
-    textFrame(page, b(60, 24, 108, 172), "Sight remains\runfinished.", 28, "Bold", ink, 100);
-    textFrame(page, b(236, 24, 260, 172), "Final export still requires source verification, license verification, and instructor-facing review.", 8, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 96, 230), "Sight remains\runfinished.", 34, "Bold", cream, 100);
+    textFrame(page, b(150, 18, 190, 250), "Final export still requires source verification, license verification, and instructor-facing review.", 10, "Regular", cream, 100);
+    return;
+  }
+  var head = n === 46 ? "IMAGE SOURCE REGISTER" : n === 47 ? "IMAGE SOURCE REGISTER / CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
+  textFrame(page, b(18, 18, 34, 255), head, 14, "Bold", gold, 100);
+  if (n === 46 || n === 47) {
+    var startIdx = n === 46 ? 0 : 32;
+    var lines = "";
+    for (var i = startIdx; i < Math.min(startIdx + 32, ASSETS.length); i++) {
+      lines += ASSETS[i].id + "  " + ASSETS[i].title + " - rights verify\r";
+    }
+    textFrame(page, b(40, 18, 200, 255), lines, 8, "Regular", cream, 100);
+  } else if (n === 48) {
+    textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   } else {
-    var head = n === 46 ? "IMAGE CREDITS" : n === 47 ? "IMAGE CREDITS CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
-    textFrame(page, b(28, 24, 48, 172), head, 16, "Bold", ink, 100);
-    var body = "Assets are linked from the production asset folder. Rights remain verify before final export. The layout uses overlap, broken flow, and layered pull-quote pressure to support agency, constraint, and mediation.";
-    textFrame(page, b(64, 24, 246, 172), body, 8.5, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 200, 255), "The grid uses a 12-column logic but refuses a fully settled rhythm. Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance. Captions overlap image edges; pull statements carry the argument.", 10, "Regular", cream, 100);
   }
 }
 
@@ -713,21 +1314,26 @@ var slate = addSwatch(doc, "Slate Blue", [82, 107, 122]);
 for (var p = 0; p < doc.pages.length; p++) {
   var page = doc.pages[p];
   var n = p + 1;
-  colorPanel(page, b(0, 0, 297, 210), cream, 100);
+  colorPanel(page, b(-4, -4, 220, 284), ink, 100);
   if (n === 1) cover(page, doc, ink, cream, gold);
   else if (n <= 4) frontMatter(page, n, doc, ink, cream, gold);
   else if (n <= 7) introPage(page, n, doc, ink, cream, gold);
-  else if (n <= 16) articlePage(page, n, "AGENCY", groupAsset("Agency", n), doc, ink, cream, gold, slate);
-  else if (n <= 26) articlePage(page, n, "CONSTRAINT", groupAsset("Constraint", n), doc, ink, cream, gold, slate);
-  else if (n <= 38) articlePage(page, n, "MEDIATION", groupAsset("Mediation", n), doc, ink, cream, gold, slate);
-  else if (n <= 45) articlePage(page, n, "SYNTHESIS", asset(n), doc, ink, cream, gold, slate);
+  else if (n === 8) sectionTitle(page, "Agency", ink, cream, gold);
+  else if (n <= 16) articlePage(page, n, "AGENCY", groupAsset("Agency", n), groupAsset("Agency", n + 1), groupAsset("Agency", n + 2), doc, ink, cream, gold, slate);
+  else if (n === 17) sectionTitle(page, "Constraint", ink, cream, gold);
+  else if (n <= 26) articlePage(page, n, "CONSTRAINT", groupAsset("Constraint", n), groupAsset("Constraint", n + 1), groupAsset("Constraint", n + 2), doc, ink, cream, gold, slate);
+  else if (n === 27) sectionTitle(page, "Mediation", ink, cream, gold);
+  else if (n <= 38) articlePage(page, n, "MEDIATION", groupAsset("Mediation", n), groupAsset("Mediation", n + 1), groupAsset("Mediation", n + 2), doc, ink, cream, gold, slate);
+  else if (n === 39) sectionTitle(page, "Synthesis", ink, cream, gold);
+  else if (n <= 45) articlePage(page, n, "SYNTHESIS", asset(n), asset(n + 1), asset(n + 2), doc, ink, cream, gold, slate);
   else backMatter(page, n, doc, ink, cream, gold);
   pageNum(page, n, ink);
 }
 
 // Final overset guard.
 for (var i = 0; i < doc.textFrames.length; i++) {
-  if (doc.textFrames[i].overflows) fitText(doc.textFrames[i], 6.5);
+  if (doc.textFrames[i].overflows) fitText(doc.textFrames[i], 5.5);
 }
 
+configurePreflight(doc);
 saveDesktopFiles(doc);
