@@ -26,6 +26,7 @@ _WINDOWS_ASSETS = Path(
     r"C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets"
 )
 SOURCE_ASSETS = _WINDOWS_ASSETS if _WINDOWS_ASSETS.exists() else ROOT / "images" / "labeled"
+COVER_IMAGE = ROOT / "images" / "cover.jpg"
 ROUTE = ROOT / "visceral-production-route"
 ASSET_OUT = ROUTE / "assets"
 PDF_OUT = ROUTE / "output" / "pdf"
@@ -304,6 +305,27 @@ def caption_for(asset: Asset, index: list[tuple[str, str, str]]) -> tuple[str, s
     group = "Agency" if "Agency" in asset.group else "Constraint" if "Constraint" in asset.group else "Mediation"
     fallback = _CAPTION_FALLBACK[group]
     return (fallback, fallback)
+
+
+def make_cover_asset(fallback: Asset) -> Asset:
+    """Use images/cover.jpg as the front-cover image when present, else the fallback plate."""
+    if not COVER_IMAGE.exists():
+        return fallback
+    with Image.open(COVER_IMAGE) as img:
+        width, height = img.size
+    return Asset(
+        id="COVER",
+        source_path=COVER_IMAGE,
+        local_path=COVER_IMAGE,
+        filename=COVER_IMAGE.name,
+        width=width,
+        height=height,
+        group="Mediation",
+        rights="",
+        creator="",
+        title="Cover",
+        reason="",
+    )
 
 
 def _canonical_cores() -> set[str]:
@@ -1318,6 +1340,7 @@ def write_full_layout_jsx(assets: list[Asset]) -> None:
         for key in ("Agency", "Constraint", "Mediation", "Synthesis")
     }
     section_meta_literal = json.dumps(section_meta, indent=2)
+    cover_path_literal = json.dumps(COVER_IMAGE.as_posix() if COVER_IMAGE.exists() else "")
     output_indd = INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.indd"
     output_idml = INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.idml"
     output_pdf = PDF_OUT / "the-visceral-theory-of-sight-50pp-indesign-auto.pdf"
@@ -1337,6 +1360,8 @@ app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERAC
 var COPY = {copy_literal};
 
 var SECTION = {section_meta_literal};
+
+var COVER_PATH = {cover_path_literal};
 
 function mm(v) {{ return v + "mm"; }}
 function b(t, l, bot, r) {{ return [mm(t), mm(l), mm(bot), mm(r)]; }}
@@ -1576,6 +1601,7 @@ function saveDesktopFiles(doc) {{
 
 function cover(page, doc, ink, cream, gold) {{
   var item = groupAsset("Mediation", 0);
+  if (COVER_PATH && File(COVER_PATH).exists) item = {{ path: COVER_PATH, id: "COVER", title: "Cover", group: "Mediation", caption: "", short_caption: "" }};
   imageFrame(page, b(-4, -4, 220, 284), item, 100);
   colorPanel(page, b(120, -4, 220, 284), ink, 46);
   textFrame(page, b(150, 18, 162, 230), "THE ANATOMY OF LOOKING", 10, "Bold", gold, 100);
@@ -1723,6 +1749,7 @@ def generate_cover(assets: list[Asset]) -> None:
     cover = PDF_OUT / "cover-design.pdf"
     c = canvas.Canvas(str(cover), pagesize=(PAGE_W, PAGE_H))
     preferred = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
+    preferred = make_cover_asset(preferred)
     draw_cover(c, preferred)
     c.showPage()
     c.save()
@@ -1733,6 +1760,7 @@ def generate_book(assets: list[Asset]) -> None:
     book = PDF_OUT / "the-visceral-theory-of-sight-50pp.pdf"
     c = canvas.Canvas(str(book), pagesize=(PAGE_W, PAGE_H))
     cover_asset = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
+    cover_asset = make_cover_asset(cover_asset)
     title_asset = next((a for a in assets if "Mediation" in a.group and a is not cover_asset), assets[1])
     draw_cover(c, cover_asset, page_num=1)
     c.showPage()

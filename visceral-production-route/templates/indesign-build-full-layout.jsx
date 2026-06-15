@@ -960,6 +960,8 @@ var SECTION = {
   }
 };
 
+var COVER_PATH = "";
+
 function mm(v) { return v + "mm"; }
 function b(t, l, bot, r) { return [mm(t), mm(l), mm(bot), mm(r)]; }
 function pageBounds(page, bounds) {
@@ -1198,6 +1200,7 @@ function saveDesktopFiles(doc) {
 
 function cover(page, doc, ink, cream, gold) {
   var item = groupAsset("Mediation", 0);
+  if (COVER_PATH && File(COVER_PATH).exists) item = { path: COVER_PATH, id: "COVER", title: "Cover", group: "Mediation", caption: "", short_caption: "" };
   imageFrame(page, b(-4, -4, 220, 284), item, 100);
   colorPanel(page, b(120, -4, 220, 284), ink, 46);
   textFrame(page, b(150, 18, 162, 230), "THE ANATOMY OF LOOKING", 10, "Bold", gold, 100);
