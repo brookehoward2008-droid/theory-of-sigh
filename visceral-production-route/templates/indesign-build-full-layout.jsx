@@ -558,7 +558,7 @@ var SECTION = {
   }
 };
 
-var COVER_PATH = "";
+var COVER_PATH = "/home/user/theory-of-sigh/images/cover.jpg";
 
 function mm(v) { return v + "mm"; }
 function b(t, l, bot, r) { return [mm(t), mm(l), mm(bot), mm(r)]; }
