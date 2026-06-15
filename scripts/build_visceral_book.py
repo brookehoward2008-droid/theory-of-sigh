@@ -510,6 +510,9 @@ def article_excerpt(section: str, page: int, target_chars: int = 520) -> str:
     offset = max(0, page - start_page)
     words_per_page = max(55, target_chars // 6)
     start = min(offset * words_per_page, max(0, len(words) - words_per_page))
+    # Snap back to a sentence boundary so each page opens on a capitalized word.
+    while start > 0 and words[start - 1][-1] not in ".!?":
+        start -= 1
     excerpt_words = words[start : start + words_per_page]
     return " ".join(excerpt_words)
 
@@ -1393,6 +1396,12 @@ function copyChunk(key, n) {{
   var offset = Math.max(0, n - startPage);
   var wordsPerPage = 52;
   var start = Math.min(offset * wordsPerPage, Math.max(0, words.length - wordsPerPage));
+  while (start > 0) {{
+    var prev = words[start - 1];
+    var last = prev.charAt(prev.length - 1);
+    if (last === "." || last === "!" || last === "?") break;
+    start--;
+  }}
   return words.slice(start, start + wordsPerPage).join(" ");
 }}
 

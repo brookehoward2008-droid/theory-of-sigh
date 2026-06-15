@@ -590,6 +590,12 @@ function copyChunk(key, n) {
   var offset = Math.max(0, n - startPage);
   var wordsPerPage = 52;
   var start = Math.min(offset * wordsPerPage, Math.max(0, words.length - wordsPerPage));
+  while (start > 0) {
+    var prev = words[start - 1];
+    var last = prev.charAt(prev.length - 1);
+    if (last === "." || last === "!" || last === "?") break;
+    start--;
+  }
   return words.slice(start, start + wordsPerPage).join(" ");
 }
 
