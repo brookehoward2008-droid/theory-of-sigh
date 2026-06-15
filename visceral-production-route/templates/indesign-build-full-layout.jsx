@@ -516,10 +516,10 @@ var ASSETS = [
     "short_caption": "The pose turns looking into a rule already agreed to."
   }
 ];
-var OUTPUT_INDD = "/home/user/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.indd";
-var OUTPUT_IDML = "/home/user/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.idml";
-var OUTPUT_PDF = "/home/user/theory-of-sigh/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-auto.pdf";
-var OUTPUT_REPORT = "/home/user/theory-of-sigh/visceral-production-route/reports/indesign-full-layout-auto-report.json";
+var OUTPUT_INDD = "C:/Users/toddl/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.indd";
+var OUTPUT_IDML = "C:/Users/toddl/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.idml";
+var OUTPUT_PDF = "C:/Users/toddl/theory-of-sigh/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-auto.pdf";
+var OUTPUT_REPORT = "C:/Users/toddl/theory-of-sigh/visceral-production-route/reports/indesign-full-layout-auto-report.json";
 
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;
 
