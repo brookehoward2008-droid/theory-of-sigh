@@ -26,6 +26,7 @@ _WINDOWS_ASSETS = Path(
     r"C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets"
 )
 SOURCE_ASSETS = _WINDOWS_ASSETS if _WINDOWS_ASSETS.exists() else ROOT / "images" / "labeled"
+COVER_IMAGE = ROOT / "images" / "cover.jpg"
 ROUTE = ROOT / "visceral-production-route"
 ASSET_OUT = ROUTE / "assets"
 PDF_OUT = ROUTE / "output" / "pdf"
@@ -306,6 +307,27 @@ def caption_for(asset: Asset, index: list[tuple[str, str, str]]) -> tuple[str, s
     return (fallback, fallback)
 
 
+def make_cover_asset(fallback: Asset) -> Asset:
+    """Use images/cover.jpg as the front-cover image when present, else the fallback plate."""
+    if not COVER_IMAGE.exists():
+        return fallback
+    with Image.open(COVER_IMAGE) as img:
+        width, height = img.size
+    return Asset(
+        id="COVER",
+        source_path=COVER_IMAGE,
+        local_path=COVER_IMAGE,
+        filename=COVER_IMAGE.name,
+        width=width,
+        height=height,
+        group="Mediation",
+        rights="",
+        creator="",
+        title="Cover",
+        reason="",
+    )
+
+
 def _canonical_cores() -> set[str]:
     """Original-name cores of the canonical plates (the repo's 64-image labeled set)."""
     repo_dir = ROOT / "images" / "labeled"
@@ -488,6 +510,9 @@ def article_excerpt(section: str, page: int, target_chars: int = 520) -> str:
     offset = max(0, page - start_page)
     words_per_page = max(55, target_chars // 6)
     start = min(offset * words_per_page, max(0, len(words) - words_per_page))
+    # Snap back to a sentence boundary so each page opens on a capitalized word.
+    while start > 0 and words[start - 1][-1] not in ".!?":
+        start -= 1
     excerpt_words = words[start : start + words_per_page]
     return " ".join(excerpt_words)
 
@@ -633,32 +658,35 @@ def draw_legal(c: canvas.Canvas) -> None:
 
 
 def draw_toc(c: canvas.Canvas) -> None:
-    draw_bg(c)
-    draw_label(c, "contents", 72, PAGE_H - 90)
-    c.setFont("Helvetica-Bold", 30)
+    draw_bg(c, dark=True)
+    draw_label(c, "contents", CONTENT_L, CONTENT_T - 6, color=GOLD)
     c.setFillColor(CREAM)
-    c.drawString(72, PAGE_H - 150, "Body / Rule / Veil")
+    c.setFont("Helvetica-Bold", 34)
+    c.drawString(CONTENT_L, CONTENT_T - 64, "Body / Rule / Veil")
     entries = [
-        ("Front Matter", "01-04"),
-        ("Introduction: The Visceral Theory of Sight", "05-07"),
-        ("I. The Body", "08-16"),
-        ("II. The Constraint", "17-26"),
-        ("III. The Veil", "27-38"),
-        ("Synthesis and Reflection", "39-45"),
-        ("Back Matter", "46-50"),
+        ("Front Matter", "01"),
+        ("Introduction: The Visceral Theory of Sight", "05"),
+        ("I. The Body", "08"),
+        ("II. The Constraint", "17"),
+        ("III. The Veil", "27"),
+        ("Synthesis and Reflection", "39"),
+        ("Back Matter", "46"),
     ]
-    x_positions = [72, 245, 420]
-    y = PAGE_H - 235
-    for i, (title, pages) in enumerate(entries):
-        x = x_positions[i % 3]
-        if i and i % 3 == 0:
-            y -= 115
-        c.setFont("Helvetica-Bold", 11)
-        c.setFillColor(GOLD if i % 2 else INK)
-        c.drawString(x, y, pages)
-        c.setFont("Times-Roman", 11)
+    y = CONTENT_T - 122
+    for title, page in entries:
+        c.setFont("Times-Roman", 14)
         c.setFillColor(CREAM)
-        draw_text_block(c, title, x, y - 19, width_chars=19, leading=12, size=10)
+        c.drawString(CONTENT_L, y, title)
+        title_w = c.stringWidth(title, "Times-Roman", 14)
+        c.setStrokeColor(MIST)
+        c.setLineWidth(0.6)
+        c.setDash([1, 3])
+        c.line(CONTENT_L + title_w + 12, y + 3, CONTENT_R - 34, y + 3)
+        c.setDash([])
+        c.setFont("Helvetica-Bold", 13)
+        c.setFillColor(GOLD)
+        c.drawRightString(CONTENT_R, y, page)
+        y -= 36
     draw_page_number(c, 4)
 
 
@@ -1318,6 +1346,7 @@ def write_full_layout_jsx(assets: list[Asset]) -> None:
         for key in ("Agency", "Constraint", "Mediation", "Synthesis")
     }
     section_meta_literal = json.dumps(section_meta, indent=2)
+    cover_path_literal = json.dumps(COVER_IMAGE.as_posix() if COVER_IMAGE.exists() else "")
     output_indd = INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.indd"
     output_idml = INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.idml"
     output_pdf = PDF_OUT / "the-visceral-theory-of-sight-50pp-indesign-auto.pdf"
@@ -1338,6 +1367,8 @@ var COPY = {copy_literal};
 
 var SECTION = {section_meta_literal};
 
+var COVER_PATH = {cover_path_literal};
+
 function mm(v) {{ return v + "mm"; }}
 function b(t, l, bot, r) {{ return [mm(t), mm(l), mm(bot), mm(r)]; }}
 function pageBounds(page, bounds) {{
@@ -1352,6 +1383,13 @@ function pageBounds(page, bounds) {{
   ];
 }}
 function asset(i) {{ return ASSETS[i % ASSETS.length]; }}
+function assetByName(sub) {{
+  for (var i = 0; i < ASSETS.length; i++) {{
+    if (ASSETS[i].title.toLowerCase().indexOf(sub) >= 0) return ASSETS[i];
+  }}
+  return null;
+}}
+
 function groupAsset(groupName, i) {{
   var matches = [];
   for (var a = 0; a < ASSETS.length; a++) {{
@@ -1368,6 +1406,12 @@ function copyChunk(key, n) {{
   var offset = Math.max(0, n - startPage);
   var wordsPerPage = 52;
   var start = Math.min(offset * wordsPerPage, Math.max(0, words.length - wordsPerPage));
+  while (start > 0) {{
+    var prev = words[start - 1];
+    var last = prev.charAt(prev.length - 1);
+    if (last === "." || last === "!" || last === "?") break;
+    start--;
+  }}
   return words.slice(start, start + wordsPerPage).join(" ");
 }}
 
@@ -1576,6 +1620,7 @@ function saveDesktopFiles(doc) {{
 
 function cover(page, doc, ink, cream, gold) {{
   var item = groupAsset("Mediation", 0);
+  if (COVER_PATH && File(COVER_PATH).exists) item = {{ path: COVER_PATH, id: "COVER", title: "Cover", group: "Mediation", caption: "", short_caption: "" }};
   imageFrame(page, b(-4, -4, 220, 284), item, 100);
   colorPanel(page, b(120, -4, 220, 284), ink, 46);
   textFrame(page, b(150, 18, 162, 230), "THE ANATOMY OF LOOKING", 10, "Bold", gold, 100);
@@ -1585,7 +1630,8 @@ function cover(page, doc, ink, cream, gold) {{
 
 function sectionTitle(page, key, ink, cream, gold) {{
   var meta = SECTION[key];
-  imageFrame(page, b(-4, -4, 220, 284), groupAsset(key, 1), 100);
+  var openerItem = (key === "Mediation") ? (assetByName("allef-vinicius") || groupAsset(key, 1)) : groupAsset(key, 1);
+  imageFrame(page, b(-4, -4, 220, 284), openerItem, 100);
   colorPanel(page, b(-4, -4, 220, 284), ink, 56);
   textFrame(page, b(94, 18, 106, 180), "ARTICLE " + meta.numeral, 11, "Bold", gold, 100);
   textFrame(page, b(108, 18, 150, 252), meta.title, 38, "Bold", cream, 100);
@@ -1604,10 +1650,12 @@ function frontMatter(page, n, doc, ink, cream, gold) {{
     textFrame(page, b(98, 18, 118, 250), "A visual psychology issue on gaze, image memory, and the veil.", 13, "Regular", cream, 100);
     textFrame(page, b(150, 18, 200, 250), "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets require license and source verification before public release. Citations are real and listed in Works Consulted; exact editions, page ranges, and licenses are confirmed before final print.", 9, "Regular", cream, 100);
   }} else {{
-    textFrame(page, b(18, 18, 46, 220), "BODY / RULE / VEIL", 24, "Bold", cream, 100);
-    textFrame(page, b(58, 18, 150, 112), "01 Front Matter\\r05 Introduction\\r08 Agency / The Body", 12, "Regular", cream, 100);
-    textFrame(page, b(58, 120, 150, 220), "17 Constraint / The Rule\\r27 Mediation / The Veil\\r39 Synthesis", 12, "Regular", gold, 100);
-    textFrame(page, b(152, 18, 196, 220), "46 Source Register\\r48 Sources\\r49 Process\\r50 Close", 11, "Regular", cream, 100);
+    textFrame(page, b(18, 18, 30, 220), "CONTENTS", 11, "Bold", gold, 100);
+    textFrame(page, b(34, 18, 82, 250), "Body / Rule / Veil", 34, "Bold", cream, 100);
+    var tocTitles = "Front Matter\\rIntroduction: The Visceral Theory of Sight\\rI. The Body\\rII. The Constraint\\rIII. The Veil\\rSynthesis and Reflection\\rBack Matter";
+    textFrame(page, b(96, 18, 200, 215), tocTitles, 13, "Regular", cream, 100);
+    var pf = textFrame(page, b(96, 215, 200, 255), "01\\r05\\r08\\r17\\r27\\r39\\r46", 13, "Bold", gold, 100);
+    try {{ pf.texts[0].justification = Justification.RIGHT_ALIGN; }} catch (e) {{}}
   }}
 }}
 
@@ -1723,6 +1771,7 @@ def generate_cover(assets: list[Asset]) -> None:
     cover = PDF_OUT / "cover-design.pdf"
     c = canvas.Canvas(str(cover), pagesize=(PAGE_W, PAGE_H))
     preferred = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
+    preferred = make_cover_asset(preferred)
     draw_cover(c, preferred)
     c.showPage()
     c.save()
@@ -1733,6 +1782,7 @@ def generate_book(assets: list[Asset]) -> None:
     book = PDF_OUT / "the-visceral-theory-of-sight-50pp.pdf"
     c = canvas.Canvas(str(book), pagesize=(PAGE_W, PAGE_H))
     cover_asset = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
+    cover_asset = make_cover_asset(cover_asset)
     title_asset = next((a for a in assets if "Mediation" in a.group and a is not cover_asset), assets[1])
     draw_cover(c, cover_asset, page_num=1)
     c.showPage()
@@ -1766,7 +1816,7 @@ def generate_book(assets: list[Asset]) -> None:
         c.showPage()
     for offset, page in enumerate(range(27, 39)):
         if offset == 0:
-            draw_section_title(c, page, "Mediation", med_assets[2 % len(med_assets)])
+            draw_section_title(c, page, "Mediation", next((a for a in assets if "allef-vinicius" in a.filename.lower()), med_assets[2 % len(med_assets)]))
         else:
             draw_article_page(c, page, "Mediation", med_assets, offset - 1)
         c.showPage()
