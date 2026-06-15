@@ -1383,6 +1383,13 @@ function pageBounds(page, bounds) {{
   ];
 }}
 function asset(i) {{ return ASSETS[i % ASSETS.length]; }}
+function assetByName(sub) {{
+  for (var i = 0; i < ASSETS.length; i++) {{
+    if (ASSETS[i].title.toLowerCase().indexOf(sub) >= 0) return ASSETS[i];
+  }}
+  return null;
+}}
+
 function groupAsset(groupName, i) {{
   var matches = [];
   for (var a = 0; a < ASSETS.length; a++) {{
@@ -1623,7 +1630,8 @@ function cover(page, doc, ink, cream, gold) {{
 
 function sectionTitle(page, key, ink, cream, gold) {{
   var meta = SECTION[key];
-  imageFrame(page, b(-4, -4, 220, 284), groupAsset(key, 1), 100);
+  var openerItem = (key === "Mediation") ? (assetByName("allef-vinicius") || groupAsset(key, 1)) : groupAsset(key, 1);
+  imageFrame(page, b(-4, -4, 220, 284), openerItem, 100);
   colorPanel(page, b(-4, -4, 220, 284), ink, 56);
   textFrame(page, b(94, 18, 106, 180), "ARTICLE " + meta.numeral, 11, "Bold", gold, 100);
   textFrame(page, b(108, 18, 150, 252), meta.title, 38, "Bold", cream, 100);
@@ -1808,7 +1816,7 @@ def generate_book(assets: list[Asset]) -> None:
         c.showPage()
     for offset, page in enumerate(range(27, 39)):
         if offset == 0:
-            draw_section_title(c, page, "Mediation", med_assets[2 % len(med_assets)])
+            draw_section_title(c, page, "Mediation", next((a for a in assets if "allef-vinicius" in a.filename.lower()), med_assets[2 % len(med_assets)]))
         else:
             draw_article_page(c, page, "Mediation", med_assets, offset - 1)
         c.showPage()
