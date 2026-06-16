@@ -928,7 +928,7 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
         c.setFillColor(CREAM)
         c.drawString(CONTENT_L, CONTENT_T - 120, "Sight remains")
         c.drawString(CONTENT_L, CONTENT_T - 168, "unfinished.")
-        draw_text_block(c, "Final export still requires source verification, license verification, and instructor-facing review.", CONTENT_L, CONTENT_B + 96, width_chars=92, leading=14, size=10, color=CREAM)
+        draw_text_block(c, "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", CONTENT_L, CONTENT_B + 96, width_chars=92, leading=14, size=10, color=CREAM)
     draw_page_number(c, page, dark=True)
 
 
@@ -1757,7 +1757,7 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
 function backMatter(page, n, doc, ink, cream, gold) {{
   if (n === 50) {{
     textFrame(page, b(40, 18, 96, 230), "Sight remains\\runfinished.", 34, "Bold", cream, 100);
-    textFrame(page, b(150, 18, 190, 250), "Final export still requires source verification, license verification, and instructor-facing review.", 10, "Regular", cream, 100);
+    textFrame(page, b(150, 18, 190, 250), "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", 10, "Regular", cream, 100);
     return;
   }}
   var head = n === 46 ? "IMAGE SOURCE REGISTER" : n === 47 ? "IMAGE SOURCE REGISTER / CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
