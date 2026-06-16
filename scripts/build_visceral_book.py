@@ -917,10 +917,11 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     elif page == 49:
-        draw_label(c, "process / critical notes", CONTENT_L, CONTENT_T - 6, color=CREAM)
+        draw_label(c, "colophon", CONTENT_L, CONTENT_T - 6, color=CREAM)
         text = (
-            "The grid uses a 12-column logic but refuses a fully settled rhythm. Images slip across columns, captions compress, and text blocks narrow when the argument becomes more controlled. "
-            "The design supports the argument by changing pressure: Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance."
+            "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. "
+            "Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. "
+            "Set in Helvetica and Times, printed white on black."
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     else:
@@ -1760,7 +1761,7 @@ function backMatter(page, n, doc, ink, cream, gold) {{
     textFrame(page, b(150, 18, 190, 250), "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", 10, "Regular", cream, 100);
     return;
   }}
-  var head = n === 46 ? "IMAGE SOURCE REGISTER" : n === 47 ? "IMAGE SOURCE REGISTER / CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
+  var head = n === 46 ? "IMAGE SOURCE REGISTER" : n === 47 ? "IMAGE SOURCE REGISTER / CONTINUED" : n === 48 ? "SOURCE LIST" : "COLOPHON";
   textFrame(page, b(18, 18, 34, 255), head, 14, "Bold", gold, 100);
   if (n === 46 || n === 47) {{
     var startIdx = n === 46 ? 0 : 32;
@@ -1772,7 +1773,7 @@ function backMatter(page, n, doc, ink, cream, gold) {{
   }} else if (n === 48) {{
     textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   }} else {{
-    textFrame(page, b(40, 18, 200, 255), "The grid uses a 12-column logic but refuses a fully settled rhythm. Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance. Captions overlap image edges; pull statements carry the argument.", 10, "Regular", cream, 100);
+    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times, printed white on black.", 10, "Regular", cream, 100);
   }}
 }}
 
