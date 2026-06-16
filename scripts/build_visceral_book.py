@@ -662,14 +662,14 @@ def draw_toc(c: canvas.Canvas) -> None:
     draw_label(c, "contents", CONTENT_L, CONTENT_T - 6, color=GOLD)
     c.setFillColor(CREAM)
     c.setFont("Helvetica-Bold", 34)
-    c.drawString(CONTENT_L, CONTENT_T - 64, "Body / Rule / Veil")
+    c.drawString(CONTENT_L, CONTENT_T - 64, "Agency / Constraint / Mediation")
     entries = [
         ("Front Matter", "01"),
         ("Introduction: The Visceral Theory of Sight", "05"),
-        ("I. The Body", "08"),
-        ("II. The Constraint", "17"),
-        ("III. The Veil", "27"),
-        ("Synthesis and Reflection", "39"),
+        ("I. Agency", "08"),
+        ("II. Constraint", "17"),
+        ("III. Mediation", "27"),
+        ("IV. Synthesis", "39"),
         ("Back Matter", "46"),
     ]
     y = CONTENT_T - 122
@@ -1651,8 +1651,8 @@ function frontMatter(page, n, doc, ink, cream, gold) {{
     textFrame(page, b(150, 18, 200, 250), "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets require license and source verification before public release. Citations are real and listed in Works Consulted; exact editions, page ranges, and licenses are confirmed before final print.", 9, "Regular", cream, 100);
   }} else {{
     textFrame(page, b(18, 18, 30, 220), "CONTENTS", 11, "Bold", gold, 100);
-    textFrame(page, b(34, 18, 82, 250), "Body / Rule / Veil", 34, "Bold", cream, 100);
-    var tocTitles = "Front Matter\\rIntroduction: The Visceral Theory of Sight\\rI. The Body\\rII. The Constraint\\rIII. The Veil\\rSynthesis and Reflection\\rBack Matter";
+    textFrame(page, b(34, 18, 82, 250), "Agency / Constraint / Mediation", 34, "Bold", cream, 100);
+    var tocTitles = "Front Matter\\rIntroduction: The Visceral Theory of Sight\\rI. Agency\\rII. Constraint\\rIII. Mediation\\rIV. Synthesis\\rBack Matter";
     textFrame(page, b(96, 18, 200, 215), tocTitles, 13, "Regular", cream, 100);
     var pf = textFrame(page, b(96, 215, 200, 255), "01\\r05\\r08\\r17\\r27\\r39\\r46", 13, "Bold", gold, 100);
     try {{ pf.texts[0].justification = Justification.RIGHT_ALIGN; }} catch (e) {{}}
