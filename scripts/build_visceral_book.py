@@ -502,19 +502,26 @@ def section_copy(section: str) -> str:
     return ARTICLE_BODIES[section]
 
 
-def article_excerpt(section: str, page: int, target_chars: int = 520) -> str:
+def _article_chunks(section: str, words_per_page: int = 86) -> list[str]:
+    """Split a section body into sequential, sentence-aligned chunks (one per page)."""
     words = ARTICLE_BODIES[section].replace("\n", " ").split()
-    if not words:
-        return ""
+    chunks: list[str] = []
+    i = 0
+    while i < len(words):
+        end = min(i + words_per_page, len(words))
+        while end < len(words) and words[end - 1][-1] not in ".!?":
+            end += 1
+        chunks.append(" ".join(words[i:end]))
+        i = end
+    return chunks
+
+
+def article_excerpt(section: str, page: int, target_chars: int = 520) -> str:
+    """Sequential article text for a content page; empty once the article is spent."""
     start_page = SECTION_PAGE_START[section]
     offset = max(0, page - start_page)
-    words_per_page = max(55, target_chars // 6)
-    start = min(offset * words_per_page, max(0, len(words) - words_per_page))
-    # Snap back to a sentence boundary so each page opens on a capitalized word.
-    while start > 0 and words[start - 1][-1] not in ".!?":
-        start -= 1
-    excerpt_words = words[start : start + words_per_page]
-    return " ".join(excerpt_words)
+    chunks = _article_chunks(section)
+    return chunks[offset] if offset < len(chunks) else ""
 
 
 def scrim(c: canvas.Canvas, alpha: float = 0.42, dark: bool = True) -> None:
@@ -662,14 +669,14 @@ def draw_toc(c: canvas.Canvas) -> None:
     draw_label(c, "contents", CONTENT_L, CONTENT_T - 6, color=GOLD)
     c.setFillColor(CREAM)
     c.setFont("Helvetica-Bold", 34)
-    c.drawString(CONTENT_L, CONTENT_T - 64, "Body / Rule / Veil")
+    c.drawString(CONTENT_L, CONTENT_T - 64, "Agency / Constraint / Mediation")
     entries = [
         ("Front Matter", "01"),
         ("Introduction: The Visceral Theory of Sight", "05"),
-        ("I. The Body", "08"),
-        ("II. The Constraint", "17"),
-        ("III. The Veil", "27"),
-        ("Synthesis and Reflection", "39"),
+        ("I. Agency", "08"),
+        ("II. Constraint", "17"),
+        ("III. Mediation", "27"),
+        ("IV. Synthesis", "39"),
         ("Back Matter", "46"),
     ]
     y = CONTENT_T - 122
@@ -731,6 +738,26 @@ def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
     draw_page_number(c, page, dark=dark)
 
 
+def draw_plate_page(c: canvas.Canvas, page: int, section: str, a0: Asset, a1: Asset, a2: Asset, accent, offset: int) -> None:
+    """Image-forward plate page used once a section's article text is spent."""
+    draw_bg(c, dark=True)
+    if offset % 2 == 1:
+        gap = 16
+        iw = (LIVE_W - 2 * gap) / 3
+        ih = LIVE_H * 0.66
+        ytop = CONTENT_T - ih
+        for k, a in enumerate((a0, a1, a2)):
+            image_box(c, a, CONTENT_L + k * (iw + gap), ytop, iw, ih)
+        draw_label(c, section.upper() + " / sequence", CONTENT_L, ytop - 24, color=accent)
+        overlay_caption(c, a0, CONTENT_L + 14, ytop + 12, 180, dark=True)
+    else:
+        image_box(c, a0, 0, 0, PAGE_W, PAGE_H)
+        scrim(c, alpha=0.32, dark=True)
+        draw_label(c, section.upper() + " / sequence", CONTENT_L, CONTENT_T - 6, color=GOLD)
+        overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 240, dark=True)
+    draw_page_number(c, page, dark=True)
+
+
 def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets: list[Asset], offset: int) -> None:
     """Landscape editorial page. Variants 1 and 3 carry multiple images per spread."""
     variant = offset % 5
@@ -743,6 +770,9 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
     a0 = section_assets[offset % n]
     a1 = section_assets[(offset + 1) % n]
     a2 = section_assets[(offset + 2) % n]
+    if not body_text:
+        draw_plate_page(c, page, section, a0, a1, a2, accent, offset)
+        return
     if variant == 0:
         # Dominant image left, text column right.
         iw = LIVE_W * 0.56
@@ -819,6 +849,9 @@ def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], off
     n = len(section_assets)
     a0 = section_assets[offset % n]
     a1 = section_assets[(offset + 1) % n]
+    if not body_text:
+        draw_plate_page(c, page, "Synthesis", a0, a1, section_assets[(offset + 2) % n], GOLD, offset)
+        return
     if variant == 0:
         # Full-bleed image, text column on the right.
         image_box(c, a0, 0, 0, PAGE_W, PAGE_H)
@@ -884,10 +917,11 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     elif page == 49:
-        draw_label(c, "process / critical notes", CONTENT_L, CONTENT_T - 6, color=CREAM)
+        draw_label(c, "colophon", CONTENT_L, CONTENT_T - 6, color=CREAM)
         text = (
-            "The grid uses a 12-column logic but refuses a fully settled rhythm. Images slip across columns, captions compress, and text blocks narrow when the argument becomes more controlled. "
-            "The design supports the argument by changing pressure: Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance."
+            "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. "
+            "Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. "
+            "Set in Helvetica and Times, printed white on black."
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     else:
@@ -895,7 +929,7 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
         c.setFillColor(CREAM)
         c.drawString(CONTENT_L, CONTENT_T - 120, "Sight remains")
         c.drawString(CONTENT_L, CONTENT_T - 168, "unfinished.")
-        draw_text_block(c, "Final export still requires source verification, license verification, and instructor-facing review.", CONTENT_L, CONTENT_B + 96, width_chars=92, leading=14, size=10, color=CREAM)
+        draw_text_block(c, "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", CONTENT_L, CONTENT_B + 96, width_chars=92, leading=14, size=10, color=CREAM)
     draw_page_number(c, page, dark=True)
 
 
@@ -1402,17 +1436,22 @@ function groupAsset(groupName, i) {{
 function copyChunk(key, n) {{
   var text = COPY[key] || COPY.synthesis;
   var words = text.replace(/\\r|\\n/g, " ").split(/\\s+/);
-  var startPage = key === "agency" ? 8 : key === "constraint" ? 17 : key === "mediation" ? 27 : 39;
-  var offset = Math.max(0, n - startPage);
-  var wordsPerPage = 52;
-  var start = Math.min(offset * wordsPerPage, Math.max(0, words.length - wordsPerPage));
-  while (start > 0) {{
-    var prev = words[start - 1];
-    var last = prev.charAt(prev.length - 1);
-    if (last === "." || last === "!" || last === "?") break;
-    start--;
+  var wordsPerPage = 86;
+  var chunks = [];
+  var i = 0;
+  while (i < words.length) {{
+    var end = Math.min(i + wordsPerPage, words.length);
+    while (end < words.length) {{
+      var last = words[end - 1].charAt(words[end - 1].length - 1);
+      if (last === "." || last === "!" || last === "?") break;
+      end++;
+    }}
+    chunks.push(words.slice(i, end).join(" "));
+    i = end;
   }}
-  return words.slice(start, start + wordsPerPage).join(" ");
+  var startPage = key === "agency" ? 9 : key === "constraint" ? 18 : key === "mediation" ? 28 : 40;
+  var offset = Math.max(0, n - startPage);
+  return (offset < chunks.length) ? chunks[offset] : "";
 }}
 
 function setupDoc() {{
@@ -1651,8 +1690,8 @@ function frontMatter(page, n, doc, ink, cream, gold) {{
     textFrame(page, b(150, 18, 200, 250), "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets require license and source verification before public release. Citations are real and listed in Works Consulted; exact editions, page ranges, and licenses are confirmed before final print.", 9, "Regular", cream, 100);
   }} else {{
     textFrame(page, b(18, 18, 30, 220), "CONTENTS", 11, "Bold", gold, 100);
-    textFrame(page, b(34, 18, 82, 250), "Body / Rule / Veil", 34, "Bold", cream, 100);
-    var tocTitles = "Front Matter\\rIntroduction: The Visceral Theory of Sight\\rI. The Body\\rII. The Constraint\\rIII. The Veil\\rSynthesis and Reflection\\rBack Matter";
+    textFrame(page, b(34, 18, 82, 250), "Agency / Constraint / Mediation", 34, "Bold", cream, 100);
+    var tocTitles = "Front Matter\\rIntroduction: The Visceral Theory of Sight\\rI. Agency\\rII. Constraint\\rIII. Mediation\\rIV. Synthesis\\rBack Matter";
     textFrame(page, b(96, 18, 200, 215), tocTitles, 13, "Regular", cream, 100);
     var pf = textFrame(page, b(96, 215, 200, 255), "01\\r05\\r08\\r17\\r27\\r39\\r46", 13, "Bold", gold, 100);
     try {{ pf.texts[0].justification = Justification.RIGHT_ALIGN; }} catch (e) {{}}
@@ -1684,6 +1723,13 @@ function introPage(page, n, doc, ink, cream, gold) {{
 function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold, slate) {{
   var mode = n % 3;
   var body = copyChunk(section.toLowerCase(), n);
+  if (!body) {{
+    imageFrame(page, b(-4, -4, 220, 284), item, 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 30);
+    textFrame(page, b(18, 18, 30, 220), section + " / SEQUENCE", 9, "Bold", gold, 100);
+    caption(page, b(176, 18, 200, 150), item, ink, cream);
+    return;
+  }}
   if (mode === 0) {{
     // Dominant image left, text column right.
     imageFrame(page, b(16, 16, 199, 150), item, 100);
@@ -1712,10 +1758,10 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
 function backMatter(page, n, doc, ink, cream, gold) {{
   if (n === 50) {{
     textFrame(page, b(40, 18, 96, 230), "Sight remains\\runfinished.", 34, "Bold", cream, 100);
-    textFrame(page, b(150, 18, 190, 250), "Final export still requires source verification, license verification, and instructor-facing review.", 10, "Regular", cream, 100);
+    textFrame(page, b(150, 18, 190, 250), "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", 10, "Regular", cream, 100);
     return;
   }}
-  var head = n === 46 ? "IMAGE SOURCE REGISTER" : n === 47 ? "IMAGE SOURCE REGISTER / CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
+  var head = n === 46 ? "IMAGE SOURCE REGISTER" : n === 47 ? "IMAGE SOURCE REGISTER / CONTINUED" : n === 48 ? "SOURCE LIST" : "COLOPHON";
   textFrame(page, b(18, 18, 34, 255), head, 14, "Bold", gold, 100);
   if (n === 46 || n === 47) {{
     var startIdx = n === 46 ? 0 : 32;
@@ -1727,7 +1773,7 @@ function backMatter(page, n, doc, ink, cream, gold) {{
   }} else if (n === 48) {{
     textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   }} else {{
-    textFrame(page, b(40, 18, 200, 255), "The grid uses a 12-column logic but refuses a fully settled rhythm. Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance. Captions overlap image edges; pull statements carry the argument.", 10, "Regular", cream, 100);
+    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times, printed white on black.", 10, "Regular", cream, 100);
   }}
 }}
 

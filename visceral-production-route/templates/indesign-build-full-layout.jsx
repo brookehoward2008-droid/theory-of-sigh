@@ -593,17 +593,22 @@ function groupAsset(groupName, i) {
 function copyChunk(key, n) {
   var text = COPY[key] || COPY.synthesis;
   var words = text.replace(/\r|\n/g, " ").split(/\s+/);
-  var startPage = key === "agency" ? 8 : key === "constraint" ? 17 : key === "mediation" ? 27 : 39;
-  var offset = Math.max(0, n - startPage);
-  var wordsPerPage = 52;
-  var start = Math.min(offset * wordsPerPage, Math.max(0, words.length - wordsPerPage));
-  while (start > 0) {
-    var prev = words[start - 1];
-    var last = prev.charAt(prev.length - 1);
-    if (last === "." || last === "!" || last === "?") break;
-    start--;
+  var wordsPerPage = 86;
+  var chunks = [];
+  var i = 0;
+  while (i < words.length) {
+    var end = Math.min(i + wordsPerPage, words.length);
+    while (end < words.length) {
+      var last = words[end - 1].charAt(words[end - 1].length - 1);
+      if (last === "." || last === "!" || last === "?") break;
+      end++;
+    }
+    chunks.push(words.slice(i, end).join(" "));
+    i = end;
   }
-  return words.slice(start, start + wordsPerPage).join(" ");
+  var startPage = key === "agency" ? 9 : key === "constraint" ? 18 : key === "mediation" ? 28 : 40;
+  var offset = Math.max(0, n - startPage);
+  return (offset < chunks.length) ? chunks[offset] : "";
 }
 
 function setupDoc() {
@@ -842,8 +847,8 @@ function frontMatter(page, n, doc, ink, cream, gold) {
     textFrame(page, b(150, 18, 200, 250), "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets require license and source verification before public release. Citations are real and listed in Works Consulted; exact editions, page ranges, and licenses are confirmed before final print.", 9, "Regular", cream, 100);
   } else {
     textFrame(page, b(18, 18, 30, 220), "CONTENTS", 11, "Bold", gold, 100);
-    textFrame(page, b(34, 18, 82, 250), "Body / Rule / Veil", 34, "Bold", cream, 100);
-    var tocTitles = "Front Matter\rIntroduction: The Visceral Theory of Sight\rI. The Body\rII. The Constraint\rIII. The Veil\rSynthesis and Reflection\rBack Matter";
+    textFrame(page, b(34, 18, 82, 250), "Agency / Constraint / Mediation", 34, "Bold", cream, 100);
+    var tocTitles = "Front Matter\rIntroduction: The Visceral Theory of Sight\rI. Agency\rII. Constraint\rIII. Mediation\rIV. Synthesis\rBack Matter";
     textFrame(page, b(96, 18, 200, 215), tocTitles, 13, "Regular", cream, 100);
     var pf = textFrame(page, b(96, 215, 200, 255), "01\r05\r08\r17\r27\r39\r46", 13, "Bold", gold, 100);
     try { pf.texts[0].justification = Justification.RIGHT_ALIGN; } catch (e) {}
@@ -875,6 +880,13 @@ function introPage(page, n, doc, ink, cream, gold) {
 function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold, slate) {
   var mode = n % 3;
   var body = copyChunk(section.toLowerCase(), n);
+  if (!body) {
+    imageFrame(page, b(-4, -4, 220, 284), item, 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 30);
+    textFrame(page, b(18, 18, 30, 220), section + " / SEQUENCE", 9, "Bold", gold, 100);
+    caption(page, b(176, 18, 200, 150), item, ink, cream);
+    return;
+  }
   if (mode === 0) {
     // Dominant image left, text column right.
     imageFrame(page, b(16, 16, 199, 150), item, 100);
@@ -903,10 +915,10 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
 function backMatter(page, n, doc, ink, cream, gold) {
   if (n === 50) {
     textFrame(page, b(40, 18, 96, 230), "Sight remains\runfinished.", 34, "Bold", cream, 100);
-    textFrame(page, b(150, 18, 190, 250), "Final export still requires source verification, license verification, and instructor-facing review.", 10, "Regular", cream, 100);
+    textFrame(page, b(150, 18, 190, 250), "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", 10, "Regular", cream, 100);
     return;
   }
-  var head = n === 46 ? "IMAGE SOURCE REGISTER" : n === 47 ? "IMAGE SOURCE REGISTER / CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
+  var head = n === 46 ? "IMAGE SOURCE REGISTER" : n === 47 ? "IMAGE SOURCE REGISTER / CONTINUED" : n === 48 ? "SOURCE LIST" : "COLOPHON";
   textFrame(page, b(18, 18, 34, 255), head, 14, "Bold", gold, 100);
   if (n === 46 || n === 47) {
     var startIdx = n === 46 ? 0 : 32;
@@ -918,7 +930,7 @@ function backMatter(page, n, doc, ink, cream, gold) {
   } else if (n === 48) {
     textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   } else {
-    textFrame(page, b(40, 18, 200, 255), "The grid uses a 12-column logic but refuses a fully settled rhythm. Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance. Captions overlap image edges; pull statements carry the argument.", 10, "Regular", cream, 100);
+    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times, printed white on black.", 10, "Regular", cream, 100);
   }
 }
 
