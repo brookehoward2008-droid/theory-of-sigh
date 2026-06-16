@@ -1,19 +1,24 @@
 # The Visceral Theory of Sight
 
-Clean GitHub-ready archive for the book layout and labeled photo set.
+An original book and web editorial project by Brooke Howard.
 
-## What is here
+## Author
 
-- `images/labeled/` - web-optimized labeled photo copies.
-- `data/labeled-photo-manifest.csv` - source, rights, grouping, and original-path ledger.
-- `index.html` - simple visual contact sheet for GitHub Pages.
-- `scripts/` - local build and InDesign repair scripts.
-- `visceral-production-route/` - lightweight production notes, reports, templates, and selected PDF exports.
+Brooke Howard
 
-## Photo Count
+## Project
 
-64 labeled photos generated from the production source ledger.
+This repository holds Brooke Howard's publication materials for *The Visceral Theory of Sight*, including the web proof, selected image plates, layout references, source notes, and production files.
 
-## Rights Note
+## Contents
 
-Some assets are marked Adobe Stock, Unsplash filename present, or creator not verified. Keep the manifest with the images and verify license/source before final public release.
+- `index.html` — web editorial proof for GitHub Pages.
+- `styles/` — page styling for the web proof.
+- `images/labeled/` — selected publication image plates prepared for the web proof.
+- `data/labeled-photo-manifest.csv` — publication source register for image tracking and rights review.
+- `visceral-production-route/` — production notes, reports, templates, and selected PDF exports.
+- `the-visceral-theory-of-sight-50pp/` — book layout materials.
+
+## Rights and Source Notes
+
+The writing, layout direction, sequencing, and editorial presentation are authored by Brooke Howard. Third-party image assets remain subject to their original source licenses. Image source details are kept only for rights review and final publication checking.
