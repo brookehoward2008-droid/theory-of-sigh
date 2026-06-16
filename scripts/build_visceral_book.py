@@ -502,19 +502,26 @@ def section_copy(section: str) -> str:
     return ARTICLE_BODIES[section]
 
 
-def article_excerpt(section: str, page: int, target_chars: int = 520) -> str:
+def _article_chunks(section: str, words_per_page: int = 86) -> list[str]:
+    """Split a section body into sequential, sentence-aligned chunks (one per page)."""
     words = ARTICLE_BODIES[section].replace("\n", " ").split()
-    if not words:
-        return ""
+    chunks: list[str] = []
+    i = 0
+    while i < len(words):
+        end = min(i + words_per_page, len(words))
+        while end < len(words) and words[end - 1][-1] not in ".!?":
+            end += 1
+        chunks.append(" ".join(words[i:end]))
+        i = end
+    return chunks
+
+
+def article_excerpt(section: str, page: int, target_chars: int = 520) -> str:
+    """Sequential article text for a content page; empty once the article is spent."""
     start_page = SECTION_PAGE_START[section]
     offset = max(0, page - start_page)
-    words_per_page = max(55, target_chars // 6)
-    start = min(offset * words_per_page, max(0, len(words) - words_per_page))
-    # Snap back to a sentence boundary so each page opens on a capitalized word.
-    while start > 0 and words[start - 1][-1] not in ".!?":
-        start -= 1
-    excerpt_words = words[start : start + words_per_page]
-    return " ".join(excerpt_words)
+    chunks = _article_chunks(section)
+    return chunks[offset] if offset < len(chunks) else ""
 
 
 def scrim(c: canvas.Canvas, alpha: float = 0.42, dark: bool = True) -> None:
@@ -731,6 +738,26 @@ def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
     draw_page_number(c, page, dark=dark)
 
 
+def draw_plate_page(c: canvas.Canvas, page: int, section: str, a0: Asset, a1: Asset, a2: Asset, accent, offset: int) -> None:
+    """Image-forward plate page used once a section's article text is spent."""
+    draw_bg(c, dark=True)
+    if offset % 2 == 1:
+        gap = 16
+        iw = (LIVE_W - 2 * gap) / 3
+        ih = LIVE_H * 0.66
+        ytop = CONTENT_T - ih
+        for k, a in enumerate((a0, a1, a2)):
+            image_box(c, a, CONTENT_L + k * (iw + gap), ytop, iw, ih)
+        draw_label(c, section.upper() + " / sequence", CONTENT_L, ytop - 24, color=accent)
+        overlay_caption(c, a0, CONTENT_L + 14, ytop + 12, 180, dark=True)
+    else:
+        image_box(c, a0, 0, 0, PAGE_W, PAGE_H)
+        scrim(c, alpha=0.32, dark=True)
+        draw_label(c, section.upper() + " / sequence", CONTENT_L, CONTENT_T - 6, color=GOLD)
+        overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 240, dark=True)
+    draw_page_number(c, page, dark=True)
+
+
 def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets: list[Asset], offset: int) -> None:
     """Landscape editorial page. Variants 1 and 3 carry multiple images per spread."""
     variant = offset % 5
@@ -743,6 +770,9 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
     a0 = section_assets[offset % n]
     a1 = section_assets[(offset + 1) % n]
     a2 = section_assets[(offset + 2) % n]
+    if not body_text:
+        draw_plate_page(c, page, section, a0, a1, a2, accent, offset)
+        return
     if variant == 0:
         # Dominant image left, text column right.
         iw = LIVE_W * 0.56
@@ -819,6 +849,9 @@ def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], off
     n = len(section_assets)
     a0 = section_assets[offset % n]
     a1 = section_assets[(offset + 1) % n]
+    if not body_text:
+        draw_plate_page(c, page, "Synthesis", a0, a1, section_assets[(offset + 2) % n], GOLD, offset)
+        return
     if variant == 0:
         # Full-bleed image, text column on the right.
         image_box(c, a0, 0, 0, PAGE_W, PAGE_H)
@@ -1402,17 +1435,22 @@ function groupAsset(groupName, i) {{
 function copyChunk(key, n) {{
   var text = COPY[key] || COPY.synthesis;
   var words = text.replace(/\\r|\\n/g, " ").split(/\\s+/);
-  var startPage = key === "agency" ? 8 : key === "constraint" ? 17 : key === "mediation" ? 27 : 39;
-  var offset = Math.max(0, n - startPage);
-  var wordsPerPage = 52;
-  var start = Math.min(offset * wordsPerPage, Math.max(0, words.length - wordsPerPage));
-  while (start > 0) {{
-    var prev = words[start - 1];
-    var last = prev.charAt(prev.length - 1);
-    if (last === "." || last === "!" || last === "?") break;
-    start--;
+  var wordsPerPage = 86;
+  var chunks = [];
+  var i = 0;
+  while (i < words.length) {{
+    var end = Math.min(i + wordsPerPage, words.length);
+    while (end < words.length) {{
+      var last = words[end - 1].charAt(words[end - 1].length - 1);
+      if (last === "." || last === "!" || last === "?") break;
+      end++;
+    }}
+    chunks.push(words.slice(i, end).join(" "));
+    i = end;
   }}
-  return words.slice(start, start + wordsPerPage).join(" ");
+  var startPage = key === "agency" ? 9 : key === "constraint" ? 18 : key === "mediation" ? 28 : 40;
+  var offset = Math.max(0, n - startPage);
+  return (offset < chunks.length) ? chunks[offset] : "";
 }}
 
 function setupDoc() {{
@@ -1684,6 +1722,13 @@ function introPage(page, n, doc, ink, cream, gold) {{
 function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold, slate) {{
   var mode = n % 3;
   var body = copyChunk(section.toLowerCase(), n);
+  if (!body) {{
+    imageFrame(page, b(-4, -4, 220, 284), item, 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 30);
+    textFrame(page, b(18, 18, 30, 220), section + " / SEQUENCE", 9, "Bold", gold, 100);
+    caption(page, b(176, 18, 200, 150), item, ink, cream);
+    return;
+  }}
   if (mode === 0) {{
     // Dominant image left, text column right.
     imageFrame(page, b(16, 16, 199, 150), item, 100);

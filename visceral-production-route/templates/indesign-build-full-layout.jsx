@@ -593,17 +593,22 @@ function groupAsset(groupName, i) {
 function copyChunk(key, n) {
   var text = COPY[key] || COPY.synthesis;
   var words = text.replace(/\r|\n/g, " ").split(/\s+/);
-  var startPage = key === "agency" ? 8 : key === "constraint" ? 17 : key === "mediation" ? 27 : 39;
-  var offset = Math.max(0, n - startPage);
-  var wordsPerPage = 52;
-  var start = Math.min(offset * wordsPerPage, Math.max(0, words.length - wordsPerPage));
-  while (start > 0) {
-    var prev = words[start - 1];
-    var last = prev.charAt(prev.length - 1);
-    if (last === "." || last === "!" || last === "?") break;
-    start--;
+  var wordsPerPage = 86;
+  var chunks = [];
+  var i = 0;
+  while (i < words.length) {
+    var end = Math.min(i + wordsPerPage, words.length);
+    while (end < words.length) {
+      var last = words[end - 1].charAt(words[end - 1].length - 1);
+      if (last === "." || last === "!" || last === "?") break;
+      end++;
+    }
+    chunks.push(words.slice(i, end).join(" "));
+    i = end;
   }
-  return words.slice(start, start + wordsPerPage).join(" ");
+  var startPage = key === "agency" ? 9 : key === "constraint" ? 18 : key === "mediation" ? 28 : 40;
+  var offset = Math.max(0, n - startPage);
+  return (offset < chunks.length) ? chunks[offset] : "";
 }
 
 function setupDoc() {
@@ -875,6 +880,13 @@ function introPage(page, n, doc, ink, cream, gold) {
 function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold, slate) {
   var mode = n % 3;
   var body = copyChunk(section.toLowerCase(), n);
+  if (!body) {
+    imageFrame(page, b(-4, -4, 220, 284), item, 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 30);
+    textFrame(page, b(18, 18, 30, 220), section + " / SEQUENCE", 9, "Bold", gold, 100);
+    caption(page, b(176, 18, 200, 150), item, ink, cream);
+    return;
+  }
   if (mode === 0) {
     // Dominant image left, text column right.
     imageFrame(page, b(16, 16, 199, 150), item, 100);
