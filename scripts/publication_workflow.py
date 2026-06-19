@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Codex Workflow Orchestrator
+PublicationHub Workflow Orchestrator
 Automates the publication QA gate and InDesign automation pipeline.
 
 Usage:
-    python codex_workflow.py                  # Full workflow
-    python codex_workflow.py --validate-only  # Validation only
-    python codex_workflow.py --report         # Generate reports only
+    python publication_workflow.py                  # Full workflow
+    python publication_workflow.py --validate-only  # Validation only
+    python publication_workflow.py --report         # Generate reports only
 """
 
 from __future__ import annotations
@@ -18,17 +18,17 @@ from argparse import ArgumentParser
 from pathlib import Path
 from datetime import datetime
 
-# Import Codex
+# Import PublicationHub
 sys.path.insert(0, str(Path(__file__).parent))
-from codex import Codex
+from publication_hub import PublicationHub
 
 
-class CodexWorkflow:
+class PublicationWorkflow:
     """Publication automation workflow manager."""
 
     def __init__(self, root: Path):
         self.root = Path(root)
-        self.codex = Codex(self.root)
+        self.publication_hub = PublicationHub(self.root)
         self.workflow_log = []
         self.start_time = datetime.now()
 
@@ -41,18 +41,18 @@ class CodexWorkflow:
 
     def validate(self) -> bool:
         """Run manifest validation."""
-        self.log("INFO", "=== CODEX VALIDATION GATE ===")
+        self.log("INFO", "=== PUBLICATION VALIDATION GATE ===")
         self.log("INFO", "Loading manifest...")
         
         try:
-            manifest = self.codex.load_manifest()
+            manifest = self.publication_hub.load_manifest()
             self.log("OK", f"Loaded {manifest.asset_count} assets")
         except Exception as e:
             self.log("ERROR", f"Failed to load manifest: {e}")
             return False
 
         self.log("INFO", "Running validation checks...")
-        validation = self.codex.validate_manifest()
+        validation = self.publication_hub.validate_manifest()
         
         if validation["valid"]:
             self.log("OK", f"All checks passed ({validation['total_assets']} assets)")
@@ -70,19 +70,19 @@ class CodexWorkflow:
         try:
             # QA Report
             self.log("INFO", "Generating QA gate report...")
-            qa_file = self.codex.export_qa_report()
+            qa_file = self.publication_hub.export_qa_report()
             self.log("OK", f"QA Report: {qa_file.name}")
             
             # Source Register
             self.log("INFO", "Generating source register...")
-            register_file = self.codex.reports_dir / "codex-source-register.md"
-            self.codex.generate_source_register_markdown(register_file)
+            register_file = self.publication_hub.reports_dir / "publication-source-register.md"
+            self.publication_hub.generate_source_register_markdown(register_file)
             self.log("OK", f"Source Register: {register_file.name}")
             
             # InDesign Caption Script
             self.log("INFO", "Generating InDesign caption injection script...")
-            script_file = self.codex.templates_dir / "codex-caption-injection.jsx"
-            self.codex.generate_indesign_script_for_captions(script_file)
+            script_file = self.publication_hub.templates_dir / "publication-caption-injection.jsx"
+            self.publication_hub.generate_indesign_script_for_captions(script_file)
             self.log("OK", f"Caption Script: {script_file.name}")
             
             return True
@@ -106,7 +106,7 @@ class CodexWorkflow:
         self.log("INFO", "  - Checking color space and fonts")
         
         # Note: Actual script execution would require InDesign running
-        bridge_script = self.codex.templates_dir / "codex-indesign-bridge.jsx"
+        bridge_script = self.publication_hub.templates_dir / "publication-indesign-bridge.jsx"
         if bridge_script.exists():
             self.log("OK", f"Bridge script ready: {bridge_script.name}")
             self.log("INFO", "To run preflight:")
@@ -121,21 +121,21 @@ class CodexWorkflow:
         self.log("INFO", "=== PUBLISHING EXPORT ===")
         
         try:
-            if not self.codex.manifest:
-                self.codex.load_manifest()
+            if not self.publication_hub.manifest:
+                self.publication_hub.load_manifest()
             
-            assets = self.codex.manifest.assets
+            assets = self.publication_hub.manifest.assets
             
             # Export manifest as CSV
             self.log("INFO", "Exporting manifest as CSV...")
-            csv_file = self.codex.reports_dir / "codex-manifest-export.csv"
-            self.codex.publishing.export_manifest_csv(assets, csv_file)
+            csv_file = self.publication_hub.reports_dir / "publication-manifest-export.csv"
+            self.publication_hub.publishing.export_manifest_csv(assets, csv_file)
             self.log("OK", f"Manifest CSV: {csv_file.name}")
             
             # Generate asset index
             self.log("INFO", "Generating asset index...")
-            index_file = self.codex.reports_dir / "codex-asset-index.json"
-            self.codex.publishing.generate_asset_index(assets, index_file)
+            index_file = self.publication_hub.reports_dir / "publication-asset-index.json"
+            self.publication_hub.publishing.generate_asset_index(assets, index_file)
             self.log("OK", f"Asset Index: {index_file.name}")
             
             return True
@@ -148,15 +148,15 @@ class CodexWorkflow:
         self.log("INFO", "=== WRITING DOCUMENTATION ===")
         
         try:
-            if not self.codex.manifest:
-                self.codex.load_manifest()
+            if not self.publication_hub.manifest:
+                self.publication_hub.load_manifest()
             
-            assets = self.codex.manifest.assets
+            assets = self.publication_hub.manifest.assets
             
             # Generate HTML contact sheet
             self.log("INFO", "Generating HTML contact sheet...")
-            html_file = self.codex.reports_dir / "codex-contact-sheet.html"
-            self.codex.writing.write_html_contact_sheet(assets, html_file)
+            html_file = self.publication_hub.reports_dir / "publication-contact-sheet.html"
+            self.publication_hub.writing.write_html_contact_sheet(assets, html_file)
             self.log("OK", f"Contact Sheet: {html_file.name}")
             
             return True
@@ -169,21 +169,21 @@ class CodexWorkflow:
         self.log("INFO", "=== COMPREHENSIVE PREFLIGHT ===")
         
         try:
-            if not self.codex.manifest:
-                self.codex.load_manifest()
+            if not self.publication_hub.manifest:
+                self.publication_hub.load_manifest()
             
-            assets = self.codex.manifest.assets
+            assets = self.publication_hub.manifest.assets
             
             # Manifest completeness check
             self.log("INFO", "Checking manifest completeness...")
-            manifest_check = self.codex.preflight.check_manifest_completeness(assets)
+            manifest_check = self.publication_hub.preflight.check_manifest_completeness(assets)
             self.log("OK" if manifest_check["valid"] else "WARN", 
                     f"Manifest: {manifest_check['issue_count']} issues")
             
             # Generate preflight report
             self.log("INFO", "Generating preflight report...")
-            preflight_file = self.codex.reports_dir / "codex-preflight-report.json"
-            self.codex.preflight.generate_preflight_report(assets, preflight_file)
+            preflight_file = self.publication_hub.reports_dir / "publication-preflight-report.json"
+            self.publication_hub.preflight.generate_preflight_report(assets, preflight_file)
             self.log("OK", f"Preflight Report: {preflight_file.name}")
             
             return manifest_check["valid"]
@@ -195,7 +195,7 @@ class CodexWorkflow:
         """Run complete publication workflow with all skills."""
         self.log("INFO", "")
         self.log("INFO", "╔════════════════════════════════════════════════════╗")
-        self.log("INFO", "║  CODEX PUBLICATION AUTOMATION WORKFLOW v1.1        ║")
+        self.log("INFO", "║  PUBLICATION PUBLICATION AUTOMATION WORKFLOW v1.1        ║")
         self.log("INFO", "║  The Visceral Theory of Sight                      ║")
         self.log("INFO", "╚════════════════════════════════════════════════════╝")
         self.log("INFO", "")
@@ -236,11 +236,11 @@ class CodexWorkflow:
         self.log("OK", f"✓ Workflow completed in {elapsed:.1f}s")
         self.log("INFO", "")
         self.log("INFO", "Next steps:")
-        self.log("INFO", "  1. Review codex-qa-gate-report.json")
+        self.log("INFO", "  1. Review publication-qa-gate-report.json")
         self.log("INFO", "  2. Run automated tests")
         self.log("INFO", "  3. Run HTML preflight on web proof")
         self.log("INFO", "  4. Visual inspection in browser")
-        self.log("INFO", "  5. Open InDesign and run codex-indesign-bridge.jsx")
+        self.log("INFO", "  5. Open InDesign and run publication-indesign-bridge.jsx")
         self.log("INFO", "  6. Run InDesign preflight")
         self.log("INFO", "  7. Export PDF and inspect")
         self.log("INFO", "")
@@ -249,7 +249,7 @@ class CodexWorkflow:
 
     def save_workflow_log(self) -> Path:
         """Save workflow execution log."""
-        log_file = self.codex.reports_dir / "codex-workflow.log"
+        log_file = self.publication_hub.reports_dir / "publication-workflow.log"
         log_file.parent.mkdir(parents=True, exist_ok=True)
         
         with open(log_file, "w", encoding="utf-8") as f:
@@ -259,7 +259,7 @@ class CodexWorkflow:
 
 
 def main():
-    parser = ArgumentParser(description="Codex publication automation workflow")
+    parser = ArgumentParser(description="PublicationHub publication automation workflow")
     parser.add_argument(
         "--validate-only",
         action="store_true",
@@ -295,7 +295,7 @@ def main():
     
     # Detect root
     root = Path(__file__).resolve().parents[1]
-    workflow = CodexWorkflow(root)
+    workflow = PublicationWorkflow(root)
     
     try:
         if args.validate_only:

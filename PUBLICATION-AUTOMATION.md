@@ -1,8 +1,8 @@
-# Codex: Publication Automation System
+# Publication Automation System
 
-**Codex** is an automated publication workflow system for InDesign-based magazines. It handles manifest validation, caption injection, QA gating, and report generation for *The Visceral Theory of Sight*.
+This is an automated publication workflow system for InDesign-based magazines. It handles manifest validation, caption injection, QA gating, and report generation for *The Visceral Theory of Sight*.
 
-## What Codex Does
+## What It Does
 
 - **Validates** the photo manifest (64 images with metadata)
 - **Generates** InDesign ExtendScript for automatic caption injection
@@ -15,7 +15,7 @@
 ### 1. Run Full Workflow
 
 ```bash
-python scripts/codex_workflow.py
+python scripts/publication_workflow.py
 ```
 
 This will:
@@ -28,7 +28,7 @@ This will:
 ### 2. Validate Only
 
 ```bash
-python scripts/codex_workflow.py --validate-only
+python scripts/publication_workflow.py --validate-only
 ```
 
 Check if manifest is valid without generating files.
@@ -36,7 +36,7 @@ Check if manifest is valid without generating files.
 ### 3. Generate Reports Only
 
 ```bash
-python scripts/codex_workflow.py --report
+python scripts/publication_workflow.py --report
 ```
 
 Regenerate QA reports and documents.
@@ -44,45 +44,45 @@ Regenerate QA reports and documents.
 ### 4. With InDesign Preflight
 
 ```bash
-python scripts/codex_workflow.py --indesign "path/to/document.indd"
+python scripts/publication_workflow.py --indesign "path/to/document.indd"
 ```
 
 Include InDesign-specific preflight checks.
 
 ## Outputs
 
-Codex generates these files:
+It generates these files:
 
 ### Reports
-- `visceral-production-route/reports/codex-qa-gate-report.json` — QA checklist & status
-- `visceral-production-route/reports/codex-source-register.md` — Backmatter documentation
-- `visceral-production-route/reports/codex-workflow.log` — Execution log
+- `visceral-production-route/reports/publication-qa-gate-report.json` — QA checklist & status
+- `visceral-production-route/reports/publication-source-register.md` — Backmatter documentation
+- `visceral-production-route/reports/publication-workflow.log` — Execution log
 
 ### Scripts
-- `visceral-production-route/templates/codex-caption-injection.jsx` — Auto-generated captions for InDesign
-- `visceral-production-route/templates/codex-indesign-bridge.jsx` — InDesign preflight bridge
+- `visceral-production-route/templates/publication-caption-injection.jsx` — Auto-generated captions for InDesign
+- `visceral-production-route/templates/publication-indesign-bridge.jsx` — InDesign preflight bridge
 
 ## Architecture
 
-### Codex Module (`scripts/codex.py`)
+### PublicationHub Module (`scripts/publication_hub.py`)
 
 Core publication automation class:
 
 ```python
-from codex import Codex
+from publication_hub import PublicationHub
 
-codex = Codex(root)
+publication_hub = PublicationHub(root)
 
 # Load manifest
-manifest = codex.load_manifest()  # 64 assets
+manifest = publication_hub.load_manifest()  # 64 assets
 
 # Validate
-validation = codex.validate_manifest()
+validation = publication_hub.validate_manifest()
 
 # Generate outputs
-codex.generate_indesign_script_for_captions()
-codex.generate_source_register_markdown()
-codex.export_qa_report()
+publication_hub.generate_indesign_script_for_captions()
+publication_hub.generate_source_register_markdown()
+publication_hub.export_qa_report()
 ```
 
 **Methods:**
@@ -94,14 +94,14 @@ codex.export_qa_report()
 - `generate_qa_report()` — QA gate validation
 - `export_qa_report()` — Save report as JSON
 
-### Workflow Orchestrator (`scripts/codex_workflow.py`)
+### Workflow Orchestrator (`scripts/publication_workflow.py`)
 
 High-level workflow manager:
 
 ```python
-from codex_workflow import CodexWorkflow
+from publication_workflow import PublicationWorkflow
 
-workflow = CodexWorkflow(root)
+workflow = PublicationWorkflow(root)
 workflow.run_full_workflow()
 ```
 
@@ -111,13 +111,13 @@ workflow.run_full_workflow()
 3. InDesign preflight (optional)
 4. Summary & next steps
 
-### InDesign Bridge (`templates/codex-indesign-bridge.jsx`)
+### InDesign Bridge (`templates/publication-indesign-bridge.jsx`)
 
 ExtendScript for InDesign automation:
 
 ```javascript
 // Run inside InDesign
-// File > Scripts > codex-indesign-bridge.jsx
+// File > Scripts > publication-indesign-bridge.jsx
 
 // Preflight checks:
 // - Required layers (Captions, Source Register)
@@ -128,7 +128,7 @@ ExtendScript for InDesign automation:
 
 ## QA Gate Checklist
 
-Before publication, Codex validates:
+Before publication, the workflow validates:
 
 - ✓ Automated test suite passes
 - ✓ HTML/source preflight (TOC, captions, 64 source-register entries)
@@ -178,13 +178,13 @@ The photo manifest (`data/labeled-photo-manifest.json`) contains:
 
 ## InDesign Workflow
 
-### Step 1: Validate with Codex
+### Step 1: Validate with the workflow
 
 ```bash
-python scripts/codex_workflow.py
+python scripts/publication_workflow.py
 ```
 
-Review `codex-qa-gate-report.json`.
+Review `publication-qa-gate-report.json`.
 
 ### Step 2: Open InDesign
 
@@ -197,7 +197,7 @@ output/indesign/the-anatomy-of-looking-50pp-indesign-base.indd
 
 ```
 File > Scripts > Other Scripts...
-  → templates/codex-indesign-bridge.jsx
+  → templates/publication-indesign-bridge.jsx
 ```
 
 This checks:
@@ -208,11 +208,11 @@ This checks:
 
 ### Step 4: Inject Captions
 
-Use `codex-caption-injection.jsx` to auto-populate captions:
+Use `publication-caption-injection.jsx` to auto-populate captions:
 
 ```
 File > Scripts > Other Scripts...
-  → templates/codex-caption-injection.jsx
+  → templates/publication-caption-injection.jsx
 ```
 
 This pulls from your manifest and injects into text frames.
@@ -244,7 +244,7 @@ Inspect exported PDF for:
 
 ### QA Gate Report
 
-`codex-qa-gate-report.json`:
+`publication-qa-gate-report.json`:
 
 ```json
 {
@@ -265,7 +265,7 @@ Inspect exported PDF for:
 
 ### Source Register
 
-`codex-source-register.md`:
+`publication-source-register.md`:
 
 Backmatter documentation for all 64 images:
 
@@ -284,12 +284,12 @@ Backmatter documentation for all 64 images:
 
 ### Workflow Log
 
-`codex-workflow.log`:
+`publication-workflow.log`:
 
 Timestamped execution log for debugging:
 
 ```
-[23:59:07] INFO     | === CODEX VALIDATION GATE ===
+[23:59:07] INFO     | === PUBLICATION VALIDATION GATE ===
 [23:59:07] OK       | Loaded 64 assets
 [23:59:07] OK       | All checks passed (64 assets)
 ```
@@ -298,15 +298,15 @@ Timestamped execution log for debugging:
 
 ### Add New Assets
 
-Edit `data/labeled-photo-manifest.json` and re-run Codex:
+Edit `data/labeled-photo-manifest.json` and re-run the workflow:
 
 ```bash
-python scripts/codex_workflow.py
+python scripts/publication_workflow.py
 ```
 
 ### Modify Caption Format
 
-Edit the `generate_indesign_script_for_captions()` method in `scripts/codex.py`:
+Edit the `generate_indesign_script_for_captions()` method in `scripts/publication_hub.py`:
 
 ```python
 def generate_indesign_script_for_captions(self, output_file=None) -> str:
@@ -338,14 +338,14 @@ def generate_qa_report(self) -> dict:
                  │
                  ▼
     ┌────────────────────────────┐
-    │  Codex (Python)            │
+    │  PublicationHub (Python)            │
     │  - Validation gate         │
     │  - Manifest parser         │
     │  - Report generator        │
     └────────┬───────────┬───────┘
              │           │
       ┌──────▼────┐  ┌───▼──────────┐
-      │  codex-   │  │  codex-qa-   │
+      │  publication-   │  │  publication-qa-   │
       │  caption- │  │  gate-report │
       │  injection│  │  .json       │
       │  .jsx     │  └──────────────┘
@@ -364,21 +364,21 @@ def generate_qa_report(self) -> dict:
 
 ### "Unicode encoding error" on Windows
 
-Already fixed in Codex 1.0 — uses UTF-8 with explicit encoding.
+Already fixed in version 1.0 — uses UTF-8 with explicit encoding.
 
 ### "Manifest validation issues"
 
-Check `codex-workflow.log` for specific issues:
+Check `publication-workflow.log` for specific issues:
 
 ```bash
 # Look for ERROR entries
-grep ERROR visceral-production-route/reports/codex-workflow.log
+grep ERROR visceral-production-route/reports/publication-workflow.log
 ```
 
 ### InDesign script won't run
 
 1. Ensure InDesign is open with a document
-2. Confirm script file exists: `templates/codex-indesign-bridge.jsx`
+2. Confirm script file exists: `templates/publication-indesign-bridge.jsx`
 3. Check InDesign console for errors: `Window > Utilities > ExtendScript Toolkit`
 
 ### Missing links in InDesign
@@ -405,11 +405,11 @@ Relink missing images or update paths in manifest.
 
 ## License & Attribution
 
-Codex is part of the *visceral-theory-of-sight* project.
+This toolkit is part of the *visceral-theory-of-sight* project.
 
 For publication guidelines, see `AGENTS.md`.
 
 ---
 
 **Last updated:** 2026-06-06  
-**Author:** Brooke Howard (via Copilot CLI)
+**Author:** Brooke Howard

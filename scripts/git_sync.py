@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-Codex Git Sync: Automated push, pull, and commit for Codex workflows.
+PublicationHub Git Sync: Automated push, pull, and commit for PublicationHub workflows.
 
 Enables automatic GitHub synchronization for publication automation.
 
 Usage:
-    python codex_git_sync.py                    # Auto sync (pull → commit → push)
-    python codex_git_sync.py --pull             # Pull from origin
-    python codex_git_sync.py --push             # Push to origin
-    python codex_git_sync.py --commit "message" # Commit with message
-    python codex_git_sync.py --status           # Check git status
-    python codex_git_sync.py --log              # Show recent commits
+    python git_sync.py                    # Auto sync (pull → commit → push)
+    python git_sync.py --pull             # Pull from origin
+    python git_sync.py --push             # Push to origin
+    python git_sync.py --commit "message" # Commit with message
+    python git_sync.py --status           # Check git status
+    python git_sync.py --log              # Show recent commits
 """
 
 from __future__ import annotations
@@ -22,8 +22,8 @@ from pathlib import Path
 from datetime import datetime
 
 
-class CodexGitSync:
-    """Automated Git operations for Codex workflows."""
+class GitSync:
+    """Automated Git operations for PublicationHub workflows."""
 
     def __init__(self, repo_path: Path):
         """Initialize with repository path."""
@@ -105,10 +105,7 @@ class CodexGitSync:
         """Commit changes."""
         print(f"[GIT] Committing: {message}")
         
-        cmd = [
-            "git", "commit", "-m", message,
-            "--trailer", "Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
-        ]
+        cmd = ["git", "commit", "-m", message]
         
         success, stdout, stderr = self.run_command(cmd)
         
@@ -154,7 +151,7 @@ class CodexGitSync:
     def auto_sync(self) -> dict:
         """Auto sync: pull → commit → push."""
         print("\n" + "="*60)
-        print("CODEX AUTO GIT SYNC")
+        print("PUBLICATION AUTO GIT SYNC")
         print("="*60 + "\n")
         
         # Step 1: Pull
@@ -181,7 +178,7 @@ class CodexGitSync:
         
         # Step 4: Commit
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        commit_message = f"chore: Codex auto-sync {timestamp}"
+        commit_message = f"chore: PublicationHub auto-sync {timestamp}"
         
         commit_result = self.commit(commit_message)
         if not commit_result["success"]:
@@ -205,7 +202,7 @@ class CodexGitSync:
 
 def main():
     """Main entry point."""
-    parser = ArgumentParser(description="Codex Git Sync - Auto push, pull, commit")
+    parser = ArgumentParser(description="PublicationHub Git Sync - Auto push, pull, commit")
     parser.add_argument(
         "--pull",
         action="store_true",
@@ -236,7 +233,7 @@ def main():
     
     # Detect repo root
     repo_path = Path(__file__).resolve().parents[1]
-    sync = CodexGitSync(repo_path)
+    sync = GitSync(repo_path)
     
     try:
         result = {"success": True}

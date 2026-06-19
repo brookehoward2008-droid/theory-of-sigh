@@ -33,7 +33,7 @@ for the current export route:
   active document.
 - `templates/indesign-fix-overset-text.jsx` — overset-text repair for the active
   document.
-- `templates/codex-caption-injection.jsx` — caption injection from the manifest.
+- `templates/publication-caption-injection.jsx` — caption injection from the manifest.
 
 ## Preflight Checklist (do this before export)
 
