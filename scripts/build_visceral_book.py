@@ -977,14 +977,13 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
         text = (
             "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. "
             "Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. "
-            "Set in Helvetica and Times, printed white on black."
+            "Set in Gloock, Crimson Pro, and Work Sans; printed white on black."
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     else:
         c.setFont("VogueDisplay", 40)
         c.setFillColor(CREAM)
-        c.drawString(CONTENT_L, CONTENT_T - 120, "Sight remains")
-        c.drawString(CONTENT_L, CONTENT_T - 168, "unfinished.")
+        c.drawString(CONTENT_L, CONTENT_T - 140, "Sight remains unfinished.")
         draw_text_block(c, "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", CONTENT_L, CONTENT_B + 96, width_chars=92, leading=14, size=10, color=CREAM)
     draw_page_number(c, page, dark=True)
 
@@ -1813,7 +1812,7 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
 
 function backMatter(page, n, doc, ink, cream, gold) {{
   if (n === 50) {{
-    textFrame(page, b(40, 18, 96, 230), "Sight remains\\runfinished.", 34, "Bold", cream, 100);
+    textFrame(page, b(40, 18, 96, 230), "Sight remains unfinished.", 34, "Bold", cream, 100);
     textFrame(page, b(150, 18, 190, 250), "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", 10, "Regular", cream, 100);
     return;
   }}
@@ -1829,7 +1828,7 @@ function backMatter(page, n, doc, ink, cream, gold) {{
   }} else if (n === 48) {{
     textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   }} else {{
-    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times, printed white on black.", 10, "Regular", cream, 100);
+    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Gloock, Crimson Pro, and Work Sans; printed white on black.", 10, "Regular", cream, 100);
   }}
 }}
 
