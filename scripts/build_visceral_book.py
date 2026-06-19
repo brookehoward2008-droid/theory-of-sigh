@@ -758,8 +758,8 @@ def draw_epigraph(c: canvas.Canvas) -> None:
         "Ye have told many things—but not why ye were made."
     )
     draw_text_block(c, stanza1, CONTENT_L, CONTENT_T - 258, width_chars=58,
-                    leading=34, size=16, color=RED, font="Times-Roman",
-                    stroke=CREAM, stroke_width=0.3)
+                    leading=34, size=16, color=CREAM, font="Times-Roman",
+                    stroke=SLATE, stroke_width=0.2)
     stanza2 = (
         "“We were made to delight in the beauties of earth;\n"
         "Then to see how they perished, how little their worth\n"
@@ -781,8 +781,8 @@ def draw_epigraph(c: canvas.Canvas) -> None:
         "Then, to close in a night that will bring us no morrow?”"
     )
     draw_text_block(c, stanza2, CONTENT_L + 400, CONTENT_T - 64, width_chars=64,
-                    leading=24, size=12, color=RED, font="Times-Roman",
-                    stroke=CREAM, stroke_width=0.25)
+                    leading=24, size=12, color=CREAM, font="Times-Roman",
+                    stroke=SLATE, stroke_width=0.16)
     draw_page_number(c, 4)
 
 
