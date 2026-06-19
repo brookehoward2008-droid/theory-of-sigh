@@ -14,6 +14,9 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase.pdfmetrics import registerFontFamily
 try:
     from pypdf import PdfReader, PdfWriter
     _PYPDF_OK = True
@@ -36,6 +39,47 @@ NOTES_OUT = ROUTE / "notes"
 MANIFEST_OUT = ROUTE / "manifest"
 TEMPLATE_OUT = ROUTE / "templates"
 REPORTS_OUT = ROUTE / "reports"
+
+# --- Editorial typefaces -----------------------------------------------------
+# Fashion-magazine system, vendored under assets/fonts and embedded on export:
+#   Gloock        -> display titles (high-contrast Didone, the Vogue-cover look)
+#   Crimson Pro   -> body text (couture serif, regular + italic)
+#   Work Sans     -> labels, captions, folios (clean grotesque sans)
+# Registered over the base-14 names so the existing draw calls pick them up; the
+# large title calls use the dedicated VogueDisplay name.
+FONT_DIR = ROOT / "assets" / "fonts"
+
+
+def register_fonts() -> None:
+    faces = {
+        "Times-Roman": "CrimsonPro-Regular.ttf",
+        "Times-Italic": "CrimsonPro-Italic.ttf",
+        "Times-Bold": "CrimsonPro-Bold.ttf",
+        "Times-BoldItalic": "CrimsonPro-Italic.ttf",
+        "Helvetica": "WorkSans-Regular.ttf",
+        "Helvetica-Bold": "WorkSans-Bold.ttf",
+        "Helvetica-Oblique": "WorkSans-Italic.ttf",
+        "Helvetica-BoldOblique": "WorkSans-BoldItalic.ttf",
+        "VogueDisplay": "Gloock-Regular.ttf",
+    }
+    for name, fname in faces.items():
+        path = FONT_DIR / fname
+        if path.exists():
+            try:
+                pdfmetrics.registerFont(TTFont(name, str(path)))
+            except Exception:
+                pass
+    registerFontFamily(
+        "Times", normal="Times-Roman", bold="Times-Bold",
+        italic="Times-Italic", boldItalic="Times-BoldItalic",
+    )
+    registerFontFamily(
+        "Helvetica", normal="Helvetica", bold="Helvetica-Bold",
+        italic="Helvetica-Oblique", boldItalic="Helvetica-BoldOblique",
+    )
+
+
+register_fonts()
 
 # US Letter landscape trim. Matches the InDesign preflight-safe route and the
 # committed 50pp proof: facing pages, multi-image spreads, full-bleed section
@@ -489,7 +533,7 @@ def draw_pull_quote(c: canvas.Canvas, lines: list[str], y: float, dark: bool = F
     c.setFillColor(colors.Color(0.65, 0.51, 0.26, alpha=0.88))
     c.rect(0, y - 18, PAGE_W, 118, fill=1, stroke=0)
     c.setFillColor(CREAM if not dark else INK)
-    c.setFont("Helvetica-Bold", 28)
+    c.setFont("VogueDisplay", 28)
     for i, line in enumerate(lines):
         c.drawString(58 + (i % 2) * 30, y + 62 - (i * 31), line)
     c.restoreState()
@@ -582,7 +626,7 @@ def draw_section_title(c: canvas.Canvas, page: int, section: str, asset: Asset) 
     c.setLineWidth(1.4)
     c.line(x, CONTENT_B + 214, x + 150, CONTENT_B + 214)
     c.setFillColor(CREAM)
-    c.setFont("Helvetica-Bold", 54)
+    c.setFont("VogueDisplay", 54)
     c.drawString(x, CONTENT_B + 150, title)
     c.setFont("Times-Italic", 15)
     c.drawString(x, CONTENT_B + 120, sub)
@@ -602,7 +646,7 @@ def draw_cover(c: canvas.Canvas, asset: Asset, page_num: int | None = None) -> N
     c.setLineWidth(1.2)
     c.line(x, CONTENT_B + 134, x + 260, CONTENT_B + 134)
     c.setFillColor(CREAM)
-    c.setFont("Helvetica-Bold", 52)
+    c.setFont("VogueDisplay", 52)
     c.drawString(x, CONTENT_B + 78, "THE VISCERAL")
     c.drawString(x, CONTENT_B + 30, "THEORY OF SIGHT")
     c.setFont("Times-Roman", 13)
@@ -624,7 +668,7 @@ def draw_title_spread(c: canvas.Canvas, asset: Asset, side: str) -> None:
         c.setFont("Helvetica-Bold", 11)
         c.drawString(CONTENT_L, CONTENT_T - 30, "TITLE")
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 56)
+        c.setFont("VogueDisplay", 56)
         c.drawString(CONTENT_L, CONTENT_T - 132, "THE VISCERAL")
         c.drawString(CONTENT_L, CONTENT_T - 190, "THEORY OF SIGHT")
         c.setFont("Times-Italic", 15)
@@ -643,7 +687,7 @@ def draw_title_page(c: canvas.Canvas) -> None:
     draw_bg(c)
     draw_label(c, "title page", CONTENT_L, CONTENT_T - 6)
     c.setFillColor(CREAM)
-    c.setFont("Helvetica-Bold", 46)
+    c.setFont("VogueDisplay", 46)
     c.drawString(CONTENT_L, CONTENT_T - 120, "The Visceral")
     c.drawString(CONTENT_L, CONTENT_T - 168, "Theory of Sight")
     c.setFont("Times-Roman", 14)
@@ -675,7 +719,7 @@ def draw_toc(c: canvas.Canvas) -> None:
     draw_bg(c, dark=True)
     draw_label(c, "contents", CONTENT_L, CONTENT_T - 6, color=GOLD)
     c.setFillColor(CREAM)
-    c.setFont("Helvetica-Bold", 34)
+    c.setFont("VogueDisplay", 34)
     c.drawString(CONTENT_L, CONTENT_T - 64, "Agency / Constraint / Mediation")
     entries = [
         ("Front Matter", "01"),
@@ -710,7 +754,7 @@ def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
     if page == 5:
         draw_label(c, "introduction", CONTENT_L, CONTENT_T - 6)
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 34)
+        c.setFont("VogueDisplay", 34)
         c.drawString(CONTENT_L, CONTENT_T - 72, "The Visceral Theory")
         c.drawString(CONTENT_L, CONTENT_T - 110, "of Sight")
         draw_text_block(c, intro_copy(), CONTENT_L, CONTENT_T - 156, width_chars=44, leading=14, size=10.5)
@@ -723,7 +767,7 @@ def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
         image_box(c, assets[2 % len(assets)], 0, 0, PAGE_W, PAGE_H)
         scrim(c, alpha=0.5, dark=True)
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 30)
+        c.setFont("VogueDisplay", 30)
         c.drawString(CONTENT_L, CONTENT_T - 44, "The image does not give")
         c.drawString(CONTENT_L, CONTENT_T - 80, "itself all at once.")
         draw_text_block(c, "Controlled revelation is the method. Tension is the evidence.", CONTENT_L, CONTENT_B + 44, width_chars=78, leading=14, size=11, color=CREAM)
@@ -788,7 +832,7 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         c.setFillColor(accent)
         c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 26)
+        c.setFont("VogueDisplay", 26)
         c.drawString(tx, CONTENT_T - 64, section.upper())
         draw_text_block(c, body_text, tx, CONTENT_T - 96, width_chars=31, leading=14.5, size=10.4, color=fg)
         overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 220, dark=True)
@@ -802,7 +846,7 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         c.setFillColor(accent)
         c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 26)
+        c.setFont("VogueDisplay", 26)
         c.drawString(tx, CONTENT_T - 64, section.upper())
         draw_text_block(c, body_text, tx, CONTENT_T - 96, width_chars=37, leading=14.5, size=10.4, color=fg)
         overlay_caption(c, a1, CONTENT_L + 14, CONTENT_B + 16, 200, dark=True)
@@ -812,7 +856,7 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         scrim(c, alpha=0.52, dark=True)
         draw_label(c, f"article / {section}", CONTENT_L, CONTENT_T - 10, color=accent)
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 30)
+        c.setFont("VogueDisplay", 30)
         c.drawString(CONTENT_L, CONTENT_T - 56, "Only one eye remains;")
         c.drawString(CONTENT_L, CONTENT_T - 90, "the image gets louder.")
         translucent_panel(c, CONTENT_L - 6, CONTENT_B - 6, LIVE_W * 0.48 + 12, 152, dark=True, alpha=0.58)
@@ -840,7 +884,7 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         c.setFillColor(accent)
         c.rect(CONTENT_L, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 26)
+        c.setFont("VogueDisplay", 26)
         c.drawString(CONTENT_L, CONTENT_T - 64, section.upper())
         draw_text_block(c, body_text, CONTENT_L, CONTENT_T - 96, width_chars=31, leading=14.5, size=10.4, color=fg)
         overlay_caption(c, a0, ix + 14, CONTENT_B + 18, 200, dark=True)
@@ -872,7 +916,7 @@ def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], off
         c.setFillColor(GOLD)
         c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 26)
+        c.setFont("VogueDisplay", 26)
         c.drawString(tx, CONTENT_T - 64, "Unresolved Sight")
         draw_text_block(c, body_text, tx, CONTENT_T - 96, width_chars=31, leading=14.5, size=10.4, color=CREAM)
         overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 200, dark=True)
@@ -885,7 +929,7 @@ def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], off
         c.setLineWidth(1.6)
         c.line(tx, CONTENT_T - 30, CONTENT_R, CONTENT_T - 30)
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 20)
+        c.setFont("VogueDisplay", 20)
         c.drawString(tx, CONTENT_T - 58, "Looking never arrives clean.")
         draw_text_block(c, body_text, tx, CONTENT_T - 88, width_chars=32, leading=14.5, size=10.4, color=CREAM)
         overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 200, dark=True)
@@ -937,7 +981,7 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     else:
-        c.setFont("Helvetica-Bold", 40)
+        c.setFont("VogueDisplay", 40)
         c.setFillColor(CREAM)
         c.drawString(CONTENT_L, CONTENT_T - 120, "Sight remains")
         c.drawString(CONTENT_L, CONTENT_T - 168, "unfinished.")
