@@ -411,8 +411,15 @@ def draw_text_block(
     for para in text.split("\n"):
         if not para.strip():
             lines.append("")
-        else:
-            lines.extend(wrap(para, width=width_chars))
+            continue
+        wrapped = wrap(para, width=width_chars)
+        # Widow control: never leave a lone word on a paragraph's last line.
+        if len(wrapped) >= 2 and len(wrapped[-1].split()) == 1:
+            prev = wrapped[-2].split()
+            if len(prev) > 1:
+                wrapped[-2] = " ".join(prev[:-1])
+                wrapped[-1] = prev[-1] + " " + wrapped[-1]
+        lines.extend(wrapped)
     if max_lines is not None:
         lines = lines[:max_lines]
     for line in lines:
@@ -857,26 +864,31 @@ def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], off
         image_box(c, a0, 0, 0, PAGE_W, PAGE_H)
         scrim(c, alpha=0.46, dark=True)
         tx = CONTENT_L + LIVE_W * 0.54
+        # Localized panel so the body type stays legible over bright image areas.
+        c.saveState()
+        c.setFillColor(colors.Color(0.03, 0.03, 0.03, alpha=0.55))
+        c.rect(tx - 22, 0, PAGE_W - (tx - 22), PAGE_H, fill=1, stroke=0)
+        c.restoreState()
         c.setFillColor(GOLD)
         c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(CREAM)
         c.setFont("Helvetica-Bold", 26)
         c.drawString(tx, CONTENT_T - 64, "Unresolved Sight")
-        draw_text_block(c, body_text, tx, CONTENT_T - 92, width_chars=33, leading=13, size=9.2, color=CREAM)
+        draw_text_block(c, body_text, tx, CONTENT_T - 96, width_chars=31, leading=14.5, size=10.4, color=CREAM)
         overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 200, dark=True)
     else:
-        # Image left, second image upper-right, framed closing text.
-        iw = LIVE_W * 0.5
-        image_box(c, a0, CONTENT_L, CONTENT_B, iw - 12, LIVE_H)
-        image_box(c, a1, CONTENT_L + iw + 12, CONTENT_T - LIVE_H * 0.5, LIVE_W - iw - 12, LIVE_H * 0.5)
-        tx = CONTENT_L + iw + 12
+        # Image left, closing text in a full-height column on the right.
+        iw = LIVE_W * 0.52
+        image_box(c, a0, CONTENT_L, CONTENT_B, iw, LIVE_H)
+        tx = CONTENT_L + iw + 26
         c.setStrokeColor(GOLD)
         c.setLineWidth(1.6)
-        c.line(tx, CONTENT_B + LIVE_H * 0.44, CONTENT_R, CONTENT_B + LIVE_H * 0.44)
+        c.line(tx, CONTENT_T - 30, CONTENT_R, CONTENT_T - 30)
         c.setFillColor(CREAM)
         c.setFont("Helvetica-Bold", 20)
-        c.drawString(tx, CONTENT_B + LIVE_H * 0.37, "Looking never arrives clean.")
-        draw_text_block(c, body_text, tx, CONTENT_B + LIVE_H * 0.31, width_chars=44, leading=13, size=9.2, color=CREAM, max_lines=10)
+        c.drawString(tx, CONTENT_T - 58, "Looking never arrives clean.")
+        draw_text_block(c, body_text, tx, CONTENT_T - 88, width_chars=32, leading=14.5, size=10.4, color=CREAM)
+        overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 200, dark=True)
     draw_page_number(c, page, dark=dark)
 
 
