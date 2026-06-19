@@ -44,7 +44,7 @@ REPORTS_OUT = ROUTE / "reports"
 # --- Editorial typefaces -----------------------------------------------------
 # Fashion-magazine system, vendored under assets/fonts and embedded on export:
 #   Gloock        -> display titles (high-contrast Didone, the Vogue-cover look)
-#   Cormorant Garamond -> body text (couture serif, regular + italic)
+#   Spectral -> body text (crisp editorial serif, regular + italic)
 #   Work Sans     -> labels, captions, folios (clean grotesque sans)
 # Registered over the base-14 names so the existing draw calls pick them up; the
 # large title calls use the dedicated VogueDisplay name.
@@ -53,10 +53,10 @@ FONT_DIR = ROOT / "assets" / "fonts"
 
 def register_fonts() -> None:
     faces = {
-        "Times-Roman": "CormorantGaramond-Medium.ttf",
-        "Times-Italic": "CormorantGaramond-MediumItalic.ttf",
-        "Times-Bold": "CormorantGaramond-SemiBold.ttf",
-        "Times-BoldItalic": "CormorantGaramond-MediumItalic.ttf",
+        "Times-Roman": "Spectral-Regular.ttf",
+        "Times-Italic": "Spectral-Italic.ttf",
+        "Times-Bold": "Spectral-SemiBold.ttf",
+        "Times-BoldItalic": "Spectral-Italic.ttf",
         "Helvetica": "WorkSans-Regular.ttf",
         "Helvetica-Bold": "WorkSans-Bold.ttf",
         "Helvetica-Oblique": "WorkSans-Italic.ttf",
@@ -1074,7 +1074,7 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
         text = (
             "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. "
             "Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. "
-            "Set in Gloock, Cormorant Garamond, and Work Sans; printed white on black."
+            "Set in Gloock, Spectral, and Work Sans; printed white on black."
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     else:
@@ -1925,7 +1925,7 @@ function backMatter(page, n, doc, ink, cream, gold) {{
   }} else if (n === 48) {{
     textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   }} else {{
-    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Gloock, Cormorant Garamond, and Work Sans; printed white on black.", 10, "Regular", cream, 100);
+    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Gloock, Spectral, and Work Sans; printed white on black.", 10, "Regular", cream, 100);
   }}
 }}
 

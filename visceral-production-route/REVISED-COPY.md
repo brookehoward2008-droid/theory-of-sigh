@@ -270,7 +270,7 @@ Replace the whole register with these clean credit lines (one per image, no file
 **p49 — Colophon**
 > The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil.
 > Photographs are credited in the Image Source Register; scholarly works under Works Consulted.
-> Set in Gloock, Cormorant Garamond, and Work Sans; printed white on black.
+> Set in Gloock, Spectral, and Work Sans; printed white on black.
 
 **p50 — Closing**
 - Headline: `Sight remains unfinished.`
