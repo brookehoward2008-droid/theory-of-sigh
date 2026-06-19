@@ -112,6 +112,7 @@ GOLD = colors.HexColor("#A58242")
 SLATE = colors.HexColor("#526B7A")
 MIST = colors.HexColor("#D8D0C0")
 SOFT_BLACK = colors.HexColor("#1C1B19")
+TEAL = colors.HexColor("#4E9B8F")  # epigraph poem accent
 
 ARTICLE_BODIES = {
     "Agency": (
@@ -746,8 +747,8 @@ def draw_epigraph(c: canvas.Canvas) -> None:
         "From their folds in your arches descended to shade?\n"
         "Ye have told many things—but not why ye were made."
     )
-    draw_text_block(c, stanza1, CONTENT_L, CONTENT_T - 252, width_chars=58,
-                    leading=22, size=14, color=CREAM, font="Times-Italic")
+    draw_text_block(c, stanza1, CONTENT_L, CONTENT_T - 258, width_chars=58,
+                    leading=34, size=16, color=TEAL, font="Times-Roman")
     stanza2 = (
         "“We were made to delight in the beauties of earth;\n"
         "Then to see how they perished, how little their worth\n"
@@ -768,8 +769,8 @@ def draw_epigraph(c: canvas.Canvas) -> None:
         "To pour forth in silence the waters of sorrow,\n"
         "Then, to close in a night that will bring us no morrow?”"
     )
-    draw_text_block(c, stanza2, CONTENT_L + 365, CONTENT_T - 80, width_chars=64,
-                    leading=22, size=14, color=CREAM, font="Times-Italic")
+    draw_text_block(c, stanza2, CONTENT_L + 365, CONTENT_T - 64, width_chars=64,
+                    leading=24, size=12, color=TEAL, font="Times-Roman")
     draw_page_number(c, 4)
 
 
@@ -778,9 +779,10 @@ def draw_toc(c: canvas.Canvas) -> None:
     draw_label(c, "contents", CONTENT_L, CONTENT_T - 6, color=GOLD)
     c.setFillColor(CREAM)
     c.setFont("VogueDisplay", 34)
-    c.drawString(CONTENT_L, CONTENT_T - 64, "Agency / Constraint / Mediation")
+    c.drawString(CONTENT_L, CONTENT_T - 64, "Agency / Constraint / Mediation / Synthesis")
     entries = [
         ("Front Matter", "01"),
+        ("Epigraph: “Thoughts” — Hannah Flagg Gould", "04"),
         ("Introduction: The Visceral Theory of Sight", "06"),
         ("I. Agency", "09"),
         ("II. Constraint", "18"),
