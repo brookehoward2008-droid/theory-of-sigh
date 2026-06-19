@@ -51,3 +51,11 @@ style-driven build.
 - The generator runs anywhere (pure text emission); the `.jsx` requires InDesign.
 - The script is authored for InDesign's scripting DOM; verify the preflight
   summary on first run and adjust frame geometry to taste in InDesign.
+
+## Editorial-fix scripts (run on the open document)
+- `templates/indesign-editorial-automation.jsx` — clears typographic **widows**
+  (tightens a widowed paragraph's tracking until the lone last word pulls up —
+  Chris Larson's note) **and** resolves **overset** frames (grow within the page,
+  else copyfit). Reports each fix; flags any paragraph that needs a wider box.
+- `templates/indesign-precision-fit.jsx` — overset-only version of Pass 2.
+
