@@ -729,15 +729,15 @@ def draw_epigraph(c: canvas.Canvas) -> None:
     draw_bg(c, dark=True)
     draw_label(c, "epigraph", CONTENT_L, CONTENT_T - 6, color=GOLD)
     c.setFillColor(CREAM)
-    c.setFont("VogueDisplay", 30)
-    c.drawString(CONTENT_L, CONTENT_T - 62, "from")
-    c.drawString(CONTENT_L, CONTENT_T - 96, "“Thoughts”")
-    c.setFont("Helvetica-Bold", 11)
+    c.setFont("VogueDisplay", 46)
+    c.drawString(CONTENT_L, CONTENT_T - 72, "from")
+    c.drawString(CONTENT_L, CONTENT_T - 124, "“Thoughts”")
+    c.setFont("Helvetica-Bold", 13)
     c.setFillColor(GOLD)
-    c.drawString(CONTENT_L, CONTENT_T - 122, "HANNAH FLAGG GOULD")
+    c.drawString(CONTENT_L, CONTENT_T - 158, "HANNAH FLAGG GOULD")
     c.setStrokeColor(GOLD)
-    c.setLineWidth(1.4)
-    c.line(CONTENT_L, CONTENT_T - 136, CONTENT_L + 150, CONTENT_T - 136)
+    c.setLineWidth(1.6)
+    c.line(CONTENT_L, CONTENT_T - 174, CONTENT_L + 184, CONTENT_T - 174)
     stanza1 = (
         "Eyes, say, why were ye given your sight,\n"
         "Your full blue orbs, with their roll and their light,\n"
@@ -746,8 +746,8 @@ def draw_epigraph(c: canvas.Canvas) -> None:
         "From their folds in your arches descended to shade?\n"
         "Ye have told many things—but not why ye were made."
     )
-    draw_text_block(c, stanza1, CONTENT_L, CONTENT_T - 172, width_chars=58,
-                    leading=15, size=11, color=CREAM, font="Times-Italic")
+    draw_text_block(c, stanza1, CONTENT_L, CONTENT_T - 212, width_chars=58,
+                    leading=22, size=14, color=CREAM, font="Times-Italic")
     stanza2 = (
         "“We were made to delight in the beauties of earth;\n"
         "Then to see how they perished, how little their worth\n"
@@ -768,8 +768,8 @@ def draw_epigraph(c: canvas.Canvas) -> None:
         "To pour forth in silence the waters of sorrow,\n"
         "Then, to close in a night that will bring us no morrow?”"
     )
-    draw_text_block(c, stanza2, CONTENT_L + 330, CONTENT_T - 14, width_chars=64,
-                    leading=13.2, size=10.4, color=CREAM, font="Times-Italic")
+    draw_text_block(c, stanza2, CONTENT_L + 365, CONTENT_T - 40, width_chars=64,
+                    leading=22, size=14, color=CREAM, font="Times-Italic")
     draw_page_number(c, 4)
 
 
