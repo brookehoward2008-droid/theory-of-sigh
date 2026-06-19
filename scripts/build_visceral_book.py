@@ -98,6 +98,9 @@ CONTENT_T = PAGE_H - BLEED - MARGIN
 LIVE_W = CONTENT_R - CONTENT_L
 LIVE_H = CONTENT_T - CONTENT_B
 COLUMN_W = (LIVE_W - (GUTTER * (COLUMNS - 1))) / COLUMNS
+# Slight tracking (letter-spacing, in points) applied to body prose so the
+# Cormorant text reads a touch more open and editorial.
+BODY_TRACKING = 0.5
 # Legacy aliases (kept so any stray references stay valid).
 OUTER_MARGIN = MARGIN
 INNER_MARGIN = MARGIN
@@ -448,6 +451,7 @@ def draw_text_block(
     font: str = "Times-Roman",
     color=CREAM,
     max_lines: int | None = None,
+    tracking: float = BODY_TRACKING,
 ) -> float:
     c.setFont(font, size)
     c.setFillColor(color)
@@ -466,10 +470,15 @@ def draw_text_block(
         lines.extend(wrapped)
     if max_lines is not None:
         lines = lines[:max_lines]
+    to = c.beginText(x, y)
+    to.setFont(font, size)
+    to.setFillColor(color)
+    to.setCharSpace(tracking)
+    to.setLeading(leading)
     for line in lines:
-        c.drawString(x, y, line)
-        y -= leading
-    return y
+        to.textLine(line)
+    c.drawText(to)
+    return y - leading * len(lines)
 
 
 def draw_label(c: canvas.Canvas, text: str, x: float, y: float, color=GOLD) -> None:
