@@ -930,7 +930,7 @@ function backMatter(page, n, doc, ink, cream, gold) {
   } else if (n === 48) {
     textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   } else {
-    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Gloock, Crimson Pro, and Work Sans; printed white on black.", 10, "Regular", cream, 100);
+    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Gloock, Cormorant Garamond, and Work Sans; printed white on black.", 10, "Regular", cream, 100);
   }
 }
 

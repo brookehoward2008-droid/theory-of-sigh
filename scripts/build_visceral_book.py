@@ -43,7 +43,7 @@ REPORTS_OUT = ROUTE / "reports"
 # --- Editorial typefaces -----------------------------------------------------
 # Fashion-magazine system, vendored under assets/fonts and embedded on export:
 #   Gloock        -> display titles (high-contrast Didone, the Vogue-cover look)
-#   Crimson Pro   -> body text (couture serif, regular + italic)
+#   Cormorant Garamond -> body text (couture serif, regular + italic)
 #   Work Sans     -> labels, captions, folios (clean grotesque sans)
 # Registered over the base-14 names so the existing draw calls pick them up; the
 # large title calls use the dedicated VogueDisplay name.
@@ -52,10 +52,10 @@ FONT_DIR = ROOT / "assets" / "fonts"
 
 def register_fonts() -> None:
     faces = {
-        "Times-Roman": "CrimsonPro-Regular.ttf",
-        "Times-Italic": "CrimsonPro-Italic.ttf",
-        "Times-Bold": "CrimsonPro-Bold.ttf",
-        "Times-BoldItalic": "CrimsonPro-Italic.ttf",
+        "Times-Roman": "CormorantGaramond-Medium.ttf",
+        "Times-Italic": "CormorantGaramond-MediumItalic.ttf",
+        "Times-Bold": "CormorantGaramond-SemiBold.ttf",
+        "Times-BoldItalic": "CormorantGaramond-MediumItalic.ttf",
         "Helvetica": "WorkSans-Regular.ttf",
         "Helvetica-Bold": "WorkSans-Bold.ttf",
         "Helvetica-Oblique": "WorkSans-Italic.ttf",
@@ -179,10 +179,10 @@ ARTICLE_BODIES = {
 
 # First *content* page of each section (the page after its full-bleed title page).
 SECTION_PAGE_START = {
-    "Agency": 9,
-    "Constraint": 18,
-    "Mediation": 28,
-    "Synthesis": 40,
+    "Agency": 10,
+    "Constraint": 19,
+    "Mediation": 29,
+    "Synthesis": 41,
 }
 
 
@@ -715,6 +715,55 @@ def draw_legal(c: canvas.Canvas) -> None:
     draw_page_number(c, 3)
 
 
+def draw_epigraph(c: canvas.Canvas) -> None:
+    """Opening epigraph: an excerpt from Hannah Flagg Gould's 'Thoughts'."""
+    draw_bg(c, dark=True)
+    draw_label(c, "epigraph", CONTENT_L, CONTENT_T - 6, color=GOLD)
+    c.setFillColor(CREAM)
+    c.setFont("VogueDisplay", 30)
+    c.drawString(CONTENT_L, CONTENT_T - 62, "from")
+    c.drawString(CONTENT_L, CONTENT_T - 96, "“Thoughts”")
+    c.setFont("Helvetica-Bold", 11)
+    c.setFillColor(GOLD)
+    c.drawString(CONTENT_L, CONTENT_T - 122, "HANNAH FLAGG GOULD")
+    c.setStrokeColor(GOLD)
+    c.setLineWidth(1.4)
+    c.line(CONTENT_L, CONTENT_T - 136, CONTENT_L + 150, CONTENT_T - 136)
+    stanza1 = (
+        "Eyes, say, why were ye given your sight,\n"
+        "Your full blue orbs, with their roll and their light,\n"
+        "Which your lids of the lily with violet tinge\n"
+        "So often of late, with their long, dark fringe\n"
+        "From their folds in your arches descended to shade?\n"
+        "Ye have told many things—but not why ye were made."
+    )
+    draw_text_block(c, stanza1, CONTENT_L, CONTENT_T - 172, width_chars=58,
+                    leading=15, size=11, color=CREAM, font="Times-Italic")
+    stanza2 = (
+        "“We were made to delight in the beauties of earth;\n"
+        "Then to see how they perished, how little their worth\n"
+        "They are changing, illusive, uncertain and brief,\n"
+        "From the flower’s opening bud to its soon withered leaf.\n"
+        "The birth of their being is joined to decay;\n"
+        "They flourish, allure, and expire in a day.\n"
+        "On things like ourselves with delight we have shone;\n"
+        "We have studied their language and found it our own;\n"
+        "But the offspring of grief would extinguish their light,\n"
+        "And the spoiler’s pale hand lock them up from our sight.\n"
+        "Or, keener, far keener, they’d let us behold\n"
+        "Their looks turning from us, unfeeling and cold,\n"
+        "Bequeathing this line, as we saw them depart,\n"
+        "‘We go not alone, but are drawn by the heart!’\n"
+        "For things such as these, and still more were we made;\n"
+        "For watching, for aching, to sink and to fade;\n"
+        "To pour forth in silence the waters of sorrow,\n"
+        "Then, to close in a night that will bring us no morrow?”"
+    )
+    draw_text_block(c, stanza2, CONTENT_L + 330, CONTENT_T - 14, width_chars=64,
+                    leading=13.2, size=10.4, color=CREAM, font="Times-Italic")
+    draw_page_number(c, 4)
+
+
 def draw_toc(c: canvas.Canvas) -> None:
     draw_bg(c, dark=True)
     draw_label(c, "contents", CONTENT_L, CONTENT_T - 6, color=GOLD)
@@ -723,12 +772,12 @@ def draw_toc(c: canvas.Canvas) -> None:
     c.drawString(CONTENT_L, CONTENT_T - 64, "Agency / Constraint / Mediation")
     entries = [
         ("Front Matter", "01"),
-        ("Introduction: The Visceral Theory of Sight", "05"),
-        ("I. Agency", "08"),
-        ("II. Constraint", "17"),
-        ("III. Mediation", "27"),
-        ("IV. Synthesis", "39"),
-        ("Back Matter", "46"),
+        ("Introduction: The Visceral Theory of Sight", "06"),
+        ("I. Agency", "09"),
+        ("II. Constraint", "18"),
+        ("III. Mediation", "28"),
+        ("IV. Synthesis", "40"),
+        ("Back Matter", "47"),
     ]
     y = CONTENT_T - 122
     for title, page in entries:
@@ -745,13 +794,13 @@ def draw_toc(c: canvas.Canvas) -> None:
         c.setFillColor(GOLD)
         c.drawRightString(CONTENT_R, y, page)
         y -= 36
-    draw_page_number(c, 4)
+    draw_page_number(c, 5)
 
 
 def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
     dark = True
     draw_bg(c, dark=dark)
-    if page == 5:
+    if page == 6:
         draw_label(c, "introduction", CONTENT_L, CONTENT_T - 6)
         c.setFillColor(CREAM)
         c.setFont("VogueDisplay", 34)
@@ -763,7 +812,7 @@ def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
         image_box(c, assets[5 % len(assets)], 638, CONTENT_T - 250, 118, 250)
         image_box(c, assets[10 % len(assets)], 432, CONTENT_B, 324, 168)
         overlay_caption(c, assets[0], 444, CONTENT_T - 236, 170, dark=True)
-    elif page == 6:
+    elif page == 7:
         image_box(c, assets[2 % len(assets)], 0, 0, PAGE_W, PAGE_H)
         scrim(c, alpha=0.5, dark=True)
         c.setFillColor(CREAM)
@@ -938,8 +987,8 @@ def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], off
 
 def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
     draw_bg(c, dark=True)
-    if page in (46, 47):
-        first = page == 46
+    if page in (47, 48):
+        first = page == 47
         draw_label(c, "image source register" if first else "image source register / continued", CONTENT_L, CONTENT_T - 6, color=CREAM)
         subset = assets[:32] if first else assets[32:]
         col_x = [CONTENT_L, CONTENT_L + LIVE_W / 2 + 12]
@@ -958,7 +1007,7 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
                 c.setFont("Helvetica", 6.5)
                 c.drawString(cx + 30, y - 9, f"{asset.creator[:38]} - rights verify")
                 y -= 26
-    elif page == 48:
+    elif page == 49:
         draw_label(c, "works consulted", CONTENT_L, CONTENT_T - 6, color=CREAM)
         text = (
             "[1] LeRoy McDermott. \"Self-Representation in Upper Paleolithic Female Figurines.\" "
@@ -972,19 +1021,19 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
             "Editions, page ranges, and image licenses to be confirmed before final print."
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
-    elif page == 49:
+    elif page == 50:
         draw_label(c, "colophon", CONTENT_L, CONTENT_T - 6, color=CREAM)
         text = (
             "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. "
             "Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. "
-            "Set in Gloock, Crimson Pro, and Work Sans; printed white on black."
+            "Set in Gloock, Cormorant Garamond, and Work Sans; printed white on black."
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     else:
         c.setFont("VogueDisplay", 40)
         c.setFillColor(CREAM)
         c.drawString(CONTENT_L, CONTENT_T - 140, "Sight remains unfinished.")
-        draw_text_block(c, "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", CONTENT_L, CONTENT_B + 96, width_chars=92, leading=14, size=10, color=CREAM)
+        draw_text_block(c, "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", CONTENT_L, CONTENT_B + 80, width_chars=130, leading=14, size=10, color=CREAM)
     draw_page_number(c, page, dark=True)
 
 
@@ -1828,7 +1877,7 @@ function backMatter(page, n, doc, ink, cream, gold) {{
   }} else if (n === 48) {{
     textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   }} else {{
-    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Gloock, Crimson Pro, and Work Sans; printed white on black.", 10, "Regular", cream, 100);
+    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Gloock, Cormorant Garamond, and Work Sans; printed white on black.", 10, "Regular", cream, 100);
   }}
 }}
 
@@ -1891,10 +1940,12 @@ def generate_book(assets: list[Asset]) -> None:
     c.showPage()
     draw_title_spread(c, title_asset, "right")
     c.showPage()
+    draw_epigraph(c)
+    c.showPage()
     draw_toc(c)
     c.showPage()
 
-    for page in range(5, 8):
+    for page in range(6, 9):
         draw_intro(c, page, assets)
         c.showPage()
 
@@ -1903,31 +1954,31 @@ def generate_book(assets: list[Asset]) -> None:
     med_assets = [a for a in assets if "Mediation" in a.group] or assets
     page_assets = assets.copy()
     # Each section opens with a full-bleed image + title page, then content pages.
-    for offset, page in enumerate(range(8, 17)):
+    for offset, page in enumerate(range(9, 18)):
         if offset == 0:
             draw_section_title(c, page, "Agency", agency_assets[3 % len(agency_assets)])
         else:
             draw_article_page(c, page, "Agency", agency_assets, offset - 1)
         c.showPage()
-    for offset, page in enumerate(range(17, 27)):
+    for offset, page in enumerate(range(18, 28)):
         if offset == 0:
             draw_section_title(c, page, "Constraint", constraint_assets[1 % len(constraint_assets)])
         else:
             draw_article_page(c, page, "Constraint", constraint_assets, offset - 1)
         c.showPage()
-    for offset, page in enumerate(range(27, 39)):
+    for offset, page in enumerate(range(28, 40)):
         if offset == 0:
             draw_section_title(c, page, "Mediation", next((a for a in assets if "allef-vinicius" in a.filename.lower()), med_assets[2 % len(med_assets)]))
         else:
             draw_article_page(c, page, "Mediation", med_assets, offset - 1)
         c.showPage()
-    for offset, page in enumerate(range(39, 46)):
+    for offset, page in enumerate(range(40, 47)):
         if offset == 0:
             draw_section_title(c, page, "Synthesis", page_assets[20 % len(page_assets)])
         else:
             draw_synthesis(c, page, page_assets, offset - 1)
         c.showPage()
-    for page in range(46, 51):
+    for page in range(47, 52):
         draw_back_matter(c, page, assets)
         c.showPage()
     c.save()

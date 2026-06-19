@@ -54,7 +54,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
 
         output = PDF_OUT / "the-visceral-theory-of-sight-50pp.pdf"
         reader = PdfReader(str(output))
-        self.assertEqual(len(reader.pages), 50)
+        self.assertEqual(len(reader.pages), 51)
 
         extracted = " ".join(("\n".join(page.extract_text() or "" for page in reader.pages)).split())
         extracted_lower = extracted.lower()
