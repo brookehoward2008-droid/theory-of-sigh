@@ -113,6 +113,7 @@ SLATE = colors.HexColor("#526B7A")
 MIST = colors.HexColor("#D8D0C0")
 SOFT_BLACK = colors.HexColor("#1C1B19")
 TEAL = colors.HexColor("#4E9B8F")  # epigraph poem accent
+RED = colors.HexColor("#C1121F")  # epigraph poem accent (alt)
 
 ARTICLE_BODIES = {
     "Agency": (
@@ -757,8 +758,8 @@ def draw_epigraph(c: canvas.Canvas) -> None:
         "Ye have told many things—but not why ye were made."
     )
     draw_text_block(c, stanza1, CONTENT_L, CONTENT_T - 258, width_chars=58,
-                    leading=34, size=16, color=TEAL, font="Times-Roman",
-                    stroke=colors.white, stroke_width=0.25)
+                    leading=34, size=16, color=RED, font="Times-Roman",
+                    stroke=CREAM, stroke_width=0.3)
     stanza2 = (
         "“We were made to delight in the beauties of earth;\n"
         "Then to see how they perished, how little their worth\n"
@@ -780,8 +781,8 @@ def draw_epigraph(c: canvas.Canvas) -> None:
         "Then, to close in a night that will bring us no morrow?”"
     )
     draw_text_block(c, stanza2, CONTENT_L + 400, CONTENT_T - 64, width_chars=64,
-                    leading=24, size=12, color=TEAL, font="Times-Roman",
-                    stroke=colors.white, stroke_width=0.2)
+                    leading=24, size=12, color=RED, font="Times-Roman",
+                    stroke=CREAM, stroke_width=0.25)
     draw_page_number(c, 4)
 
 
