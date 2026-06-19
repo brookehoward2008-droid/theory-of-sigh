@@ -453,6 +453,8 @@ def draw_text_block(
     color=CREAM,
     max_lines: int | None = None,
     tracking: float = BODY_TRACKING,
+    stroke=None,
+    stroke_width: float = 0.25,
 ) -> float:
     c.setFont(font, size)
     c.setFillColor(color)
@@ -474,6 +476,10 @@ def draw_text_block(
     to = c.beginText(x, y)
     to.setFont(font, size)
     to.setFillColor(color)
+    if stroke is not None:
+        c.setLineWidth(stroke_width)
+        to.setStrokeColor(stroke)
+        to.setTextRenderMode(2)  # fill + stroke
     to.setCharSpace(tracking)
     to.setLeading(leading)
     for line in lines:
@@ -751,7 +757,8 @@ def draw_epigraph(c: canvas.Canvas) -> None:
         "Ye have told many things—but not why ye were made."
     )
     draw_text_block(c, stanza1, CONTENT_L, CONTENT_T - 258, width_chars=58,
-                    leading=34, size=16, color=TEAL, font="Times-Roman")
+                    leading=34, size=16, color=TEAL, font="Times-Roman",
+                    stroke=colors.white, stroke_width=0.25)
     stanza2 = (
         "“We were made to delight in the beauties of earth;\n"
         "Then to see how they perished, how little their worth\n"
@@ -773,7 +780,8 @@ def draw_epigraph(c: canvas.Canvas) -> None:
         "Then, to close in a night that will bring us no morrow?”"
     )
     draw_text_block(c, stanza2, CONTENT_L + 400, CONTENT_T - 64, width_chars=64,
-                    leading=24, size=12, color=TEAL, font="Times-Roman")
+                    leading=24, size=12, color=TEAL, font="Times-Roman",
+                    stroke=colors.white, stroke_width=0.2)
     draw_page_number(c, 4)
 
 
