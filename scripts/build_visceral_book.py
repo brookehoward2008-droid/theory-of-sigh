@@ -759,7 +759,7 @@ def draw_epigraph(c: canvas.Canvas) -> None:
     )
     draw_text_block(c, stanza1, CONTENT_L, CONTENT_T - 258, width_chars=58,
                     leading=34, size=16, color=CREAM, font="Times-Roman",
-                    stroke=SLATE, stroke_width=0.2)
+                    stroke=SLATE, stroke_width=0.2, tracking=-0.3)
     stanza2 = (
         "“We were made to delight in the beauties of earth;\n"
         "Then to see how they perished, how little their worth\n"
@@ -782,7 +782,7 @@ def draw_epigraph(c: canvas.Canvas) -> None:
     )
     draw_text_block(c, stanza2, CONTENT_L + 400, CONTENT_T - 64, width_chars=64,
                     leading=24, size=12, color=CREAM, font="Times-Roman",
-                    stroke=SLATE, stroke_width=0.16)
+                    stroke=SLATE, stroke_width=0.16, tracking=-0.2)
     draw_page_number(c, 4)
 
 
