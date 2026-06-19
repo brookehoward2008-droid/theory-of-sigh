@@ -99,8 +99,9 @@ LIVE_W = CONTENT_R - CONTENT_L
 LIVE_H = CONTENT_T - CONTENT_B
 COLUMN_W = (LIVE_W - (GUTTER * (COLUMNS - 1))) / COLUMNS
 # Slight tracking (letter-spacing, in points) applied to body prose so the
-# Cormorant text reads a touch more open and editorial.
-BODY_TRACKING = 0.5
+# Cormorant text reads a touch more open and editorial. Raised so the stroked
+# glyphs keep clear gaps and never appear to touch.
+BODY_TRACKING = 0.8
 # Legacy aliases (kept so any stray references stay valid).
 OUTER_MARGIN = MARGIN
 INNER_MARGIN = MARGIN
@@ -454,8 +455,8 @@ def draw_text_block(
     color=CREAM,
     max_lines: int | None = None,
     tracking: float = BODY_TRACKING,
-    stroke=None,
-    stroke_width: float = 0.25,
+    stroke=SLATE,
+    stroke_width: float | None = None,
 ) -> float:
     c.setFont(font, size)
     c.setFillColor(color)
@@ -478,7 +479,7 @@ def draw_text_block(
     to.setFont(font, size)
     to.setFillColor(color)
     if stroke is not None:
-        c.setLineWidth(stroke_width)
+        c.setLineWidth(stroke_width if stroke_width is not None else size * 0.0125)
         to.setStrokeColor(stroke)
         to.setTextRenderMode(2)  # fill + stroke
     to.setCharSpace(tracking)
@@ -487,6 +488,23 @@ def draw_text_block(
         to.textLine(line)
     c.drawText(to)
     return y - leading * len(lines)
+
+
+def apply_text_stroke(c: canvas.Canvas, stroke_color, factor: float = 0.0125) -> None:
+    """Give every drawString-based glyph a thin stroke edge (size-proportional),
+    matching the stroked text-block treatment so all type carries the same edge."""
+    for name in ("drawString", "drawRightString", "drawCentredString"):
+        original = getattr(c, name)
+
+        def wrapped(x, y, text, *args, _orig=original, **kw):
+            c.setStrokeColor(stroke_color)
+            c.setLineWidth(max(0.06, (getattr(c, "_fontsize", 10) or 10) * factor))
+            kw.setdefault("mode", 2)
+            return _orig(x, y, text, *args, **kw)
+
+        setattr(c, name, wrapped)
+
+
 
 
 def draw_label(c: canvas.Canvas, text: str, x: float, y: float, color=GOLD) -> None:
@@ -759,7 +777,7 @@ def draw_epigraph(c: canvas.Canvas) -> None:
     )
     draw_text_block(c, stanza1, CONTENT_L, CONTENT_T - 258, width_chars=58,
                     leading=34, size=16, color=CREAM, font="Times-Roman",
-                    stroke=SLATE, stroke_width=0.2, tracking=-0.3)
+                    stroke=SLATE, stroke_width=0.2, tracking=0.6)
     stanza2 = (
         "“We were made to delight in the beauties of earth;\n"
         "Then to see how they perished, how little their worth\n"
@@ -782,7 +800,7 @@ def draw_epigraph(c: canvas.Canvas) -> None:
     )
     draw_text_block(c, stanza2, CONTENT_L + 400, CONTENT_T - 64, width_chars=64,
                     leading=24, size=12, color=CREAM, font="Times-Roman",
-                    stroke=SLATE, stroke_width=0.16, tracking=-0.2)
+                    stroke=SLATE, stroke_width=0.16, tracking=0.5)
     draw_page_number(c, 4)
 
 
@@ -1943,6 +1961,7 @@ saveDesktopFiles(doc);
 def generate_cover(assets: list[Asset]) -> None:
     cover = PDF_OUT / "cover-design.pdf"
     c = canvas.Canvas(str(cover), pagesize=(PAGE_W, PAGE_H))
+    apply_text_stroke(c, SLATE)
     preferred = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
     preferred = make_cover_asset(preferred)
     draw_cover(c, preferred)
@@ -1954,6 +1973,7 @@ def generate_cover(assets: list[Asset]) -> None:
 def generate_book(assets: list[Asset]) -> None:
     book = PDF_OUT / "the-visceral-theory-of-sight-51pp.pdf"
     c = canvas.Canvas(str(book), pagesize=(PAGE_W, PAGE_H))
+    apply_text_stroke(c, SLATE)
     cover_asset = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
     cover_asset = make_cover_asset(cover_asset)
     title_asset = next((a for a in assets if "Mediation" in a.group and a is not cover_asset), assets[1])
