@@ -739,6 +739,9 @@ def draw_epigraph(c: canvas.Canvas) -> None:
     c.setStrokeColor(GOLD)
     c.setLineWidth(1.6)
     c.line(CONTENT_L, CONTENT_T - 214, CONTENT_L + 184, CONTENT_T - 214)
+    # Vertical hairline divides the poet's question (left) from the eyes' reply (right).
+    c.setLineWidth(0.75)
+    c.line(CONTENT_L + 384, CONTENT_B + 30, CONTENT_L + 384, CONTENT_T - 56)
     stanza1 = (
         "Eyes, say, why were ye given your sight,\n"
         "Your full blue orbs, with their roll and their light,\n"
@@ -769,7 +772,7 @@ def draw_epigraph(c: canvas.Canvas) -> None:
         "To pour forth in silence the waters of sorrow,\n"
         "Then, to close in a night that will bring us no morrow?”"
     )
-    draw_text_block(c, stanza2, CONTENT_L + 365, CONTENT_T - 64, width_chars=64,
+    draw_text_block(c, stanza2, CONTENT_L + 400, CONTENT_T - 64, width_chars=64,
                     leading=24, size=12, color=TEAL, font="Times-Roman")
     draw_page_number(c, 4)
 
