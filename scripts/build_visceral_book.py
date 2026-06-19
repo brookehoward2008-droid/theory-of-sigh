@@ -4,6 +4,7 @@ import csv
 import json
 import re
 import shutil
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from textwrap import wrap
@@ -84,10 +85,18 @@ register_fonts()
 # US Letter landscape trim. Matches the InDesign preflight-safe route and the
 # committed 50pp proof: facing pages, multi-image spreads, full-bleed section
 # title pages.
-TRIM_W, TRIM_H = 279.4 * mm, 215.9 * mm  # 11 x 8.5 in
+# Design coordinate space (the tuned layout). The book is rendered onto a
+# larger A3 sheet below by uniformly scaling this whole space to fill the A3
+# width — true full-bleed and proportionally bigger type, no per-element re-tune.
+TRIM_W, TRIM_H = 279.4 * mm, 215.9 * mm  # design space (Letter landscape proportions)
 BLEED = 3.175 * mm
 PAGE_W, PAGE_H = TRIM_W + (2 * BLEED), TRIM_H + (2 * BLEED)
 MARGIN = 16 * mm
+# Output sheet: A3 landscape (the printed trim).
+OUT_TRIM_W, OUT_TRIM_H = 420 * mm, 297 * mm
+OUT_PAGE_W, OUT_PAGE_H = OUT_TRIM_W + (2 * BLEED), OUT_TRIM_H + (2 * BLEED)
+PAGE_SCALE = OUT_PAGE_W / PAGE_W                      # fill A3 width (true full bleed)
+PAGE_TY = (OUT_PAGE_H - PAGE_H * PAGE_SCALE) / 2.0    # center vertically (margins bleed off)
 GUTTER = 5 * mm
 COLUMNS = 12
 # Safe content rectangle in page (bleed-inclusive) coordinates.
@@ -253,11 +262,11 @@ def apply_print_boxes(pdf_path: Path) -> None:
     writer = PdfWriter()
     for page in reader.pages:
         page.mediabox.lower_left = (0, 0)
-        page.mediabox.upper_right = (PAGE_W, PAGE_H)
+        page.mediabox.upper_right = (OUT_PAGE_W, OUT_PAGE_H)
         page.bleedbox.lower_left = (0, 0)
-        page.bleedbox.upper_right = (PAGE_W, PAGE_H)
+        page.bleedbox.upper_right = (OUT_PAGE_W, OUT_PAGE_H)
         page.trimbox.lower_left = (BLEED, BLEED)
-        page.trimbox.upper_right = (BLEED + TRIM_W, BLEED + TRIM_H)
+        page.trimbox.upper_right = (BLEED + OUT_TRIM_W, BLEED + OUT_TRIM_H)
         writer.add_page(page)
     with pdf_path.open("wb") as f:
         writer.write(f)
@@ -515,7 +524,8 @@ def draw_label(c: canvas.Canvas, text: str, x: float, y: float, color=GOLD) -> N
 def draw_page_number(c: canvas.Canvas, page: int, dark: bool = True) -> None:
     c.setFont("Helvetica", 7)
     c.setFillColor(CREAM if dark else INK)
-    c.drawRightString(PAGE_W - 36, 24, f"{page:02d}")
+    # Kept above y=40 (design) so it clears the A3 bottom bleed-off after scaling.
+    c.drawRightString(PAGE_W - 36, 42, f"{page:02d}")
 
 
 def image_box(c: canvas.Canvas, asset: Asset, x: float, y: float, w: float, h: float) -> None:
@@ -1955,37 +1965,52 @@ saveDesktopFiles(doc);
     (TEMPLATE_OUT / "indesign-build-full-layout.jsx").write_text(jsx, encoding="utf-8")
 
 
+@contextmanager
+def scaled_page(c: canvas.Canvas):
+    """Render the tuned design onto the A3 output sheet: uniformly scale to fill
+    the A3 width (true full bleed) and center vertically so the margins bleed
+    off. Each page's drawing happens in the original design coordinates."""
+    c.saveState()
+    c.translate(0, PAGE_TY)
+    c.scale(PAGE_SCALE, PAGE_SCALE)
+    try:
+        yield
+    finally:
+        c.restoreState()
+        c.showPage()
+
+
 def generate_cover(assets: list[Asset]) -> None:
     cover = PDF_OUT / "cover-design.pdf"
-    c = canvas.Canvas(str(cover), pagesize=(PAGE_W, PAGE_H))
+    c = canvas.Canvas(str(cover), pagesize=(OUT_PAGE_W, OUT_PAGE_H))
     preferred = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
     preferred = make_cover_asset(preferred)
-    draw_cover(c, preferred)
-    c.showPage()
+    with scaled_page(c):
+        draw_cover(c, preferred)
     c.save()
     apply_print_boxes(cover)
 
 
 def generate_book(assets: list[Asset]) -> None:
     book = PDF_OUT / "the-visceral-theory-of-sight-51pp.pdf"
-    c = canvas.Canvas(str(book), pagesize=(PAGE_W, PAGE_H))
+    c = canvas.Canvas(str(book), pagesize=(OUT_PAGE_W, OUT_PAGE_H))
     cover_asset = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
     cover_asset = make_cover_asset(cover_asset)
     title_asset = next((a for a in assets if "Mediation" in a.group and a is not cover_asset), assets[1])
-    draw_cover(c, cover_asset, page_num=1)
-    c.showPage()
-    draw_title_spread(c, title_asset, "left")
-    c.showPage()
-    draw_title_spread(c, title_asset, "right")
-    c.showPage()
-    draw_epigraph(c)
-    c.showPage()
-    draw_toc(c)
-    c.showPage()
+    with scaled_page(c):
+        draw_cover(c, cover_asset, page_num=1)
+    with scaled_page(c):
+        draw_title_spread(c, title_asset, "left")
+    with scaled_page(c):
+        draw_title_spread(c, title_asset, "right")
+    with scaled_page(c):
+        draw_epigraph(c)
+    with scaled_page(c):
+        draw_toc(c)
 
     for page in range(6, 9):
-        draw_intro(c, page, assets)
-        c.showPage()
+        with scaled_page(c):
+            draw_intro(c, page, assets)
 
     agency_assets = [a for a in assets if "Agency" in a.group] or assets
     constraint_assets = [a for a in assets if "Constraint" in a.group] or assets
@@ -1993,32 +2018,32 @@ def generate_book(assets: list[Asset]) -> None:
     page_assets = assets.copy()
     # Each section opens with a full-bleed image + title page, then content pages.
     for offset, page in enumerate(range(9, 18)):
-        if offset == 0:
-            draw_section_title(c, page, "Agency", agency_assets[3 % len(agency_assets)])
-        else:
-            draw_article_page(c, page, "Agency", agency_assets, offset - 1)
-        c.showPage()
+        with scaled_page(c):
+            if offset == 0:
+                draw_section_title(c, page, "Agency", agency_assets[3 % len(agency_assets)])
+            else:
+                draw_article_page(c, page, "Agency", agency_assets, offset - 1)
     for offset, page in enumerate(range(18, 28)):
-        if offset == 0:
-            draw_section_title(c, page, "Constraint", constraint_assets[1 % len(constraint_assets)])
-        else:
-            draw_article_page(c, page, "Constraint", constraint_assets, offset - 1)
-        c.showPage()
+        with scaled_page(c):
+            if offset == 0:
+                draw_section_title(c, page, "Constraint", constraint_assets[1 % len(constraint_assets)])
+            else:
+                draw_article_page(c, page, "Constraint", constraint_assets, offset - 1)
     for offset, page in enumerate(range(28, 40)):
-        if offset == 0:
-            draw_section_title(c, page, "Mediation", next((a for a in assets if "allef-vinicius" in a.filename.lower()), med_assets[2 % len(med_assets)]))
-        else:
-            draw_article_page(c, page, "Mediation", med_assets, offset - 1)
-        c.showPage()
+        with scaled_page(c):
+            if offset == 0:
+                draw_section_title(c, page, "Mediation", next((a for a in assets if "allef-vinicius" in a.filename.lower()), med_assets[2 % len(med_assets)]))
+            else:
+                draw_article_page(c, page, "Mediation", med_assets, offset - 1)
     for offset, page in enumerate(range(40, 47)):
-        if offset == 0:
-            draw_section_title(c, page, "Synthesis", page_assets[20 % len(page_assets)])
-        else:
-            draw_synthesis(c, page, page_assets, offset - 1)
-        c.showPage()
+        with scaled_page(c):
+            if offset == 0:
+                draw_section_title(c, page, "Synthesis", page_assets[20 % len(page_assets)])
+            else:
+                draw_synthesis(c, page, page_assets, offset - 1)
     for page in range(47, 52):
-        draw_back_matter(c, page, assets)
-        c.showPage()
+        with scaled_page(c):
+            draw_back_matter(c, page, assets)
     c.save()
     apply_print_boxes(book)
 
