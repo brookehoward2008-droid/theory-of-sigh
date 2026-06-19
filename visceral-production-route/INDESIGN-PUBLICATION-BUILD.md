@@ -1,7 +1,7 @@
 # InDesign Publication Build
 
 A production, style-driven InDesign build of *The Visceral Theory of Sight* —
-51 pages, US Letter landscape, facing pages, 3.175 mm bleed, CMYK, with a full
+51 pages, A3 landscape (420×297 mm), facing pages, 3.175 mm bleed, CMYK, with a full
 **paragraph + character style system** so every text element is globally editable.
 
 ## Files

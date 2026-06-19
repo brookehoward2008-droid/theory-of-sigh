@@ -5,7 +5,7 @@ Generate a production InDesign build script for *The Visceral Theory of Sight*.
 This emits an ExtendScript (.jsx) that builds the 51-page publication the
 proper, production way:
 
-  - US Letter landscape, facing pages, 3.175 mm bleed
+  - A3 landscape (420×297 mm), facing pages, 3.175 mm bleed
   - CMYK process swatches
   - a complete PARAGRAPH + CHARACTER STYLE system (named "VT / ...") so every
     text element is style-driven and globally editable
@@ -28,6 +28,7 @@ Usage:
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -126,9 +127,19 @@ POEM_A = (
 )
 
 
+TYPE_SCALE = 1.4  # point sizes authored for Letter, enlarged for A3
+
 def js(value) -> str:
     """Safe JS literal via JSON (handles quotes/unicode/newlines)."""
     return json.dumps(value, ensure_ascii=True)
+
+
+def scale_offsets(jsx: str) -> str:
+    """Scale coordinate offsets (L/R + n, T/B - n, etc.) by SX/SY so the
+    Letter-authored geometry fills the A3 content box. L/R take SX, T/B take SY."""
+    jsx = re.sub(r"\b([LR]) ([+\-]) (\d+(?:\.\d+)?)\b", r"\1 \2 \3*SX", jsx)
+    jsx = re.sub(r"\b([TB]) ([+\-]) (\d+(?:\.\d+)?)\b", r"\1 \2 \3*SY", jsx)
+    return jsx
 
 
 def build_model():
@@ -205,6 +216,9 @@ def main() -> None:
         d = dict(spec)
         family, style = FONTS[d.pop("font")]
         d["font"], d["style"] = family, style
+        for k in ("size", "leading", "before", "after"):
+            if k in d:
+                d[k] = round(d[k] * TYPE_SCALE, 2)
         para_js.append([name, d])
     char_js = []
     for name, spec in CHAR_STYLES:
@@ -214,7 +228,7 @@ def main() -> None:
             d["font"], d["style"] = family, style
         char_js.append([name, d])
 
-    jsx = JSX_TEMPLATE.format(
+    jsx = scale_offsets(JSX_TEMPLATE).format(
         fonts=js(fonts_js),
         swatches=js(SWATCHES),
         para=js(para_js),
@@ -253,9 +267,12 @@ JSX_TEMPLATE = r"""// The Visceral Theory of Sight — production InDesign build
     var SECTIONS = {sections};
     var REGISTER = {register};
 
-    // --- Geometry (points): US Letter landscape, 3.175mm (9pt) bleed ---
-    var PW = 792, PH = 612, BL = 9, MG = 45;
+    // --- Geometry (points): A3 landscape, 3.175mm (9pt) bleed ---
+    var PW = 1190.551, PH = 841.89, BL = 9, MG = 62;
     var L = MG, R = PW - MG, T = MG, B = PH - MG;            // content box (top-left origin)
+    // Offsets below are authored against a Letter content box (702x522) and
+    // scaled to the A3 content box so the layout fills the larger sheet.
+    var SX = (R - L) / 702.0, SY = (B - T) / 522.0;
     var assetFolder = (function () {{
         var f = File($.fileName);
         var repo = f.parent.parent.parent;                  // templates -> route -> repo
@@ -278,7 +295,7 @@ JSX_TEMPLATE = r"""// The Visceral Theory of Sight — production InDesign build
 
     var doc = app.documents.add();
     with (doc.documentPreferences) {{
-        pageSize = "Letter";
+        pageSize = "A3";
         pageWidth = PW; pageHeight = PH;
         pageOrientation = PageOrientation.LANDSCAPE;
         facingPages = true;
