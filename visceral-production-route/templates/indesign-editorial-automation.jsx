@@ -40,21 +40,23 @@
         var paras = stories[s].paragraphs.everyItem().getElements();
         for (var p = 0; p < paras.length; p++) {
             var par = paras[p];
-            if (!par.isValid) continue;
-            if (par.lines.length < 2) continue;                 // single line: no widow
-            if (par.lines.lastItem().words.length > 1) continue; // last line already ≥2 words
-            // ignore one-word paragraphs that are headings (the whole paragraph is one word)
-            if (par.words.length < 3) continue;
+            try {
+                if (!par.isValid) continue;
+                if (par.lines.length < 2) continue;                 // single line: no widow
+                if (par.lines.lastItem().words.length !== 1) continue; // widow only when last line == 1 word
+                // ignore one-word paragraphs that are headings (the whole paragraph is one word)
+                if (par.words.length < 3) continue;
 
-            var start = (typeof par.tracking === "number") ? par.tracking : 0;
-            var t = start, ok = false;
-            while (t > TRACK_FLOOR) {
-                t += TRACK_STEP;
-                par.tracking = t;
-                if (par.lines.length < 2 || par.lines.lastItem().words.length > 1) { ok = true; break; }
-            }
-            if (ok) { wFixed++; wLog.push("p" + pageOf(par) + ": widow pulled up (tracking " + t + ")"); }
-            else { par.tracking = start; wFail++; wLog.push("p" + pageOf(par) + ": widow remains — widen this box by hand"); }
+                var start = (typeof par.tracking === "number") ? par.tracking : 0;
+                var t = start, ok = false;
+                while (t > TRACK_FLOOR) {
+                    t += TRACK_STEP;
+                    par.tracking = t;
+                    if (par.lines.length < 2 || par.lines.lastItem().words.length > 1) { ok = true; break; }
+                }
+                if (ok) { wFixed++; wLog.push("p" + pageOf(par) + ": widow pulled up (tracking " + t + ")"); }
+                else { par.tracking = start; wFail++; wLog.push("p" + pageOf(par) + ": widow remains — widen this box by hand"); }
+            } catch (e) { /* skip any paragraph that can't be measured */ }
         }
     }
 
@@ -94,10 +96,12 @@
     var frames = doc.textFrames.everyItem().getElements();
     for (var i = 0; i < frames.length; i++) {
         var tf = frames[i];
-        if (!tf.isValid || !tf.overflows) continue;
-        if (growToFit(tf)) { oGrew++; oLog.push("p" + pageOf(tf) + ": frame grown"); }
-        else if (copyfit(tf)) { oShrunk++; oLog.push("p" + pageOf(tf) + ": copyfit"); }
-        else { oFail++; oLog.push("p" + pageOf(tf) + ": still overset"); }
+        try {
+            if (!tf.isValid || !tf.overflows) continue;
+            if (growToFit(tf)) { oGrew++; oLog.push("p" + pageOf(tf) + ": frame grown"); }
+            else if (copyfit(tf)) { oShrunk++; oLog.push("p" + pageOf(tf) + ": copyfit"); }
+            else { oFail++; oLog.push("p" + pageOf(tf) + ": still overset"); }
+        } catch (e) { /* skip any frame that can't be resized */ }
     }
     doc.viewPreferences.verticalMeasurementUnits = savedV;
 
