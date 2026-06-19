@@ -52,7 +52,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         assets = scan_assets()
         generate_book(assets)
 
-        output = PDF_OUT / "the-visceral-theory-of-sight-50pp.pdf"
+        output = PDF_OUT / "the-visceral-theory-of-sight-51pp.pdf"
         reader = PdfReader(str(output))
         self.assertEqual(len(reader.pages), 51)
 

@@ -1929,7 +1929,7 @@ def generate_cover(assets: list[Asset]) -> None:
 
 
 def generate_book(assets: list[Asset]) -> None:
-    book = PDF_OUT / "the-visceral-theory-of-sight-50pp.pdf"
+    book = PDF_OUT / "the-visceral-theory-of-sight-51pp.pdf"
     c = canvas.Canvas(str(book), pagesize=(PAGE_W, PAGE_H))
     cover_asset = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
     cover_asset = make_cover_asset(cover_asset)
@@ -1992,7 +1992,7 @@ def write_manifest(assets: list[Asset]) -> None:
         "asset_count": len(assets),
         "outputs": {
             "cover_pdf": str(PDF_OUT / "cover-design.pdf"),
-            "book_pdf": str(PDF_OUT / "the-visceral-theory-of-sight-50pp.pdf"),
+            "book_pdf": str(PDF_OUT / "the-visceral-theory-of-sight-51pp.pdf"),
             "indesign_file": str(INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.indd"),
             "idml_file": str(INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.idml"),
             "affinity_native_target": str(ROUTE / "output" / "affinity" / "the-visceral-theory-of-sight-50pp.afpub"),
@@ -2033,7 +2033,7 @@ def main() -> None:
     print(f"Built production route: {ROUTE}")
     print(f"Assets copied: {len(assets)}")
     print(f"Cover PDF: {PDF_OUT / 'cover-design.pdf'}")
-    print(f"Book PDF: {PDF_OUT / 'the-visceral-theory-of-sight-50pp.pdf'}")
+    print(f"Book PDF: {PDF_OUT / 'the-visceral-theory-of-sight-51pp.pdf'}")
     print(f"Ledger: {LEDGER_OUT / 'source-image-ledger.csv'}")
     print(f"Notes: {NOTES_OUT / 'critical-process-notes.md'}")
 
