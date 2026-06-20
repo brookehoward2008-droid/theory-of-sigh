@@ -847,3 +847,359 @@ figcaption {
     padding-right: 20px;
   }
 }
+
+/* Dark teal editorial refinement: image-led, quiet, and responsive. */
+:root {
+  --teal-grey: #34494a;
+  --shadow-ink: #20292a;
+  --lace-paper: #dedbd1;
+  --leaf-green: #405e5b;
+  --veil-blue: #2b7778;
+  --soft-leaf: #89a5a0;
+  --bone: #f0ede5;
+  --line: rgba(222, 219, 209, .22);
+}
+
+body,
+.article-shell {
+  background: #20292a;
+  color: var(--bone);
+}
+
+.article-shell {
+  background-image: linear-gradient(135deg, #20292a 0%, #263839 52%, #204849 100%);
+}
+
+.article-panel h2,
+.plate-run-header h2,
+.archive-intro h2,
+.backmatter-title h2 {
+  letter-spacing: -.045em;
+}
+
+.article-kicker,
+.toc-title span,
+.issue-label {
+  color: #9fc2bd;
+}
+
+.spread-image,
+.plate-run figure {
+  overflow: hidden;
+  background: #162223;
+}
+
+.spread-image img,
+.plate-run img {
+  transition: transform .6s ease, filter .6s ease;
+}
+
+.spread-image:hover img,
+.plate-run figure:hover img {
+  transform: scale(1.018);
+  filter: saturate(1.08) contrast(1.03);
+}
+
+/* Captions remain in source for the publication register and accessibility QA,
+   but do not compete with the photography in the visual proof. */
+figure figcaption {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.article-copy {
+  color: #fff;
+}
+
+/* Keep every reader-facing text layer crisp against the dark editorial field. */
+body,
+a,
+.dek,
+.issue-label,
+.cover-lines span,
+.issue-toc,
+.issue-toc a,
+.toc-title span,
+.toc-title strong,
+.issue-toc em,
+.article-kicker,
+.article-panel h2,
+.article-copy,
+.article-copy a,
+.plate-run-header,
+.plate-run-header p,
+.archive-intro,
+.archive-intro p,
+.backmatter,
+.backmatter-title,
+.backmatter-title p,
+.references-list,
+.references-list a,
+.source-register,
+.colophon,
+.issue-footer {
+  color: #fff;
+}
+
+.archive-intro,
+.backmatter,
+.grid,
+.issue-footer {
+  background-color: #20292a;
+}
+
+body * {
+  color: #fff;
+}
+
+/* Full-issue fashion editorial treatment. */
+html,
+body,
+.mag-cover,
+.issue-toc,
+.article-shell,
+.spread,
+.spread-constraint,
+.plate-run,
+.plate-run-constraint,
+.plate-run-synthesis,
+.archive-intro,
+.grid,
+.backmatter,
+.issue-footer {
+  background: var(--teal-grey);
+}
+
+.mag-cover {
+  min-height: 100svh;
+  grid-template-columns: minmax(280px, 4fr) minmax(440px, 8fr);
+  align-items: stretch;
+  border-bottom: 1px solid rgba(255, 255, 255, .35);
+}
+
+.cover-copy {
+  align-self: end;
+}
+
+h1 {
+  font-size: clamp(5.5rem, 11vw, 13rem);
+  line-height: .75;
+  letter-spacing: -.075em;
+}
+
+.dek {
+  max-width: 42ch;
+}
+
+.issue-toc {
+  min-height: 70vh;
+  align-content: center;
+}
+
+.toc-title strong {
+  font-size: clamp(4rem, 8vw, 10rem);
+  letter-spacing: -.065em;
+}
+
+.article-shell {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.article-grid {
+  max-width: none;
+  gap: 0;
+}
+
+.spread,
+.plate-run {
+  min-height: 100svh;
+  padding: clamp(48px, 8vw, 140px) 0;
+  border-color: rgba(255, 255, 255, .24);
+}
+
+.article-panel h2,
+.plate-run-header h2,
+.archive-intro h2,
+.backmatter-title h2 {
+  font-size: clamp(4.8rem, 10vw, 12rem);
+  line-height: .78;
+  letter-spacing: -.075em;
+}
+
+.article-kicker,
+.issue-label,
+.toc-title span {
+  font-size: .68rem;
+  letter-spacing: .22em;
+}
+
+.article-copy {
+  column-rule-color: rgba(255, 255, 255, .25);
+}
+
+.article-copy p,
+.plate-run-header p,
+.backmatter-title p,
+.source-register,
+.references-list,
+.colophon {
+  color: #fff;
+}
+
+.spread-image,
+.plate-run figure,
+.grid figure {
+  border: 1px solid rgba(255, 255, 255, .3);
+}
+
+.spread-image img,
+.plate-run img,
+.grid img {
+  filter: saturate(.78) contrast(1.08);
+}
+
+.spread-image:hover img,
+.plate-run figure:hover img,
+.grid figure:hover img {
+  filter: saturate(1) contrast(1.08);
+}
+
+.backmatter {
+  min-height: 100svh;
+}
+
+@media (max-width: 980px) {
+  .mag-cover {
+    grid-template-columns: 1fr;
+  }
+
+  h1,
+  .article-panel h2,
+  .plate-run-header h2,
+  .archive-intro h2,
+  .backmatter-title h2 {
+    font-size: clamp(4rem, 16vw, 8rem);
+  }
+}
+
+@media (max-width: 760px) {
+  .mag-cover {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    padding: 28px 20px;
+  }
+
+  .cover-image {
+    min-height: min(68vh, 560px);
+  }
+
+  .cover-lines {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .issue-toc {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cover direction inspired by classic fashion-magazine hierarchy:
+   one full-bleed portrait, an oversized masthead, and compact cover lines. */
+.mag-cover {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  min-height: 100svh;
+  padding: clamp(24px, 4vw, 64px);
+  overflow: hidden;
+}
+
+.cover-image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  min-height: 0;
+  border: 0;
+}
+
+.cover-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(18, 35, 36, .2), rgba(18, 35, 36, .08) 42%, rgba(18, 35, 36, .88)),
+    linear-gradient(90deg, rgba(18, 35, 36, .68), transparent 62%);
+}
+
+.cover-image img {
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+.cover-copy {
+  min-height: calc(100svh - clamp(48px, 8vw, 128px));
+  max-width: none;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  align-items: start;
+  padding: 0;
+}
+
+.mag-cover h1 {
+  width: 100%;
+  max-width: none;
+  margin-top: -.06em;
+  font-size: clamp(5.5rem, 15vw, 16rem);
+  line-height: .72;
+  letter-spacing: -.09em;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, .22);
+}
+
+.mag-cover .dek {
+  align-self: end;
+  max-width: 36ch;
+  margin-left: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(.72rem, 1vw, .92rem);
+  line-height: 1.45;
+}
+
+.cover-lines {
+  align-self: end;
+  width: min(760px, 100%);
+  margin-top: clamp(20px, 3vw, 38px);
+  border-color: rgba(255, 255, 255, .5);
+}
+
+.cover-lines span {
+  background: rgba(18, 35, 36, .48);
+  backdrop-filter: blur(5px);
+}
+
+@media (max-width: 760px) {
+  .mag-cover {
+    min-height: 100svh;
+    padding: 20px;
+  }
+
+  .cover-copy {
+    min-height: calc(100svh - 40px);
+  }
+
+  .mag-cover h1 {
+    font-size: clamp(4.2rem, 24vw, 7.2rem);
+    line-height: .76;
+  }
+
+  .mag-cover .dek {
+    max-width: 30ch;
+    margin-left: 0;
+  }
+}
