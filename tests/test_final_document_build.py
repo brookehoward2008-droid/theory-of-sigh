@@ -52,9 +52,9 @@ class FinalDocumentBuildTest(unittest.TestCase):
         assets = scan_assets()
         generate_book(assets)
 
-        output = PDF_OUT / "the-visceral-theory-of-sight-50pp.pdf"
+        output = PDF_OUT / "the-visceral-theory-of-sight-51pp.pdf"
         reader = PdfReader(str(output))
-        self.assertEqual(len(reader.pages), 50)
+        self.assertEqual(len(reader.pages), 51)
 
         extracted = " ".join(("\n".join(page.extract_text() or "" for page in reader.pages)).split())
         extracted_lower = extracted.lower()
@@ -105,7 +105,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertEqual(report["bleed_mm"], 3.175)
         self.assertEqual(report["pages"], 50)
         self.assertEqual(report["swatches"], ["[Black]", "[Paper]"])
-        self.assertEqual(report["linked_assets"], 64)
+        self.assertEqual(report["linked_assets"], 62)
 
     def test_manifest_rows_have_existing_images(self) -> None:
         rows = load_manifest_rows(MANIFEST_CSV)

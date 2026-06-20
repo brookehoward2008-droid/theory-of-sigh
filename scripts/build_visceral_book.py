@@ -4,6 +4,7 @@ import csv
 import json
 import re
 import shutil
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from textwrap import wrap
@@ -14,6 +15,9 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase.pdfmetrics import registerFontFamily
 try:
     from pypdf import PdfReader, PdfWriter
     _PYPDF_OK = True
@@ -37,13 +41,62 @@ MANIFEST_OUT = ROUTE / "manifest"
 TEMPLATE_OUT = ROUTE / "templates"
 REPORTS_OUT = ROUTE / "reports"
 
+# --- Editorial typefaces -----------------------------------------------------
+# Fashion-magazine system, vendored under assets/fonts and embedded on export:
+#   Gloock        -> display titles (high-contrast Didone, the Vogue-cover look)
+#   Spectral -> body text (crisp editorial serif, regular + italic)
+#   Work Sans     -> labels, captions, folios (clean grotesque sans)
+# Registered over the base-14 names so the existing draw calls pick them up; the
+# large title calls use the dedicated VogueDisplay name.
+FONT_DIR = ROOT / "assets" / "fonts"
+
+
+def register_fonts() -> None:
+    faces = {
+        "Times-Roman": "Spectral-Regular.ttf",
+        "Times-Italic": "Spectral-Italic.ttf",
+        "Times-Bold": "Spectral-SemiBold.ttf",
+        "Times-BoldItalic": "Spectral-Italic.ttf",
+        "Helvetica": "WorkSans-Regular.ttf",
+        "Helvetica-Bold": "WorkSans-Bold.ttf",
+        "Helvetica-Oblique": "WorkSans-Italic.ttf",
+        "Helvetica-BoldOblique": "WorkSans-BoldItalic.ttf",
+        "VogueDisplay": "Gloock-Regular.ttf",
+    }
+    for name, fname in faces.items():
+        path = FONT_DIR / fname
+        if path.exists():
+            try:
+                pdfmetrics.registerFont(TTFont(name, str(path)))
+            except Exception:
+                pass
+    registerFontFamily(
+        "Times", normal="Times-Roman", bold="Times-Bold",
+        italic="Times-Italic", boldItalic="Times-BoldItalic",
+    )
+    registerFontFamily(
+        "Helvetica", normal="Helvetica", bold="Helvetica-Bold",
+        italic="Helvetica-Oblique", boldItalic="Helvetica-BoldOblique",
+    )
+
+
+register_fonts()
+
 # US Letter landscape trim. Matches the InDesign preflight-safe route and the
 # committed 50pp proof: facing pages, multi-image spreads, full-bleed section
 # title pages.
-TRIM_W, TRIM_H = 279.4 * mm, 215.9 * mm  # 11 x 8.5 in
+# Design coordinate space (the tuned layout). The book is rendered onto a
+# larger A3 sheet below by uniformly scaling this whole space to fill the A3
+# width — true full-bleed and proportionally bigger type, no per-element re-tune.
+TRIM_W, TRIM_H = 279.4 * mm, 215.9 * mm  # design space (Letter landscape proportions)
 BLEED = 3.175 * mm
 PAGE_W, PAGE_H = TRIM_W + (2 * BLEED), TRIM_H + (2 * BLEED)
 MARGIN = 16 * mm
+# Output sheet: A3 landscape (the printed trim).
+OUT_TRIM_W, OUT_TRIM_H = 420 * mm, 297 * mm
+OUT_PAGE_W, OUT_PAGE_H = OUT_TRIM_W + (2 * BLEED), OUT_TRIM_H + (2 * BLEED)
+PAGE_SCALE = OUT_PAGE_W / PAGE_W                      # fill A3 width (true full bleed)
+PAGE_TY = (OUT_PAGE_H - PAGE_H * PAGE_SCALE) / 2.0    # center vertically (margins bleed off)
 GUTTER = 5 * mm
 COLUMNS = 12
 # Safe content rectangle in page (bleed-inclusive) coordinates.
@@ -54,6 +107,9 @@ CONTENT_T = PAGE_H - BLEED - MARGIN
 LIVE_W = CONTENT_R - CONTENT_L
 LIVE_H = CONTENT_T - CONTENT_B
 COLUMN_W = (LIVE_W - (GUTTER * (COLUMNS - 1))) / COLUMNS
+# Slight tracking (letter-spacing, in points) applied to body prose so the
+# Cormorant text reads a touch more open and editorial.
+BODY_TRACKING = 0.5
 # Legacy aliases (kept so any stray references stay valid).
 OUTER_MARGIN = MARGIN
 INNER_MARGIN = MARGIN
@@ -65,6 +121,8 @@ GOLD = colors.HexColor("#A58242")
 SLATE = colors.HexColor("#526B7A")
 MIST = colors.HexColor("#D8D0C0")
 SOFT_BLACK = colors.HexColor("#1C1B19")
+TEAL = colors.HexColor("#4E9B8F")  # epigraph poem accent
+RED = colors.HexColor("#C1121F")  # epigraph poem accent (alt)
 
 ARTICLE_BODIES = {
     "Agency": (
@@ -135,10 +193,10 @@ ARTICLE_BODIES = {
 
 # First *content* page of each section (the page after its full-bleed title page).
 SECTION_PAGE_START = {
-    "Agency": 9,
-    "Constraint": 18,
-    "Mediation": 28,
-    "Synthesis": 40,
+    "Agency": 10,
+    "Constraint": 19,
+    "Mediation": 29,
+    "Synthesis": 41,
 }
 
 
@@ -204,11 +262,11 @@ def apply_print_boxes(pdf_path: Path) -> None:
     writer = PdfWriter()
     for page in reader.pages:
         page.mediabox.lower_left = (0, 0)
-        page.mediabox.upper_right = (PAGE_W, PAGE_H)
+        page.mediabox.upper_right = (OUT_PAGE_W, OUT_PAGE_H)
         page.bleedbox.lower_left = (0, 0)
-        page.bleedbox.upper_right = (PAGE_W, PAGE_H)
+        page.bleedbox.upper_right = (OUT_PAGE_W, OUT_PAGE_H)
         page.trimbox.lower_left = (BLEED, BLEED)
-        page.trimbox.upper_right = (BLEED + TRIM_W, BLEED + TRIM_H)
+        page.trimbox.upper_right = (BLEED + OUT_TRIM_W, BLEED + OUT_TRIM_H)
         writer.add_page(page)
     with pdf_path.open("wb") as f:
         writer.write(f)
@@ -404,6 +462,9 @@ def draw_text_block(
     font: str = "Times-Roman",
     color=CREAM,
     max_lines: int | None = None,
+    tracking: float = BODY_TRACKING,
+    stroke=None,
+    stroke_width: float | None = None,
 ) -> float:
     c.setFont(font, size)
     c.setFillColor(color)
@@ -422,10 +483,36 @@ def draw_text_block(
         lines.extend(wrapped)
     if max_lines is not None:
         lines = lines[:max_lines]
+    to = c.beginText(x, y)
+    to.setFont(font, size)
+    to.setFillColor(color)
+    if stroke is not None:
+        c.setLineWidth(stroke_width if stroke_width is not None else size * 0.0125)
+        to.setStrokeColor(stroke)
+        to.setTextRenderMode(2)  # fill + stroke
+    to.setCharSpace(tracking)
+    to.setLeading(leading)
     for line in lines:
-        c.drawString(x, y, line)
-        y -= leading
-    return y
+        to.textLine(line)
+    c.drawText(to)
+    return y - leading * len(lines)
+
+
+def apply_text_stroke(c: canvas.Canvas, stroke_color, factor: float = 0.0125) -> None:
+    """Give every drawString-based glyph a thin stroke edge (size-proportional),
+    matching the stroked text-block treatment so all type carries the same edge."""
+    for name in ("drawString", "drawRightString", "drawCentredString"):
+        original = getattr(c, name)
+
+        def wrapped(x, y, text, *args, _orig=original, **kw):
+            c.setStrokeColor(stroke_color)
+            c.setLineWidth(max(0.06, (getattr(c, "_fontsize", 10) or 10) * factor))
+            kw.setdefault("mode", 2)
+            return _orig(x, y, text, *args, **kw)
+
+        setattr(c, name, wrapped)
+
+
 
 
 def draw_label(c: canvas.Canvas, text: str, x: float, y: float, color=GOLD) -> None:
@@ -437,7 +524,8 @@ def draw_label(c: canvas.Canvas, text: str, x: float, y: float, color=GOLD) -> N
 def draw_page_number(c: canvas.Canvas, page: int, dark: bool = True) -> None:
     c.setFont("Helvetica", 7)
     c.setFillColor(CREAM if dark else INK)
-    c.drawRightString(PAGE_W - 36, 24, f"{page:02d}")
+    # Kept above y=40 (design) so it clears the A3 bottom bleed-off after scaling.
+    c.drawRightString(PAGE_W - 36, 42, f"{page:02d}")
 
 
 def image_box(c: canvas.Canvas, asset: Asset, x: float, y: float, w: float, h: float) -> None:
@@ -489,7 +577,7 @@ def draw_pull_quote(c: canvas.Canvas, lines: list[str], y: float, dark: bool = F
     c.setFillColor(colors.Color(0.65, 0.51, 0.26, alpha=0.88))
     c.rect(0, y - 18, PAGE_W, 118, fill=1, stroke=0)
     c.setFillColor(CREAM if not dark else INK)
-    c.setFont("Helvetica-Bold", 28)
+    c.setFont("VogueDisplay", 28)
     for i, line in enumerate(lines):
         c.drawString(58 + (i % 2) * 30, y + 62 - (i * 31), line)
     c.restoreState()
@@ -582,7 +670,7 @@ def draw_section_title(c: canvas.Canvas, page: int, section: str, asset: Asset) 
     c.setLineWidth(1.4)
     c.line(x, CONTENT_B + 214, x + 150, CONTENT_B + 214)
     c.setFillColor(CREAM)
-    c.setFont("Helvetica-Bold", 54)
+    c.setFont("VogueDisplay", 54)
     c.drawString(x, CONTENT_B + 150, title)
     c.setFont("Times-Italic", 15)
     c.drawString(x, CONTENT_B + 120, sub)
@@ -602,7 +690,7 @@ def draw_cover(c: canvas.Canvas, asset: Asset, page_num: int | None = None) -> N
     c.setLineWidth(1.2)
     c.line(x, CONTENT_B + 134, x + 260, CONTENT_B + 134)
     c.setFillColor(CREAM)
-    c.setFont("Helvetica-Bold", 52)
+    c.setFont("VogueDisplay", 52)
     c.drawString(x, CONTENT_B + 78, "THE VISCERAL")
     c.drawString(x, CONTENT_B + 30, "THEORY OF SIGHT")
     c.setFont("Times-Roman", 13)
@@ -624,7 +712,7 @@ def draw_title_spread(c: canvas.Canvas, asset: Asset, side: str) -> None:
         c.setFont("Helvetica-Bold", 11)
         c.drawString(CONTENT_L, CONTENT_T - 30, "TITLE")
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 56)
+        c.setFont("VogueDisplay", 56)
         c.drawString(CONTENT_L, CONTENT_T - 132, "THE VISCERAL")
         c.drawString(CONTENT_L, CONTENT_T - 190, "THEORY OF SIGHT")
         c.setFont("Times-Italic", 15)
@@ -643,7 +731,7 @@ def draw_title_page(c: canvas.Canvas) -> None:
     draw_bg(c)
     draw_label(c, "title page", CONTENT_L, CONTENT_T - 6)
     c.setFillColor(CREAM)
-    c.setFont("Helvetica-Bold", 46)
+    c.setFont("VogueDisplay", 46)
     c.drawString(CONTENT_L, CONTENT_T - 120, "The Visceral")
     c.drawString(CONTENT_L, CONTENT_T - 168, "Theory of Sight")
     c.setFont("Times-Roman", 14)
@@ -671,10 +759,63 @@ def draw_legal(c: canvas.Canvas) -> None:
     draw_page_number(c, 3)
 
 
+def draw_epigraph(c: canvas.Canvas) -> None:
+    """Opening epigraph: an excerpt from Hannah Flagg Gould's 'Thoughts'."""
+    draw_bg(c, dark=True)
+    draw_label(c, "epigraph", CONTENT_L, CONTENT_T - 46, color=GOLD)
+    c.setFillColor(CREAM)
+    c.setFont("VogueDisplay", 46)
+    c.drawString(CONTENT_L, CONTENT_T - 112, "from")
+    c.drawString(CONTENT_L, CONTENT_T - 164, "“Thoughts”")
+    c.setFont("Helvetica-Bold", 13)
+    c.setFillColor(GOLD)
+    c.drawString(CONTENT_L, CONTENT_T - 198, "HANNAH FLAGG GOULD")
+    c.setStrokeColor(GOLD)
+    c.setLineWidth(1.6)
+    c.line(CONTENT_L, CONTENT_T - 214, CONTENT_L + 184, CONTENT_T - 214)
+    # Vertical hairline divides the poet's question (left) from the eyes' reply (right).
+    c.setLineWidth(0.75)
+    c.line(CONTENT_L + 384, CONTENT_B + 30, CONTENT_L + 384, CONTENT_T - 56)
+    stanza1 = (
+        "Eyes, say, why were ye given your sight,\n"
+        "Your full blue orbs, with their roll and their light,\n"
+        "Which your lids of the lily with violet tinge\n"
+        "So often of late, with their long, dark fringe\n"
+        "From their folds in your arches descended to shade?\n"
+        "Ye have told many things—but not why ye were made."
+    )
+    draw_text_block(c, stanza1, CONTENT_L, CONTENT_T - 258, width_chars=58,
+                    leading=34, size=16, color=CREAM, font="Times-Roman", tracking=0.4)
+    stanza2 = (
+        "“We were made to delight in the beauties of earth;\n"
+        "Then to see how they perished, how little their worth\n"
+        "They are changing, illusive, uncertain and brief,\n"
+        "From the flower’s opening bud to its soon withered leaf.\n"
+        "The birth of their being is joined to decay;\n"
+        "They flourish, allure, and expire in a day.\n"
+        "On things like ourselves with delight we have shone;\n"
+        "We have studied their language and found it our own;\n"
+        "But the offspring of grief would extinguish their light,\n"
+        "And the spoiler’s pale hand lock them up from our sight.\n"
+        "Or, keener, far keener, they’d let us behold\n"
+        "Their looks turning from us, unfeeling and cold,\n"
+        "Bequeathing this line, as we saw them depart,\n"
+        "‘We go not alone, but are drawn by the heart!’\n"
+        "For things such as these, and still more were we made;\n"
+        "For watching, for aching, to sink and to fade;\n"
+        "To pour forth in silence the waters of sorrow,\n"
+        "Then, to close in a night that will bring us no morrow?”"
+    )
+    draw_text_block(c, stanza2, CONTENT_L + 400, CONTENT_T - 64, width_chars=64,
+                    leading=24, size=12, color=CREAM, font="Times-Roman", tracking=0.3)
+    draw_page_number(c, 4)
+
+
 def draw_toc(c: canvas.Canvas) -> None:
     draw_bg(c, dark=True)
     draw_label(c, "contents", CONTENT_L, CONTENT_T - 6, color=GOLD)
     c.setFillColor(CREAM)
+<<<<<<< HEAD
     c.setFont("Helvetica-Bold", 34)
     c.drawString(CONTENT_L, CONTENT_T - 64, "Agency / Constraint / Mediation")
     entries = [
@@ -685,6 +826,19 @@ def draw_toc(c: canvas.Canvas) -> None:
         ("III. Mediation", "27"),
         ("IV. Synthesis", "39"),
         ("Back Matter", "46"),
+=======
+    c.setFont("VogueDisplay", 34)
+    c.drawString(CONTENT_L, CONTENT_T - 64, "Agency / Constraint / Mediation / Synthesis")
+    entries = [
+        ("Front Matter", "01"),
+        ("Epigraph: “Thoughts” — Hannah Flagg Gould", "04"),
+        ("Introduction: The Visceral Theory of Sight", "06"),
+        ("I. Agency", "09"),
+        ("II. Constraint", "18"),
+        ("III. Mediation", "28"),
+        ("IV. Synthesis", "40"),
+        ("Back Matter", "47"),
+>>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
     ]
     y = CONTENT_T - 122
     for title, page in entries:
@@ -701,16 +855,16 @@ def draw_toc(c: canvas.Canvas) -> None:
         c.setFillColor(GOLD)
         c.drawRightString(CONTENT_R, y, page)
         y -= 36
-    draw_page_number(c, 4)
+    draw_page_number(c, 5)
 
 
 def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
     dark = True
     draw_bg(c, dark=dark)
-    if page == 5:
+    if page == 6:
         draw_label(c, "introduction", CONTENT_L, CONTENT_T - 6)
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 34)
+        c.setFont("VogueDisplay", 34)
         c.drawString(CONTENT_L, CONTENT_T - 72, "The Visceral Theory")
         c.drawString(CONTENT_L, CONTENT_T - 110, "of Sight")
         draw_text_block(c, intro_copy(), CONTENT_L, CONTENT_T - 156, width_chars=44, leading=14, size=10.5)
@@ -719,11 +873,11 @@ def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
         image_box(c, assets[5 % len(assets)], 638, CONTENT_T - 250, 118, 250)
         image_box(c, assets[10 % len(assets)], 432, CONTENT_B, 324, 168)
         overlay_caption(c, assets[0], 444, CONTENT_T - 236, 170, dark=True)
-    elif page == 6:
+    elif page == 7:
         image_box(c, assets[2 % len(assets)], 0, 0, PAGE_W, PAGE_H)
         scrim(c, alpha=0.5, dark=True)
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 30)
+        c.setFont("VogueDisplay", 30)
         c.drawString(CONTENT_L, CONTENT_T - 44, "The image does not give")
         c.drawString(CONTENT_L, CONTENT_T - 80, "itself all at once.")
         draw_text_block(c, "Controlled revelation is the method. Tension is the evidence.", CONTENT_L, CONTENT_B + 44, width_chars=78, leading=14, size=11, color=CREAM)
@@ -788,7 +942,7 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         c.setFillColor(accent)
         c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 26)
+        c.setFont("VogueDisplay", 26)
         c.drawString(tx, CONTENT_T - 64, section.upper())
         draw_text_block(c, body_text, tx, CONTENT_T - 96, width_chars=31, leading=14.5, size=10.4, color=fg)
         overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 220, dark=True)
@@ -802,7 +956,7 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         c.setFillColor(accent)
         c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 26)
+        c.setFont("VogueDisplay", 26)
         c.drawString(tx, CONTENT_T - 64, section.upper())
         draw_text_block(c, body_text, tx, CONTENT_T - 96, width_chars=37, leading=14.5, size=10.4, color=fg)
         overlay_caption(c, a1, CONTENT_L + 14, CONTENT_B + 16, 200, dark=True)
@@ -812,7 +966,7 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         scrim(c, alpha=0.52, dark=True)
         draw_label(c, f"article / {section}", CONTENT_L, CONTENT_T - 10, color=accent)
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 30)
+        c.setFont("VogueDisplay", 30)
         c.drawString(CONTENT_L, CONTENT_T - 56, "Only one eye remains;")
         c.drawString(CONTENT_L, CONTENT_T - 90, "the image gets louder.")
         translucent_panel(c, CONTENT_L - 6, CONTENT_B - 6, LIVE_W * 0.48 + 12, 152, dark=True, alpha=0.58)
@@ -840,7 +994,7 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         c.setFillColor(accent)
         c.rect(CONTENT_L, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 26)
+        c.setFont("VogueDisplay", 26)
         c.drawString(CONTENT_L, CONTENT_T - 64, section.upper())
         draw_text_block(c, body_text, CONTENT_L, CONTENT_T - 96, width_chars=31, leading=14.5, size=10.4, color=fg)
         overlay_caption(c, a0, ix + 14, CONTENT_B + 18, 200, dark=True)
@@ -872,7 +1026,7 @@ def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], off
         c.setFillColor(GOLD)
         c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 26)
+        c.setFont("VogueDisplay", 26)
         c.drawString(tx, CONTENT_T - 64, "Unresolved Sight")
         draw_text_block(c, body_text, tx, CONTENT_T - 96, width_chars=31, leading=14.5, size=10.4, color=CREAM)
         overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 200, dark=True)
@@ -885,7 +1039,11 @@ def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], off
         c.setLineWidth(1.6)
         c.line(tx, CONTENT_T - 30, CONTENT_R, CONTENT_T - 30)
         c.setFillColor(CREAM)
+<<<<<<< HEAD
         c.setFont("Helvetica-Bold", 20)
+=======
+        c.setFont("VogueDisplay", 20)
+>>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
         c.drawString(tx, CONTENT_T - 58, "Looking never arrives clean.")
         draw_text_block(c, body_text, tx, CONTENT_T - 88, width_chars=32, leading=14.5, size=10.4, color=CREAM)
         overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 200, dark=True)
@@ -894,8 +1052,8 @@ def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], off
 
 def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
     draw_bg(c, dark=True)
-    if page in (46, 47):
-        first = page == 46
+    if page in (47, 48):
+        first = page == 47
         draw_label(c, "image source register" if first else "image source register / continued", CONTENT_L, CONTENT_T - 6, color=CREAM)
         subset = assets[:32] if first else assets[32:]
         col_x = [CONTENT_L, CONTENT_L + LIVE_W / 2 + 12]
@@ -914,7 +1072,7 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
                 c.setFont("Helvetica", 6.5)
                 c.drawString(cx + 30, y - 9, f"{asset.creator[:38]} - rights verify")
                 y -= 26
-    elif page == 48:
+    elif page == 49:
         draw_label(c, "works consulted", CONTENT_L, CONTENT_T - 6, color=CREAM)
         text = (
             "[1] LeRoy McDermott. \"Self-Representation in Upper Paleolithic Female Figurines.\" "
@@ -928,20 +1086,33 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
             "Editions, page ranges, and image licenses to be confirmed before final print."
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
+<<<<<<< HEAD
     elif page == 49:
+=======
+    elif page == 50:
+>>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
         draw_label(c, "colophon", CONTENT_L, CONTENT_T - 6, color=CREAM)
         text = (
             "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. "
             "Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. "
+<<<<<<< HEAD
             "Set in Helvetica and Times, printed white on black."
+=======
+            "Set in Gloock, Spectral, and Work Sans; printed white on black."
+>>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     else:
-        c.setFont("Helvetica-Bold", 40)
+        c.setFont("VogueDisplay", 40)
         c.setFillColor(CREAM)
+<<<<<<< HEAD
         c.drawString(CONTENT_L, CONTENT_T - 120, "Sight remains")
         c.drawString(CONTENT_L, CONTENT_T - 168, "unfinished.")
         draw_text_block(c, "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", CONTENT_L, CONTENT_B + 96, width_chars=92, leading=14, size=10, color=CREAM)
+=======
+        c.drawString(CONTENT_L, CONTENT_T - 140, "Sight remains unfinished.")
+        draw_text_block(c, "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", CONTENT_L, CONTENT_B + 80, width_chars=130, leading=14, size=10, color=CREAM)
+>>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
     draw_page_number(c, page, dark=True)
 
 
@@ -1769,7 +1940,11 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
 
 function backMatter(page, n, doc, ink, cream, gold) {{
   if (n === 50) {{
+<<<<<<< HEAD
     textFrame(page, b(40, 18, 96, 230), "Sight remains\\runfinished.", 34, "Bold", cream, 100);
+=======
+    textFrame(page, b(40, 18, 96, 230), "Sight remains unfinished.", 34, "Bold", cream, 100);
+>>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
     textFrame(page, b(150, 18, 190, 250), "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", 10, "Regular", cream, 100);
     return;
   }}
@@ -1785,7 +1960,11 @@ function backMatter(page, n, doc, ink, cream, gold) {{
   }} else if (n === 48) {{
     textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   }} else {{
+<<<<<<< HEAD
     textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times, printed white on black.", 10, "Regular", cream, 100);
+=======
+    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Gloock, Spectral, and Work Sans; printed white on black.", 10, "Regular", cream, 100);
+>>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
   }}
 }}
 
@@ -1825,68 +2004,85 @@ saveDesktopFiles(doc);
     (TEMPLATE_OUT / "indesign-build-full-layout.jsx").write_text(jsx, encoding="utf-8")
 
 
+@contextmanager
+def scaled_page(c: canvas.Canvas):
+    """Render the tuned design onto the A3 output sheet: uniformly scale to fill
+    the A3 width (true full bleed) and center vertically so the margins bleed
+    off. Each page's drawing happens in the original design coordinates."""
+    c.saveState()
+    c.translate(0, PAGE_TY)
+    c.scale(PAGE_SCALE, PAGE_SCALE)
+    try:
+        yield
+    finally:
+        c.restoreState()
+        c.showPage()
+
+
 def generate_cover(assets: list[Asset]) -> None:
     cover = PDF_OUT / "cover-design.pdf"
-    c = canvas.Canvas(str(cover), pagesize=(PAGE_W, PAGE_H))
+    c = canvas.Canvas(str(cover), pagesize=(OUT_PAGE_W, OUT_PAGE_H))
     preferred = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
     preferred = make_cover_asset(preferred)
-    draw_cover(c, preferred)
-    c.showPage()
+    with scaled_page(c):
+        draw_cover(c, preferred)
     c.save()
     apply_print_boxes(cover)
 
 
 def generate_book(assets: list[Asset]) -> None:
-    book = PDF_OUT / "the-visceral-theory-of-sight-50pp.pdf"
-    c = canvas.Canvas(str(book), pagesize=(PAGE_W, PAGE_H))
+    book = PDF_OUT / "the-visceral-theory-of-sight-51pp.pdf"
+    c = canvas.Canvas(str(book), pagesize=(OUT_PAGE_W, OUT_PAGE_H))
     cover_asset = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
     cover_asset = make_cover_asset(cover_asset)
     title_asset = next((a for a in assets if "Mediation" in a.group and a is not cover_asset), assets[1])
-    draw_cover(c, cover_asset, page_num=1)
-    c.showPage()
-    draw_title_spread(c, title_asset, "left")
-    c.showPage()
-    draw_title_spread(c, title_asset, "right")
-    c.showPage()
-    draw_toc(c)
-    c.showPage()
+    with scaled_page(c):
+        draw_cover(c, cover_asset, page_num=1)
+    with scaled_page(c):
+        draw_title_spread(c, title_asset, "left")
+    with scaled_page(c):
+        draw_title_spread(c, title_asset, "right")
+    with scaled_page(c):
+        draw_epigraph(c)
+    with scaled_page(c):
+        draw_toc(c)
 
-    for page in range(5, 8):
-        draw_intro(c, page, assets)
-        c.showPage()
+    for page in range(6, 9):
+        with scaled_page(c):
+            draw_intro(c, page, assets)
 
     agency_assets = [a for a in assets if "Agency" in a.group] or assets
     constraint_assets = [a for a in assets if "Constraint" in a.group] or assets
     med_assets = [a for a in assets if "Mediation" in a.group] or assets
     page_assets = assets.copy()
     # Each section opens with a full-bleed image + title page, then content pages.
-    for offset, page in enumerate(range(8, 17)):
-        if offset == 0:
-            draw_section_title(c, page, "Agency", agency_assets[3 % len(agency_assets)])
-        else:
-            draw_article_page(c, page, "Agency", agency_assets, offset - 1)
-        c.showPage()
-    for offset, page in enumerate(range(17, 27)):
-        if offset == 0:
-            draw_section_title(c, page, "Constraint", constraint_assets[1 % len(constraint_assets)])
-        else:
-            draw_article_page(c, page, "Constraint", constraint_assets, offset - 1)
-        c.showPage()
-    for offset, page in enumerate(range(27, 39)):
-        if offset == 0:
-            draw_section_title(c, page, "Mediation", next((a for a in assets if "allef-vinicius" in a.filename.lower()), med_assets[2 % len(med_assets)]))
-        else:
-            draw_article_page(c, page, "Mediation", med_assets, offset - 1)
-        c.showPage()
-    for offset, page in enumerate(range(39, 46)):
-        if offset == 0:
-            draw_section_title(c, page, "Synthesis", page_assets[20 % len(page_assets)])
-        else:
-            draw_synthesis(c, page, page_assets, offset - 1)
-        c.showPage()
-    for page in range(46, 51):
-        draw_back_matter(c, page, assets)
-        c.showPage()
+    for offset, page in enumerate(range(9, 18)):
+        with scaled_page(c):
+            if offset == 0:
+                draw_section_title(c, page, "Agency", agency_assets[3 % len(agency_assets)])
+            else:
+                draw_article_page(c, page, "Agency", agency_assets, offset - 1)
+    for offset, page in enumerate(range(18, 28)):
+        with scaled_page(c):
+            if offset == 0:
+                draw_section_title(c, page, "Constraint", constraint_assets[1 % len(constraint_assets)])
+            else:
+                draw_article_page(c, page, "Constraint", constraint_assets, offset - 1)
+    for offset, page in enumerate(range(28, 40)):
+        with scaled_page(c):
+            if offset == 0:
+                draw_section_title(c, page, "Mediation", next((a for a in assets if "allef-vinicius" in a.filename.lower()), med_assets[2 % len(med_assets)]))
+            else:
+                draw_article_page(c, page, "Mediation", med_assets, offset - 1)
+    for offset, page in enumerate(range(40, 47)):
+        with scaled_page(c):
+            if offset == 0:
+                draw_section_title(c, page, "Synthesis", page_assets[20 % len(page_assets)])
+            else:
+                draw_synthesis(c, page, page_assets, offset - 1)
+    for page in range(47, 52):
+        with scaled_page(c):
+            draw_back_matter(c, page, assets)
     c.save()
     apply_print_boxes(book)
 
@@ -1898,7 +2094,7 @@ def write_manifest(assets: list[Asset]) -> None:
         "asset_count": len(assets),
         "outputs": {
             "cover_pdf": str(PDF_OUT / "cover-design.pdf"),
-            "book_pdf": str(PDF_OUT / "the-visceral-theory-of-sight-50pp.pdf"),
+            "book_pdf": str(PDF_OUT / "the-visceral-theory-of-sight-51pp.pdf"),
             "indesign_file": str(INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.indd"),
             "idml_file": str(INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.idml"),
             "affinity_native_target": str(ROUTE / "output" / "affinity" / "the-visceral-theory-of-sight-50pp.afpub"),
@@ -1939,7 +2135,7 @@ def main() -> None:
     print(f"Built production route: {ROUTE}")
     print(f"Assets copied: {len(assets)}")
     print(f"Cover PDF: {PDF_OUT / 'cover-design.pdf'}")
-    print(f"Book PDF: {PDF_OUT / 'the-visceral-theory-of-sight-50pp.pdf'}")
+    print(f"Book PDF: {PDF_OUT / 'the-visceral-theory-of-sight-51pp.pdf'}")
     print(f"Ledger: {LEDGER_OUT / 'source-image-ledger.csv'}")
     print(f"Notes: {NOTES_OUT / 'critical-process-notes.md'}")
 

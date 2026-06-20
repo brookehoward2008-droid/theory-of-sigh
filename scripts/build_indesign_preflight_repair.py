@@ -12,8 +12,8 @@ ASSET_FOLDER = Path(
 )
 SOURCE_IDML = ASSET_FOLDER / "visceral_theory_of_sight_precision_layout.idml"
 TEXT_SAFE_IDML = ASSET_FOLDER / "visceral_theory_of_sight_precision_layout_TEXT_SAFE.idml"
-REPORT_IN = Path(
-    r"C:\Users\toddl\.codex\attachments\9f68eab0-e040-40be-b936-0ace6db11bfb\pasted-text.txt"
+REPORT_IN = (
+    REPO / "visceral-production-route" / "reports" / "preflight-source-report.txt"
 )
 
 REPORT_DIR = REPO / "visceral-production-route" / "reports"
