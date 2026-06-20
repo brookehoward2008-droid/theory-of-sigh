@@ -1,4 +1,0 @@
-# Source talking-head (use your own local copy; not committed to keep the repo lean)
-source_video.mp4
-# Build intermediates
-.build_tmp/

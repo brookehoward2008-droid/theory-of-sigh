@@ -5,521 +5,513 @@
 var ASSETS = [
   {
     "id": "A01",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-01.jpg",
-    "title": "a01-mediation-a-photograph-of-an-attractive-woman-with-a-w",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-01.jpeg",
+    "title": "A photograph of an attractive woman with a white lace blin",
     "group": "Group 3: Mediation",
     "caption": "The flowers soften the restraint, but do not remove its force.",
     "short_caption": "Beauty becomes the blindfold\u2019s alibi."
   },
   {
     "id": "A02",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-02.jpg",
-    "title": "a05-social-constraint-adobestock-1024472839",
-    "group": "Group 2: Social Constraint",
-    "caption": "The image fractures the face into signal and noise, leaving one eye to survive the interference.",
-    "short_caption": "The gaze glitches, but remains."
-  },
-  {
-    "id": "A03",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-03.jpg",
-    "title": "a06-social-constraint-adobestock-1040196803",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-02.jpeg",
+    "title": "AdobeStock_1040196803",
     "group": "Group 2: Social Constraint",
     "caption": "The flowers bloom exactly where recognition should happen.",
     "short_caption": "Beauty replaces sight."
   },
   {
-    "id": "A04",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-04.jpg",
-    "title": "a07-social-constraint-adobestock-1044937382",
+    "id": "A03",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-03.jpeg",
+    "title": "AdobeStock_1044937382",
     "group": "Group 2: Social Constraint",
     "caption": "The white stroke silences the gaze with surgical calm.",
     "short_caption": "The eye is edited out."
   },
   {
-    "id": "A05",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-05.jpg",
-    "title": "a08-social-constraint-adobestock-1225023891",
+    "id": "A04",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-04.jpeg",
+    "title": "AdobeStock_1225023891",
     "group": "Group 2: Social Constraint",
     "caption": "Her face becomes a garden, but the flowers still perform the work of concealment.",
     "short_caption": "Bloom as blindfold."
   },
   {
-    "id": "A06",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-06.jpg",
-    "title": "a09-social-constraint-adobestock-140076283",
+    "id": "A05",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-05.jpeg",
+    "title": "AdobeStock_140076283",
     "group": "Group 2: Social Constraint",
     "caption": "The hands do not fully hide her. They make the act of hiding visible.",
     "short_caption": "Defense becomes gesture."
   },
   {
-    "id": "A07",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-07.jpg",
-    "title": "a10-social-constraint-adobestock-1462135790",
+    "id": "A06",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-06.jpeg",
+    "title": "AdobeStock_1462135790",
     "group": "Group 2: Social Constraint",
     "caption": "Gold catches the light while the face withdraws into shadow.",
     "short_caption": "Adornment becomes armor."
   },
   {
-    "id": "A08",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-08.jpg",
-    "title": "a11-social-constraint-adobestock-206067082",
+    "id": "A07",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-07.jpeg",
+    "title": "AdobeStock_206067082",
     "group": "Group 2: Social Constraint",
     "caption": "She covers her sight, then paints another gaze over the absence.",
     "short_caption": "A false eye performs the feeling."
   },
   {
-    "id": "A09",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-09.jpg",
-    "title": "a12-social-constraint-adobestock-268225510",
+    "id": "A08",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-08.jpeg",
+    "title": "AdobeStock_268225510",
     "group": "Group 2: Social Constraint",
     "caption": "The pose turns looking into a rule already agreed to.",
     "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
-    "id": "A10",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-10.jpg",
-    "title": "a13-social-constraint-adobestock-320500758",
+    "id": "A09",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-09.jpeg",
+    "title": "AdobeStock_320500758",
     "group": "Group 2: Social Constraint",
     "caption": "The veil does not block the gaze; it makes looking feel forbidden.",
     "short_caption": "Lace turns vision into trespass."
   },
   {
-    "id": "A11",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-11.jpg",
-    "title": "a14-social-constraint-adobestock-368079012",
+    "id": "A10",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-10.jpeg",
+    "title": "AdobeStock_368079012",
     "group": "Group 2: Social Constraint",
     "caption": "One eye meets us through the flower\u2019s shadow, half invitation, half defense.",
     "short_caption": "Nature becomes a mask."
   },
   {
-    "id": "A12",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-12.jpg",
-    "title": "a15-social-constraint-adobestock-378198491",
+    "id": "A11",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-11.jpeg",
+    "title": "AdobeStock_378198491",
     "group": "Group 2: Social Constraint",
     "caption": "The blue fabric does not conceal her completely; it makes her appear underwater, suspended between access and refusal.",
     "short_caption": "Visibility dissolves into blue."
   },
   {
-    "id": "A13",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-13.jpg",
-    "title": "a16-social-constraint-adobestock-565582008",
+    "id": "A12",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-12.jpeg",
+    "title": "AdobeStock_565582008",
     "group": "Group 2: Social Constraint",
     "caption": "The face breaks apart, but the eyes remain \u2014 watchful, multiplied, impossible to silence.",
     "short_caption": "Fragments still look back."
   },
   {
-    "id": "A14",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-14.jpg",
-    "title": "a17-social-constraint-adobestock-720156971",
+    "id": "A13",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-13.jpeg",
+    "title": "AdobeStock_720156971",
     "group": "Group 2: Social Constraint",
     "caption": "The pose turns looking into a rule already agreed to.",
     "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
-    "id": "A15",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-15.jpg",
-    "title": "a18-social-constraint-adobestock-730927617",
+    "id": "A14",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-14.jpeg",
+    "title": "AdobeStock_730927617",
     "group": "Group 2: Social Constraint",
     "caption": "The repeated faces turn the gaze into public noise: many eyes, no single witness.",
     "short_caption": "The gaze becomes a crowd."
   },
   {
-    "id": "A16",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-16.jpg",
-    "title": "a19-social-constraint-adobestock-973721353",
+    "id": "A15",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-15.jpeg",
+    "title": "AdobeStock_973721353",
     "group": "Group 2: Social Constraint",
     "caption": "Clouds and trees cross the face like a second memory, replacing sight with interior weather.",
     "short_caption": "The mind becomes the landscape."
   },
   {
-    "id": "A17",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-17.jpg",
-    "title": "a20-mediation-alex-bracken-l1sjo7tmvec-unsplash",
-    "group": "Group 3: Mediation",
+    "id": "A16",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-16.jpg",
+    "title": "alex-bracken-l1SJO7TMVEc-unsplash",
+    "group": "Group 2: Social Constraint",
     "caption": "The veil softens the mouth and fractures the gaze into texture.",
     "short_caption": "The face becomes fabric."
   },
   {
+    "id": "A17",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-17.jpg",
+    "title": "alexander-krivitskiy-az7rqWLWkhI-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
+  },
+  {
     "id": "A18",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-18.jpg",
-    "title": "a21-raw-agency-alexander-krivitskiy-az7rqwlwkhi-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-18.jpg",
+    "title": "alexander-krivitskiy-GfOpUKdkMvo-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "The eye remains visible through the lace, making the act of looking feel intimate and forbidden.",
+    "short_caption": "Lace makes looking trespass."
+  },
+  {
+    "id": "A19",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-19.jpg",
+    "title": "allef-vinicius-DKrNTF_Jgtw-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "Leaves interrupt the portrait gently, as if nature itself has chosen what may be seen.",
+    "short_caption": "The gaze hides in green."
+  },
+  {
+    "id": "A20",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-20.jpg",
+    "title": "amir-geshani-2JH8d3ChNec-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "She holds the obstruction herself, turning concealment into control.",
+    "short_caption": "She edits the view."
+  },
+  {
+    "id": "A21",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-21.jpg",
+    "title": "andrey-zvyagintsev-T8IkNlQojCQ-unsplash",
     "group": "Group 1: Raw Agency",
     "caption": "Presence arrives before permission; the body speaks first.",
     "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
-    "id": "A19",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-19.jpg",
-    "title": "a22-social-constraint-alexander-krivitskiy-gfopukdkmvo-uns",
-    "group": "Group 2: Social Constraint",
-    "caption": "The eye remains visible through the lace, making the act of looking feel intimate and forbidden.",
-    "short_caption": "Lace makes looking trespass."
-  },
-  {
-    "id": "A20",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-20.jpg",
-    "title": "a23-mediation-allef-vinicius-dkrntf-jgtw-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "Leaves interrupt the portrait gently, as if nature itself has chosen what may be seen.",
-    "short_caption": "The gaze hides in green."
-  },
-  {
-    "id": "A21",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-21.jpg",
-    "title": "a24-raw-agency-amir-geshani-2jh8d3chnec-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "She holds the obstruction herself, turning concealment into control.",
-    "short_caption": "She edits the view."
-  },
-  {
     "id": "A22",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-22.jpg",
-    "title": "a25-social-constraint-andrey-zvyagintsev-t8iknlqojcq-unspl",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-22.jpg",
+    "title": "arielle-allouche-H82Rqe4griA-unsplash",
     "group": "Group 2: Social Constraint",
     "caption": "The pose turns looking into a rule already agreed to.",
     "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A23",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-23.jpg",
-    "title": "a26-mediation-arielle-allouche-h82rqe4gria-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-23.jpg",
+    "title": "baran-lotfollahi-LOBgOf8Rurg-unsplash",
     "group": "Group 3: Mediation",
-    "caption": "A surface intervenes, and sight has to earn the face.",
-    "short_caption": "A surface intervenes, and sight has to earn the face."
-  },
-  {
-    "id": "A24",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-24.jpg",
-    "title": "a27-raw-agency-baran-lotfollahi-lobgof8rurg-unsplash",
-    "group": "Group 1: Raw Agency",
     "caption": "The closed eye turns the image inward; the fabric makes silence feel physical.",
     "short_caption": "Sight folds into silence."
   },
   {
+    "id": "A24",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-24.jpg",
+    "title": "birmingham-museums-trust-oQpbeWoGD0o-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
+  },
+  {
     "id": "A25",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-25.jpg",
-    "title": "a28-social-constraint-birmingham-museums-trust-oqpbewogd0o",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-25.jpg",
+    "title": "boston-public-library-gRbFMxpUMU4-unsplash",
     "group": "Group 2: Social Constraint",
     "caption": "The pose turns looking into a rule already agreed to.",
     "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A26",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-26.jpg",
-    "title": "a29-mediation-boston-public-library-grbfmxpumu4-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-26.jpg",
+    "title": "brunxs-monochrome-sPnIqdCPI9U-unsplash",
     "group": "Group 3: Mediation",
-    "caption": "A surface intervenes, and sight has to earn the face.",
-    "short_caption": "A surface intervenes, and sight has to earn the face."
-  },
-  {
-    "id": "A27",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-27.jpg",
-    "title": "a30-raw-agency-brunxs-monochrome-spniqdcpi9u-unsplash",
-    "group": "Group 1: Raw Agency",
     "caption": "The shadows do not cover her completely; they divide the gaze into risk and revelation.",
     "short_caption": "One eye survives the dark."
   },
   {
-    "id": "A28",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-28.jpg",
-    "title": "a31-social-constraint-caleb-kastein-lmnz6-icim8-unsplash",
-    "group": "Group 2: Social Constraint",
+    "id": "A27",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-27.jpg",
+    "title": "caleb-kastein-lmNz6-ICIM8-unsplash",
+    "group": "Group 1: Raw Agency",
     "caption": "The eye survives the dark, but the rest of the face slips out of reach.",
     "short_caption": "One eye holds the room."
   },
   {
+    "id": "A28",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-28.jpg",
+    "title": "camila-quintero-franco-mC852jACK1g-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+  },
+  {
     "id": "A29",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-29.jpg",
-    "title": "a32-mediation-camila-quintero-franco-mc852jack1g-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-29.jpg",
+    "title": "carl-cheng-o4L-veTcXHY-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "The covered lenses turn sight into repair, damage, and evidence.",
+    "short_caption": "Vision becomes patched evidence."
+  },
+  {
+    "id": "A30",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-30.jpg",
+    "title": "cole-keister-D6zQt8NfIq4-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "The foil frames the gaze like something precious, trapped, and half-protected.",
+    "short_caption": "The gaze cuts through gold."
+  },
+  {
+    "id": "A31",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-31.jpg",
+    "title": "darius-bashar-3XEgKKBinCk-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The face moves faster than recognition, leaving the eye as the only anchor.",
+    "short_caption": "Identity slips; the eye remains."
+  },
+  {
+    "id": "A32",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-32.jpg",
+    "title": "drew-dizzy-graham-cTKGZJTMJQU-unsplash",
     "group": "Group 3: Mediation",
     "caption": "A surface intervenes, and sight has to earn the face.",
     "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
-    "id": "A30",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-30.jpg",
-    "title": "a33-raw-agency-carl-cheng-o4l-vetcxhy-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "The covered lenses turn sight into repair, damage, and evidence.",
-    "short_caption": "Vision becomes patched evidence."
-  },
-  {
-    "id": "A31",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-31.jpg",
-    "title": "a34-social-constraint-cole-keister-d6zqt8nfiq4-unsplash",
-    "group": "Group 2: Social Constraint",
-    "caption": "The foil frames the gaze like something precious, trapped, and half-protected.",
-    "short_caption": "The gaze cuts through gold."
-  },
-  {
-    "id": "A32",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-32.jpg",
-    "title": "a35-mediation-darius-bashar-3xegkkbinck-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "The face moves faster than recognition, leaving the eye as the only anchor.",
-    "short_caption": "Identity slips; the eye remains."
-  },
-  {
     "id": "A33",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-33.jpg",
-    "title": "a36-raw-agency-drew-dizzy-graham-ctkgzjtmjqu-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-33.jpg",
+    "title": "elias-maurer-sSpLu7IPC8g-unsplash",
     "group": "Group 1: Raw Agency",
-    "caption": "Presence arrives before permission; the body speaks first.",
-    "short_caption": "Presence arrives before permission; the body speaks first."
-  },
-  {
-    "id": "A34",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-34.jpg",
-    "title": "a37-social-constraint-elias-maurer-ssplu7ipc8g-unsplash",
-    "group": "Group 2: Social Constraint",
     "caption": "Text covers the face, but the eye reads back through the surface.",
     "short_caption": "The archive looks back."
   },
   {
+    "id": "A34",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-34.jpg",
+    "title": "elvis-kaiser-Rqbk5ez6Qa0-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+  },
+  {
     "id": "A35",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-35.jpg",
-    "title": "a38-mediation-elvis-kaiser-rqbk5ez6qa0-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-35.jpg",
+    "title": "enesh-taganova-IoXGIDqVqYQ-unsplash (1)",
     "group": "Group 3: Mediation",
     "caption": "A surface intervenes, and sight has to earn the face.",
     "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A36",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-36.jpg",
-    "title": "a39-raw-agency-enesh-taganova-ioxgidqvqyq-unsplash-1",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-36.jpg",
+    "title": "erik-mclean-gjtz5cKGEEw-unsplash",
     "group": "Group 1: Raw Agency",
-    "caption": "Presence arrives before permission; the body speaks first.",
-    "short_caption": "Presence arrives before permission; the body speaks first."
-  },
-  {
-    "id": "A37",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-37.jpg",
-    "title": "a40-social-constraint-erik-mclean-gjtz5ckgeew-unsplash",
-    "group": "Group 2: Social Constraint",
     "caption": "The darkness does not hide the gaze; it sharpens its accusation.",
     "short_caption": "The eye becomes evidence."
   },
   {
+    "id": "A37",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-37.jpg",
+    "title": "europeana-lBt8NEWOnko-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+  },
+  {
     "id": "A38",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-38.jpg",
-    "title": "a41-mediation-europeana-lbt8newonko-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-38.jpg",
+    "title": "europeana-wwgHncxMcQI-unsplash",
     "group": "Group 3: Mediation",
     "caption": "A surface intervenes, and sight has to earn the face.",
     "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A39",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-39.jpg",
-    "title": "a42-raw-agency-europeana-wwghncxmcqi-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-39.jpg",
+    "title": "evilicio-inc-1HTY8zLsWLs-unsplash",
     "group": "Group 1: Raw Agency",
     "caption": "Presence arrives before permission; the body speaks first.",
     "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
     "id": "A40",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-40.jpg",
-    "title": "a43-social-constraint-evilicio-inc-1hty8zlswls-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-40.jpg",
+    "title": "flaviu-costin-Vr-sBbCWklc-unsplash",
     "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
-  },
-  {
-    "id": "A41",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-41.jpg",
-    "title": "a44-mediation-flaviu-costin-vr-sbbcwklc-unsplash",
-    "group": "Group 3: Mediation",
     "caption": "The cloth protects and confines at once, leaving one eye to carry the whole portrait.",
     "short_caption": "One opening, one witness."
   },
   {
-    "id": "A42",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-42.jpg",
-    "title": "a45-raw-agency-good-faces-r8vsytyy2oe-unsplash",
-    "group": "Group 1: Raw Agency",
+    "id": "A41",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-41.jpg",
+    "title": "good-faces-R8VSYtyY2oE-unsplash",
+    "group": "Group 3: Mediation",
     "caption": "The face dissolves into motion, as if memory cannot hold it still.",
     "short_caption": "Recognition loses focus."
   },
   {
+    "id": "A42",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-42.jpg",
+    "title": "harry-quan-G1iYCeCW2EI-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
+  },
+  {
     "id": "A43",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-43.jpg",
-    "title": "a46-social-constraint-harry-quan-g1iycecw2ei-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-43.jpg",
+    "title": "igor-rand-GIW9CCL3HxA-unsplash",
     "group": "Group 2: Social Constraint",
     "caption": "The pose turns looking into a rule already agreed to.",
     "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A44",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-44.jpg",
-    "title": "a47-mediation-igor-rand-giw9ccl3hxa-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-44.jpg",
+    "title": "ilya-mondryk-OCEeo0aYN1s-unsplash",
     "group": "Group 3: Mediation",
     "caption": "A surface intervenes, and sight has to earn the face.",
     "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A45",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-45.jpg",
-    "title": "a48-raw-agency-ilya-mondryk-oceeo0ayn1s-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-45.jpg",
+    "title": "janko-ferlic-brZT6bdt6NA-unsplash",
     "group": "Group 1: Raw Agency",
     "caption": "Presence arrives before permission; the body speaks first.",
     "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
     "id": "A46",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-46.jpg",
-    "title": "a49-social-constraint-janko-ferlic-brzt6bdt6na-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-46.jpg",
+    "title": "jr-korpa-0lOkeLbdsBw-unsplash",
     "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
-  },
-  {
-    "id": "A47",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-47.jpg",
-    "title": "a50-mediation-jr-korpa-0lokelbdsbw-unsplash",
-    "group": "Group 3: Mediation",
     "caption": "The face appears twice, but neither version offers certainty.",
     "short_caption": "Doubling does not reveal."
   },
   {
+    "id": "A47",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-47.jpg",
+    "title": "library-of-congress-v0jInHBf3XQ-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
+  },
+  {
     "id": "A48",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-48.jpg",
-    "title": "a51-raw-agency-library-of-congress-v0jinhbf3xq-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-48.jpg",
+    "title": "lorraine-hill-4dyXkga2GxA-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "The eye peers through a torn aperture, caught between protection and surveillance.",
+    "short_caption": "A small hole becomes a gaze."
+  },
+  {
+    "id": "A49",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-49.jpg",
+    "title": "mahdi-bafande-rw-AZxeky7Q-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "Light cuts across the eye like a wound; the rest of the face falls silent.",
+    "short_caption": "Light becomes incision."
+  },
+  {
+    "id": "A50",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-50.jpg",
+    "title": "nastia-petruk-F-HAjYv3WyE-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "The leaves interrupt the portrait softly, but the gaze remains direct and unhidden.",
+    "short_caption": "Nature edits the face."
+  },
+  {
+    "id": "A51",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-51.jpg",
+    "title": "nina-zeynep-guler-fjJiVSX-BxM-unsplash",
     "group": "Group 1: Raw Agency",
     "caption": "Presence arrives before permission; the body speaks first.",
     "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
-    "id": "A49",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-49.jpg",
-    "title": "a52-social-constraint-lorraine-hill-4dyxkga2gxa-unsplash",
-    "group": "Group 2: Social Constraint",
-    "caption": "The eye peers through a torn aperture, caught between protection and surveillance.",
-    "short_caption": "A small hole becomes a gaze."
-  },
-  {
-    "id": "A50",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-50.jpg",
-    "title": "a53-mediation-mahdi-bafande-rw-azxeky7q-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "Light cuts across the eye like a wound; the rest of the face falls silent.",
-    "short_caption": "Light becomes incision."
-  },
-  {
-    "id": "A51",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-51.jpg",
-    "title": "a54-raw-agency-nastia-petruk-f-hajyv3wye-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "The leaves interrupt the portrait softly, but the gaze remains direct and unhidden.",
-    "short_caption": "Nature edits the face."
-  },
-  {
     "id": "A52",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-52.jpg",
-    "title": "a55-social-constraint-nina-zeynep-guler-fjjivsx-bxm-unspla",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-52.jpg",
+    "title": "noah-buscher-11lDEHFy_hA-unsplash",
     "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
-  },
-  {
-    "id": "A53",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-53.jpg",
-    "title": "a56-mediation-noah-buscher-11ldehfy-ha-unsplash",
-    "group": "Group 3: Mediation",
     "caption": "Play becomes obstruction; sweetness performs the work of concealment.",
     "short_caption": "Candy becomes a mask."
   },
   {
-    "id": "A54",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-54.jpg",
-    "title": "a57-raw-agency-ovie-ogege-6bwt4ci-ujs-unsplash",
-    "group": "Group 1: Raw Agency",
+    "id": "A53",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-53.jpg",
+    "title": "ovie-ogege-6bwT4cI_UJs-unsplash",
+    "group": "Group 3: Mediation",
     "caption": "The glasses split the face into surface and shadow, making style feel like defense.",
     "short_caption": "Coolness becomes cover."
   },
   {
+    "id": "A54",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-54.jpg",
+    "title": "see-plus-NP3s9BYOqAc-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
+  },
+  {
     "id": "A55",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-55.jpg",
-    "title": "a58-social-constraint-see-plus-np3s9byoqac-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-55.jpg",
+    "title": "smithsonian-ELPq3W9Epnk-unsplash",
     "group": "Group 2: Social Constraint",
     "caption": "The pose turns looking into a rule already agreed to.",
     "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A56",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-56.jpg",
-    "title": "a59-mediation-smithsonian-elpq3w9epnk-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-56.jpg",
+    "title": "smithsonian-OtG-Zz0tYbE-unsplash",
     "group": "Group 3: Mediation",
     "caption": "A surface intervenes, and sight has to earn the face.",
     "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A57",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-57.jpg",
-    "title": "a60-raw-agency-smithsonian-otg-zz0tybe-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-57.jpg",
+    "title": "teslariu-mihai-tK-SzdDiUIs-unsplash",
     "group": "Group 1: Raw Agency",
     "caption": "Presence arrives before permission; the body speaks first.",
     "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
     "id": "A58",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-58.jpg",
-    "title": "a61-social-constraint-teslariu-mihai-tk-szddiuis-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-58.jpg",
+    "title": "the-new-york-public-library-ndJV4ntdF6g-unsplash",
     "group": "Group 2: Social Constraint",
     "caption": "The pose turns looking into a rule already agreed to.",
     "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
     "id": "A59",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-59.jpg",
-    "title": "a62-mediation-the-new-york-public-library-ndjv4ntdf6g-unsp",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-59.jpg",
+    "title": "toa-heftiba-FV1LuNSHcAw-unsplash",
     "group": "Group 3: Mediation",
     "caption": "A surface intervenes, and sight has to earn the face.",
     "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A60",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-60.jpg",
-    "title": "a63-raw-agency-toa-heftiba-fv1lunshcaw-unsplash",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-60.jpg",
+    "title": "umanoide-XJP9Ak1oqHw-unsplash",
     "group": "Group 1: Raw Agency",
-    "caption": "Presence arrives before permission; the body speaks first.",
-    "short_caption": "Presence arrives before permission; the body speaks first."
-  },
-  {
-    "id": "A61",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-61.jpg",
-    "title": "a64-social-constraint-umanoide-xjp9ak1oqhw-unsplash",
-    "group": "Group 2: Social Constraint",
     "caption": "False eyes replace the real ones, turning the portrait into a performance of seeing.",
     "short_caption": "The mask learns to look."
   },
   {
-    "id": "A62",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-62.jpg",
-    "title": "a65-mediation-umesh-soni-hpklbuuel-k-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "A surface intervenes, and sight has to earn the face.",
-    "short_caption": "A surface intervenes, and sight has to earn the face."
+    "id": "A61",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-61.jpg",
+    "title": "umesh-soni-hpklBuuel_k-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
   },
   {
-    "id": "A63",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-63.jpg",
-    "title": "a66-mediation-woman-obscured-by-white-flowers-creating-a-d",
+    "id": "A62",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-62.jpeg",
+    "title": "Woman obscured by white flowers, creating a dreamy and sur",
     "group": "Group 3: Mediation",
     "caption": "The flowers are gentle, but their placement is absolute: beauty refuses access.",
     "short_caption": "Softness blocks the gaze."
   },
   {
-    "id": "A64",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-64.jpg",
-    "title": "a67-social-constraint-zachary-kadolph-qbjgfnctwbu-unsplash",
-    "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
+    "id": "A63",
+    "path": "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/assets/asset-63.jpg",
+    "title": "zachary-kadolph-qBJgfnCTwbU-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
   }
 ];
-var OUTPUT_INDD = "/home/user/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.indd";
-var OUTPUT_IDML = "/home/user/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.idml";
-var OUTPUT_PDF = "/home/user/theory-of-sigh/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-auto.pdf";
-var OUTPUT_REPORT = "/home/user/theory-of-sigh/visceral-production-route/reports/indesign-full-layout-auto-report.json";
+var OUTPUT_INDD = "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.indd";
+var OUTPUT_IDML = "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.idml";
+var OUTPUT_PDF = "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/output/pdf/the-visceral-theory-of-sight-50pp-indesign-auto.pdf";
+var OUTPUT_REPORT = "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/visceral-production-route/reports/indesign-full-layout-auto-report.json";
 
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;
 
@@ -558,7 +550,7 @@ var SECTION = {
   }
 };
 
-var COVER_PATH = "/home/user/theory-of-sigh/images/cover.jpg";
+var COVER_PATH = "C:/Users/toddl/OneDrive/Desktop/SCHOOL/Graph252 booklab/visceral-theory of sight assets/theory of sight/images/cover.jpg";
 
 function mm(v) { return v + "mm"; }
 function b(t, l, bot, r) { return [mm(t), mm(l), mm(bot), mm(r)]; }
