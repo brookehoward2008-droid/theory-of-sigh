@@ -898,11 +898,7 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
 
 function backMatter(page, n, doc, ink, cream, gold) {
   if (n === 50) {
-<<<<<<< HEAD
-    textFrame(page, b(40, 18, 96, 230), "Sight remains\runfinished.", 34, "Bold", cream, 100);
-=======
     textFrame(page, b(40, 18, 96, 230), "Sight remains unfinished.", 34, "Bold", cream, 100);
->>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
     textFrame(page, b(150, 18, 190, 250), "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", 10, "Regular", cream, 100);
     return;
   }
@@ -918,11 +914,7 @@ function backMatter(page, n, doc, ink, cream, gold) {
   } else if (n === 48) {
     textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   } else {
-<<<<<<< HEAD
-    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times, printed white on black.", 10, "Regular", cream, 100);
-=======
     textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Gloock, Spectral, and Work Sans; printed white on black.", 10, "Regular", cream, 100);
->>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
   }
 }
 

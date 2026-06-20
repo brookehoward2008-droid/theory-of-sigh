@@ -815,18 +815,6 @@ def draw_toc(c: canvas.Canvas) -> None:
     draw_bg(c, dark=True)
     draw_label(c, "contents", CONTENT_L, CONTENT_T - 6, color=GOLD)
     c.setFillColor(CREAM)
-<<<<<<< HEAD
-    c.setFont("Helvetica-Bold", 34)
-    c.drawString(CONTENT_L, CONTENT_T - 64, "Agency / Constraint / Mediation")
-    entries = [
-        ("Front Matter", "01"),
-        ("Introduction: The Visceral Theory of Sight", "05"),
-        ("I. Agency", "08"),
-        ("II. Constraint", "17"),
-        ("III. Mediation", "27"),
-        ("IV. Synthesis", "39"),
-        ("Back Matter", "46"),
-=======
     c.setFont("VogueDisplay", 34)
     c.drawString(CONTENT_L, CONTENT_T - 64, "Agency / Constraint / Mediation / Synthesis")
     entries = [
@@ -838,7 +826,6 @@ def draw_toc(c: canvas.Canvas) -> None:
         ("III. Mediation", "28"),
         ("IV. Synthesis", "40"),
         ("Back Matter", "47"),
->>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
     ]
     y = CONTENT_T - 122
     for title, page in entries:
@@ -1039,11 +1026,7 @@ def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], off
         c.setLineWidth(1.6)
         c.line(tx, CONTENT_T - 30, CONTENT_R, CONTENT_T - 30)
         c.setFillColor(CREAM)
-<<<<<<< HEAD
-        c.setFont("Helvetica-Bold", 20)
-=======
         c.setFont("VogueDisplay", 20)
->>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
         c.drawString(tx, CONTENT_T - 58, "Looking never arrives clean.")
         draw_text_block(c, body_text, tx, CONTENT_T - 88, width_chars=32, leading=14.5, size=10.4, color=CREAM)
         overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 200, dark=True)
@@ -1086,33 +1069,19 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
             "Editions, page ranges, and image licenses to be confirmed before final print."
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
-<<<<<<< HEAD
-    elif page == 49:
-=======
     elif page == 50:
->>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
         draw_label(c, "colophon", CONTENT_L, CONTENT_T - 6, color=CREAM)
         text = (
             "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. "
             "Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. "
-<<<<<<< HEAD
-            "Set in Helvetica and Times, printed white on black."
-=======
             "Set in Gloock, Spectral, and Work Sans; printed white on black."
->>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
         )
         draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     else:
         c.setFont("VogueDisplay", 40)
         c.setFillColor(CREAM)
-<<<<<<< HEAD
-        c.drawString(CONTENT_L, CONTENT_T - 120, "Sight remains")
-        c.drawString(CONTENT_L, CONTENT_T - 168, "unfinished.")
-        draw_text_block(c, "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", CONTENT_L, CONTENT_B + 96, width_chars=92, leading=14, size=10, color=CREAM)
-=======
         c.drawString(CONTENT_L, CONTENT_T - 140, "Sight remains unfinished.")
         draw_text_block(c, "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", CONTENT_L, CONTENT_B + 80, width_chars=130, leading=14, size=10, color=CREAM)
->>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
     draw_page_number(c, page, dark=True)
 
 
@@ -1940,11 +1909,7 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
 
 function backMatter(page, n, doc, ink, cream, gold) {{
   if (n === 50) {{
-<<<<<<< HEAD
-    textFrame(page, b(40, 18, 96, 230), "Sight remains\\runfinished.", 34, "Bold", cream, 100);
-=======
     textFrame(page, b(40, 18, 96, 230), "Sight remains unfinished.", 34, "Bold", cream, 100);
->>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
     textFrame(page, b(150, 18, 190, 250), "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", 10, "Regular", cream, 100);
     return;
   }}
@@ -1960,11 +1925,7 @@ function backMatter(page, n, doc, ink, cream, gold) {{
   }} else if (n === 48) {{
     textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   }} else {{
-<<<<<<< HEAD
-    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times, printed white on black.", 10, "Regular", cream, 100);
-=======
     textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Gloock, Spectral, and Work Sans; printed white on black.", 10, "Regular", cream, 100);
->>>>>>> b3e86911966ae76b5e29008ae9316f55866282c1
   }}
 }}
 
