@@ -1,0 +1,110 @@
+.site-nav {
+  min-height: 60px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.brand {
+  font-size: clamp(1.2rem, 2.1vw, 1.7rem);
+}
+
+.nav-links {
+  overflow-x: auto;
+}
+
+@media (max-width: 1280px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    inset: 60px 16px auto;
+    display: grid;
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(24, 21, 20, .96);
+    border: 1px solid rgba(240, 232, 220, .16);
+    transition: max-height .35s ease;
+  }
+
+  .nav-links.is-open {
+    max-height: 420px;
+    padding: 12px;
+  }
+}
+
+.cover-copy,
+.chapter-copy {
+  min-width: 0;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cover h1 {
+  max-width: 9ch;
+  margin-bottom: 26px;
+  font-size: clamp(3rem, 5.8vw, 6.2rem);
+  line-height: .96;
+  letter-spacing: -.025em;
+}
+
+.chapter-copy h2 {
+  max-width: 10ch;
+  margin-bottom: 28px;
+  font-size: clamp(2.8rem, 5.2vw, 5.8rem);
+  line-height: .96;
+  letter-spacing: -.02em;
+}
+
+.cover p:last-child,
+.chapter-copy p:last-child {
+  max-width: 31ch;
+  margin-top: 0;
+  font-size: clamp(.98rem, 1.15vw, 1.12rem);
+  line-height: 1.55;
+}
+
+.essay-spread h2 {
+  font-size: clamp(2.8rem, 5.4vw, 6rem);
+}
+
+.essay-spread blockquote {
+  font-size: clamp(2.8rem, 6vw, 6.2rem);
+}
+
+.text-card h3 {
+  font-size: clamp(2rem, 3.5vw, 3.8rem);
+  line-height: 1;
+}
+
+.quote-band p {
+  font-size: clamp(3.6rem, 9vw, 8.6rem);
+  line-height: .9;
+}
+
+.references h2 {
+  font-size: clamp(2.8rem, 5.4vw, 5.8rem);
+}
+
+@media (max-width: 920px) {
+  .spread {
+    grid-template-columns: minmax(0, 52%) minmax(320px, 48%);
+  }
+
+  .cover h1 {
+    font-size: clamp(2.8rem, 6.5vw, 5rem);
+  }
+
+  .chapter-copy h2 {
+    font-size: clamp(2.6rem, 5.8vw, 4.8rem);
+  }
+}
+
+@media (max-width: 760px) {
+  .cover h1,
+  .chapter-copy h2 {
+    max-width: 8ch;
+    font-size: clamp(3rem, 14vw, 4.6rem);
+  }
+}

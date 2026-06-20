@@ -1,0 +1,185 @@
+:root {
+  --display: "Cormorant Garamond", Georgia, serif;
+  --body: "Inter", "Catamaran", Arial, sans-serif;
+  --reading: "Source Serif 4", Georgia, serif;
+  --ink: #181514;
+  --paper: #f3ecdf;
+  --muted: #c2b4a4;
+  --accent: #84645c;
+  --teal: #5f7f78;
+  --bronze: #bd9362;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
+}
+
+.brand {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: 0.015em;
+}
+
+.nav-links a,
+.issue-label,
+.folio,
+.page-count,
+.nav-toggle {
+  font-family: var(--body);
+  letter-spacing: 0.16em;
+}
+
+.cover h1,
+.chapter-copy h2,
+.essay-spread h2,
+.essay-spread blockquote,
+.text-card h3,
+.quote-band p,
+.references h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.cover h1 {
+  max-width: 8.8ch;
+  font-size: clamp(3.4rem, 6.5vw, 7.2rem);
+  line-height: 0.88;
+}
+
+.chapter-copy h2 {
+  max-width: 9.6ch;
+  font-size: clamp(3rem, 5.8vw, 6.4rem);
+  line-height: 0.9;
+}
+
+.cover-copy,
+.chapter-copy {
+  gap: 0;
+}
+
+.cover p:last-child,
+.chapter-copy p:last-child,
+.essay-spread p,
+.text-card p,
+.references p,
+.references li {
+  font-family: var(--reading);
+  font-size: clamp(1.04rem, 1.15vw, 1.24rem);
+  line-height: 1.68;
+}
+
+.cover p:last-child,
+.chapter-copy p:last-child {
+  max-width: 33ch;
+}
+
+.opening h2,
+.closing h2 {
+  max-width: 11ch;
+  font-size: clamp(3rem, 5.8vw, 6.8rem);
+  line-height: 0.92;
+}
+
+.essay-spread p {
+  max-width: 48ch;
+}
+
+.essay-spread blockquote {
+  max-width: 12ch;
+  line-height: 0.88;
+}
+
+.text-card h3 {
+  max-width: 10ch;
+  line-height: 0.94;
+}
+
+figcaption {
+  font-family: var(--body);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.references ol {
+  font-family: var(--reading);
+  font-size: clamp(1rem, 1.1vw, 1.18rem);
+  line-height: 1.62;
+}
+
+.references em {
+  font-style: italic;
+}
+
+@media (max-width: 1280px) {
+  .nav-links a {
+    font-size: 0.74rem;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 920px) {
+  .cover h1,
+  .chapter-copy h2 {
+    max-width: 10ch;
+    font-size: clamp(3rem, 8.4vw, 5.4rem);
+  }
+
+  .spread {
+    grid-template-columns: minmax(0, 50%) minmax(300px, 50%);
+  }
+}
+
+@media (max-width: 760px) {
+  .site-nav {
+    align-items: center;
+  }
+
+  .brand {
+    max-width: 14ch;
+    font-size: 1.45rem;
+    line-height: 0.96;
+  }
+
+  .nav-toggle {
+    min-height: 42px;
+  }
+
+  .cover h1,
+  .chapter-copy h2 {
+    max-width: 9ch;
+    font-size: clamp(3rem, 15vw, 5rem);
+    line-height: 0.9;
+  }
+
+  .cover p:last-child,
+  .chapter-copy p:last-child,
+  .essay-spread p,
+  .text-card p,
+  .references p,
+  .references li {
+    font-size: 1.08rem;
+    line-height: 1.64;
+  }
+
+  .opening h2,
+  .closing h2 {
+    max-width: 10ch;
+    font-size: clamp(2.8rem, 13vw, 4.8rem);
+  }
+
+  .essay-spread blockquote,
+  .quote-band p {
+    font-size: clamp(3rem, 15vw, 5.4rem);
+    line-height: 0.88;
+  }
+
+  .references h2 {
+    font-size: clamp(2.8rem, 13vw, 4.8rem);
+  }
+}
