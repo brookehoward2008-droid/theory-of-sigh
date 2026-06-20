@@ -3,6 +3,9 @@
 __pycache__/
 *.py[cod]
 
+# Local secrets for the InDesign API client
+.env
+
 visceral-production-route/assets/
 visceral-production-route/tmp/
 visceral-production-route/deliverables/
