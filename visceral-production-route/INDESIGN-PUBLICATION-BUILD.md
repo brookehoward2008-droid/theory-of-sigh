@@ -58,4 +58,8 @@ style-driven build.
   Chris Larson's note) **and** resolves **overset** frames (grow within the page,
   else copyfit). Reports each fix; flags any paragraph that needs a wider box.
 - `templates/indesign-precision-fit.jsx` — overset-only version of Pass 2.
+- `templates/incopy-editorial-prep.jsx` — **InCopy** editor-side prep: typographic
+  cleanup (typographer's quotes, em dashes, double-spaces, trailing spaces),
+  widow flagging (revise-copy fix), copyfit/overset report, and word/character
+  counts. Text only — no frames or images touched.
 
