@@ -67,6 +67,38 @@ machine you can instead add it globally:
 claude mcp add adobe-express-add-on -- npx @adobe/express-developer-mcp@latest --yes
 ```
 
+## Bonus: auto-install a desktop ExtendScript (easybook / `School.jsx`)
+
+[serjant/easybook-indesign-plugin](https://github.com/serjant/easybook-indesign-plugin)
+is an **ExtendScript** (`School.jsx`) — a class/yearbook layout helper (rows of
+pupils, photo ratios, alignment). ExtendScripts aren't UXP/CEP plugins; they
+install into InDesign's **Scripts Panel** user folder and then appear under
+**Window → Utilities → Scripts** in every InDesign session.
+
+`scripts/install_easybook.py` automates that. Run it **on your own machine**
+(macOS/Windows, where InDesign lives — it can't touch a headless cloud box):
+
+```bash
+# Fetch the script from GitHub and install it for every InDesign version found:
+python scripts/install_easybook.py
+
+# Preview without copying:
+python scripts/install_easybook.py --dry-run
+
+# Install from a local clone instead of fetching:
+python scripts/install_easybook.py --source /path/to/easybook-indesign-plugin
+```
+
+It detects every `Version */<locale>/Scripts/Scripts Panel` folder, so "all
+agents" / every InDesign version and any `do script` automation can reach it.
+Defaults to the readable `.jsx`; use `--prefer jsxbin` (compiled) or
+`--prefer both`. The third-party script is **not vendored** into this repo (it
+ships no license) — the installer fetches it from upstream at run time.
+
+> Heads-up: `School.jsx` is interactive (it opens dialogs), so it's meant for the
+> **desktop** Scripts Panel. It won't run unattended through the cloud InDesign
+> API custom-scripts route without first removing its UI prompts.
+
 ## How it maps to the book pipeline
 
 Every endpoint is asynchronous: POST a job → get a `jobId` + `statusUrl` → poll
