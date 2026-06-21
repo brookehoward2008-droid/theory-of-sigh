@@ -23,6 +23,7 @@ Requirements (Windows only):
 
 Usage:
   python scripts/run_indesign_autobuild.py
+  python scripts/run_indesign_autobuild.py --handoff /path/to/handoff_package
 """
 from __future__ import annotations
 
@@ -35,8 +36,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 JSX = ROOT / "visceral-production-route" / "templates" / "indesign-build-full-layout.jsx"
+JSX_HANDOFF = ROOT / "visceral-production-route" / "templates" / "indesign-handoff-build.jsx"
 INDD = ROOT / "visceral-production-route" / "output" / "indesign" / "the-visceral-theory-of-sight-50pp.indd"
+INDD_HANDOFF = ROOT / "visceral-production-route" / "output" / "indesign" / "the-visceral-theory-of-sight-50pp-handoff.indd"
 REPORT = ROOT / "visceral-production-route" / "reports" / "indesign-full-layout-auto-report.json"
+REPORT_HANDOFF = ROOT / "visceral-production-route" / "reports" / "handoff-build-indesign-report.json"
 
 # idScriptLanguage.JAVASCRIPT (ExtendScript)
 JAVASCRIPT = 1246973031
@@ -91,7 +95,27 @@ def connect_indesign():
     )
 
 
+def regenerate_handoff(handoff_dir: str) -> None:
+    """Generate the handoff JSX from the specified package directory."""
+    import build_from_handoff
+
+    handoff_path = Path(handoff_dir).resolve()
+    build_from_handoff.generate_handoff_jsx(handoff_path)
+    print(f"  regenerated handoff builder JSX from {handoff_path}")
+
+
 def main() -> int:
+    use_handoff = False
+    handoff_dir = None
+    if "--handoff" in sys.argv:
+        idx = sys.argv.index("--handoff")
+        if idx + 1 < len(sys.argv):
+            handoff_dir = sys.argv[idx + 1]
+            use_handoff = True
+        else:
+            print("ERROR: --handoff requires a directory path argument")
+            return 1
+
     if platform.system() != "Windows":
         print(
             "This driver automates InDesign over COM and must run on Windows "
@@ -100,10 +124,21 @@ def main() -> int:
         )
         return 2
 
-    print("Step 1/2: regenerate layout assets + builder JSX ...")
-    regenerate_layout()
-    if not JSX.exists():
-        print(f"ERROR: builder JSX not found at {JSX}")
+    if use_handoff:
+        print("Step 1/2: generate handoff builder JSX ...")
+        regenerate_handoff(handoff_dir)
+        jsx_target = JSX_HANDOFF
+        indd_target = INDD_HANDOFF
+        report_target = REPORT_HANDOFF
+    else:
+        print("Step 1/2: regenerate layout assets + builder JSX ...")
+        regenerate_layout()
+        jsx_target = JSX
+        indd_target = INDD
+        report_target = REPORT
+
+    if not jsx_target.exists():
+        print(f"ERROR: builder JSX not found at {jsx_target}")
         return 1
 
     try:
@@ -126,18 +161,18 @@ def main() -> int:
 
     start = time.time()
     try:
-        app.DoScript(str(JSX), JAVASCRIPT)
+        app.DoScript(str(jsx_target), JAVASCRIPT)
     except Exception as exc:
         print(f"ERROR: InDesign reported a script failure: {exc}")
         return 1
     print(f"  build finished in {time.time() - start:.1f}s")
 
     print("Outputs:")
-    for path in (INDD, INDD.with_suffix(".idml"), REPORT):
+    for path in (indd_target, indd_target.with_suffix(".idml"), report_target):
         print(f"  {'OK     ' if path.exists() else 'MISSING'} {path}")
-    if REPORT.exists():
+    if report_target.exists():
         print(
-            "\nReview indesign-full-layout-auto-report.json for missingLinks and "
+            f"\nReview {report_target.name} for missingLinks and "
             "oversetTextFrames before final export."
         )
     return 0

@@ -1,0 +1,2411 @@
+{
+    "production_metadata": {
+        "project_name": "The Visceral Theory of Sight",
+        "version": "1.0.0-PROD",
+        "status": "PRODUCTION_READY",
+        "last_updated": "2026-06-21 10:10:52",
+        "total_pages": 50,
+        "total_assets": 73,
+        "high_res_assets": 53,
+        "grid_system": {
+            "type": "two-column-asymmetric",
+            "left_margin": 54.4,
+            "right_margin": 36.0,
+            "columns": [
+                {
+                    "id": 1,
+                    "start_x": 54.4,
+                    "width": 398.7
+                },
+                {
+                    "id": 2,
+                    "start_x": 473.1,
+                    "width": 300.9
+                }
+            ],
+            "gutter": 20.0,
+            "total_span": 719.6
+        }
+    },
+    "pages": [
+        {
+            "page_number": 0,
+            "content": "THE ANATOMY OF LOOKING\nTHE VISCERAL\nTHEORY OF SIGHT\nthe body, the gaze, and the veil\n01\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_0_img_0_xref_12.png",
+                    "bbox": "(115.0, 0.0, 695.0, 630.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 576
+                    },
+                    "source_asset": "AdobeStock_140076283.jpeg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 1,
+            "content": "THE ANATOMY OF LOOKING\n02\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_1_img_0_xref_15.png",
+                    "bbox": "(115.0, 0.0, 695.0, 947.368408203125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386
+                    },
+                    "source_asset": "AdobeStock_193035243.jpeg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 2,
+            "content": "TITLE\nTHE VISCERAL\nTHEORY OF SIGHT\nA visual psychology issue on gaze, image memory, and the veil.\nThis issue uses local image files supplied for production. Adobe Stock\nand Unsplash assets require license and source verification before\npublic release; locally generated or unknown files require creator and\nusage confirmation. Citations are real and listed in Works Consulted;\nexact editions, page ranges, and licenses are confirmed before final\nprint.\n03\n",
+            "images": [],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 3,
+            "content": "CONTENTS\nAgency / Constraint / Mediation\nFront Matter\n01\nIntroduction: The Visceral Theory of Sight\n05\nI. Agency\n08\nII. Constraint\n17\nIII. Mediation\n27\nIV. Synthesis\n39\nBack Matter\n46\n04\n",
+            "images": [],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 4,
+            "content": "INTRODUCTION\nThe Visceral Theory\nof Sight\nSight is never only an act of seeing. It is\na negotiation between the body that appears,\nthe culture that disciplines appearance, and\nthe surface that decides what the eye is\nallowed to touch. This issue moves through\nagency, constraint, and mediation as one\ncontinuous pressure system: the anatomy of\nlooking, traced from the body outward to the\nveil.\nA01 / MEDIATION\nBeauty becomes the blindfold’s alibi.\n05\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_4_img_0_xref_22.png",
+                    "bbox": "(115.0, 574.4, 695.0, 790.4)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 403
+                    },
+                    "source_asset": "AdobeStock_206067082.jpeg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_4_img_1_xref_15.png",
+                    "bbox": "(115.0, 54.4, 695.0, 304.4)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386
+                    },
+                    "source_asset": "AdobeStock_260081650.jpeg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 2,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_4_img_2_xref_23.png",
+                    "bbox": "(115.0, 314.4, 695.0, 564.4)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 870
+                    },
+                    "source_asset": "AdobeStock_320500758.jpeg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 5,
+            "content": "The image does not give\nitself all at once.\nControlled revelation is the method. Tension is the evidence.\n06\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_5_img_0_xref_26.png",
+                    "bbox": "(115.0, 0.0, 695.0, 630.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 326
+                    },
+                    "source_asset": "AdobeStock_481046584.jpeg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 6,
+            "content": "THE THREE PRESSURES\nAGENCY\nbody as force\nCONSTRAINT\nbody as protocol\nMEDIATION\nveil as edit\nSight is never only an act of seeing. It is a negotiation between the body that appears, the culture that\ndisciplines appearance, and the surface that decides what the eye is allowed to touch. This issue moves through\nagency, constraint, and mediation as one continuous pressure system: the anatomy of looking, traced from the\nbody outward to the veil.\n07\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_6_img_0_xref_29.png",
+                    "bbox": "(115.0, 242.28378295898438, 695.0, 575.007568359375)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386
+                    },
+                    "source_asset": "AdobeStock_493680640.jpeg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 7,
+            "content": "ARTICLE I\nAgency\nThe Body / presence before permission\nAgency is the body as its own first statement: a hand, an eye, a turned\nface that claims attention as pressure, before any rule arrives to explain\nit.\n08\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_7_img_0_xref_32.png",
+                    "bbox": "(115.0, 0.0, 695.0, 630.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386
+                    },
+                    "source_asset": "alex-bracken-l1SJO7TMVEc-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 8,
+            "content": "AGENCY\nThe body becomes the first\ninstrument of authorship before\nit becomes a subject for\ninterpretation. A hand, a\nshoulder, a mouth, a turned\nface: the figure enters as\npressure, not as explanation.\nIt claims the page by being\npresent, and that presence\nunsettles the viewer who has\nnot yet been handed a rule for\nreading it. This is the oldest\ngrammar of looking. In LeRoy\nMcDermott's study of Upper\nPaleolithic female figurines,\nthe strange proportions of the\nearliest carved bodies read not\nas another person's gaze but as\nself-representation, the body\nseen from within by the one who\ninhabits it.[1] Sight begins as\nownership before it becomes\ndisplay.\nA18 / RAW AGENCY\nPresence arrives before permission; the body speaks first.\n09\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_8_img_0_xref_35.png",
+                    "bbox": "(115.0, 8.45111083984375, 695.0, 621.548828125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 715
+                    },
+                    "source_asset": "alexander-krivitskiy-GfOpUKdkMvo-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 9,
+            "content": "AGENCY\nA figure can be partial and still be\nactive. A cropped body still claims\nspace; a single eye still returns the\nlook. So the opening pages stay\nclose, image-led, and a little\nuncomfortable, letting presence\narrive before permission. Looking\nhere is not passive reception. The\neye learns by pressure, repetition,\nand contrast, and a body seen across\na sequence becomes a pattern the\nviewer is slowly trained to\nrecognize. Before culture explains\nthe figure, the figure has already\ninsisted on being seen.\nA24 / RAW AGENCY\nSight folds into silence.\n10\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_9_img_0_xref_38.png",
+                    "bbox": "(115.0, 548.2909912109375, 695.0, 1032.181982421875)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 905
+                    },
+                    "source_asset": "alexander-krivitskiy-az7rqWLWkhI-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_9_img_1_xref_39.png",
+                    "bbox": "(115.0, 54.4, 695.0, 538.2909912109375)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 697
+                    },
+                    "source_asset": "amir-geshani-2JH8d3ChNec-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 10,
+            "content": "AGENCY / SEQUENCE\nA24 / RAW AGENCY\nSight folds into silence.\n11\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_10_img_0_xref_38.png",
+                    "bbox": "(115.0, 0.0, 695.0, 1215.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 869
+                    },
+                    "source_asset": "andrea-farao-SgMC5xjjsfU-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 11,
+            "content": "AGENCY / SEQUENCE\nA27 / RAW AGENCY\nOne eye survives the dark.\n12\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_11_img_0_xref_32.png",
+                    "bbox": "(115.0, 54.4, 695.0, 398.4523071289062)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386
+                    },
+                    "source_asset": "andrey-zvyagintsev-T8IkNlQojCQ-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_11_img_1_xref_44.png",
+                    "bbox": "(115.0, 408.4523071289062, 695.0, 752.5046142578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 773
+                    },
+                    "source_asset": "arielle-allouche-H82Rqe4griA-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 2,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_11_img_2_xref_45.png",
+                    "bbox": "(115.0, 762.5046142578125, 695.0, 1106.5569213867188)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 899
+                    },
+                    "source_asset": "aris-rovas-jui9RSZdPVU-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 12,
+            "content": "AGENCY / SEQUENCE\nA30 / RAW AGENCY\nVision becomes patched evidence.\n13\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_12_img_0_xref_44.png",
+                    "bbox": "(115.0, 0.0, 695.0, 630.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386
+                    },
+                    "source_asset": "armin-lotfi-odh6diQdVLY-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 13,
+            "content": "AGENCY / SEQUENCE\nA33 / RAW AGENCY\nPresence arrives before permission; the body speaks first.\n14\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_13_img_0_xref_50.png",
+                    "bbox": "(115.0, 54.4, 695.0, 398.4523071289062)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 870
+                    },
+                    "source_asset": "baran-lotfollahi-LOBgOf8Rurg-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_13_img_1_xref_45.png",
+                    "bbox": "(115.0, 408.4523071289062, 695.0, 752.5046142578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 387
+                    },
+                    "source_asset": "brunxs-monochrome-sPnIqdCPI9U-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 2,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_13_img_2_xref_51.png",
+                    "bbox": "(115.0, 762.5046142578125, 695.0, 1106.5569213867188)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 698
+                    },
+                    "source_asset": "caleb-kastein-lmNz6-ICIM8-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 14,
+            "content": "AGENCY / SEQUENCE\nA36 / RAW AGENCY\nPresence arrives before permission; the body speaks first.\n15\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_14_img_0_xref_51.png",
+                    "bbox": "(115.0, 0.0, 695.0, 1147.1280517578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 596
+                    },
+                    "source_asset": "camila-quintero-franco-mC852jACK1g-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 15,
+            "content": "AGENCY / SEQUENCE\nA39 / RAW AGENCY\nPresence arrives before permission; the body speaks first.\n16\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_15_img_0_xref_50.png",
+                    "bbox": "(115.0, 54.4, 695.0, 398.4523071289062)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 434
+                    },
+                    "source_asset": "carl-cheng-o4L-veTcXHY-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_15_img_1_xref_56.png",
+                    "bbox": "(115.0, 408.4523071289062, 695.0, 752.5046142578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 773
+                    },
+                    "source_asset": "cole-keister-D6zQt8NfIq4-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 2,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_15_img_2_xref_57.png",
+                    "bbox": "(115.0, 762.5046142578125, 695.0, 1106.5569213867188)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 772
+                    },
+                    "source_asset": "daniel-apodaca-uriAVs6oi3Y-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 16,
+            "content": "ARTICLE II\nConstraint\nThe Rule / visibility as protocol\nConstraint is culture turning visibility into protocol: pose, costume,\nrank, and ritual teach a body how it may appear, and teach the viewer how\nto approve it.\n17\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_16_img_0_xref_26.png",
+                    "bbox": "(115.0, 0.0, 695.0, 630.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 870
+                    },
+                    "source_asset": "drew-dizzy-graham-cTKGZJTMJQU-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 17,
+            "content": "CONSTRAINT\nCulture turns visibility into a\nprotocol. Bodily force is no\nlonger allowed to stand alone;\nit is arranged by posture,\ncostume, rank, ritual,\nmaternity, and inherited rules\nof display. A face still looks\noutward, but now it looks\nthrough an architecture of\nexpectation. Elizabeth Mulley's\nstudy of Laura Muntz gives this\nconstraint an intimate\nregister: womanhood represented\nthrough maternity, care, loss,\nand symbolic burden, the body\nmade legible by the roles it is\nasked to carry.[2] Mary\nMorrissy's account of Una\nWatters adds the everyday,\nwhere the woman is set inside\nordinary weather, labor, and\nstreet life rather than\nidealized apart from it.[3]\nConstraint does not erase\nagency; it redirects it.\nA02 / SOCIAL CONSTRAINT\nThe gaze glitches, but remains.\n18\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_17_img_0_xref_62.png",
+                    "bbox": "(115.0, 54.3543701171875, 695.0, 575.6456909179688)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 871
+                    },
+                    "source_asset": "elias-maurer-sSpLu7IPC8g-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 18,
+            "content": "CONSTRAINT\nThe body still carries force, but\nthat force is shaped by who is\npermitted to look and who is expected\nto be seen. The viewer is disciplined\ntoo. Each repeated crop, pose, and\nsymbol teaches a visual habit, until\nseeing is no longer simple contact\nbut compliance, resistance, and\nlearned interpretation happening at\nonce. The room has rules, and the eye\nhas already agreed to most of them\nbefore it knows that it is choosing\nto obey.\nA04 / SOCIAL CONSTRAINT\nThe eye is edited out.\n19\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_18_img_0_xref_26.png",
+                    "bbox": "(115.0, 54.4, 695.0, 306.0457061767578)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 869
+                    },
+                    "source_asset": "elvis-kaiser-Rqbk5ez6Qa0-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_18_img_1_xref_65.png",
+                    "bbox": "(115.0, 316.0457061767578, 695.0, 567.6913970947265)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 821
+                    },
+                    "source_asset": "enesh-taganova-IoXGIDqVqYQ-unsplash (1).jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 19,
+            "content": "CONSTRAINT / SEQUENCE\nA04 / SOCIAL CONSTRAINT\nThe eye is edited out.\n20\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_19_img_0_xref_65.png",
+                    "bbox": "(115.0, 0.0, 695.0, 630.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386
+                    },
+                    "source_asset": "erik-mclean-gjtz5cKGEEw-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 20,
+            "content": "CONSTRAINT / SEQUENCE\nA05 / SOCIAL CONSTRAINT\nBloom as blindfold.\n21\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_20_img_0_xref_70.png",
+                    "bbox": "(115.0, 54.4, 695.0, 398.4523071289062)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 812
+                    },
+                    "source_asset": "evilicio-inc-1HTY8zLsWLs-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 1,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_20_img_1_xref_71.png",
+                    "bbox": "(115.0, 408.4523071289062, 695.0, 752.5046142578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 750
+                    },
+                    "source_asset": "evilicio-inc-RSgWh0jmGbo-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 2,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_20_img_2_xref_23.png",
+                    "bbox": "(115.0, 762.5046142578125, 695.0, 1106.5569213867188)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 869
+                    },
+                    "source_asset": "flaviu-costin-Vr-sBbCWklc-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 21,
+            "content": "CONSTRAINT / SEQUENCE\nA06 / SOCIAL CONSTRAINT\nDefense becomes gesture.\n22\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_21_img_0_xref_23.png",
+                    "bbox": "(115.0, 0.0, 695.0, 630.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 870
+                    },
+                    "source_asset": "good-faces-R8VSYtyY2oE-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 22,
+            "content": "CONSTRAINT / SEQUENCE\nA07 / SOCIAL CONSTRAINT\nAdornment becomes armor.\n23\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_22_img_0_xref_76.png",
+                    "bbox": "(115.0, 54.4, 695.0, 398.4523071289062)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 387
+                    },
+                    "source_asset": "harry-quan-G1iYCeCW2EI-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 1,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_22_img_1_xref_71.png",
+                    "bbox": "(115.0, 408.4523071289062, 695.0, 752.5046142578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 773
+                    },
+                    "source_asset": "igor-rand-GIW9CCL3HxA-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 2,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_22_img_2_xref_29.png",
+                    "bbox": "(115.0, 762.5046142578125, 695.0, 1106.5569213867188)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 869
+                    },
+                    "source_asset": "ilya-mondryk-OCEeo0aYN1s-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 23,
+            "content": "CONSTRAINT / SEQUENCE\nA08 / SOCIAL CONSTRAINT\nA false eye performs the feeling.\n24\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_23_img_0_xref_29.png",
+                    "bbox": "(115.0, 0.0, 695.0, 630.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386
+                    },
+                    "source_asset": "jan-kopriva-n3BtiYgu5NI-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 24,
+            "content": "CONSTRAINT / SEQUENCE\nA09 / SOCIAL CONSTRAINT\nThe pose turns looking into a rule already agreed to.\n25\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_24_img_0_xref_76.png",
+                    "bbox": "(115.0, 54.4, 695.0, 398.4523071289062)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 464
+                    },
+                    "source_asset": "janko-ferlic-brZT6bdt6NA-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_24_img_1_xref_22.png",
+                    "bbox": "(115.0, 408.4523071289062, 695.0, 752.5046142578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 725
+                    },
+                    "source_asset": "liliya-grek-OaPOg0EAD2w-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 2,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_24_img_2_xref_81.png",
+                    "bbox": "(115.0, 762.5046142578125, 695.0, 1106.5569213867188)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 869
+                    },
+                    "source_asset": "mahdi-bafande-rw-AZxeky7Q-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 25,
+            "content": "CONSTRAINT / SEQUENCE\nA10 / SOCIAL CONSTRAINT\nLace turns vision into trespass.\n26\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_25_img_0_xref_81.png",
+                    "bbox": "(115.0, 0.0, 695.0, 1215.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 869
+                    },
+                    "source_asset": "maria-budanova-pristavskaya-dk8OHEIfT9o-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 26,
+            "content": "ARTICLE III\nMediation\nThe Veil / the tempo of access\nMediation is the veil as an editing system: lace, shadow, fabric, and blur\ndo not simply hide the body, they decide how slowly it is allowed to be\nseen.\n27\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_26_img_0_xref_86.png",
+                    "bbox": "(115.0, 0.0, 695.0, 630.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386
+                    },
+                    "source_asset": "nikolay-hristov-5RUfRn7x-ME-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 27,
+            "content": "MEDIATION\nThe veil is an editing system,\nnot a disappearance. Where the\nbody and the rule meet a\nsurface that can interrupt\nboth, lace, shadow, fabric,\nblur, flowers, hair, and\ndarkness become interfaces.\nThey do not simply hide the\nfigure; they decide how slowly\nit is allowed to arrive. A\nblocked face increases\nattention, because the viewer\nhas to complete the missing\ninformation. Denial becomes\nstructure. This is the logic\nthe art of obstruction has\nalways understood: Symbolism\ntreats the visible world as a\ncarrier for inward states, and\nSurrealism turns ordinary\nsurfaces into dream pressure\nand psychological\ninterruption.[4][5] The covered\neye and the displaced face push\nthe viewer toward\ninterpretation rather than\nrecognition.\nA01 / MEDIATION\nBeauty becomes the blindfold’s alibi.\n28\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_27_img_0_xref_15.png",
+                    "bbox": "(115.0, 54.3543701171875, 695.0, 575.6456909179688)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 870
+                    },
+                    "source_asset": "nina-zeynep-guler-fjJiVSX-BxM-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 28,
+            "content": "MEDIATION\nSo this section opens its grid and\nlets the images feel secretive, with\nmore negative space and more surface.\nThe body wants to appear; the rule\nwants to organize appearance; the\nveil controls the tempo of access.\nThe point is not mystery for its own\nsake but cognitive pressure. A hidden\ngaze makes the eye work, and meaning\narrives only through that effort.\nWhat is withheld is not absence; it\nis the part of the image still being\ndecided.\nA20 / MEDIATION\nThe gaze hides in green.\n29\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_28_img_0_xref_91.png",
+                    "bbox": "(115.0, 54.4, 695.0, 306.0457061767578)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 580
+                    },
+                    "source_asset": "noah-buscher-11lDEHFy_hA-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_28_img_1_xref_86.png",
+                    "bbox": "(115.0, 316.0457061767578, 695.0, 567.6913970947265)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 725
+                    },
+                    "source_asset": "ovie-ogege-6bwT4cI_UJs-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 29,
+            "content": "MEDIATION / SEQUENCE\nA20 / MEDIATION\nThe gaze hides in green.\n30\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_29_img_0_xref_86.png",
+                    "bbox": "(115.0, 0.0, 695.0, 630.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 866
+                    },
+                    "source_asset": "see-plus-NP3s9BYOqAc-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 30,
+            "content": "MEDIATION / SEQUENCE\nA23 / MEDIATION\nA surface intervenes, and sight has to earn the face.\n31\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_30_img_0_xref_96.png",
+                    "bbox": "(115.0, 54.4, 695.0, 398.4523071289062)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 391
+                    },
+                    "source_asset": "sunny-ng-oLpSNDeE83A-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_30_img_1_xref_97.png",
+                    "bbox": "(115.0, 408.4523071289062, 695.0, 752.5046142578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 891
+                    },
+                    "source_asset": "teslariu-mihai-tK-SzdDiUIs-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 2,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_30_img_2_xref_98.png",
+                    "bbox": "(115.0, 762.5046142578125, 695.0, 1106.5569213867188)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 449
+                    },
+                    "source_asset": "the-new-york-public-library-ndJV4ntdF6g-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 31,
+            "content": "MEDIATION / SEQUENCE\nA26 / MEDIATION\nA surface intervenes, and sight has to earn the face.\n32\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_31_img_0_xref_96.png",
+                    "bbox": "(115.0, 0.0, 695.0, 1152.5689697265625)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 544
+                    },
+                    "source_asset": "thea-hdc-hwD_SVnZu7Q-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 32,
+            "content": "MEDIATION / SEQUENCE\nA29 / MEDIATION\nA surface intervenes, and sight has to earn the face.\n33\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_32_img_0_xref_103.png",
+                    "bbox": "(115.0, 54.4, 695.0, 398.4523071289062)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 435
+                    },
+                    "source_asset": "umanoide-XJP9Ak1oqHw-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_32_img_1_xref_104.png",
+                    "bbox": "(115.0, 408.4523071289062, 695.0, 752.5046142578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 870
+                    },
+                    "source_asset": "umesh-soni-hpklBuuel_k-unsplash.jpg",
+                    "status": "synced_high_res"
+                },
+                {
+                    "image_index": 2,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_32_img_2_xref_98.png",
+                    "bbox": "(115.0, 762.5046142578125, 695.0, 1106.5569213867188)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 869
+                    },
+                    "source_asset": "valentin-lacoste-8PafowRW8mE-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 33,
+            "content": "MEDIATION / SEQUENCE\nA32 / MEDIATION\nIdentity slips; the eye remains.\n34\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_33_img_0_xref_104.png",
+                    "bbox": "(115.0, 0.0, 695.0, 630.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 414
+                    },
+                    "source_asset": "zachary-kadolph-qBJgfnCTwbU-unsplash.jpg",
+                    "status": "synced_high_res"
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 34,
+            "content": "MEDIATION / SEQUENCE\nA35 / MEDIATION\nA surface intervenes, and sight has to earn the face.\n35\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_34_img_0_xref_103.png",
+                    "bbox": "(115.0, 54.4, 695.0, 398.4523071289062)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 870.0
+                    }
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_34_img_1_xref_109.png",
+                    "bbox": "(115.0, 408.4523071289062, 695.0, 752.5046142578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 870.0
+                    }
+                },
+                {
+                    "image_index": 2,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_34_img_2_xref_110.png",
+                    "bbox": "(115.0, 762.5046142578125, 695.0, 1106.5569213867188)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 776.79
+                    }
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 35,
+            "content": "MEDIATION / SEQUENCE\nA38 / MEDIATION\nA surface intervenes, and sight has to earn the face.\n36\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_35_img_0_xref_110.png",
+                    "bbox": "(115.0, 0.0, 695.0, 1084.821044921875)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 776.79
+                    }
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 36,
+            "content": "MEDIATION / SEQUENCE\nA41 / MEDIATION\nOne opening, one witness.\n37\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_36_img_0_xref_115.png",
+                    "bbox": "(115.0, 54.4, 695.0, 398.4523071289062)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 345.42
+                    }
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_36_img_1_xref_116.png",
+                    "bbox": "(115.0, 408.4523071289062, 695.0, 752.5046142578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 773.33
+                    }
+                },
+                {
+                    "image_index": 2,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_36_img_2_xref_109.png",
+                    "bbox": "(115.0, 762.5046142578125, 695.0, 1106.5569213867188)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 870.0
+                    }
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 37,
+            "content": "MEDIATION / SEQUENCE\nA44 / MEDIATION\nA surface intervenes, and sight has to earn the face.\n38\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_37_img_0_xref_116.png",
+                    "bbox": "(115.0, 0.0, 695.0, 1080.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 773.33
+                    }
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 38,
+            "content": "ARTICLE IV\nSynthesis\nSight that refuses to settle\nSynthesis is sight that refuses to settle: body, rule, and veil stay\nactive at once, so looking stays unfinished and the image keeps its\npressure.\n39\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_38_img_0_xref_39.png",
+                    "bbox": "(115.0, 0.0, 695.0, 1215.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 870.0
+                    }
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 39,
+            "content": "Unresolved Sight\nSight becomes visceral when these\nforces remain active together.\nThe final movement refuses to\nresolve the body, the rule, and\nthe veil into a clean hierarchy.\nAgency begins the argument,\nconstraint disciplines it, and\nmediation keeps it unresolved,\nand the image grows powerful\nprecisely because no single force\nwins. This is the thesis the\nwhole issue has been building\ntoward: psychological pressure\ndoes not come from clear\ndepiction. It comes from\ncalculated revelation, the image\nnegotiating what can be seen, how\nquickly, and what stays withheld\neven after attention has been\nspent.\nA01 / MEDIATION\nBeauty becomes the blindfold’s alibi.\n40\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_39_img_0_xref_15.png",
+                    "bbox": "(115.0, 0.0, 695.0, 947.368408203125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 678.36
+                    }
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 40,
+            "content": "Looking never arrives clean.\nThe body is present but not fully available.\nCulture is legible but never neutral. The\nveil interrupts, yet it also teaches the eye\nhow to continue. So the closing pages keep\nthe layout asymmetrical. Large images take\nauthority; text presses beside them,\nslightly displaced. A symmetrical page would\nimply that sight had settled, and this\nargument needs sight to stay unstable,\nbecause instability is where looking turns\n41\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_40_img_0_xref_62.png",
+                    "bbox": "(115.0, 325.0456909179687, 695.0, 846.33701171875)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386.67
+                    }
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_40_img_1_xref_26.png",
+                    "bbox": "(115.0, 54.4, 695.0, 315.0456909179687)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 325.12
+                    }
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 41,
+            "content": "SYNTHESIS / SEQUENCE\nA03 / SOCIAL CONSTRAINT\nBeauty replaces sight.\n42\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_41_img_0_xref_26.png",
+                    "bbox": "(115.0, 0.0, 695.0, 630.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 325.12
+                    }
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 42,
+            "content": "SYNTHESIS / SEQUENCE\nA04 / SOCIAL CONSTRAINT\nThe eye is edited out.\n43\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_42_img_0_xref_70.png",
+                    "bbox": "(115.0, 54.4, 695.0, 398.4523071289062)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 580.0
+                    }
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_42_img_1_xref_23.png",
+                    "bbox": "(115.0, 408.4523071289062, 695.0, 752.5046142578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386.67
+                    }
+                },
+                {
+                    "image_index": 2,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_42_img_2_xref_65.png",
+                    "bbox": "(115.0, 762.5046142578125, 695.0, 1106.5569213867188)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386.67
+                    }
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 43,
+            "content": "SYNTHESIS / SEQUENCE\nA05 / SOCIAL CONSTRAINT\nBloom as blindfold.\n44\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_43_img_0_xref_70.png",
+                    "bbox": "(115.0, 0.0, 695.0, 810.0)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 580.0
+                    }
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 44,
+            "content": "SYNTHESIS / SEQUENCE\nA06 / SOCIAL CONSTRAINT\nDefense becomes gesture.\n45\n",
+            "images": [
+                {
+                    "image_index": 0,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_44_img_0_xref_71.png",
+                    "bbox": "(115.0, 54.4, 695.0, 398.4523071289062)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 325.12
+                    }
+                },
+                {
+                    "image_index": 1,
+                    "category": "Standard Figure",
+                    "local_path": "assets/page_44_img_1_xref_23.png",
+                    "bbox": "(115.0, 408.4523071289062, 695.0, 752.5046142578125)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 386.67
+                    }
+                },
+                {
+                    "image_index": 2,
+                    "category": "Full-Page/Large Illustration",
+                    "local_path": "assets/page_44_img_2_xref_29.png",
+                    "bbox": "(115.0, 762.5046142578125, 695.0, 1106.5569213867188)",
+                    "dimensions": {
+                        "width": 580,
+                        "height": 275.18
+                    }
+                }
+            ],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 45,
+            "content": "IMAGE SOURCE REGISTER\nA01\na01-mediation-a-photograph-of-an-attract\nCreator not verified - rights verify\nA02\na05-social-constraint-adobestock-1024472\nAdobe Stock contributor not verified - rights verify\nA03\na06-social-constraint-adobestock-1040196\nAdobe Stock contributor not verified - rights verify\nA04\na07-social-constraint-adobestock-1044937\nAdobe Stock contributor not verified - rights verify\nA05\na08-social-constraint-adobestock-1225023\nAdobe Stock contributor not verified - rights verify\nA06\na09-social-constraint-adobestock-1400762\nAdobe Stock contributor not verified - rights verify\nA07\na10-social-constraint-adobestock-1462135\nAdobe Stock contributor not verified - rights verify\nA08\na11-social-constraint-adobestock-2060670\nAdobe Stock contributor not verified - rights verify\nA09\na12-social-constraint-adobestock-2682255\nAdobe Stock contributor not verified - rights verify\nA10\na13-social-constraint-adobestock-3205007\nAdobe Stock contributor not verified - rights verify\nA11\na14-social-constraint-adobestock-3680790\nAdobe Stock contributor not verified - rights verify\nA12\na15-social-constraint-adobestock-3781984\nAdobe Stock contributor not verified - rights verify\nA13\na16-social-constraint-adobestock-5655820\nAdobe Stock contributor not verified - rights verify\nA14\na17-social-constraint-adobestock-7201569\nAdobe Stock contributor not verified - rights verify\nA15\na18-social-constraint-adobestock-7309276\nAdobe Stock contributor not verified - rights verify\nA16\na19-social-constraint-adobestock-9737213\nAdobe Stock contributor not verified - rights verify\nA17\na20-mediation-alex-bracken-l1sjo7tmvec-u\nA20 Mediation Alex Bracken L1Sjo7Tmvec - rights verify\nA18\na21-raw-agency-alexander-krivitskiy-az7r\nA21 Raw Agency Alexander Krivitskiy Az - rights verify\nA19\na22-social-constraint-alexander-krivitsk\nA22 Social Constraint Alexander Krivit - rights verify\nA20\na23-mediation-allef-vinicius-dkrntf-jgtw\nA23 Mediation Allef Vinicius Dkrntf Jg - rights verify\nA21\na24-raw-agency-amir-geshani-2jh8d3chnec-\nA24 Raw Agency Amir Geshani 2Jh8D3Chne - rights verify\nA22\na25-social-constraint-andrey-zvyagintsev\nA25 Social Constraint Andrey Zvyagints - rights verify\nA23\na26-mediation-arielle-allouche-h82rqe4gr\nA26 Mediation Arielle Allouche H82Rqe4 - rights verify\nA24\na27-raw-agency-baran-lotfollahi-lobgof8r\nA27 Raw Agency Baran Lotfollahi Lobgof - rights verify\nA25\na28-social-constraint-birmingham-museums\nA28 Social Constraint Birmingham Museu - rights verify\nA26\na29-mediation-boston-public-library-grbf\nA29 Mediation Boston Public Library Gr - rights verify\nA27\na30-raw-agency-brunxs-monochrome-spniqdc\nA30 Raw Agency Brunxs Monochrome Spniq - rights verify\nA28\na31-social-constraint-caleb-kastein-lmnz\nA31 Social Constraint Caleb Kastein Lm - rights verify\nA29\na32-mediation-camila-quintero-franco-mc8\nA32 Mediation Camila Quintero Franco M - rights verify\nA30\na33-raw-agency-carl-cheng-o4l-vetcxhy-un\nA33 Raw Agency Carl Cheng O4L Vetcxhy  - rights verify\nA31\na34-social-constraint-cole-keister-d6zqt\nA34 Social Constraint Cole Keister D6Z - rights verify\nA32\na35-mediation-darius-bashar-3xegkkbinck-\nA35 Mediation Darius Bashar 3Xegkkbinc - rights verify\n46\n",
+            "images": [],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "full_span_list",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 46,
+            "content": "IMAGE SOURCE REGISTER / CONTINUED\nA33\na36-raw-agency-drew-dizzy-graham-ctkgzjt\nA36 Raw Agency Drew Dizzy Graham Ctkgz - rights verify\nA34\na37-social-constraint-elias-maurer-ssplu\nA37 Social Constraint Elias Maurer Ssp - rights verify\nA35\na38-mediation-elvis-kaiser-rqbk5ez6qa0-u\nA38 Mediation Elvis Kaiser Rqbk5Ez6Qa0 - rights verify\nA36\na39-raw-agency-enesh-taganova-ioxgidqvqy\nA39 Raw Agency Enesh Taganova Ioxgidqv - rights verify\nA37\na40-social-constraint-erik-mclean-gjtz5c\nA40 Social Constraint Erik Mclean Gjtz - rights verify\nA38\na41-mediation-europeana-lbt8newonko-unsp\nA41 Mediation Europeana Lbt8Newonko /  - rights verify\nA39\na42-raw-agency-europeana-wwghncxmcqi-uns\nA42 Raw Agency Europeana Wwghncxmcqi / - rights verify\nA40\na43-social-constraint-evilicio-inc-1hty8\nA43 Social Constraint Evilicio Inc 1Ht - rights verify\nA41\na44-mediation-flaviu-costin-vr-sbbcwklc-\nA44 Mediation Flaviu Costin Vr Sbbcwkl - rights verify\nA42\na45-raw-agency-good-faces-r8vsytyy2oe-un\nA45 Raw Agency Good Faces R8Vsytyy2Oe  - rights verify\nA43\na46-social-constraint-harry-quan-g1iycec\nA46 Social Constraint Harry Quan G1Iyc - rights verify\nA44\na47-mediation-igor-rand-giw9ccl3hxa-unsp\nA47 Mediation Igor Rand Giw9Ccl3Hxa /  - rights verify\nA45\na48-raw-agency-ilya-mondryk-oceeo0ayn1s-\nA48 Raw Agency Ilya Mondryk Oceeo0Ayn1 - rights verify\nA46\na49-social-constraint-janko-ferlic-brzt6\nA49 Social Constraint Janko Ferlic Brz - rights verify\nA47\na50-mediation-jr-korpa-0lokelbdsbw-unspl\nA50 Mediation Jr Korpa 0Lokelbdsbw / U - rights verify\nA48\na51-raw-agency-library-of-congress-v0jin\nA51 Raw Agency Library Of Congress V0J - rights verify\nA49\na52-social-constraint-lorraine-hill-4dyx\nA52 Social Constraint Lorraine Hill 4D - rights verify\nA50\na53-mediation-mahdi-bafande-rw-azxeky7q-\nA53 Mediation Mahdi Bafande Rw Azxeky7 - rights verify\nA51\na54-raw-agency-nastia-petruk-f-hajyv3wye\nA54 Raw Agency Nastia Petruk F Hajyv3W - rights verify\nA52\na55-social-constraint-nina-zeynep-guler-\nA55 Social Constraint Nina Zeynep Gule - rights verify\nA53\na56-mediation-noah-buscher-11ldehfy-ha-u\nA56 Mediation Noah Buscher 11Ldehfy Ha - rights verify\nA54\na57-raw-agency-ovie-ogege-6bwt4ci-ujs-un\nA57 Raw Agency Ovie Ogege 6Bwt4Ci Ujs  - rights verify\nA55\na58-social-constraint-see-plus-np3s9byoq\nA58 Social Constraint See Plus Np3S9By - rights verify\nA56\na59-mediation-smithsonian-elpq3w9epnk-un\nA59 Mediation Smithsonian Elpq3W9Epnk  - rights verify\nA57\na60-raw-agency-smithsonian-otg-zz0tybe-u\nA60 Raw Agency Smithsonian Otg Zz0Tybe - rights verify\nA58\na61-social-constraint-teslariu-mihai-tk-\nA61 Social Constraint Teslariu Mihai T - rights verify\nA59\na62-mediation-the-new-york-public-librar\nA62 Mediation The New York Public Libr - rights verify\nA60\na63-raw-agency-toa-heftiba-fv1lunshcaw-u\nA63 Raw Agency Toa Heftiba Fv1Lunshcaw - rights verify\nA61\na64-social-constraint-umanoide-xjp9ak1oq\nA64 Social Constraint Umanoide Xjp9Ak1 - rights verify\nA62\na65-mediation-umesh-soni-hpklbuuel-k-uns\nA65 Mediation Umesh Soni Hpklbuuel K / - rights verify\nA63\na66-mediation-woman-obscured-by-white-fl\nCreator not verified - rights verify\nA64\na67-social-constraint-zachary-kadolph-qb\nA67 Social Constraint Zachary Kadolph  - rights verify\n47\n",
+            "images": [],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "full_span_list",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 47,
+            "content": "WORKS CONSULTED\n[1] LeRoy McDermott. \"Self-Representation in Upper Paleolithic Female Figurines.\" Current Anthropology 37, no. 2\n(1996): 227-275.\n[2] Elizabeth Mulley. \"Madonna/Mother/Death and Child: Laura Muntz and the Representation of Maternity.\" RACAR 25, no.\n1/2 (1998): 84-93.\n[3] Mary Morrissy. \"Una Watters: Everywoman Caught in the Rain.\" New Hibernia Review 25, no. 3 (2021): 39-53.\n[4] The Metropolitan Museum of Art. \"Surrealism.\" Heilbrunn Timeline of Art History.\n[5] The Metropolitan Museum of Art. \"Symbolism.\" Heilbrunn Timeline of Art History.\nEditions, page ranges, and image licenses to be confirmed before final print.\n48\n",
+            "images": [],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "full_span_list",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 48,
+            "content": "COLOPHON\nThe Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are\ncredited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times,\nprinted white on black.\n49\n",
+            "images": [],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        },
+        {
+            "page_number": 49,
+            "content": "Sight remains\nunfinished.\nEvery act of looking leaves a remainder: memory, attention, and the need to interpret what\nthe eye cannot settle.\n50\n",
+            "images": [],
+            "layout_metadata": {
+                "column_structure": "asymmetric-2-col",
+                "primary_anchor_pt": 54.4,
+                "sidebar_anchor_pt": 473.1,
+                "safe_zones": [
+                    {
+                        "x0": 54.4,
+                        "x1": 453.1,
+                        "label": "primary_text_column"
+                    },
+                    {
+                        "x0": 473.1,
+                        "x1": 774.0,
+                        "label": "secondary_sidebar_column"
+                    }
+                ],
+                "focus": "standard_body",
+                "global_anchors": {
+                    "primary": 54.4,
+                    "sidebar": 473.1,
+                    "asset_offset": 115.0,
+                    "asset_width": 580
+                }
+            },
+            "production_status": "CERTIFIED"
+        }
+    ]
+}
