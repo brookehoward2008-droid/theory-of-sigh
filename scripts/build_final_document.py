@@ -101,11 +101,22 @@ class ManifestRow:
 
 
 def load_manifest_rows(path: Path = MANIFEST_CSV) -> list[ManifestRow]:
+    if not path.exists():
+        raise FileNotFoundError(f"Manifest CSV not found: {path}")
     rows: list[ManifestRow] = []
+    required_columns = {"@ImageFile", "Title", "Section", "PagePlacement", "CaptionText"}
     with path.open(newline="", encoding="utf-8") as handle:
         reader = csv.DictReader(handle)
-        for row in reader:
-            image_file = row["@ImageFile"].strip()
+        if reader.fieldnames is None:
+            raise ValueError(f"Manifest CSV is empty or has no header: {path}")
+        missing_columns = required_columns - set(reader.fieldnames)
+        if missing_columns:
+            raise ValueError(f"Manifest CSV {path} missing columns: {', '.join(sorted(missing_columns))}")
+        for line_num, row in enumerate(reader, start=2):
+            try:
+                image_file = row["@ImageFile"].strip()
+            except (KeyError, AttributeError) as exc:
+                raise ValueError(f"Manifest CSV row {line_num}: bad or missing @ImageFile") from exc
             rows.append(
                 ManifestRow(
                     image_file=image_file,

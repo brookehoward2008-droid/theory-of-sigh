@@ -17,7 +17,7 @@ from reportlab.pdfgen import canvas
 try:
     from pypdf import PdfReader, PdfWriter
     _PYPDF_OK = True
-except BaseException:
+except ImportError:
     _PYPDF_OK = False
 
 
@@ -177,7 +177,7 @@ def clean_generated_dirs() -> None:
                     elif child.is_dir():
                         shutil.rmtree(child)
                 except PermissionError:
-                    pass
+                    print(f"WARNING: could not remove {child} (locked or in use)")
             continue
         if path.exists() and ROUTE in path.parents:
             try:
@@ -186,6 +186,7 @@ def clean_generated_dirs() -> None:
                 # Windows/OneDrive can keep a generated folder handle open after
                 # PDF preview. Leave the folder shell in place and clear what is
                 # not locked so the build can still refresh its artifacts.
+                locked: list[Path] = []
                 for child in sorted(path.rglob("*"), reverse=True):
                     try:
                         if child.is_file() or child.is_symlink():
@@ -193,12 +194,15 @@ def clean_generated_dirs() -> None:
                         elif child.is_dir():
                             child.rmdir()
                     except PermissionError:
-                        pass
+                        locked.append(child)
+                if locked:
+                    print(f"WARNING: {len(locked)} item(s) under {path} could not be removed (locked or in use)")
         path.mkdir(parents=True, exist_ok=True)
 
 
 def apply_print_boxes(pdf_path: Path) -> None:
     if not _PYPDF_OK:
+        print("WARNING: pypdf not available — skipping TrimBox/BleedBox embedding for", pdf_path)
         return
     reader = PdfReader(str(pdf_path))
     writer = PdfWriter()

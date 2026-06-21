@@ -9,7 +9,8 @@ Usage:
 
 from __future__ import annotations
 
-
+import argparse
+import sys
 from pathlib import Path
 
 from scripts.build_final_document import build_final_document, write_report

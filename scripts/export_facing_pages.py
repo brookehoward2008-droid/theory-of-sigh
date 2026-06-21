@@ -32,6 +32,11 @@ def add_page_to_spread(
 
 
 def export_facing_pages() -> None:
+    if not SOURCE.exists():
+        raise FileNotFoundError(
+            f"Source PDF not found: {SOURCE}\n"
+            "Run the visceral book build first to generate it."
+        )
     reader = PdfReader(str(SOURCE))
     writer = PdfWriter()
     page_w = float(reader.pages[0].mediabox.width)

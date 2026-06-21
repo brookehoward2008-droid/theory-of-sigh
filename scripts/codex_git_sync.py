@@ -44,8 +44,10 @@ class CodexGitSync:
             return result.returncode == 0, result.stdout.strip(), result.stderr.strip()
         except subprocess.TimeoutExpired:
             return False, "", "Command timeout"
-        except Exception as e:
-            return False, "", str(e)
+        except FileNotFoundError as e:
+            return False, "", f"Command not found: {e}"
+        except OSError as e:
+            return False, "", f"OS error running command: {e}"
 
     def status(self) -> dict:
         """Check git status."""

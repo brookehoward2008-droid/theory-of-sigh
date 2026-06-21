@@ -87,6 +87,7 @@ def build_manifest(rows: list[dict[str, str]]) -> list[dict[str, str]]:
         group = row["visual_group"]
         source = Path(row["local_production_path"])
         if not source.exists():
+            print(f"WARNING: skipping {asset_id} — source image not found: {source}")
             continue
 
         label = f"{asset_id.lower()}-{group_slug(group)}-{slugify(title, asset_id)}.jpg"
