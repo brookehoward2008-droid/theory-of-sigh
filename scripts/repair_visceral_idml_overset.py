@@ -1,14 +1,14 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import zipfile
 from pathlib import Path
 
 
-SOURCE_IDML = Path(
-    r"C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets\visceral_theory_of_sight_precision_layout.idml"
-)
+_ASSETS_DIR = Path(os.environ["VISCERAL_ASSETS_DIR"]) if os.environ.get("VISCERAL_ASSETS_DIR") else (Path(__file__).resolve().parents[1] / "images" / "labeled")
+SOURCE_IDML = _ASSETS_DIR / "visceral_theory_of_sight_precision_layout.idml"
 OUTPUT_IDML = SOURCE_IDML.with_name("visceral_theory_of_sight_precision_layout_TEXT_SAFE.idml")
 REPORT_PATH = Path(__file__).resolve().parents[1] / "visceral-production-route" / "reports" / "idml-overset-repair-report.json"
 

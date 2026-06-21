@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from textwrap import wrap
@@ -26,9 +27,8 @@ ASSET_REGISTER_MD = REPORT_OUT / "asset-register.md"
 ASSET_SHEET_JSX = TEMPLATE_OUT / "final-11-image-asset-sheet.jsx"
 APPLY_LAYOUT_REFINE_JSX = TEMPLATE_OUT / "apply-final-11-to-layout-refine.jsx"
 INDESIGN_AUTOBUILD_REPORT = REPORT_OUT / "layout-refine-autobuild-report.txt"
-LAYOUT_REFINE_INDD = Path(
-    r"C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets\layout refine.indd"
-)
+_ASSETS_DIR = Path(os.environ["VISCERAL_ASSETS_DIR"]) if os.environ.get("VISCERAL_ASSETS_DIR") else None
+LAYOUT_REFINE_INDD = (_ASSETS_DIR / "layout refine.indd") if _ASSETS_DIR else (ROUTE / "assets" / "layout refine.indd")
 LAYOUT_REFINE_OUTPUT_INDD = LAYOUT_REFINE_INDD.with_name("layout refine_FINAL_AUTOBUILD.indd")
 
 PAGE_W, PAGE_H = letter

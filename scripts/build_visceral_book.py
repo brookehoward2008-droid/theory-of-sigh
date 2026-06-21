@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 import re
 import shutil
 from dataclasses import dataclass
@@ -22,10 +23,8 @@ except BaseException:
 
 
 ROOT = Path(__file__).resolve().parents[1]
-_WINDOWS_ASSETS = Path(
-    r"C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets"
-)
-SOURCE_ASSETS = _WINDOWS_ASSETS if _WINDOWS_ASSETS.exists() else ROOT / "images" / "labeled"
+_EXTERNAL_ASSETS = Path(os.environ["VISCERAL_ASSETS_DIR"]) if os.environ.get("VISCERAL_ASSETS_DIR") else None
+SOURCE_ASSETS = _EXTERNAL_ASSETS if (_EXTERNAL_ASSETS and _EXTERNAL_ASSETS.exists()) else ROOT / "images" / "labeled"
 COVER_IMAGE = ROOT / "images" / "cover.jpg"
 ROUTE = ROOT / "visceral-production-route"
 ASSET_OUT = ROUTE / "assets"
