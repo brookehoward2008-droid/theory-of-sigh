@@ -18,8 +18,10 @@ from __future__ import annotations
 import subprocess
 import sys
 from argparse import ArgumentParser
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
+
+from scripts.shared.paths import ROOT as _ROOT
 
 
 class CodexGitSync:
@@ -235,7 +237,7 @@ def main():
     args = parser.parse_args()
     
     # Detect repo root
-    repo_path = Path(__file__).resolve().parents[1]
+    repo_path = _ROOT
     sync = CodexGitSync(repo_path)
     
     try:

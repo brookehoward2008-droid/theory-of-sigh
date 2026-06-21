@@ -4,7 +4,6 @@ import csv
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from textwrap import wrap
 
 from PIL import Image
 from reportlab.lib import colors
@@ -12,9 +11,10 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
 
+from scripts.shared.paths import ROOT, ROUTE
+from scripts.shared.pdf_helpers import draw_text_block as _shared_draw_text_block
+from scripts.shared.pdf_helpers import text_lines
 
-ROOT = Path(__file__).resolve().parents[1]
-ROUTE = ROOT / "visceral-production-route"
 MERGE_DIR = ROUTE / "assets" / "final-11-image-merge"
 MANIFEST_CSV = MERGE_DIR / "manifest.csv"
 PDF_OUT = ROUTE / "output" / "pdf"
@@ -154,16 +154,6 @@ def draw_image_fit(c: canvas.Canvas, image_path: Path, x: float, y: float, w: fl
     )
 
 
-def text_lines(text: str, width: int) -> list[str]:
-    lines: list[str] = []
-    for paragraph in text.split("\n"):
-        if paragraph.strip():
-            lines.extend(wrap(paragraph, width=width))
-        else:
-            lines.append("")
-    return lines
-
-
 def draw_wrapped(
     c: canvas.Canvas,
     text: str,
@@ -176,15 +166,9 @@ def draw_wrapped(
     color=INK,
     max_lines: int | None = None,
 ) -> float:
-    c.setFont(font, size)
-    c.setFillColor(color)
-    lines = text_lines(text, width_chars)
-    if max_lines is not None:
-        lines = lines[:max_lines]
-    for line in lines:
-        c.drawString(x, y, line)
-        y -= leading
-    return y
+    return _shared_draw_text_block(
+        c, text, x, y, width_chars, leading, size, font, color, max_lines,
+    )
 
 
 def draw_footer(c: canvas.Canvas, page_num: int, section: str, dark: bool = False) -> None:

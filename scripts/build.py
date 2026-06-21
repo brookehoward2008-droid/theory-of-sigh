@@ -9,9 +9,6 @@ Usage:
 
 from __future__ import annotations
 
-
-from pathlib import Path
-
 from scripts.build_final_document import build_final_document, write_report
 from scripts.build_visceral_book import (
     PDF_OUT,
@@ -26,10 +23,10 @@ from scripts.build_visceral_book import (
     write_manifest,
     write_notes,
 )
+from scripts.shared.paths import PDF_OUT as _PDF_OUT
+from scripts.shared.paths import ROOT, ROUTE
 
-ROOT = Path(__file__).resolve().parents[1]
-ROUTE = ROOT / "visceral-production-route"
-FINAL_PDF = ROUTE / "output" / "pdf" / "the-visceral-theory-of-sight-final-refined.pdf"
+FINAL_PDF = _PDF_OUT / "the-visceral-theory-of-sight-final-refined.pdf"
 
 
 def check_assets() -> bool:
