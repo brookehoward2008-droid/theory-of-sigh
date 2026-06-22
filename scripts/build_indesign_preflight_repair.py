@@ -1,20 +1,17 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import zipfile
 from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[1]
-ASSET_FOLDER = Path(
-    r"C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets"
-)
+ASSET_FOLDER = Path(os.environ["VISCERAL_ASSETS_DIR"]) if os.environ.get("VISCERAL_ASSETS_DIR") else (REPO / "images" / "labeled")
 SOURCE_IDML = ASSET_FOLDER / "visceral_theory_of_sight_precision_layout.idml"
 TEXT_SAFE_IDML = ASSET_FOLDER / "visceral_theory_of_sight_precision_layout_TEXT_SAFE.idml"
-REPORT_IN = Path(
-    r"C:\Users\toddl\.codex\attachments\9f68eab0-e040-40be-b936-0ace6db11bfb\pasted-text.txt"
-)
+REPORT_IN = Path(os.environ["PREFLIGHT_REPORT_PATH"]) if os.environ.get("PREFLIGHT_REPORT_PATH") else (REPO / "visceral-production-route" / "reports" / "preflight-report.txt")
 
 REPORT_DIR = REPO / "visceral-production-route" / "reports"
 TEMPLATE_DIR = REPO / "visceral-production-route" / "templates"
