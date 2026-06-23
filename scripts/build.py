@@ -164,6 +164,18 @@ def cmd_preflight(idml_path: str | None) -> int:
     return 0 if report["ok"] else 1
 
 
+def cmd_read_preflight(pdf: str) -> int:
+    sys.path.insert(0, str(SCRIPTS))
+    from indesign_preflight import parse_report
+    r = parse_report(Path(pdf))
+    print(f"[indesign-preflight] {r['document']}")
+    print(f"  profile: {r['profile']}")
+    print(f"  status : {'CLEAN (nothing to do)' if r['clean'] else 'ERRORS FOUND'}")
+    for e in r["errors"][:25]:
+        print(f"    - {e}")
+    return 0 if r["clean"] else 1
+
+
 def cmd_skills() -> int:
     sys.path.insert(0, str(SCRIPTS))
     from skills import list_skills
@@ -339,6 +351,7 @@ def main(argv: list[str] | None = None) -> int:
     g.add_argument("--gen-idml", dest="gen_idml", action="store_true", help="generate editable IDML [phase 2]")
     g.add_argument("--refine-idml", dest="refine_idml", action="store_true", help="chain layout skills into one convention-correct IDML (with --idml)")
     g.add_argument("--autofix", action="store_true", help="loop preflight + skills until green (with --idml)")
+    g.add_argument("--read-preflight", dest="read_preflight", metavar="PDF", help="parse an InDesign preflight report PDF")
     g.add_argument("--copy", action="store_true", help="regenerate copy via local Ollama [phase 3]")
     g.add_argument("--package", action="store_true", help="build standalone executable (PyInstaller)")
     g.add_argument("--all", action="store_true", help="book + final")
@@ -360,6 +373,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_refine_idml(args.idml)
     if args.autofix:
         return cmd_autofix(args.idml)
+    if args.read_preflight:
+        return cmd_read_preflight(args.read_preflight)
     if args.book:
         return cmd_book()
     if args.final:
