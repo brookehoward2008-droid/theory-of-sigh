@@ -29,7 +29,7 @@ echo.
 
 set "IDMLPATH=%~1"
 if "%IDMLPATH%"=="" set /p IDMLPATH="Enter full path to an .idml to refine (or press Enter to skip): "
-if not "%IDMLPATH%"=="" python scripts\build.py --refine-idml --idml "%IDMLPATH%"
+if not "%IDMLPATH%"=="" python scripts\build.py --autofix --idml "%IDMLPATH%"
 echo.
 
 echo ============================================================

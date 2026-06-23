@@ -202,6 +202,55 @@ def cmd_skill(name: str, idml: str | None, text: str | None) -> int:
     return 0
 
 
+def cmd_autofix(idml: str | None, max_iters: int = 6) -> int:
+    if not idml:
+        print("--autofix needs --idml PATH")
+        return 2
+    sys.path.insert(0, str(SCRIPTS))
+    import shutil as _sh
+    import preflight
+    from paths import output_dir
+    from skills.layout import (ensure_layers, purge_purple_swatch, relink_images,
+                               repack_idml, unpack_idml)
+
+    # preflight check-name substring -> skill that fixes it
+    fixers = {
+        "layered": ensure_layers,
+        "purple stroke": purge_purple_swatch,
+        "linked not embedded": relink_images,
+    }
+    work = output_dir() / "idml-autofix"
+    if work.exists():
+        _sh.rmtree(work)
+    unpack_idml(Path(idml), work)
+    print(f"[autofix] {idml}")
+    rep = None
+    prev_fails: set[str] | None = None
+    for i in range(1, max_iters + 1):
+        rep = preflight.run_preflight(work)  # fetch a fresh report (also saved to disk)
+        fails = [c for c in rep["checks"] if not c["ok"]]
+        passed = len(rep["checks"]) - len(fails)
+        status = "ALL GREEN" if not fails else "failing: " + ", ".join(c["check"] for c in fails)
+        print(f"  iter {i}: {passed}/{len(rep['checks'])} pass  {status}")
+        if not fails:
+            break
+        names = {c["check"] for c in fails}
+        if names == prev_fails:
+            print("    no further progress; stopping (remaining checks have no fixer).")
+            break
+        prev_fails = names
+        for c in fails:
+            for key, fixer in fixers.items():
+                if key in c["check"]:
+                    print(f"    applying {fixer.__name__} for {c['check']!r}: {fixer(work)}")
+                    break
+    out = output_dir() / (Path(idml).stem + "-fixed.idml")
+    repack_idml(work, out)
+    green = bool(rep and rep.get("ok"))
+    print(f"  result: {'GREEN' if green else 'NOT fully green'} -> {out}")
+    return 0 if green else 1
+
+
 def cmd_refine_idml(idml: str | None) -> int:
     if not idml:
         print("--refine-idml needs --idml PATH")
@@ -289,6 +338,7 @@ def main(argv: list[str] | None = None) -> int:
     g.add_argument("--final", action="store_true", help="11-image refined final document")
     g.add_argument("--gen-idml", dest="gen_idml", action="store_true", help="generate editable IDML [phase 2]")
     g.add_argument("--refine-idml", dest="refine_idml", action="store_true", help="chain layout skills into one convention-correct IDML (with --idml)")
+    g.add_argument("--autofix", action="store_true", help="loop preflight + skills until green (with --idml)")
     g.add_argument("--copy", action="store_true", help="regenerate copy via local Ollama [phase 3]")
     g.add_argument("--package", action="store_true", help="build standalone executable (PyInstaller)")
     g.add_argument("--all", action="store_true", help="book + final")
@@ -308,6 +358,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_skill(args.skill, args.idml, args.text)
     if args.refine_idml:
         return cmd_refine_idml(args.idml)
+    if args.autofix:
+        return cmd_autofix(args.idml)
     if args.book:
         return cmd_book()
     if args.final:

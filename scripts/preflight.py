@@ -65,6 +65,8 @@ def audit_idml(idml: Path) -> dict:
             if _is_violet(space, [float(x) for x in val.split()] if val else [])]
         violet_use = sum(1 for m in re.finditer(r'StrokeColor="([^"]+)"', spreads)
                          if m.group(1) in violets)
+        placed = len(re.findall(r'<(?:Image|EPS)\b', spreads))
+        linked = spreads.count("LinkResourceURI")
         return {
             "file": str(idml),
             "page_mm": [_mm(width), _mm(height)] if width and height else None,
@@ -73,9 +75,9 @@ def audit_idml(idml: Path) -> dict:
             "master_spreads": len(list(base.glob("MasterSpreads/*.xml"))),
             "pages": len(re.findall(r'<Page\b', spreads)),
             "fonts": sorted(set(re.findall(r'<FontFamily\b[^>]*\bName="([^"]*)"', fx))),
-            "images_placed": len(re.findall(r'<(?:Image|EPS)\b', spreads)),
-            "images_linked": spreads.count("LinkResourceURI"),
-            "images_embedded": spreads.count("<Contents>"),
+            "images_placed": placed,
+            "images_linked": linked,
+            "images_embedded": max(0, placed - linked),
             "toc_style": ("TOCStyle" in sx) or ("TOCStyle" in pf),
             "violet_swatches": violets,
             "violet_stroke_usage": violet_use,
