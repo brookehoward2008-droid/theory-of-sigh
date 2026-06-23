@@ -1,12 +1,9 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 from pypdf import PageObject, PdfReader, PdfWriter, Transformation
 
+from scripts.shared.paths import PDF_OUT as PDF_DIR
 
-ROOT = Path(__file__).resolve().parents[1]
-PDF_DIR = ROOT / "visceral-production-route" / "output" / "pdf"
 SOURCE = PDF_DIR / "the-visceral-theory-of-sight-50pp.pdf"
 OUTPUT = PDF_DIR / "the-visceral-theory-of-sight-facing-pages.pdf"
 

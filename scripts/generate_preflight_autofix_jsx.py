@@ -35,17 +35,20 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from scripts.shared.page_constants import US_LETTER_BLEED_MM, US_LETTER_H_MM, US_LETTER_W_MM
+from scripts.shared.paths import REPORTS_OUT as _REPORTS_OUT
+from scripts.shared.paths import TEMPLATE_OUT as _TEMPLATES_OUT
 
-ROOT = Path(__file__).resolve().parents[1]
-TEMPLATES_OUT = ROOT / "visceral-production-route" / "templates"
-REPORTS_OUT   = ROOT / "visceral-production-route" / "reports"
+
+TEMPLATES_OUT = _TEMPLATES_OUT
+REPORTS_OUT   = _REPORTS_OUT
 JSX_OUT       = TEMPLATES_OUT / "indesign-preflight-autofix-current-doc.jsx"
 REPORT_OUT    = REPORTS_OUT   / "preflight-autofix-generator-report.json"
 
 # Target values (Digital Publishing profile requirements)
-PAGE_W_MM = 279.4
-PAGE_H_MM = 215.9
-BLEED_MM  = 3.175
+PAGE_W_MM = US_LETTER_W_MM
+PAGE_H_MM = US_LETTER_H_MM
+BLEED_MM  = US_LETTER_BLEED_MM
 
 # Paper-like color name keywords → map to [Paper]
 PAPER_KEYWORDS = ("paper", "cream", "white", "mist", "unbleach", "ivory")

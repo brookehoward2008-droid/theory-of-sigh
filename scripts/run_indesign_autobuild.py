@@ -31,12 +31,13 @@ import sys
 import time
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+from scripts.shared.paths import INDESIGN_OUT, REPORTS_OUT, ROOT, TEMPLATE_OUT
+
 sys.path.insert(0, str(ROOT / "scripts"))
 
-JSX = ROOT / "visceral-production-route" / "templates" / "indesign-build-full-layout.jsx"
-INDD = ROOT / "visceral-production-route" / "output" / "indesign" / "the-visceral-theory-of-sight-50pp.indd"
-REPORT = ROOT / "visceral-production-route" / "reports" / "indesign-full-layout-auto-report.json"
+JSX = TEMPLATE_OUT / "indesign-build-full-layout.jsx"
+INDD = INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.indd"
+REPORT = REPORTS_OUT / "indesign-full-layout-auto-report.json"
 
 # idScriptLanguage.JAVASCRIPT (ExtendScript)
 JAVASCRIPT = 1246973031
