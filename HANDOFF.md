@@ -101,7 +101,14 @@ to the local output area), `load_latest`. Original spec retained below.
   its `checks` reflect: layered>1, 0 embedded images, master pages present,
   TOC style present, 0 purple-stroke uses.
 
-### C. Phase 2 — editable IDML generator  (biggest task)
+### C. Editable IDML — PARTLY DONE via `--refine-idml`
+`python scripts/build.py --refine-idml --idml <file>` chains ensure_layers +
+relink_images + purge_purple_swatch into one valid IDML and preflights it
+(sample: 5 layers, 65 local relinks, purple gone, 7/8 PASS). Remaining:
+un-embed the 7 raster images (new `extract_embedded_images` skill),
+`rebuild_toc`, and assign page items to the named layers. The from-scratch
+generator below is optional once those land.
+
 Rebuild `good_version.4` as a convention-correct IDML:
 - geometry: landscape ~286 mm pages (match `good_version.4`); facing pages.
 - named layers, linked images (local `Links/`), parent/master pages,

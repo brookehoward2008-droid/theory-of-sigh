@@ -202,6 +202,34 @@ def cmd_skill(name: str, idml: str | None, text: str | None) -> int:
     return 0
 
 
+def cmd_refine_idml(idml: str | None) -> int:
+    if not idml:
+        print("--refine-idml needs --idml PATH")
+        return 2
+    sys.path.insert(0, str(SCRIPTS))
+    import shutil as _sh
+    import preflight
+    from paths import output_dir
+    from skills.layout import (ensure_layers, purge_purple_swatch, relink_images,
+                               repack_idml, unpack_idml)
+    work = output_dir() / "idml-refine"
+    if work.exists():
+        _sh.rmtree(work)
+    unpack_idml(Path(idml), work)
+    print(f"[refine-idml] chaining layout skills on {idml}")
+    print("  ensure_layers      :", ensure_layers(work))
+    print("  relink_images      :", relink_images(work))
+    print("  purge_purple_swatch:", purge_purple_swatch(work))
+    out = output_dir() / (Path(idml).stem + "-refined.idml")
+    repack_idml(work, out)
+    print(f"  wrote {out}")
+    rep = preflight.run_preflight(out)
+    for c in rep["checks"]:
+        print(f"    {'PASS' if c['ok'] else 'FAIL'}  {c['check']}  {c['detail']}")
+    print(f"  overall: {'PASS' if rep['ok'] else 'NEEDS WORK'}")
+    return 0
+
+
 def cmd_setup() -> int:
     print("[setup] auto-install local dependencies (token-free, no cloud)")
     deps = ["reportlab", "pillow", "pypdf", "pymupdf"]
@@ -260,6 +288,7 @@ def main(argv: list[str] | None = None) -> int:
     g.add_argument("--book", action="store_true", help="reportlab book + InDesign handoff artifacts")
     g.add_argument("--final", action="store_true", help="11-image refined final document")
     g.add_argument("--gen-idml", dest="gen_idml", action="store_true", help="generate editable IDML [phase 2]")
+    g.add_argument("--refine-idml", dest="refine_idml", action="store_true", help="chain layout skills into one convention-correct IDML (with --idml)")
     g.add_argument("--copy", action="store_true", help="regenerate copy via local Ollama [phase 3]")
     g.add_argument("--package", action="store_true", help="build standalone executable (PyInstaller)")
     g.add_argument("--all", action="store_true", help="book + final")
@@ -277,6 +306,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_skills()
     if args.skill:
         return cmd_skill(args.skill, args.idml, args.text)
+    if args.refine_idml:
+        return cmd_refine_idml(args.idml)
     if args.book:
         return cmd_book()
     if args.final:
