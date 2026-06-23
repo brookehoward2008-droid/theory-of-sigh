@@ -47,6 +47,8 @@ OneDrive.
 | `scripts/agents/ollama_client.py` | Local Ollama client; per-task model routing (`OllamaClient.for_task`), `generate`, `embed`, `dark_caption`, `section_poem` |
 | `scripts/agents/local_guard.py` | `enforce_local_only()` (blocks non-local sockets), `scan_for_cloud_sdks()` |
 | `scripts/paths.py` | OneDrive-read / local-write rule: `assets_dir()`, `output_dir()`, `assert_not_onedrive()`, `preflight_dir()` |
+| `scripts/preflight.py` | Audit IDML+assets; saves `latest.json`/`latest.md` to the local output area; `load_latest()` (wired: `--preflight`) |
+| `scripts/skills/` | Skill registry + layout (`purge_purple_swatch`, `relink_images`, `unpack/repack_idml`) + copy (`refine_copy`, `generate_poem`) (wired: `--skills`, `--skill`) |
 | `PUBLICATION-ENGINE.md` | Usage + per-task model table + what-runs-where |
 
 ## Local model map (all token-free; you have every one installed)
@@ -62,8 +64,10 @@ Use `OllamaClient.for_task("code", quality="quality")` to pin the heavy model.
 
 ## What to build next (in order) — let the local code model implement these
 
-### A. Skills layer — advanced layout + copy editing  (`scripts/skills/`)
-A registry of small named operations the engine lists and runs.
+### A. Skills layer — CORE DONE (`scripts/skills/`, wired: `--skills`, `--skill`)
+Registry + `purge_purple_swatch`, `relink_images`, `unpack_idml`/`repack_idml`,
+`refine_copy`, `generate_poem` are built and verified. Still to add:
+`ensure_layers` and `rebuild_toc` (sketched below).
 
 - `scripts/skills/__init__.py`: `@skill(name, kind, summary)` decorator,
   `SKILLS` dict, `list_skills()`, `run_skill(name, **kw)`.
@@ -83,7 +87,9 @@ A registry of small named operations the engine lists and runs.
   section, motif)`, `regenerate_captions(...)`.
 - Wire `--skills` (list) and `--skill NAME ...` into `build.py`.
 
-### B. Preflight artifacts — auto-saved, auto-loaded  (`scripts/preflight.py`)
+### B. Preflight artifacts — DONE (`scripts/preflight.py`, wired: `--preflight`)
+Built and verified: `audit_idml`, `run_preflight` (saves `latest.json`/`latest.md`
+to the local output area), `load_latest`. Original spec retained below.
 - `audit_idml(idml)` → dict (geometry/orientation, layers, master count, fonts,
   images placed/linked/embedded, TOCStyle, violet swatches + stroke usage).
 - `run_preflight(idml_path=None)` → builds a report (assets + offline guard +

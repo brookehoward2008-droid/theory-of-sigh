@@ -152,6 +152,56 @@ def cmd_copy() -> int:
     return 2
 
 
+def cmd_preflight(idml_path: str | None) -> int:
+    sys.path.insert(0, str(SCRIPTS))
+    import preflight
+    report = preflight.run_preflight(Path(idml_path) if idml_path else None)
+    print("[preflight]")
+    for c in report["checks"]:
+        print(f"  {'PASS' if c['ok'] else 'FAIL'}  {c['check']}  {c['detail']}")
+    print(f"  overall: {'PASS' if report['ok'] else 'NEEDS WORK'}")
+    print(f"  saved to {preflight.preflight_dir()}")
+    return 0 if report["ok"] else 1
+
+
+def cmd_skills() -> int:
+    sys.path.insert(0, str(SCRIPTS))
+    from skills import list_skills
+    print("Skills (layout edits the IDML; copy uses local Ollama):")
+    for s in list_skills():
+        print(f"  [{s.kind:6}] {s.name:20} {s.summary}")
+    return 0
+
+
+def cmd_skill(name: str, idml: str | None, text: str | None) -> int:
+    sys.path.insert(0, str(SCRIPTS))
+    from skills import SKILLS, list_skills, run_skill
+    list_skills()  # register
+    if name not in SKILLS:
+        print(f"unknown skill {name!r}; run --skills to list")
+        return 2
+    if SKILLS[name].kind == "layout":
+        if not idml:
+            print(f"layout skill {name!r} needs --idml PATH")
+            return 2
+        import shutil as _sh
+        from paths import output_dir
+        from skills.layout import repack_idml, unpack_idml
+        work = output_dir() / "idml-work"
+        if work.exists():
+            _sh.rmtree(work)
+        unpack_idml(Path(idml), work)
+        result = run_skill(name, idml_dir=work)
+        out = output_dir() / (Path(idml).stem + "-edited.idml")
+        repack_idml(work, out)
+        print(f"  {name}: {result}")
+        print(f"  wrote {out}")
+        return 0
+    kwargs = {"text": text} if text is not None else {}
+    print(run_skill(name, **kwargs))
+    return 0
+
+
 def cmd_package() -> int:
     print("[package] standalone executable via PyInstaller")
     if not shutil.which("pyinstaller"):
@@ -182,21 +232,32 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Visceral Theory of Sight publication engine.")
     g = parser.add_mutually_exclusive_group(required=True)
     g.add_argument("--check", action="store_true", help="environment + asset preflight, no output")
+    g.add_argument("--preflight", action="store_true", help="audit + save a preflight report")
+    g.add_argument("--skills", action="store_true", help="list available layout/copy skills")
+    g.add_argument("--skill", metavar="NAME", help="run a named skill (with --idml or --text)")
     g.add_argument("--book", action="store_true", help="reportlab book + InDesign handoff artifacts")
     g.add_argument("--final", action="store_true", help="11-image refined final document")
-    g.add_argument("--idml", action="store_true", help="editable InDesign IDML [phase 2]")
+    g.add_argument("--gen-idml", dest="gen_idml", action="store_true", help="generate editable IDML [phase 2]")
     g.add_argument("--copy", action="store_true", help="regenerate copy via local Ollama [phase 3]")
     g.add_argument("--package", action="store_true", help="build standalone executable (PyInstaller)")
     g.add_argument("--all", action="store_true", help="book + final")
+    parser.add_argument("--idml", metavar="PATH", help="IDML file for --preflight / layout --skill")
+    parser.add_argument("--text", help="text input for a copy --skill")
     args = parser.parse_args(argv)
 
     if args.check:
         return cmd_check()
+    if args.preflight:
+        return cmd_preflight(args.idml)
+    if args.skills:
+        return cmd_skills()
+    if args.skill:
+        return cmd_skill(args.skill, args.idml, args.text)
     if args.book:
         return cmd_book()
     if args.final:
         return cmd_final()
-    if args.idml:
+    if args.gen_idml:
         return cmd_idml()
     if args.copy:
         return cmd_copy()
