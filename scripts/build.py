@@ -202,6 +202,27 @@ def cmd_skill(name: str, idml: str | None, text: str | None) -> int:
     return 0
 
 
+def cmd_setup() -> int:
+    print("[setup] auto-install local dependencies (token-free, no cloud)")
+    deps = ["reportlab", "pillow", "pypdf", "pymupdf"]
+    rc = subprocess.call([sys.executable, "-m", "pip", "install", "--quiet", *deps])
+    print(f"  python deps: {'OK' if rc == 0 else 'FAILED'}")
+    sys.path.insert(0, str(SCRIPTS))
+    from agents.ollama_client import MODELS, OllamaClient
+    client = OllamaClient(url=OLLAMA_URL)
+    if not client.available():
+        print(f"  Ollama not reachable at {OLLAMA_URL} — start `ollama serve`, then re-run --setup to pull models")
+        return rc
+    installed = set(client.models())
+    need = [fast for fast, _best in MODELS.values() if fast not in installed]
+    if not need:
+        print("  Ollama models: all present")
+    for model in need:
+        print(f"  pulling {model} ...")
+        subprocess.call(["ollama", "pull", model])
+    return rc
+
+
 def cmd_package() -> int:
     print("[package] standalone executable via PyInstaller")
     if not shutil.which("pyinstaller"):
@@ -231,6 +252,7 @@ def main(argv: list[str] | None = None) -> int:
 
     parser = argparse.ArgumentParser(description="Visceral Theory of Sight publication engine.")
     g = parser.add_mutually_exclusive_group(required=True)
+    g.add_argument("--setup", action="store_true", help="auto-install deps + pull local models")
     g.add_argument("--check", action="store_true", help="environment + asset preflight, no output")
     g.add_argument("--preflight", action="store_true", help="audit + save a preflight report")
     g.add_argument("--skills", action="store_true", help="list available layout/copy skills")
@@ -245,6 +267,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--text", help="text input for a copy --skill")
     args = parser.parse_args(argv)
 
+    if args.setup:
+        return cmd_setup()
     if args.check:
         return cmd_check()
     if args.preflight:

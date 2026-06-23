@@ -96,3 +96,35 @@ def relink_images(idml_dir: Path, links_dir: str = "Links") -> dict:
         if new != text:
             sp.write_text(new, encoding="utf-8")
     return result
+
+
+@skill("ensure_layers", kind="layout",
+       summary="Create named layers (background/images/type/captions) if missing.")
+def ensure_layers(idml_dir: Path, names: tuple[str, ...] = ("background", "images", "type", "captions")) -> dict:
+    idml_dir = Path(idml_dir)
+    dm_path = idml_dir / "designmap.xml"
+    dm = dm_path.read_text(encoding="utf-8", errors="ignore")
+    existing = re.findall(r'<Layer\b[^>]*\bName="([^"]*)"', dm)
+    to_add = [n for n in names if n not in existing]
+    result = {"existing": existing, "added": to_add}
+    if not to_add:
+        return result
+
+    m = re.search(r'<Layer\b[^>]*?/>', dm)
+    if m:
+        template, insert_at = m.group(0), m.end()
+    else:
+        template = ('<Layer Self="ugen" Name="x" Visible="true" Locked="false" '
+                    'IgnoreWrapping="false" ShowGuides="true" LockGuides="false" '
+                    'UI="true" Expendable="true" Printable="true"/>')
+        opened = re.search(r'<Document\b[^>]*>', dm)
+        insert_at = opened.end() if opened else 0
+
+    clones = []
+    for i, name in enumerate(to_add, 1):
+        c = re.sub(r'\bSelf="[^"]*"', f'Self="uLayerGen{i}"', template)
+        c = re.sub(r'\bName="[^"]*"', f'Name="{name}"', c)
+        clones.append(c)
+    dm = dm[:insert_at] + "".join(clones) + dm[insert_at:]
+    dm_path.write_text(dm, encoding="utf-8")
+    return result
