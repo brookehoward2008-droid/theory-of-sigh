@@ -327,6 +327,38 @@ def cmd_ingest(folder: str | None, section: str | None) -> int:
     return 0
 
 
+def cmd_print_dpi(out_dir: str | None) -> int:
+    from PIL import Image
+    src = ROOT / "images" / "labeled"
+    if out_dir:
+        dest = Path(out_dir)
+    else:
+        sys.path.insert(0, str(SCRIPTS))
+        from paths import output_dir
+        dest = output_dir() / "print-300dpi"
+    dest.mkdir(parents=True, exist_ok=True)
+    exts = {".jpg", ".jpeg", ".png", ".webp"}
+    n = 0
+    low = []
+    for p in sorted(src.iterdir()):
+        if p.suffix.lower() not in exts:
+            continue
+        im = Image.open(p)
+        if max(im.size) < 1500:  # < ~5 in at 300 dpi on the long edge
+            low.append((p.name, im.size))
+        kw = {"dpi": (300, 300)}
+        if p.suffix.lower() in {".jpg", ".jpeg"}:
+            kw["quality"] = "keep"  # re-tag DPI without re-compressing
+        im.save(dest / p.name, **kw)
+        n += 1
+    print(f"[print-dpi] wrote {n} images at 300 dpi to {dest}")
+    if low:
+        print("  heads-up - smaller files (limit max print size at 300 dpi):")
+        for nm, sz in low:
+            print(f"    {nm}  {sz[0]}x{sz[1]} px  (~{sz[0]//300}x{sz[1]//300} in @300)")
+    return 0
+
+
 def cmd_setup() -> int:
     print("[setup] auto-install local dependencies (token-free, no cloud)")
     deps = ["reportlab", "pillow", "pypdf", "pymupdf"]
@@ -389,6 +421,7 @@ def main(argv: list[str] | None = None) -> int:
     g.add_argument("--autofix", action="store_true", help="loop preflight + skills until green (with --idml)")
     g.add_argument("--read-preflight", dest="read_preflight", metavar="PDF", help="parse an InDesign preflight report PDF")
     g.add_argument("--ingest", action="store_true", help="copy a local folder of images into the book (with --from and --section)")
+    g.add_argument("--print-dpi", dest="print_dpi", action="store_true", help="export all images to a separate folder tagged 300 dpi (original names)")
     g.add_argument("--copy", action="store_true", help="regenerate copy via local Ollama [phase 3]")
     g.add_argument("--package", action="store_true", help="build standalone executable (PyInstaller)")
     g.add_argument("--all", action="store_true", help="book + final")
@@ -396,6 +429,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--text", help="text input for a copy --skill")
     parser.add_argument("--from", dest="from_dir", metavar="DIR", help="source folder for --ingest")
     parser.add_argument("--section", help="agency|constraint|mediation (for --ingest)")
+    parser.add_argument("--out", dest="out_dir", metavar="DIR", help="output folder for --print-dpi")
     args = parser.parse_args(argv)
 
     if args.setup:
@@ -416,6 +450,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_read_preflight(args.read_preflight)
     if args.ingest:
         return cmd_ingest(args.from_dir, args.section)
+    if args.print_dpi:
+        return cmd_print_dpi(args.out_dir)
     if args.book:
         return cmd_book()
     if args.final:
