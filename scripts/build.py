@@ -291,6 +291,42 @@ def cmd_refine_idml(idml: str | None) -> int:
     return 0
 
 
+def cmd_ingest(folder: str | None, section: str | None) -> int:
+    if not folder or not section:
+        print("--ingest needs --from <folder> and --section <agency|constraint|mediation>")
+        return 2
+    import re as _re
+    import shutil as _sh
+    token = {"agency": "raw-agency", "constraint": "social-constraint",
+             "mediation": "mediation"}.get(section.lower())
+    if not token:
+        print("--section must be one of: agency, constraint, mediation")
+        return 2
+    src = Path(folder)
+    if not src.is_dir():
+        print(f"not a folder: {folder}")
+        return 2
+    labeled = ROOT / "images" / "labeled"
+    labeled.mkdir(parents=True, exist_ok=True)
+    exts = {".jpg", ".jpeg", ".png", ".webp"}
+    used = [int(m.group(1)) for f in labeled.iterdir()
+            if (m := _re.match(r"a(\d+)", f.name))]
+    nxt = (max(used) + 1) if used else 1
+    added = []
+    for p in sorted(src.iterdir()):
+        if p.suffix.lower() in exts:
+            stem = _re.sub(r"[^a-z0-9]+", "-", p.stem.lower()).strip("-")[:48]
+            name = f"a{nxt:02d}-{token}-{stem}{p.suffix.lower()}"
+            _sh.copy2(p, labeled / name)
+            added.append(name)
+            nxt += 1
+    print(f"[ingest] added {len(added)} image(s) as '{section}' to images/labeled:")
+    for a in added:
+        print("  ", a)
+    print("Next: python scripts/build.py --book   (or run.bat)")
+    return 0
+
+
 def cmd_setup() -> int:
     print("[setup] auto-install local dependencies (token-free, no cloud)")
     deps = ["reportlab", "pillow", "pypdf", "pymupdf"]
@@ -352,11 +388,14 @@ def main(argv: list[str] | None = None) -> int:
     g.add_argument("--refine-idml", dest="refine_idml", action="store_true", help="chain layout skills into one convention-correct IDML (with --idml)")
     g.add_argument("--autofix", action="store_true", help="loop preflight + skills until green (with --idml)")
     g.add_argument("--read-preflight", dest="read_preflight", metavar="PDF", help="parse an InDesign preflight report PDF")
+    g.add_argument("--ingest", action="store_true", help="copy a local folder of images into the book (with --from and --section)")
     g.add_argument("--copy", action="store_true", help="regenerate copy via local Ollama [phase 3]")
     g.add_argument("--package", action="store_true", help="build standalone executable (PyInstaller)")
     g.add_argument("--all", action="store_true", help="book + final")
     parser.add_argument("--idml", metavar="PATH", help="IDML file for --preflight / layout --skill")
     parser.add_argument("--text", help="text input for a copy --skill")
+    parser.add_argument("--from", dest="from_dir", metavar="DIR", help="source folder for --ingest")
+    parser.add_argument("--section", help="agency|constraint|mediation (for --ingest)")
     args = parser.parse_args(argv)
 
     if args.setup:
@@ -375,6 +414,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_autofix(args.idml)
     if args.read_preflight:
         return cmd_read_preflight(args.read_preflight)
+    if args.ingest:
+        return cmd_ingest(args.from_dir, args.section)
     if args.book:
         return cmd_book()
     if args.final:
