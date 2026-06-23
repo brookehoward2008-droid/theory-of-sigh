@@ -6,15 +6,15 @@ var ASSETS = [
   {
     "id": "A01",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-01.jpg",
-    "title": "a01-mediation-aris-rovas-jui9rszdpvu-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "A surface intervenes, and sight has to earn the face.",
-    "short_caption": "A surface intervenes, and sight has to earn the face."
+    "title": "a01-raw-agency-maria-budanova-pristavskaya-dk8oheift9o-uns",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
   },
   {
     "id": "A02",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-02.jpg",
-    "title": "a02-raw-agency-maria-budanova-pristavskaya-dk8oheift9o-uns",
+    "title": "a02-raw-agency-janko-priva-n3btiygu5ni-unsplash",
     "group": "Group 1: Raw Agency",
     "caption": "Presence arrives before permission; the body speaks first.",
     "short_caption": "Presence arrives before permission; the body speaks first."
@@ -22,7 +22,7 @@ var ASSETS = [
   {
     "id": "A03",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-03.jpg",
-    "title": "a03-raw-agency-janko-priva-n3btiygu5ni-unsplash",
+    "title": "a03-raw-agency-armin-lotfi-odh6diqdvly-unsplash",
     "group": "Group 1: Raw Agency",
     "caption": "Presence arrives before permission; the body speaks first.",
     "short_caption": "Presence arrives before permission; the body speaks first."
@@ -30,7 +30,7 @@ var ASSETS = [
   {
     "id": "A04",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-04.jpg",
-    "title": "a04-raw-agency-armin-lotfi-odh6diqdvly-unsplash",
+    "title": "a04-raw-agency-alexander-krivitskiy-az7rqwlwkhi-unsplash",
     "group": "Group 1: Raw Agency",
     "caption": "Presence arrives before permission; the body speaks first.",
     "short_caption": "Presence arrives before permission; the body speaks first."
@@ -38,295 +38,295 @@ var ASSETS = [
   {
     "id": "A05",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-05.jpg",
-    "title": "a05-social-constraint-adobestock-1024472839",
-    "group": "Group 2: Social Constraint",
-    "caption": "The image fractures the face into signal and noise, leaving one eye to survive the interference.",
-    "short_caption": "The gaze glitches, but remains."
-  },
-  {
-    "id": "A06",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-06.jpg",
-    "title": "a06-social-constraint-adobestock-1040196803",
-    "group": "Group 2: Social Constraint",
-    "caption": "The flowers bloom exactly where recognition should happen.",
-    "short_caption": "Beauty replaces sight."
-  },
-  {
-    "id": "A07",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-07.jpg",
-    "title": "a07-social-constraint-adobestock-1044937382",
-    "group": "Group 2: Social Constraint",
-    "caption": "The white stroke silences the gaze with surgical calm.",
-    "short_caption": "The eye is edited out."
-  },
-  {
-    "id": "A08",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-08.jpg",
-    "title": "a08-social-constraint-adobestock-1225023891",
-    "group": "Group 2: Social Constraint",
-    "caption": "Her face becomes a garden, but the flowers still perform the work of concealment.",
-    "short_caption": "Bloom as blindfold."
-  },
-  {
-    "id": "A09",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-09.jpg",
-    "title": "a09-social-constraint-adobestock-140076283",
-    "group": "Group 2: Social Constraint",
-    "caption": "The hands do not fully hide her. They make the act of hiding visible.",
-    "short_caption": "Defense becomes gesture."
-  },
-  {
-    "id": "A10",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-10.jpg",
-    "title": "a10-social-constraint-adobestock-1462135790",
-    "group": "Group 2: Social Constraint",
-    "caption": "Gold catches the light while the face withdraws into shadow.",
-    "short_caption": "Adornment becomes armor."
-  },
-  {
-    "id": "A11",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-11.jpg",
-    "title": "a11-social-constraint-adobestock-206067082",
-    "group": "Group 2: Social Constraint",
-    "caption": "She covers her sight, then paints another gaze over the absence.",
-    "short_caption": "A false eye performs the feeling."
-  },
-  {
-    "id": "A12",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-12.jpg",
-    "title": "a12-social-constraint-adobestock-268225510",
-    "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
-  },
-  {
-    "id": "A13",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-13.jpg",
-    "title": "a13-social-constraint-adobestock-320500758",
-    "group": "Group 2: Social Constraint",
-    "caption": "The veil does not block the gaze; it makes looking feel forbidden.",
-    "short_caption": "Lace turns vision into trespass."
-  },
-  {
-    "id": "A14",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-14.jpg",
-    "title": "a14-social-constraint-adobestock-368079012",
-    "group": "Group 2: Social Constraint",
-    "caption": "One eye meets us through the flower\u2019s shadow, half invitation, half defense.",
-    "short_caption": "Nature becomes a mask."
-  },
-  {
-    "id": "A15",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-15.jpg",
-    "title": "a15-social-constraint-adobestock-378198491",
-    "group": "Group 2: Social Constraint",
-    "caption": "The blue fabric does not conceal her completely; it makes her appear underwater, suspended between access and refusal.",
-    "short_caption": "Visibility dissolves into blue."
-  },
-  {
-    "id": "A16",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-16.jpg",
-    "title": "a16-social-constraint-adobestock-565582008",
-    "group": "Group 2: Social Constraint",
-    "caption": "The face breaks apart, but the eyes remain \u2014 watchful, multiplied, impossible to silence.",
-    "short_caption": "Fragments still look back."
-  },
-  {
-    "id": "A17",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-17.jpg",
-    "title": "a17-social-constraint-adobestock-720156971",
-    "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
-  },
-  {
-    "id": "A18",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-18.jpg",
-    "title": "a18-social-constraint-adobestock-730927617",
-    "group": "Group 2: Social Constraint",
-    "caption": "The repeated faces turn the gaze into public noise: many eyes, no single witness.",
-    "short_caption": "The gaze becomes a crowd."
-  },
-  {
-    "id": "A19",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-19.jpg",
-    "title": "a19-social-constraint-adobestock-973721353",
-    "group": "Group 2: Social Constraint",
-    "caption": "Clouds and trees cross the face like a second memory, replacing sight with interior weather.",
-    "short_caption": "The mind becomes the landscape."
-  },
-  {
-    "id": "A20",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-20.jpg",
-    "title": "a20-mediation-alex-bracken-l1sjo7tmvec-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "The veil softens the mouth and fractures the gaze into texture.",
-    "short_caption": "The face becomes fabric."
-  },
-  {
-    "id": "A21",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-21.jpg",
-    "title": "a21-raw-agency-alexander-krivitskiy-az7rqwlwkhi-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "Presence arrives before permission; the body speaks first.",
-    "short_caption": "Presence arrives before permission; the body speaks first."
-  },
-  {
-    "id": "A22",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-22.jpg",
-    "title": "a22-social-constraint-alexander-krivitskiy-gfopukdkmvo-uns",
-    "group": "Group 2: Social Constraint",
-    "caption": "The eye remains visible through the lace, making the act of looking feel intimate and forbidden.",
-    "short_caption": "Lace makes looking trespass."
-  },
-  {
-    "id": "A23",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-23.jpg",
-    "title": "a23-mediation-allef-vinicius-dkrntf-jgtw-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "Leaves interrupt the portrait gently, as if nature itself has chosen what may be seen.",
-    "short_caption": "The gaze hides in green."
-  },
-  {
-    "id": "A24",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-24.jpg",
-    "title": "a24-raw-agency-amir-geshani-2jh8d3chnec-unsplash",
+    "title": "a05-raw-agency-amir-geshani-2jh8d3chnec-unsplash",
     "group": "Group 1: Raw Agency",
     "caption": "She holds the obstruction herself, turning concealment into control.",
     "short_caption": "She edits the view."
   },
   {
-    "id": "A25",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-25.jpg",
-    "title": "a25-social-constraint-andrey-zvyagintsev-t8iknlqojcq-unspl",
-    "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
-  },
-  {
-    "id": "A26",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-26.jpg",
-    "title": "a26-mediation-arielle-allouche-h82rqe4gria-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "A surface intervenes, and sight has to earn the face.",
-    "short_caption": "A surface intervenes, and sight has to earn the face."
-  },
-  {
-    "id": "A27",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-27.jpg",
-    "title": "a27-raw-agency-baran-lotfollahi-lobgof8rurg-unsplash",
+    "id": "A06",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-06.jpg",
+    "title": "a06-raw-agency-baran-lotfollahi-lobgof8rurg-unsplash",
     "group": "Group 1: Raw Agency",
     "caption": "The closed eye turns the image inward; the fabric makes silence feel physical.",
     "short_caption": "Sight folds into silence."
   },
   {
-    "id": "A28",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-28.jpg",
-    "title": "a28-social-constraint-birmingham-museums-trust-oqpbewogd0o",
-    "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
-  },
-  {
-    "id": "A29",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-29.jpg",
-    "title": "a29-mediation-boston-public-library-grbfmxpumu4-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "A surface intervenes, and sight has to earn the face.",
-    "short_caption": "A surface intervenes, and sight has to earn the face."
-  },
-  {
-    "id": "A30",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-30.jpg",
-    "title": "a30-raw-agency-brunxs-monochrome-spniqdcpi9u-unsplash",
+    "id": "A07",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-07.jpg",
+    "title": "a07-raw-agency-brunxs-monochrome-spniqdcpi9u-unsplash",
     "group": "Group 1: Raw Agency",
     "caption": "The shadows do not cover her completely; they divide the gaze into risk and revelation.",
     "short_caption": "One eye survives the dark."
   },
   {
-    "id": "A31",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-31.jpg",
-    "title": "a31-social-constraint-caleb-kastein-lmnz6-icim8-unsplash",
-    "group": "Group 2: Social Constraint",
-    "caption": "The eye survives the dark, but the rest of the face slips out of reach.",
-    "short_caption": "One eye holds the room."
-  },
-  {
-    "id": "A32",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-32.jpg",
-    "title": "a32-mediation-camila-quintero-franco-mc852jack1g-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "A surface intervenes, and sight has to earn the face.",
-    "short_caption": "A surface intervenes, and sight has to earn the face."
-  },
-  {
-    "id": "A33",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-33.jpg",
-    "title": "a33-raw-agency-carl-cheng-o4l-vetcxhy-unsplash",
+    "id": "A08",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-08.jpg",
+    "title": "a08-raw-agency-carl-cheng-o4l-vetcxhy-unsplash",
     "group": "Group 1: Raw Agency",
     "caption": "The covered lenses turn sight into repair, damage, and evidence.",
     "short_caption": "Vision becomes patched evidence."
   },
   {
-    "id": "A34",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-34.jpg",
-    "title": "a34-social-constraint-cole-keister-d6zqt8nfiq4-unsplash",
+    "id": "A09",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-09.jpg",
+    "title": "a09-raw-agency-drew-dizzy-graham-ctkgzjtmjqu-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
+  },
+  {
+    "id": "A10",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-10.jpg",
+    "title": "a10-raw-agency-enesh-taganova-ioxgidqvqyq-unsplash-1",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
+  },
+  {
+    "id": "A11",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-11.jpg",
+    "title": "a11-raw-agency-europeana-wwghncxmcqi-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
+  },
+  {
+    "id": "A12",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-12.jpg",
+    "title": "a12-raw-agency-good-faces-r8vsytyy2oe-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "The face dissolves into motion, as if memory cannot hold it still.",
+    "short_caption": "Recognition loses focus."
+  },
+  {
+    "id": "A13",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-13.jpg",
+    "title": "a13-raw-agency-ilya-mondryk-oceeo0ayn1s-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
+  },
+  {
+    "id": "A14",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-14.jpg",
+    "title": "a14-raw-agency-library-of-congress-v0jinhbf3xq-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
+  },
+  {
+    "id": "A15",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-15.jpg",
+    "title": "a15-raw-agency-nastia-petruk-f-hajyv3wye-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "The leaves interrupt the portrait softly, but the gaze remains direct and unhidden.",
+    "short_caption": "Nature edits the face."
+  },
+  {
+    "id": "A16",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-16.jpg",
+    "title": "a16-raw-agency-ovie-ogege-6bwt4ci-ujs-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "The glasses split the face into surface and shadow, making style feel like defense.",
+    "short_caption": "Coolness becomes cover."
+  },
+  {
+    "id": "A17",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-17.jpg",
+    "title": "a17-raw-agency-smithsonian-otg-zz0tybe-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
+  },
+  {
+    "id": "A18",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-18.jpg",
+    "title": "a18-raw-agency-toa-heftiba-fv1lunshcaw-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
+  },
+  {
+    "id": "A19",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-19.jpg",
+    "title": "a19-raw-agency-yadu-nandlal-xpnvhcurfs-unsplash",
+    "group": "Group 1: Raw Agency",
+    "caption": "Presence arrives before permission; the body speaks first.",
+    "short_caption": "Presence arrives before permission; the body speaks first."
+  },
+  {
+    "id": "A20",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-20.jpg",
+    "title": "a20-social-constraint-adobestock-140076283",
+    "group": "Group 2: Social Constraint",
+    "caption": "The hands do not fully hide her. They make the act of hiding visible.",
+    "short_caption": "Defense becomes gesture."
+  },
+  {
+    "id": "A21",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-21.jpg",
+    "title": "a21-social-constraint-adobestock-206067082",
+    "group": "Group 2: Social Constraint",
+    "caption": "She covers her sight, then paints another gaze over the absence.",
+    "short_caption": "A false eye performs the feeling."
+  },
+  {
+    "id": "A22",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-22.jpg",
+    "title": "a22-social-constraint-adobestock-320500758",
+    "group": "Group 2: Social Constraint",
+    "caption": "The veil does not block the gaze; it makes looking feel forbidden.",
+    "short_caption": "Lace turns vision into trespass."
+  },
+  {
+    "id": "A23",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-23.jpg",
+    "title": "a23-social-constraint-adobestock-368079012",
+    "group": "Group 2: Social Constraint",
+    "caption": "One eye meets us through the flower\u2019s shadow, half invitation, half defense.",
+    "short_caption": "Nature becomes a mask."
+  },
+  {
+    "id": "A24",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-24.jpg",
+    "title": "a24-social-constraint-adobestock-378198491",
+    "group": "Group 2: Social Constraint",
+    "caption": "The blue fabric does not conceal her completely; it makes her appear underwater, suspended between access and refusal.",
+    "short_caption": "Visibility dissolves into blue."
+  },
+  {
+    "id": "A25",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-25.jpg",
+    "title": "a25-social-constraint-alexander-krivitskiy-gfopukdkmvo-uns",
+    "group": "Group 2: Social Constraint",
+    "caption": "The eye remains visible through the lace, making the act of looking feel intimate and forbidden.",
+    "short_caption": "Lace makes looking trespass."
+  },
+  {
+    "id": "A26",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-26.jpg",
+    "title": "a26-social-constraint-andrey-zvyagintsev-t8iknlqojcq-unspl",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+  },
+  {
+    "id": "A27",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-27.jpg",
+    "title": "a27-social-constraint-birmingham-museums-trust-oqpbewogd0o",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+  },
+  {
+    "id": "A28",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-28.jpg",
+    "title": "a28-social-constraint-caleb-kastein-lmnz6-icim8-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The eye survives the dark, but the rest of the face slips out of reach.",
+    "short_caption": "One eye holds the room."
+  },
+  {
+    "id": "A29",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-29.jpg",
+    "title": "a29-social-constraint-cole-keister-d6zqt8nfiq4-unsplash",
     "group": "Group 2: Social Constraint",
     "caption": "The foil frames the gaze like something precious, trapped, and half-protected.",
     "short_caption": "The gaze cuts through gold."
   },
   {
-    "id": "A35",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-35.jpg",
-    "title": "a35-mediation-darius-bashar-3xegkkbinck-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "The face moves faster than recognition, leaving the eye as the only anchor.",
-    "short_caption": "Identity slips; the eye remains."
-  },
-  {
-    "id": "A36",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-36.jpg",
-    "title": "a36-raw-agency-drew-dizzy-graham-ctkgzjtmjqu-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "Presence arrives before permission; the body speaks first.",
-    "short_caption": "Presence arrives before permission; the body speaks first."
-  },
-  {
-    "id": "A37",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-37.jpg",
-    "title": "a37-social-constraint-elias-maurer-ssplu7ipc8g-unsplash",
+    "id": "A30",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-30.jpg",
+    "title": "a30-social-constraint-elias-maurer-ssplu7ipc8g-unsplash",
     "group": "Group 2: Social Constraint",
     "caption": "Text covers the face, but the eye reads back through the surface.",
     "short_caption": "The archive looks back."
   },
   {
-    "id": "A38",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-38.jpg",
-    "title": "a38-mediation-elvis-kaiser-rqbk5ez6qa0-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "A surface intervenes, and sight has to earn the face.",
-    "short_caption": "A surface intervenes, and sight has to earn the face."
-  },
-  {
-    "id": "A39",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-39.jpg",
-    "title": "a39-raw-agency-enesh-taganova-ioxgidqvqyq-unsplash-1",
-    "group": "Group 1: Raw Agency",
-    "caption": "Presence arrives before permission; the body speaks first.",
-    "short_caption": "Presence arrives before permission; the body speaks first."
-  },
-  {
-    "id": "A40",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-40.jpg",
-    "title": "a40-social-constraint-erik-mclean-gjtz5ckgeew-unsplash",
+    "id": "A31",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-31.jpg",
+    "title": "a31-social-constraint-erik-mclean-gjtz5ckgeew-unsplash",
     "group": "Group 2: Social Constraint",
     "caption": "The darkness does not hide the gaze; it sharpens its accusation.",
     "short_caption": "The eye becomes evidence."
   },
   {
+    "id": "A32",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-32.jpg",
+    "title": "a32-social-constraint-evilicio-inc-1hty8zlswls-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+  },
+  {
+    "id": "A33",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-33.jpg",
+    "title": "a33-social-constraint-harry-quan-g1iycecw2ei-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+  },
+  {
+    "id": "A34",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-34.jpg",
+    "title": "a34-social-constraint-janko-ferlic-brzt6bdt6na-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+  },
+  {
+    "id": "A35",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-35.jpg",
+    "title": "a35-social-constraint-lorraine-hill-4dyxkga2gxa-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The eye peers through a torn aperture, caught between protection and surveillance.",
+    "short_caption": "A small hole becomes a gaze."
+  },
+  {
+    "id": "A36",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-36.jpg",
+    "title": "a36-social-constraint-nina-zeynep-guler-fjjivsx-bxm-unspla",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+  },
+  {
+    "id": "A37",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-37.jpg",
+    "title": "a37-social-constraint-see-plus-np3s9byoqac-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+  },
+  {
+    "id": "A38",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-38.jpg",
+    "title": "a38-social-constraint-teslariu-mihai-tk-szddiuis-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+  },
+  {
+    "id": "A39",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-39.jpg",
+    "title": "a39-social-constraint-umanoide-xjp9ak1oqhw-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "False eyes replace the real ones, turning the portrait into a performance of seeing.",
+    "short_caption": "The mask learns to look."
+  },
+  {
+    "id": "A40",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-40.jpg",
+    "title": "a40-social-constraint-zachary-kadolph-qbjgfnctwbu-unsplash",
+    "group": "Group 2: Social Constraint",
+    "caption": "The pose turns looking into a rule already agreed to.",
+    "short_caption": "The pose turns looking into a rule already agreed to."
+  },
+  {
     "id": "A41",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-41.jpg",
-    "title": "a41-mediation-europeana-lbt8newonko-unsplash",
+    "title": "a41-mediation-aris-rovas-jui9rszdpvu-unsplash",
     "group": "Group 3: Mediation",
     "caption": "A surface intervenes, and sight has to earn the face.",
     "short_caption": "A surface intervenes, and sight has to earn the face."
@@ -334,90 +334,90 @@ var ASSETS = [
   {
     "id": "A42",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-42.jpg",
-    "title": "a42-raw-agency-europeana-wwghncxmcqi-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "Presence arrives before permission; the body speaks first.",
-    "short_caption": "Presence arrives before permission; the body speaks first."
+    "title": "a42-mediation-alex-bracken-l1sjo7tmvec-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "The veil softens the mouth and fractures the gaze into texture.",
+    "short_caption": "The face becomes fabric."
   },
   {
     "id": "A43",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-43.jpg",
-    "title": "a43-social-constraint-evilicio-inc-1hty8zlswls-unsplash",
-    "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
+    "title": "a43-mediation-allef-vinicius-dkrntf-jgtw-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "Leaves interrupt the portrait gently, as if nature itself has chosen what may be seen.",
+    "short_caption": "The gaze hides in green."
   },
   {
     "id": "A44",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-44.jpg",
-    "title": "a44-mediation-flaviu-costin-vr-sbbcwklc-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "The cloth protects and confines at once, leaving one eye to carry the whole portrait.",
-    "short_caption": "One opening, one witness."
-  },
-  {
-    "id": "A45",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-45.jpg",
-    "title": "a45-raw-agency-good-faces-r8vsytyy2oe-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "The face dissolves into motion, as if memory cannot hold it still.",
-    "short_caption": "Recognition loses focus."
-  },
-  {
-    "id": "A46",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-46.jpg",
-    "title": "a46-social-constraint-harry-quan-g1iycecw2ei-unsplash",
-    "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
-  },
-  {
-    "id": "A47",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-47.jpg",
-    "title": "a47-mediation-igor-rand-giw9ccl3hxa-unsplash",
+    "title": "a44-mediation-arielle-allouche-h82rqe4gria-unsplash",
     "group": "Group 3: Mediation",
     "caption": "A surface intervenes, and sight has to earn the face.",
     "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
+    "id": "A45",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-45.jpg",
+    "title": "a45-mediation-boston-public-library-grbfmxpumu4-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
+  },
+  {
+    "id": "A46",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-46.jpg",
+    "title": "a46-mediation-camila-quintero-franco-mc852jack1g-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
+  },
+  {
+    "id": "A47",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-47.jpg",
+    "title": "a47-mediation-darius-bashar-3xegkkbinck-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "The face moves faster than recognition, leaving the eye as the only anchor.",
+    "short_caption": "Identity slips; the eye remains."
+  },
+  {
     "id": "A48",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-48.jpg",
-    "title": "a48-raw-agency-ilya-mondryk-oceeo0ayn1s-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "Presence arrives before permission; the body speaks first.",
-    "short_caption": "Presence arrives before permission; the body speaks first."
+    "title": "a48-mediation-elvis-kaiser-rqbk5ez6qa0-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A49",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-49.jpg",
-    "title": "a49-social-constraint-janko-ferlic-brzt6bdt6na-unsplash",
-    "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
+    "title": "a49-mediation-europeana-lbt8newonko-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A50",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-50.jpg",
-    "title": "a50-mediation-jr-korpa-0lokelbdsbw-unsplash",
+    "title": "a50-mediation-flaviu-costin-vr-sbbcwklc-unsplash",
     "group": "Group 3: Mediation",
-    "caption": "The face appears twice, but neither version offers certainty.",
-    "short_caption": "Doubling does not reveal."
+    "caption": "The cloth protects and confines at once, leaving one eye to carry the whole portrait.",
+    "short_caption": "One opening, one witness."
   },
   {
     "id": "A51",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-51.jpg",
-    "title": "a51-raw-agency-library-of-congress-v0jinhbf3xq-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "Presence arrives before permission; the body speaks first.",
-    "short_caption": "Presence arrives before permission; the body speaks first."
+    "title": "a51-mediation-igor-rand-giw9ccl3hxa-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A52",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-52.jpg",
-    "title": "a52-social-constraint-lorraine-hill-4dyxkga2gxa-unsplash",
-    "group": "Group 2: Social Constraint",
-    "caption": "The eye peers through a torn aperture, caught between protection and surveillance.",
-    "short_caption": "A small hole becomes a gaze."
+    "title": "a52-mediation-jr-korpa-0lokelbdsbw-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "The face appears twice, but neither version offers certainty.",
+    "short_caption": "Doubling does not reveal."
   },
   {
     "id": "A53",
@@ -430,130 +430,50 @@ var ASSETS = [
   {
     "id": "A54",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-54.jpg",
-    "title": "a54-raw-agency-nastia-petruk-f-hajyv3wye-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "The leaves interrupt the portrait softly, but the gaze remains direct and unhidden.",
-    "short_caption": "Nature edits the face."
-  },
-  {
-    "id": "A55",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-55.jpg",
-    "title": "a55-social-constraint-nina-zeynep-guler-fjjivsx-bxm-unspla",
-    "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
-  },
-  {
-    "id": "A56",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-56.jpg",
-    "title": "a56-mediation-noah-buscher-11ldehfy-ha-unsplash",
+    "title": "a54-mediation-noah-buscher-11ldehfy-ha-unsplash",
     "group": "Group 3: Mediation",
     "caption": "Play becomes obstruction; sweetness performs the work of concealment.",
     "short_caption": "Candy becomes a mask."
   },
   {
+    "id": "A55",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-55.jpg",
+    "title": "a55-mediation-smithsonian-elpq3w9epnk-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
+  },
+  {
+    "id": "A56",
+    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-56.jpg",
+    "title": "a56-mediation-the-new-york-public-library-ndjv4ntdf6g-unsp",
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
+  },
+  {
     "id": "A57",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-57.jpg",
-    "title": "a57-raw-agency-ovie-ogege-6bwt4ci-ujs-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "The glasses split the face into surface and shadow, making style feel like defense.",
-    "short_caption": "Coolness becomes cover."
+    "title": "a57-mediation-umesh-soni-hpklbuuel-k-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A58",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-58.jpg",
-    "title": "a58-social-constraint-see-plus-np3s9byoqac-unsplash",
-    "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
+    "title": "a58-mediation-valentin-lacoste-8pafowrw8me-unsplash",
+    "group": "Group 3: Mediation",
+    "caption": "A surface intervenes, and sight has to earn the face.",
+    "short_caption": "A surface intervenes, and sight has to earn the face."
   },
   {
     "id": "A59",
     "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-59.jpg",
-    "title": "a59-mediation-smithsonian-elpq3w9epnk-unsplash",
+    "title": "a59-mediation-daniela-podacauri-avs6oi3y-unsplash",
     "group": "Group 3: Mediation",
     "caption": "A surface intervenes, and sight has to earn the face.",
     "short_caption": "A surface intervenes, and sight has to earn the face."
-  },
-  {
-    "id": "A60",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-60.jpg",
-    "title": "a60-raw-agency-smithsonian-otg-zz0tybe-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "Presence arrives before permission; the body speaks first.",
-    "short_caption": "Presence arrives before permission; the body speaks first."
-  },
-  {
-    "id": "A61",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-61.jpg",
-    "title": "a61-social-constraint-teslariu-mihai-tk-szddiuis-unsplash",
-    "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
-  },
-  {
-    "id": "A62",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-62.jpg",
-    "title": "a62-mediation-the-new-york-public-library-ndjv4ntdf6g-unsp",
-    "group": "Group 3: Mediation",
-    "caption": "A surface intervenes, and sight has to earn the face.",
-    "short_caption": "A surface intervenes, and sight has to earn the face."
-  },
-  {
-    "id": "A63",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-63.jpg",
-    "title": "a63-raw-agency-toa-heftiba-fv1lunshcaw-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "Presence arrives before permission; the body speaks first.",
-    "short_caption": "Presence arrives before permission; the body speaks first."
-  },
-  {
-    "id": "A64",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-64.jpg",
-    "title": "a64-social-constraint-umanoide-xjp9ak1oqhw-unsplash",
-    "group": "Group 2: Social Constraint",
-    "caption": "False eyes replace the real ones, turning the portrait into a performance of seeing.",
-    "short_caption": "The mask learns to look."
-  },
-  {
-    "id": "A65",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-65.jpg",
-    "title": "a65-mediation-umesh-soni-hpklbuuel-k-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "A surface intervenes, and sight has to earn the face.",
-    "short_caption": "A surface intervenes, and sight has to earn the face."
-  },
-  {
-    "id": "A66",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-66.jpg",
-    "title": "a66-mediation-valentin-lacoste-8pafowrw8me-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "A surface intervenes, and sight has to earn the face.",
-    "short_caption": "A surface intervenes, and sight has to earn the face."
-  },
-  {
-    "id": "A67",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-67.jpg",
-    "title": "a67-social-constraint-zachary-kadolph-qbjgfnctwbu-unsplash",
-    "group": "Group 2: Social Constraint",
-    "caption": "The pose turns looking into a rule already agreed to.",
-    "short_caption": "The pose turns looking into a rule already agreed to."
-  },
-  {
-    "id": "A68",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-68.jpg",
-    "title": "a68-mediation-daniela-podacauri-avs6oi3y-unsplash",
-    "group": "Group 3: Mediation",
-    "caption": "A surface intervenes, and sight has to earn the face.",
-    "short_caption": "A surface intervenes, and sight has to earn the face."
-  },
-  {
-    "id": "A69",
-    "path": "/home/user/theory-of-sigh/visceral-production-route/assets/asset-69.jpg",
-    "title": "a69-raw-agency-yadu-nandlal-xpnvhcurfs-unsplash",
-    "group": "Group 1: Raw Agency",
-    "caption": "Presence arrives before permission; the body speaks first.",
-    "short_caption": "Presence arrives before permission; the body speaks first."
   }
 ];
 var OUTPUT_INDD = "/home/user/theory-of-sigh/visceral-production-route/output/indesign/the-visceral-theory-of-sight-50pp.indd";
