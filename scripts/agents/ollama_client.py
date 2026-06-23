@@ -17,6 +17,15 @@ from dataclasses import dataclass
 DEFAULT_URL = "http://127.0.0.1:11434"
 DEFAULT_MODEL = "mistral:latest"
 
+# Task -> (fast model, quality model). All drawn from the local Ollama library
+# the user already has installed, so every job runs token-free on a best-fit model.
+MODELS = {
+    "prose": ("mistral:latest", "llama3.3:70b"),          # house-voice copy, poem, captions
+    "code": ("qwen2.5-coder:7b", "qwen3-coder:30b"),      # InDesign JSX / HTML / Python
+    "reasoning": ("deepseek-r1:32b", "deepseek-r1:32b"),  # structure + layout planning
+    "embed": ("nomic-embed-text:latest", "nomic-embed-text:latest"),  # semantic matching
+}
+
 # House voice for this title: darkly lyrical, sensory, image-led.
 POET_SYSTEM = (
     "You are a darkly lyrical art-book editor for a visual-psychology issue on "
@@ -75,6 +84,23 @@ class OllamaClient:
                 f"Ollama not reachable at {self.url}; start `ollama serve` "
                 f"and `ollama pull {self.model}`."
             ) from exc
+
+    def embed(self, text: str) -> list[float]:
+        """Vector embedding via the local embedding model (nomic-embed-text)."""
+        req = urllib.request.Request(
+            f"{self.url}/api/embeddings",
+            data=json.dumps({"model": self.model, "prompt": text}).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+            return json.load(resp).get("embedding", [])
+
+    @classmethod
+    def for_task(cls, task: str, quality: str = "fast", url: str = DEFAULT_URL) -> "OllamaClient":
+        """Client pinned to the best local model for a task ('prose', 'code',
+        'reasoning', 'embed'). quality='quality' selects the heavier model."""
+        fast, best = MODELS.get(task, (DEFAULT_MODEL, DEFAULT_MODEL))
+        return cls(url=url, model=best if quality == "quality" else fast)
 
 
 def dark_caption(client: OllamaClient, image_description: str) -> str:

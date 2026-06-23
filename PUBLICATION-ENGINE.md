@@ -45,6 +45,19 @@ ollama pull mistral:latest
 python scripts/build.py --check      # confirms "Ollama: reachable; models: ..."
 ```
 
+The engine picks the best-fit local model per task (all token-free):
+
+| Task | Model | Quality option |
+|---|---|---|
+| Prose / poem / captions | `mistral:latest` | `llama3.3:70b` |
+| Code (JSX / HTML / Python) | `qwen2.5-coder:7b` | `qwen3-coder:30b` |
+| Reasoning / planning | `deepseek-r1:32b` | — |
+| Embeddings (semantic match) | `nomic-embed-text:latest` | — |
+
+`python scripts/build.py --check` prints this plan and flags any model not yet
+installed. Use `OllamaClient.for_task("code", quality="quality")` to pin a job
+to the heavier model.
+
 Client: `scripts/agents/ollama_client.py` (`OllamaClient`, plus `dark_caption`
 and `section_poem` helpers in the book's house voice). If Ollama is not
 running, the build falls back to the hand-written copy already in the repo.

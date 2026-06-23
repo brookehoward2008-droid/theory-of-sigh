@@ -57,17 +57,29 @@ def run_script(name: str) -> int:
     return subprocess.call([sys.executable, str(path)], cwd=str(ROOT))
 
 
-def _ollama_status() -> str:
-    try:
-        from agents.ollama_client import OllamaClient  # local, no network beyond localhost
-    except Exception:
-        sys.path.insert(0, str(SCRIPTS))
-        from agents.ollama_client import OllamaClient
-    client = OllamaClient(url=OLLAMA_URL, model=OLLAMA_MODEL)
-    if not client.available():
-        return f"not reachable at {OLLAMA_URL} — run `ollama serve` (token-free local agents)"
-    models = client.models()
-    return f"reachable; models: {', '.join(models) or '(none pulled yet)'}"
+def _print_local_agents() -> None:
+    sys.path.insert(0, str(SCRIPTS))
+    from agents.ollama_client import MODELS, OllamaClient  # localhost only
+
+    client = OllamaClient(url=OLLAMA_URL)
+    reachable = client.available()
+    installed = set(client.models()) if reachable else set()
+    if reachable:
+        print(f"  Ollama: reachable; {len(installed)} model(s) installed")
+    else:
+        print(f"  Ollama: not reachable at {OLLAMA_URL} — run `ollama serve` (token-free)")
+
+    def tag(model: str) -> str:
+        if not reachable:
+            return model
+        return f"{model} [{'installed' if model in installed else 'MISSING'}]"
+
+    print("  model plan (task -> model):")
+    for task, (fast, best) in MODELS.items():
+        line = f"    {task:9} {tag(fast)}"
+        if best != fast:
+            line += f"   (quality: {tag(best)})"
+        print(line)
 
 
 def cmd_check() -> int:
@@ -90,7 +102,7 @@ def cmd_check() -> int:
     print(f"  caption manifest: {'OK' if CAPTION_MANIFEST.exists() else 'MISSING'}")
 
     print("\nLocal agents (token-free):")
-    print(f"  Ollama: {_ollama_status()}")
+    _print_local_agents()
 
     print("\nOptional tooling:")
     id_cli = any(shutil.which(x) for x in ("InDesign", "indesign", "InDesignServer"))
