@@ -109,6 +109,20 @@ def cmd_check() -> int:
     print(f"  InDesign on PATH: {'yes' if id_cli else 'no (IDML + PDF still build without it)'}")
     print(f"  PyInstaller     : {'OK' if shutil.which('pyinstaller') else 'not installed (pip install pyinstaller)'}")
 
+    print("\nOffline guard (no cloud, no tokens):")
+    sys.path.insert(0, str(SCRIPTS))
+    from agents.local_guard import is_enforced, scan_for_cloud_sdks
+    from paths import assets_dir, output_dir
+    print(f"  socket guard active : {is_enforced()}")
+    findings = scan_for_cloud_sdks(SCRIPTS)
+    print(f"  cloud-SDK scan      : {'clean' if not findings else findings}")
+    print(f"  assets (read-only)  : {assets_dir()}")
+    try:
+        print(f"  output (local write): {output_dir()}")
+    except Exception as exc:
+        print(f"  output (local write): ERROR {exc}")
+        ok = False
+
     print("\nModes: --book  --final  --idml[phase2]  --copy[phase3]  --package  --all")
     return 0 if ok else 1
 
@@ -161,6 +175,10 @@ def cmd_all() -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    sys.path.insert(0, str(SCRIPTS))
+    from agents.local_guard import enforce_local_only
+    enforce_local_only()  # no cloud, no tokens: block any non-local connection
+
     parser = argparse.ArgumentParser(description="Visceral Theory of Sight publication engine.")
     g = parser.add_mutually_exclusive_group(required=True)
     g.add_argument("--check", action="store_true", help="environment + asset preflight, no output")

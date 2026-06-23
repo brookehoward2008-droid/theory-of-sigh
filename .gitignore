@@ -22,3 +22,4 @@ visceral-production-route/reports/*.png
 # Local InDesign binaries should stay out of Git unless explicitly packaged.
 *.indd
 *.idml
+build/
