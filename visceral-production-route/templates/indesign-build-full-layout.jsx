@@ -875,7 +875,7 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
     // Dominant image left, text column right.
     imageFrame(page, b(16, 16, 199, 150), item, 100);
     textFrame(page, b(20, 160, 44, 262), section, 20, "Bold", cream, 100);
-    textFrame(page, b(46, 160, 199, 262), body, 9.2, "Regular", cream, 100);
+    textFrame(page, b(46, 160, 199, 262), body, 10.4, "Regular", cream, 100);
     caption(page, b(180, 20, 199, 110), item, ink, cream);
   } else if (mode === 1) {
     // Full-bleed image, scrim, pull statement, body panel.
@@ -884,14 +884,14 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
     textFrame(page, b(20, 18, 26, 170), "ARTICLE / " + section, 8, "Bold", gold, 100);
     textFrame(page, b(30, 18, 74, 240), "Only one eye remains; the image gets louder.", 24, "Bold", cream, 100);
     colorPanel(page, b(150, 12, 200, 150), ink, 58);
-    textFrame(page, b(154, 18, 198, 146), body, 8.6, "Regular", cream, 100);
+    textFrame(page, b(154, 18, 198, 146), body, 10.4, "Regular", cream, 100);
   } else {
     // Triptych: three images across, text band beneath (multi-image spread).
     imageFrame(page, b(16, 16, 132, 95), item, 100);
     imageFrame(page, b(16, 100, 132, 179), item2, 100);
     imageFrame(page, b(16, 184, 132, 263), item3, 100);
     textFrame(page, b(140, 16, 162, 262), section + " / SEQUENCE", 16, "Bold", cream, 100);
-    textFrame(page, b(164, 16, 199, 262), body, 9, "Regular", cream, 100);
+    textFrame(page, b(164, 16, 199, 262), body, 10.4, "Regular", cream, 100);
     caption(page, b(116, 104, 132, 175), item2, ink, cream);
   }
 }

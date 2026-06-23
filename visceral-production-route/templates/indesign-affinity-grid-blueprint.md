@@ -4,7 +4,7 @@
 
 - Trim: A4 portrait, 210 mm x 297 mm.
 - Bleed: 3 mm on all sides.
-- Media/artboard with bleed: 216.000 mm x 303.000 mm.
+- Media/artboard with bleed: 285.750 mm x 222.250 mm.
 - Pages: 50.
 - Master page: page numbers, section headers, margins, and 12-column grid.
 
@@ -12,11 +12,11 @@
 
 - Columns: 12.
 - Gutter: 5 mm.
-- Outer margin: 15.750 mm, 7.5 percent of trim width.
-- Inner margin: 21.000 mm, 10 percent of trim width.
-- Top margin: 20.790 mm, 7 percent of trim height.
-- Bottom margin: 20.790 mm, 7 percent of trim height.
-- Column width after margins and gutters: 9.854 mm.
+- Outer margin: 16.000 mm, 7.5 percent of trim width.
+- Inner margin: 16.000 mm, 10 percent of trim width.
+- Top margin: 16.000 mm, 7 percent of trim height.
+- Bottom margin: 16.000 mm, 7 percent of trim height.
+- Column width after margins and gutters: 16.033 mm.
 
 ## Modules
 
