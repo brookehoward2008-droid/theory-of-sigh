@@ -223,20 +223,23 @@ def ensure_dirs() -> None:
 
 
 def clean_generated_dirs() -> None:
-    for path in (ASSET_OUT, PDF_OUT, INDESIGN_OUT, LEDGER_OUT, NOTES_OUT, MANIFEST_OUT, TEMPLATE_OUT, REPORTS_OUT):
-        if path == ASSET_OUT:
-            path.mkdir(parents=True, exist_ok=True)
-            for child in sorted(path.iterdir(), reverse=True):
-                if child.name == "final-11-image-merge":
-                    continue
-                try:
-                    if child.is_file() or child.is_symlink():
-                        child.unlink()
-                    elif child.is_dir():
-                        shutil.rmtree(child)
-                except PermissionError:
-                    pass
+    # ASSET_OUT holds generated image copies; refresh them but keep the curated
+    # final-11-image-merge folder.
+    ASSET_OUT.mkdir(parents=True, exist_ok=True)
+    for child in sorted(ASSET_OUT.iterdir(), reverse=True):
+        if child.name == "final-11-image-merge":
             continue
+        try:
+            if child.is_file() or child.is_symlink():
+                child.unlink()
+            elif child.is_dir():
+                shutil.rmtree(child)
+        except PermissionError:
+            pass
+
+    # Pure-output dirs hold only generated artifacts, so they are safe to clear
+    # wholesale before a rebuild.
+    for path in (PDF_OUT, INDESIGN_OUT):
         if path.exists() and ROUTE in path.parents:
             try:
                 shutil.rmtree(path)
@@ -252,6 +255,13 @@ def clean_generated_dirs() -> None:
                             child.rmdir()
                     except PermissionError:
                         pass
+        path.mkdir(parents=True, exist_ok=True)
+
+    # These dirs mix generated files with hand-authored, version-controlled
+    # sources (editorial .jsx scripts, handoff docs, publication reports, the
+    # ledger). The build overwrites only the files it regenerates, by name, so
+    # they must never be wiped wholesale — doing so deletes committed work.
+    for path in (LEDGER_OUT, NOTES_OUT, MANIFEST_OUT, TEMPLATE_OUT, REPORTS_OUT):
         path.mkdir(parents=True, exist_ok=True)
 
 
