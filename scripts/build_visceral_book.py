@@ -967,7 +967,7 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         c.drawString(CONTENT_L, CONTENT_T - 56, "Only one eye remains;")
         c.drawString(CONTENT_L, CONTENT_T - 90, "the image gets louder.")
         translucent_panel(c, CONTENT_L - 6, CONTENT_B - 6, LIVE_W * 0.48 + 12, 152, dark=True, alpha=0.58)
-        draw_text_block(c, body_text, CONTENT_L + 8, CONTENT_B + 128, width_chars=46, leading=12.5, size=8.6, color=CREAM, max_lines=10)
+        draw_text_block(c, body_text, CONTENT_L + 8, CONTENT_B + 128, width_chars=46, leading=14.5, size=10.4, color=CREAM, max_lines=10)
     elif variant == 3:
         # Triptych: three images across, text band beneath.
         gap = 16
@@ -981,7 +981,7 @@ def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets:
         c.setFillColor(fg)
         c.setFont("Helvetica-Bold", 18)
         c.drawString(CONTENT_L, ytop - 50, f"{section.upper()} / SEQUENCE")
-        draw_text_block(c, body_text, CONTENT_L, ytop - 72, width_chars=112, leading=12.5, size=9, color=fg, max_lines=5)
+        draw_text_block(c, body_text, CONTENT_L, ytop - 72, width_chars=112, leading=14.5, size=10.4, color=fg, max_lines=5)
         overlay_caption(c, a1, CONTENT_L + iw + gap + 12, ytop + 12, 180, dark=True)
     else:
         # Text left, dominant image right.
@@ -1896,7 +1896,7 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
     // Dominant image left, text column right.
     imageFrame(page, b(16, 16, 199, 150), item, 100);
     textFrame(page, b(20, 160, 44, 262), section, 20, "Bold", cream, 100);
-    textFrame(page, b(46, 160, 199, 262), body, 9.2, "Regular", cream, 100);
+    textFrame(page, b(46, 160, 199, 262), body, 10.4, "Regular", cream, 100);
     caption(page, b(180, 20, 199, 110), item, ink, cream);
   }} else if (mode === 1) {{
     // Full-bleed image, scrim, pull statement, body panel.
@@ -1905,14 +1905,14 @@ function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold
     textFrame(page, b(20, 18, 26, 170), "ARTICLE / " + section, 8, "Bold", gold, 100);
     textFrame(page, b(30, 18, 74, 240), "Only one eye remains; the image gets louder.", 24, "Bold", cream, 100);
     colorPanel(page, b(150, 12, 200, 150), ink, 58);
-    textFrame(page, b(154, 18, 198, 146), body, 8.6, "Regular", cream, 100);
+    textFrame(page, b(154, 18, 198, 146), body, 10.4, "Regular", cream, 100);
   }} else {{
     // Triptych: three images across, text band beneath (multi-image spread).
     imageFrame(page, b(16, 16, 132, 95), item, 100);
     imageFrame(page, b(16, 100, 132, 179), item2, 100);
     imageFrame(page, b(16, 184, 132, 263), item3, 100);
     textFrame(page, b(140, 16, 162, 262), section + " / SEQUENCE", 16, "Bold", cream, 100);
-    textFrame(page, b(164, 16, 199, 262), body, 9, "Regular", cream, 100);
+    textFrame(page, b(164, 16, 199, 262), body, 10.4, "Regular", cream, 100);
     caption(page, b(116, 104, 132, 175), item2, ink, cream);
   }}
 }}
