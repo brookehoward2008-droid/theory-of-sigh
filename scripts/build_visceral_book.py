@@ -303,6 +303,13 @@ def infer_creator(name: str) -> str:
 
 def infer_group(index: int, name: str) -> str:
     lowered = name.lower()
+    # Honor an explicit section token in the filename (aNN-<section>-...).
+    if "raw-agency" in lowered:
+        return "Group 1: Raw Agency"
+    if "social-constraint" in lowered:
+        return "Group 2: Social Constraint"
+    if "mediation" in lowered:
+        return "Group 3: Mediation"
     if any(term in lowered for term in ["lace", "veil", "blindfold", "flowers", "obscured"]):
         return "Group 3: Mediation"
     if any(term in lowered for term in ["stock", "portrait", "shadow", "hidden", "mirror", "sunglasses"]):
@@ -427,6 +434,15 @@ def scan_assets() -> list[Asset]:
         key=lambda p: p.name.lower(),
     )
     files = _filter_to_canonical(files)
+    # Include locally-added images (repo images/labeled) not already present, so new
+    # images committed to the repo appear on every machine without needing OneDrive.
+    labeled = ROOT / "images" / "labeled"
+    if labeled.exists() and labeled.resolve() != SOURCE_ASSETS.resolve():
+        exts = {".jpg", ".jpeg", ".png", ".webp"}
+        have = {_asset_core(p.name) for p in files}
+        extra = [p for p in labeled.iterdir()
+                 if p.suffix.lower() in exts and _asset_core(p.name) not in have]
+        files = sorted(files + extra, key=lambda p: p.name.lower())
     assets: list[Asset] = []
     caption_index = load_caption_index()
     for i, path in enumerate(files, start=1):
