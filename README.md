@@ -1,8 +1,10 @@
 # The Visceral Theory of Sight
 
-An original book and web editorial project by Brooke Howard.
+An original book and web editorial project by Brooke Chauntel.
 
-Author: Brooke Howard
+Author: Brooke Chauntel
+
+Everett Community College, 2026
 
 ## Project
 
@@ -17,4 +19,4 @@ This repository holds the web editorial, selected image plates, layout reference
 
 ## Rights
 
-Writing, layout direction, sequencing, and editorial presentation by Brooke Howard. Third-party image assets remain subject to their original source licenses.
+Writing, layout direction, sequencing, and editorial presentation by Brooke Chauntel. Third-party image assets remain subject to their original source licenses.

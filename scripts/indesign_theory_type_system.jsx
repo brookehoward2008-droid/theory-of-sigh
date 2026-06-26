@@ -2,7 +2,7 @@
 
 /*
   Theory of Sight — InDesign Type System
-  Brooke Howard
+  Brooke Chauntel
 
   Run from InDesign with the Theory of Sight document open:
   File > Scripts > Other Script... or place this JSX in the Scripts Panel folder.

@@ -813,7 +813,7 @@ function cover(page, doc, ink, cream, gold) {
   colorPanel(page, b(120, -4, 220, 284), ink, 46);
   textFrame(page, b(150, 18, 162, 230), "THE ANATOMY OF LOOKING", 10, "Bold", gold, 100);
   textFrame(page, b(164, 18, 198, 252), "THE VISCERAL\rTHEORY OF SIGHT", 33, "Bold", cream, 100);
-  textFrame(page, b(198, 18, 210, 232), "the body, the gaze, and the veil", 11, "Regular", cream, 100);
+  textFrame(page, b(198, 18, 214, 232), "the body, the gaze, and the veil\rBrooke Chauntel", 11, "Regular", cream, 100);
 }
 
 function sectionTitle(page, key, ink, cream, gold) {
@@ -922,7 +922,7 @@ function backMatter(page, n, doc, ink, cream, gold) {
   } else if (n === 48) {
     textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   } else {
-    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times, printed white on black.", 10, "Regular", cream, 100);
+    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Written, sequenced, and designed by Brooke Chauntel for Everett Community College, 2026. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times, printed white on black.", 10, "Regular", cream, 100);
   }
 }
 
