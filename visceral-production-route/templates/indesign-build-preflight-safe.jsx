@@ -641,13 +641,13 @@ function cover(page, doc, ink, cream, gold) {
   colorPanel(page, b(0, 0, 297, 210), ink, 100);
   imageFrame(page, b(30, 24, 232, 186), item, 100);
   textFrame(page, b(240, 28, 269, 182), "THE VISCERAL\rTHEORY OF SIGHT", 24, "Bold", cream, 100);
-  textFrame(page, b(270, 62, 282, 148), "the body, the gaze, and the veil", 8, "Regular", cream, 100);
+  textFrame(page, b(270, 62, 292, 148), "the body, the gaze, and the veil\rBrooke Chauntel", 8, "Regular", cream, 100);
 }
 
 function frontMatter(page, n, doc, ink, cream, gold) {
   if (n === 2) {
     textFrame(page, b(62, 24, 118, 170), "The Visceral\rTheory of Sight", 30, "Bold", ink, 100);
-    textFrame(page, b(126, 26, 152, 160), "A 50-page editorial art book on controlled revelation.", 10, "Regular", ink, 100);
+    textFrame(page, b(126, 26, 176, 160), "A 50-page editorial art book on controlled revelation.\rBy Brooke Chauntel\rEverett Community College, 2026", 10, "Regular", ink, 100);
     textFrame(page, b(245, 24, 272, 160), "US Letter landscape preflight layout. 12-column grid. 0.125in bleed. Source and rights verification required before final export.", 7, "Regular", ink, 100);
   } else if (n === 3) {
     textFrame(page, b(216, 24, 271, 182), "LEGAL / CREDITS\rThis layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 8, "Regular", ink, 100);

@@ -600,6 +600,9 @@ def draw_cover(c: canvas.Canvas, asset: Asset, page_num: int | None = None) -> N
     c.drawString(x, CONTENT_B + 30, "THEORY OF SIGHT")
     c.setFont("Times-Roman", 13)
     c.drawString(x, CONTENT_B + 8, "the body, the gaze, and the veil")
+    c.setFillColor(GOLD)
+    c.setFont("Helvetica-Bold", 13)
+    c.drawString(x, CONTENT_B - 22, "BROOKE CHAUNTEL")
     if page_num:
         draw_page_number(c, page_num, dark=True)
 
@@ -622,6 +625,12 @@ def draw_title_spread(c: canvas.Canvas, asset: Asset, side: str) -> None:
         c.drawString(CONTENT_L, CONTENT_T - 190, "THEORY OF SIGHT")
         c.setFont("Times-Italic", 15)
         c.drawString(CONTENT_L, CONTENT_T - 222, "A visual psychology issue on gaze, image memory, and the veil.")
+        c.setFillColor(GOLD)
+        c.setFont("Helvetica-Bold", 14)
+        c.drawString(CONTENT_L, CONTENT_T - 252, "Brooke Chauntel")
+        c.setFillColor(MIST)
+        c.setFont("Helvetica", 10)
+        c.drawString(CONTENT_L, CONTENT_T - 270, "Everett Community College · 2026")
         text = (
             "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets "
             "require license and source verification before public release; locally generated or unknown "
@@ -641,6 +650,13 @@ def draw_title_page(c: canvas.Canvas) -> None:
     c.drawString(CONTENT_L, CONTENT_T - 168, "Theory of Sight")
     c.setFont("Times-Roman", 14)
     c.drawString(CONTENT_L, CONTENT_T - 200, "A 50-page editorial art book on controlled revelation.")
+    c.setFillColor(CREAM)
+    c.setFont("Helvetica-Bold", 14)
+    c.drawString(CONTENT_L, CONTENT_T - 232, "Brooke Chauntel")
+    c.setFillColor(MIST)
+    c.setFont("Helvetica", 10)
+    c.drawString(CONTENT_L, CONTENT_T - 252, "Everett Community College · 2026")
+    c.setFillColor(CREAM)
     c.setFont("Helvetica", 8.5)
     c.drawString(CONTENT_L, CONTENT_B + 30, "Compiled and designed as an alternate local production route.")
     c.drawString(CONTENT_L, CONTENT_B + 16, "All citations and rights marked for verification before final export.")
@@ -920,6 +936,7 @@ def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
         draw_label(c, "colophon", CONTENT_L, CONTENT_T - 6, color=CREAM)
         text = (
             "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. "
+            "Written, sequenced, and designed by Brooke Chauntel for Everett Community College, 2026. "
             "Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. "
             "Set in Helvetica and Times, printed white on black."
         )
@@ -1773,7 +1790,7 @@ function backMatter(page, n, doc, ink, cream, gold) {{
   }} else if (n === 48) {{
     textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   }} else {{
-    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times, printed white on black.", 10, "Regular", cream, 100);
+    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Written, sequenced, and designed by Brooke Chauntel for Everett Community College, 2026. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times, printed white on black.", 10, "Regular", cream, 100);
   }}
 }}
 
