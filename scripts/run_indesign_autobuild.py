@@ -32,7 +32,8 @@ import sys
 import time
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+from scripts.shared.paths import INDESIGN_OUT, REPORTS_OUT, ROOT, TEMPLATE_OUT
+
 sys.path.insert(0, str(ROOT / "scripts"))
 
 JSX = ROOT / "visceral-production-route" / "templates" / "indesign-build-full-layout.jsx"

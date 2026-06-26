@@ -6,15 +6,17 @@ from pathlib import Path
 
 from PIL import Image, ImageOps
 
+from scripts.shared.page_constants import US_LETTER_BLEED_MM, US_LETTER_H_MM, US_LETTER_W_MM
+
 try:
     from scripts import build_visceral_book as book
 except ModuleNotFoundError:
     import build_visceral_book as book
 
 
-LETTER_W_MM = 279.4
-LETTER_H_MM = 215.9
-BLEED_MM = 3.175
+LETTER_W_MM = US_LETTER_W_MM
+LETTER_H_MM = US_LETTER_H_MM
+BLEED_MM = US_LETTER_BLEED_MM
 
 SAFE_ASSET_DIR = book.ASSET_OUT / "preflight-konly"
 SAFE_TEMPLATE = book.TEMPLATE_OUT / "indesign-build-preflight-safe.jsx"

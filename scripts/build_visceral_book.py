@@ -20,8 +20,10 @@ try:
 except BaseException:
     _PYPDF_OK = False
 
+from scripts.shared.filename_utils import infer_creator, infer_rights
+from scripts.shared.paths import ROOT
+from scripts.shared.pdf_helpers import draw_text_block as _draw_text_block
 
-ROOT = Path(__file__).resolve().parents[1]
 _WINDOWS_ASSETS = Path(
     r"C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets"
 )
@@ -214,25 +216,6 @@ def apply_print_boxes(pdf_path: Path) -> None:
         writer.write(f)
 
 
-def infer_rights(name: str) -> str:
-    lowered = name.lower()
-    if "unsplash" in lowered:
-        return "Unsplash filename present; verify source URL and license before final export."
-    if "adobestock" in lowered:
-        return "Adobe Stock filename present; verify local license before final export."
-    return "Local/generated/unknown source; verify creator, source, and usage rights before final export."
-
-
-def infer_creator(name: str) -> str:
-    lowered = name.lower()
-    if "unsplash" in lowered:
-        slug = name.split("-unsplash")[0]
-        return slug.replace("-", " ").title() + " / Unsplash filename"
-    if "adobestock" in lowered:
-        return "Adobe Stock contributor not verified"
-    return "Creator not verified"
-
-
 def infer_group(index: int, name: str) -> str:
     lowered = name.lower()
     if any(term in lowered for term in ["lace", "veil", "blindfold", "flowers", "obscured"]):
@@ -405,20 +388,9 @@ def draw_text_block(
     color=CREAM,
     max_lines: int | None = None,
 ) -> float:
-    c.setFont(font, size)
-    c.setFillColor(color)
-    lines: list[str] = []
-    for para in text.split("\n"):
-        if not para.strip():
-            lines.append("")
-        else:
-            lines.extend(wrap(para, width=width_chars))
-    if max_lines is not None:
-        lines = lines[:max_lines]
-    for line in lines:
-        c.drawString(x, y, line)
-        y -= leading
-    return y
+    return _draw_text_block(
+        c, text, x, y, width_chars, leading, size, font, color, max_lines,
+    )
 
 
 def draw_label(c: canvas.Canvas, text: str, x: float, y: float, color=GOLD) -> None:

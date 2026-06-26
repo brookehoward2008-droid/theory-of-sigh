@@ -27,10 +27,10 @@ from scripts.build_visceral_book import (
     write_manifest,
     write_notes,
 )
+from scripts.shared.paths import PDF_OUT as _PDF_OUT
+from scripts.shared.paths import ROOT, ROUTE
 
-ROOT = Path(__file__).resolve().parents[1]
-ROUTE = ROOT / "visceral-production-route"
-FINAL_PDF = ROUTE / "output" / "pdf" / "the-visceral-theory-of-sight-final-refined.pdf"
+FINAL_PDF = _PDF_OUT / "the-visceral-theory-of-sight-final-refined.pdf"
 
 
 def check_assets() -> bool:
