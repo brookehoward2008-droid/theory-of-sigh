@@ -1,0 +1,40 @@
+{
+  "source": "/home/ubuntu/handoff_package",
+  "manifest_version": "1.0.0-PROD",
+  "manifest_status": "PRODUCTION_READY",
+  "total_pages": 50,
+  "total_assets": 73,
+  "high_res_assets": 53,
+  "grid_system": {
+    "type": "two-column-asymmetric",
+    "left_margin": 54.4,
+    "right_margin": 36.0,
+    "columns": [
+      {
+        "id": 1,
+        "start_x": 54.4,
+        "width": 398.7
+      },
+      {
+        "id": 2,
+        "start_x": 473.1,
+        "width": 300.9
+      }
+    ],
+    "gutter": 20.0,
+    "total_span": 719.6
+  },
+  "trim": {
+    "width_mm": 279.4,
+    "height_mm": 215.9,
+    "name": "US Letter landscape"
+  },
+  "bleed_mm": 3.175,
+  "coordinate_mapping": {
+    "source_system": "bleed-inclusive points (origin: top-left of bleed box)",
+    "target_system": "InDesign page-relative mm (origin: top-left of trim)",
+    "conversion": "(pt - 9.0000) * 0.352778"
+  },
+  "output_jsx": "/home/ubuntu/repos/theory-of-sigh/visceral-production-route/templates/indesign-handoff-build.jsx",
+  "asset_directory": "/home/ubuntu/repos/theory-of-sigh/visceral-production-route/assets/handoff"
+}

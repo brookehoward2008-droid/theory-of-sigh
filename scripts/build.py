@@ -9,6 +9,10 @@ Usage:
 
 from __future__ import annotations
 
+import argparse
+import sys
+from pathlib import Path
+
 from scripts.build_final_document import build_final_document, write_report
 from scripts.build_visceral_book import (
     PDF_OUT,
@@ -147,11 +151,32 @@ def full_build() -> None:
     print(f"  Design analysis:  {ROOT / 'instructions' / 'design-analysis-and-recommendations.md'}")
 
 
+def build_from_handoff(handoff_dir: str) -> None:
+    """Build InDesign JSX from a handoff package directory."""
+    from scripts.build_from_handoff import generate_handoff_jsx
+
+    handoff_path = Path(handoff_dir).resolve()
+    if not handoff_path.is_dir():
+        print(f"ERROR: not a directory: {handoff_path}")
+        sys.exit(1)
+
+    print("=" * 72)
+    print("BUILD: InDesign layout from handoff package")
+    print("=" * 72)
+
+    jsx_path = generate_handoff_jsx(handoff_path)
+
+    print(f"\nHandoff build complete.")
+    print(f"  JSX output: {jsx_path}")
+    print(f"  Run in InDesign or use: python scripts/run_indesign_autobuild.py --handoff {handoff_dir}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build The Visceral Theory of Sight production route")
     parser.add_argument("--visceral", action="store_true", help="Build 50pp visceral book only")
     parser.add_argument("--final", action="store_true", help="Build 11-image final refined PDF only")
     parser.add_argument("--check", action="store_true", help="Verify assets without generating outputs")
+    parser.add_argument("--handoff", metavar="DIR", help="Build InDesign JSX from a handoff package directory")
     args = parser.parse_args()
 
     if args.check:
@@ -159,7 +184,9 @@ def main() -> None:
         sys.exit(0 if ok else 1)
         return
 
-    if args.visceral:
+    if args.handoff:
+        build_from_handoff(args.handoff)
+    elif args.visceral:
         build_visceral_book()
     elif args.final:
         build_final_refined()

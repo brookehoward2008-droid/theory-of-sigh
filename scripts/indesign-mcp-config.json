@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "indesign": {
+      "command": "python",
+      "args": ["C:/Users/toddl/OneDrive/Documents/GitHub/theory-of-sigh/scripts/indesign_mcp_server.py"],
+      "env": {
+        "PYTHONPATH": "C:/Users/toddl/OneDrive/Documents/GitHub/theory-of-sigh/scripts"
+      }
+    }
+  }
+}
