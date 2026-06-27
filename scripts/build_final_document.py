@@ -203,9 +203,12 @@ def draw_cover(c: canvas.Canvas, row: ManifestRow) -> None:
     c.setStrokeColor(GOLD)
     c.setLineWidth(2)
     c.line(MARGIN, 492, MARGIN + 208, 492)
-    c.setFont("Helvetica", 8)
+    c.setFont("Helvetica", 11)
+    c.setFillColor(CREAM)
+    c.drawString(MARGIN, 472, "Brooke Chauntel")
+    c.setFont("Helvetica", 9)
     c.setFillColor(MIST)
-    c.drawString(MARGIN, 76, "FINAL REFINED BUILD - VERIFIED LOCAL ASSETS")
+    c.drawString(MARGIN, 454, "Everett Community College · 2026")
     c.showPage()
 
 
