@@ -32,6 +32,16 @@ from scripts.build_visceral_book import (
 from scripts.build_indesign_preflight_safe import SAFE_REPORT, SAFE_TEMPLATE
 
 
+# The final-11-image-merge assets live under the gitignored
+# ``visceral-production-route/assets/`` workspace and are not present in a fresh
+# clone (or in CI). Tests that build from that manifest are skipped when the
+# local asset workspace is absent rather than reported as failures.
+requires_merge_assets = unittest.skipUnless(
+    MANIFEST_CSV.exists(),
+    f"local merge assets not present ({MANIFEST_CSV.parent} missing)",
+)
+
+
 class FinalDocumentBuildTest(unittest.TestCase):
     def test_full_book_article_model_contains_longform_section_bodies(self) -> None:
         required = {"Agency", "Constraint", "Mediation", "Synthesis"}
@@ -107,6 +117,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertEqual(report["swatches"], ["[Black]", "[Paper]"])
         self.assertEqual(report["linked_assets"], 64)
 
+    @requires_merge_assets
     def test_manifest_rows_have_existing_images(self) -> None:
         rows = load_manifest_rows(MANIFEST_CSV)
 
@@ -117,6 +128,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
             self.assertTrue(row.section)
             self.assertTrue(row.caption)
 
+    @requires_merge_assets
     def test_manifest_has_no_placeholder_paths(self) -> None:
         with MANIFEST_CSV.open(newline="", encoding="utf-8") as handle:
             rows = list(csv.DictReader(handle))
@@ -128,6 +140,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
             self.assertNotIn("cover_background", image_file)
             self.assertNotIn("architectural_shadow", image_file)
 
+    @requires_merge_assets
     def test_final_document_builds_polished_pdf(self) -> None:
         output = Path(__file__).resolve().parents[1] / "visceral-production-route" / "tmp" / FINAL_PDF.name
 
@@ -145,6 +158,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertNotIn("[MISSING", extracted)
         self.assertNotIn("cover_background", extracted)
 
+    @requires_merge_assets
     def test_indesign_asset_sheet_uses_real_manifest_assets(self) -> None:
         output = Path(__file__).resolve().parents[1] / "visceral-production-route" / "tmp" / ASSET_SHEET_JSX.name
 
@@ -162,6 +176,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertNotIn("cover_background.jpg", contents)
         self.assertIn('handwritten word \\"Hope\\"', contents)
 
+    @requires_merge_assets
     def test_layout_refine_apply_script_targets_copy_safe_indd(self) -> None:
         output = Path(__file__).resolve().parents[1] / "visceral-production-route" / "tmp" / APPLY_LAYOUT_REFINE_JSX.name
 
@@ -180,6 +195,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertIn("Final 11-image layout refine build applied", contents)
         self.assertNotIn("your_new_asset.jpg", contents)
 
+    @requires_merge_assets
     def test_layout_refine_apply_script_injects_verified_toc_and_register(self) -> None:
         output = Path(__file__).resolve().parents[1] / "visceral-production-route" / "tmp" / APPLY_LAYOUT_REFINE_JSX.name
 
@@ -194,6 +210,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertIn("READING LIST TO VERIFY", contents)
         self.assertNotIn("IMG_33", contents)
 
+    @requires_merge_assets
     def test_layout_refine_apply_script_injects_editorial_palette(self) -> None:
         output = Path(__file__).resolve().parents[1] / "visceral-production-route" / "tmp" / APPLY_LAYOUT_REFINE_JSX.name
 
@@ -210,6 +227,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertIn("[19, 15, 16, 0]", contents)
         self.assertNotIn("Color System Updated!", contents)
 
+    @requires_merge_assets
     def test_layout_refine_apply_script_applies_algorithmic_grid(self) -> None:
         output = Path(__file__).resolve().parents[1] / "visceral-production-route" / "tmp" / APPLY_LAYOUT_REFINE_JSX.name
 
@@ -227,6 +245,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertNotIn("toISOString", contents)
         self.assertNotIn("Algorithmic Grid Implemented!", contents)
 
+    @requires_merge_assets
     def test_layout_refine_apply_script_injects_harmonic_margin_metric_archive(self) -> None:
         output = Path(__file__).resolve().parents[1] / "visceral-production-route" / "tmp" / APPLY_LAYOUT_REFINE_JSX.name
 
@@ -247,6 +266,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertIn("Structural Axis: 45-degree convergence", contents)
         self.assertIn("Lens Architecture: 35mm perspective control tilt-shift", contents)
 
+    @requires_merge_assets
     def test_build_report_documents_harmonic_margin_metric_archive(self) -> None:
         output = Path(__file__).resolve().parents[1] / "visceral-production-route" / "tmp" / FINAL_PDF.name
 
@@ -262,6 +282,7 @@ class FinalDocumentBuildTest(unittest.TestCase):
         self.assertIn("Core Latitude Anchor: 45.6 deg N", contents)
         self.assertIn("Exposure Range: EV 12-14", contents)
 
+    @requires_merge_assets
     def test_asset_register_uses_verified_assets_not_placeholders(self) -> None:
         output = Path(__file__).resolve().parents[1] / "visceral-production-route" / "tmp" / ASSET_REGISTER_MD.name
 

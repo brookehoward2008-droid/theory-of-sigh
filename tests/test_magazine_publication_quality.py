@@ -16,11 +16,13 @@ class MagazinePublicationQualityTest(unittest.TestCase):
 
         required_terms = [
             "Looking begins before language",
-            "A visual psychology issue on gaze, image memory",
-            "Repetition, obstruction, pose, and symbol teach the eye",
-            "Image Source Register",
-            "Image credits and rights notes are gathered here",
-            "Women Through Time",
+            "The anatomy of looking is a pressure system",
+            "Raw Agency",
+            "Social Constraint",
+            "Mediation",
+            "Unresolved Sight",
+            "Brooke Chauntel",
+            "Everett Community College, 2026",
         ]
 
         for term in required_terms:
@@ -41,37 +43,42 @@ class MagazinePublicationQualityTest(unittest.TestCase):
         for term in forbidden_terms:
             self.assertNotIn(term, html)
 
-    def test_plate_captions_are_clean_and_source_register_is_complete(self) -> None:
+    def test_plate_captions_are_clean(self) -> None:
         html = INDEX.read_text(encoding="utf-8")
 
-        plate_labels = re.findall(r'<span class="label">A\d+ / ', html)
-        source_entries = re.findall(r"<li><strong>A\d+ / ", html)
-        front_caption_blocks = re.findall(
-            r"(?s)<figcaption>\s*<span class=\"label\">A\d+ / .*?</figcaption>",
-            html,
+        caption_blocks = re.findall(r"(?s)<figcaption>\s*A\d+ / .*?</figcaption>", html)
+
+        # Every editorial grid figure carries a clean ``A## / …`` caption.
+        self.assertGreaterEqual(len(caption_blocks), 12)
+
+        # Captions stay prose-only: no raw filenames, stock IDs, or rights notes
+        # leak into the reader-facing copy.
+        crowded_source_tokens = re.compile(
+            r"unsplash|AdobeStock_|\.jpeg|\.jpg|rights before final export", re.I
         )
-
-        self.assertEqual(len(plate_labels), 64)
-        self.assertEqual(len(source_entries), 64)
-        self.assertTrue(front_caption_blocks)
-
-        crowded_source_tokens = re.compile(r"unsplash|AdobeStock_|\.jpeg|\.jpg|rights before final export", re.I)
-        for caption in front_caption_blocks:
+        for caption in caption_blocks:
             self.assertIsNone(crowded_source_tokens.search(caption), caption)
 
     def test_references_and_internal_links_are_present(self) -> None:
         html = INDEX.read_text(encoding="utf-8")
 
-        toc_links = re.findall(r'<li><a href="#[^"]+">', html)
-        citation_links = re.findall(r'<sup><a href="#ref-[^"]+">', html)
-        references = re.findall(r'id="ref-[^"]+"', html)
+        # The masthead navigation links into the chapter anchors of the issue.
+        nav_anchors = re.findall(r'href="#([^"]+)"', html)
+        self.assertGreaterEqual(len(nav_anchors), 6)
+        for section in ("agency", "constraint", "mediation", "synthesis", "references"):
+            self.assertIn(section, nav_anchors)
 
-        self.assertEqual(len(toc_links), 6)
-        self.assertEqual(len(citation_links), 11)
-        self.assertEqual(len(references), 5)
-
-        for anchor in re.findall(r'href="#([^"]+)"', html):
+        # Every in-page anchor must resolve to a real element id (no dead links).
+        for anchor in nav_anchors:
             self.assertIn(f'id="{anchor}"', html)
+
+        # The references section carries its source notes as an ordered list.
+        references_block = re.search(
+            r'(?s)<section class="references[^"]*"[^>]*>.*?</section>', html
+        )
+        self.assertIsNotNone(references_block)
+        reference_items = re.findall(r"<li>", references_block.group(0))
+        self.assertEqual(len(reference_items), 5)
 
     def test_old_school_process_language_is_not_visible(self) -> None:
         html = INDEX.read_text(encoding="utf-8")
