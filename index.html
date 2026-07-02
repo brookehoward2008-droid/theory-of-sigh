@@ -1,755 +1,160 @@
-<!-- index.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="The Anatomy of Looking: The Visceral Theory of Sight, an editorial web issue by Brooke Chauntel Howard.">
-  <meta property="og:title" content="The Anatomy of Looking: The Visceral Theory of Sight">
-  <meta property="og:description" content="A visual psychology issue on the body, the gaze, and the veil.">
-  <meta property="og:type" content="website">
-  <title>The Anatomy of Looking | The Visceral Theory of Sight</title>
+  <meta name="description" content="The Visceral Theory of Sight, a digital magazine issue by Brooke Chauntel.">
+  <title>The Visceral Theory of Sight</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --ink: #171310;
-      --ink-soft: #28211d;
-      --paper: #f2eadf;
-      --paper-deep: #e5d8c6;
-      --muted: #9b8d7c;
-      --line: rgba(242, 234, 223, .18);
-      --line-dark: rgba(23, 19, 16, .18);
-      --gold: #b98c4c;
-      --copper: #8d5e4f;
-      --teal: #526f68;
-      --shadow: 0 24px 70px rgba(0, 0, 0, .34);
-      --display: "Cormorant Garamond", Garamond, Georgia, serif;
-      --body: "Inter", Arial, sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      background: var(--ink);
-    }
-
-    body {
-      margin: 0;
-      background: var(--ink);
-      color: var(--paper);
-      font-family: var(--body);
-      text-rendering: optimizeLegibility;
-    }
-
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      background: var(--ink-soft);
-    }
-
-    a { color: inherit; }
-
-    .skip-link {
-      position: fixed;
-      left: 1rem;
-      top: -10rem;
-      z-index: 1000;
-      padding: .75rem 1rem;
-      background: var(--gold);
-      color: var(--ink);
-      font-weight: 800;
-      text-decoration: none;
-    }
-
-    .skip-link:focus { top: 1rem; }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 900;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      padding: .9rem clamp(1rem, 4vw, 3.5rem);
-      background: rgba(23, 19, 16, .92);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(18px);
-    }
-
-    .brand {
-      color: var(--gold);
-      font-family: var(--display);
-      font-size: clamp(1.35rem, 2.4vw, 2.1rem);
-      font-weight: 700;
-      letter-spacing: -.02em;
-      line-height: .95;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .menu-button {
-      display: none;
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--paper);
-      padding: .65rem .85rem;
-      font: 800 .72rem/1 var(--body);
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
-    .nav-links {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: .45rem;
-      min-width: 0;
-    }
-
-    .nav-links a {
-      padding: .55rem .72rem;
-      border: 1px solid var(--line);
-      color: rgba(242, 234, 223, .88);
-      font-size: .68rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-decoration: none;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .nav-links a:hover,
-    .nav-links a:focus-visible {
-      background: var(--teal);
-      border-color: var(--teal);
-      color: var(--paper);
-    }
-
-    .hero {
-      min-height: calc(100vh - 66px);
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(22rem, .8fr);
-      background: var(--ink);
-    }
-
-    .hero-media {
-      position: relative;
-      min-height: 72vh;
-      overflow: hidden;
-    }
-
-    .hero-media::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, rgba(23, 19, 16, .18), rgba(23, 19, 16, .76));
-      pointer-events: none;
-    }
-
-    .hero-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: clamp(2.5rem, 7vw, 7rem) clamp(1.35rem, 5vw, 4.75rem);
-      background:
-        radial-gradient(circle at 10% 12%, rgba(82, 111, 104, .35), transparent 32%),
-        linear-gradient(135deg, #2a211d, #15110f 74%);
-    }
-
-    .kicker,
-    .folio,
-    .plate-label {
-      margin: 0 0 1rem;
-      color: var(--gold);
-      font-size: .76rem;
-      font-weight: 800;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-    }
-
-    h1,
-    h2,
-    h3,
-    blockquote {
-      font-family: var(--display);
-      font-weight: 600;
-      letter-spacing: -.035em;
-      line-height: .92;
-    }
-
-    h1 {
-      max-width: 8.5ch;
-      margin: 0 0 1.6rem;
-      font-size: clamp(4.1rem, 9.5vw, 10rem);
-    }
-
-    .subtitle {
-      max-width: 32rem;
-      margin: 0;
-      color: rgba(242, 234, 223, .84);
-      font-size: clamp(1rem, 1.4vw, 1.3rem);
-      line-height: 1.62;
-    }
-
-    .issue-strip {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-block: 1px solid var(--line);
-      background: var(--ink-soft);
-    }
-
-    .issue-strip span {
-      padding: 1rem clamp(.75rem, 2vw, 1.5rem);
-      border-right: 1px solid var(--line);
-      color: rgba(242, 234, 223, .78);
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-    }
-
-    main { overflow: hidden; }
-
-    .essay {
-      display: grid;
-      grid-template-columns: minmax(0, .9fr) minmax(20rem, 1.1fr);
-      gap: clamp(2rem, 7vw, 7rem);
-      padding: clamp(4rem, 11vw, 9rem) clamp(1.25rem, 7vw, 7rem);
-      background: var(--paper);
-      color: var(--ink);
-    }
-
-    .essay.dark {
-      background:
-        radial-gradient(circle at 90% 10%, rgba(141, 94, 79, .27), transparent 38%),
-        var(--ink);
-      color: var(--paper);
-    }
-
-    .essay h2 {
-      margin: 0;
-      color: inherit;
-      font-size: clamp(3.1rem, 7vw, 8rem);
-    }
-
-    .essay-body {
-      display: grid;
-      gap: 1.1rem;
-      align-content: center;
-      max-width: 44rem;
-    }
-
-    .essay-body p {
-      margin: 0;
-      color: currentColor;
-      font-size: clamp(1rem, 1.18vw, 1.17rem);
-      line-height: 1.78;
-    }
-
-    .essay-body .lead {
-      font-family: var(--display);
-      font-size: clamp(1.55rem, 2.5vw, 2.55rem);
-      line-height: 1.1;
-      letter-spacing: -.018em;
-    }
-
-    .chapter {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(22rem, .82fr);
-      min-height: 96vh;
-      background: var(--ink-soft);
-      border-top: 1px solid var(--line);
-    }
-
-    .chapter.reverse { grid-template-columns: minmax(22rem, .82fr) minmax(0, 1fr); }
-    .chapter.reverse .chapter-media { grid-column: 2; }
-    .chapter.reverse .chapter-copy { grid-column: 1; grid-row: 1; }
-
-    .chapter-media { min-height: 82vh; }
-
-    .chapter-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: clamp(2.5rem, 7vw, 6.5rem) clamp(1.35rem, 5vw, 4.75rem);
-      background:
-        linear-gradient(180deg, rgba(82, 111, 104, .17), transparent 40%),
-        var(--ink);
-    }
-
-    .chapter-copy h2 {
-      margin: 0 0 1.5rem;
-      color: var(--paper);
-      font-size: clamp(3.6rem, 7.5vw, 8.5rem);
-    }
-
-    .chapter-copy p:not(.kicker) {
-      max-width: 34rem;
-      margin: 0;
-      color: rgba(242, 234, 223, .8);
-      font-size: clamp(1rem, 1.2vw, 1.2rem);
-      line-height: 1.65;
-    }
-
-    .plate-grid {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: clamp(.8rem, 1.8vw, 1.5rem);
-      padding: clamp(3.5rem, 8vw, 7rem) clamp(1rem, 6vw, 6rem);
-      background: #151211;
-    }
-
-    figure {
-      margin: 0;
-      overflow: hidden;
-      background: var(--ink-soft);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-    figure.small { grid-column: span 4; }
-    figure.medium { grid-column: span 5; }
-    figure.large { grid-column: span 7; }
-    figure.full { grid-column: 1 / -1; }
-
-    .plate-grid figure { min-height: 30rem; }
-    .plate-grid figure.small { min-height: 24rem; }
-    .plate-grid figure.full { min-height: 34rem; }
-
-    figcaption {
-      min-height: 4.4rem;
-      padding: .9rem 1rem 1rem;
-      background: rgba(23, 19, 16, .96);
-      color: rgba(242, 234, 223, .82);
-      font-size: .82rem;
-      line-height: 1.45;
-    }
-
-    figcaption strong {
-      display: block;
-      margin-bottom: .2rem;
-      color: var(--gold);
-      font-size: .72rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-    }
-
-    .text-card {
-      grid-column: span 5;
-      display: flex;
-      min-height: 24rem;
-      flex-direction: column;
-      justify-content: center;
-      padding: clamp(1.5rem, 3vw, 3rem);
-      background:
-        radial-gradient(circle at top left, rgba(82, 111, 104, .26), transparent 34%),
-        var(--ink-soft);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-    .text-card h3 {
-      margin: 0 0 1rem;
-      color: var(--gold);
-      font-size: clamp(2.6rem, 4.7vw, 5.8rem);
-    }
-
-    .text-card p {
-      margin: 0;
-      color: rgba(242, 234, 223, .78);
-      line-height: 1.7;
-    }
-
-    .quote-band {
-      display: grid;
-      min-height: 70vh;
-      place-items: center;
-      padding: clamp(3rem, 8vw, 7rem) 1.2rem;
-      background: var(--teal);
-      color: var(--paper);
-      text-align: center;
-    }
-
-    .quote-band blockquote {
-      max-width: 12ch;
-      margin: 0;
-      font-size: clamp(4rem, 12vw, 12rem);
-    }
-
-    .references {
-      display: grid;
-      grid-template-columns: minmax(0, .72fr) minmax(20rem, 1.28fr);
-      gap: clamp(2rem, 6vw, 6rem);
-      padding: clamp(4rem, 9vw, 8rem) clamp(1.2rem, 7vw, 7rem);
-      background: var(--paper-deep);
-      color: var(--ink);
-    }
-
-    .references h2 {
-      margin: 0 0 1rem;
-      color: var(--copper);
-      font-size: clamp(3.3rem, 7vw, 7.5rem);
-    }
-
-    .references p,
-    .references li {
-      color: rgba(23, 19, 16, .76);
-      line-height: 1.65;
-    }
-
-    .references ol {
-      margin: 0;
-      padding-left: 1.2rem;
-    }
-
-    .references li + li { margin-top: .9rem; }
-
-    .source-note {
-      margin-top: 2rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid var(--line-dark);
-      font-size: .9rem;
-    }
-
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 1.25rem clamp(1rem, 4vw, 3.5rem);
-      border-top: 1px solid var(--line);
-      background: var(--ink);
-      color: rgba(242, 234, 223, .68);
-      font-size: .78rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 1100px) {
-      .menu-button { display: inline-flex; }
-
-      .nav-links {
-        position: absolute;
-        inset: 100% 1rem auto;
-        display: grid;
-        gap: .4rem;
-        max-height: 0;
-        overflow: hidden;
-        padding: 0;
-        background: rgba(23, 19, 16, .97);
-        border: 1px solid transparent;
-        transition: max-height .25s ease, padding .25s ease, border-color .25s ease;
-      }
-
-      .nav-links.is-open {
-        max-height: 25rem;
-        padding: .75rem;
-        border-color: var(--line);
-      }
-
-      .nav-links a { text-align: center; }
-    }
-
-    @media (max-width: 860px) {
-      .hero,
-      .essay,
-      .chapter,
-      .chapter.reverse,
-      .references {
-        display: block;
-      }
-
-      .hero-media,
-      .chapter-media {
-        min-height: 58vh;
-      }
-
-      .hero-media::after {
-        background: linear-gradient(180deg, rgba(23, 19, 16, .08), rgba(23, 19, 16, .66));
-      }
-
-      .issue-strip {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .issue-strip span:nth-child(even) { border-right: 0; }
-
-      .plate-grid {
-        display: block;
-      }
-
-      .plate-grid figure,
-      .plate-grid figure.small,
-      .plate-grid figure.full,
-      .text-card {
-        min-height: auto;
-        margin-top: 1rem;
-      }
-
-      .plate-grid figure img {
-        height: auto;
-        aspect-ratio: 4 / 5;
-      }
-
-      .plate-grid figure.large img,
-      .plate-grid figure.full img {
-        aspect-ratio: 16 / 11;
-      }
-
-      .footer { display: block; }
-      .footer span { display: block; margin-top: .4rem; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { transition: none !important; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300;400;600;700&family=Sree+Krushnadevaraya&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/site.css">
+  <link rel="stylesheet" href="styles/masthead-fix.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to issue</a>
+  <a class="skip-link" href="#issue">Skip to issue</a>
 
-  <header class="site-header" aria-label="Primary navigation">
+  <header class="site-nav" aria-label="Primary navigation">
     <a class="brand" href="#cover">Theory of Sight</a>
-    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-    <nav class="nav-links" id="site-nav" aria-label="Issue sections">
-      <a href="https://brookehoward2008-droid.github.io/clean26/">Portfolio</a>
-      <a href="#opening">Opening</a>
-      <a href="#agency">Agency</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+      <span>Menu</span>
+      <i></i><i></i><i></i>
+    </button>
+    <nav id="nav-links" class="nav-links">
+      <a href="https://brookehoward2008-droid.github.io/clean26/">Portfolio Homepage</a>
+      <a href="#agency">Raw Agency</a>
       <a href="#constraint">Constraint</a>
       <a href="#mediation">Mediation</a>
+      <a href="#synthesis">Synthesis</a>
       <a href="#references">References</a>
     </nav>
   </header>
 
-  <main id="main">
-    <section class="hero" id="cover">
-      <div class="hero-media">
-        <img src="images/labeled/a58-social-constraint-see-plus-np3s9byoqac-unsplash.jpg" alt="Blue-green portrait partly concealed by leaves and shadow">
-      </div>
-      <div class="hero-copy">
-        <p class="kicker">Issue 01 / Visual Psychology / Brooke Chauntel Howard</p>
-        <h1>The Anatomy of Looking</h1>
-        <p class="subtitle">The Visceral Theory of Sight studies the body, the gaze, and the veil: how women have been seen, symbolized, obscured, remembered, and interpreted across time.</p>
+  <main id="issue" class="issue-reader">
+    <section class="cover spread issue-page" id="cover">
+      <img src="images/labeled/a58-social-constraint-see-plus-np3s9byoqac-unsplash.jpg" alt="Portrait partly hidden by leaves in blue-green light">
+      <div class="cover-copy">
+        <p class="issue-label">Issue 01 / Brooke Chauntel</p>
+        <h1>The Visceral Theory of Sight</h1>
+        <p>Looking begins before language. The eye reaches for presence, danger, beauty, memory, privacy, and meaning before the mind has finished naming what it sees.</p>
       </div>
     </section>
 
-    <div class="issue-strip" aria-label="Issue themes">
-      <span>Body</span>
-      <span>Rule</span>
-      <span>Veil</span>
-      <span>Memory</span>
-    </div>
-
-    <section class="essay" id="opening">
-      <div>
-        <p class="folio">01 / Opening Thesis</p>
-        <h2>Looking begins before language.</h2>
-      </div>
-      <div class="essay-body">
-        <p class="lead">The eye reaches for presence, danger, beauty, privacy, and meaning before the mind has finished naming what it sees.</p>
-        <p>This issue follows the female image as a psychological pressure system. The body asks to be recognized. The rule organizes how visibility is permitted. The veil interrupts access and makes the viewer work harder.</p>
-        <p>Instead of treating images as decoration, this web issue reads them as behavior: a sequence of gazes, surfaces, delays, and returns.</p>
-      </div>
+    <section class="opening essay-spread issue-page">
+      <div class="folio">01 / Opening Thesis</div>
+      <h2>The anatomy of looking is a pressure system.</h2>
+      <p>This issue follows the female image through body, rule, veil, symbol, and response. It studies sight as behavior: what asks to be seen, what is blocked, and what the viewer has been trained to notice.</p>
+      <blockquote>The eye arrives before permission.</blockquote>
     </section>
 
-    <section class="chapter" id="agency">
-      <div class="chapter-media">
-        <img src="images/labeled/a30-raw-agency-brunxs-monochrome-spniqdcpi9u-unsplash.jpg" alt="Black and white portrait with a direct gaze partly hidden by leaves">
-      </div>
+    <section class="chapter spread issue-page" id="agency">
+      <img src="images/labeled/a30-raw-agency-brunxs-monochrome-spniqdcpi9u-unsplash.jpg" alt="Black and white portrait partly hidden by leaves">
       <div class="chapter-copy">
-        <p class="kicker">Article I / The Body</p>
+        <p class="issue-label">Chapter 01</p>
         <h2>Raw Agency</h2>
         <p>The body enters first as a human problem. A hand, a shoulder, a mouth, an eye, or a turned face does not wait for explanation.</p>
       </div>
     </section>
 
-    <section class="plate-grid" aria-label="Raw Agency image sequence">
-      <article class="text-card">
-        <p class="plate-label">Sequence 01</p>
+    <section class="editorial-grid agency-grid issue-page" aria-label="Raw Agency image sequence">
+      <article class="text-card wide">
         <h3>Presence before permission</h3>
         <p>Agency appears through proximity, scale, and bodily insistence. Faces and fragments interrupt the viewer before the viewer has decided what kind of image this is.</p>
       </article>
-      <figure class="large">
-        <img src="images/labeled/a39-raw-agency-enesh-taganova-ioxgidqvqyq-unsplash-1.jpg" alt="Portrait with direct facial presence">
-        <figcaption><strong>A39 / Raw Agency</strong>The face holds its ground.</figcaption>
-      </figure>
-      <figure class="small">
-        <img src="images/labeled/a57-raw-agency-ovie-ogege-6bwt4ci-ujs-unsplash.jpg" alt="Portrait with reflective glasses">
-        <figcaption><strong>A57 / Raw Agency</strong>Style becomes a shield.</figcaption>
-      </figure>
-      <figure class="small">
-        <img src="images/labeled/a27-raw-agency-baran-lotfollahi-lobgof8rurg-unsplash.jpg" alt="Portrait with covered head and closed eye">
-        <figcaption><strong>A27 / Raw Agency</strong>Silence turns physical.</figcaption>
-      </figure>
-      <figure class="medium">
-        <img src="images/labeled/a24-raw-agency-amir-geshani-2jh8d3chnec-unsplash.jpg" alt="Portrait holding an obstruction near the face">
-        <figcaption><strong>A24 / Raw Agency</strong>Concealment becomes control.</figcaption>
-      </figure>
-      <figure class="large">
-        <img src="images/labeled/a45-raw-agency-good-faces-r8vsytyy2oe-unsplash.jpg" alt="Blurred portrait in motion">
-        <figcaption><strong>A45 / Raw Agency</strong>Memory refuses to hold still.</figcaption>
-      </figure>
+      <figure class="feature-card tall"><img src="images/labeled/a39-raw-agency-enesh-taganova-ioxgidqvqyq-unsplash-1.jpg" alt="Raw agency portrait"><figcaption>A39 / The face holds its ground.</figcaption></figure>
+      <figure><img src="images/labeled/a57-raw-agency-ovie-ogege-6bwt4ci-ujs-unsplash.jpg" alt="Portrait with glasses"><figcaption>A57 / Style becomes a shield.</figcaption></figure>
+      <figure><img src="images/labeled/a27-raw-agency-baran-lotfollahi-lobgof8rurg-unsplash.jpg" alt="Portrait with covered head"><figcaption>A27 / Silence turns physical.</figcaption></figure>
+      <figure class="wide"><img src="images/labeled/a36-raw-agency-drew-dizzy-graham-ctkgzjtmjqu-unsplash.jpg" alt="Raw agency portrait"><figcaption>A36 / The body speaks first.</figcaption></figure>
+      <figure><img src="images/labeled/a24-raw-agency-amir-geshani-2jh8d3chnec-unsplash.jpg" alt="Portrait holding obstruction"><figcaption>A24 / Concealment becomes control.</figcaption></figure>
+      <figure><img src="images/labeled/a45-raw-agency-good-faces-r8vsytyy2oe-unsplash.jpg" alt="Blurred portrait"><figcaption>A45 / Memory refuses to hold still.</figcaption></figure>
     </section>
 
-    <section class="essay dark">
-      <div>
-        <p class="folio">02 / Reading the Body</p>
-        <h2>The figure is already active.</h2>
-      </div>
-      <div class="essay-body">
-        <p class="lead">A partial body can still claim the page. A single eye can still return the look.</p>
-        <p>McDermott’s study of Upper Paleolithic female figurines gives the issue its earliest time marker: the female body can be read not only as an object of display, but as possible embodied self-representation.</p>
-        <p>The important point is pressure. The image reaches the viewer before the viewer has organized a theory for it.</p>
-      </div>
-    </section>
-
-    <section class="chapter reverse" id="constraint">
-      <div class="chapter-media">
-        <img src="images/labeled/a25-social-constraint-andrey-zvyagintsev-t8iknlqojcq-unsplash.jpg" alt="Single eye visible above dark fabric">
-      </div>
+    <section class="chapter spread reverse issue-page" id="constraint">
+      <img src="images/labeled/a37-social-constraint-elias-maurer-ssplu7ipc8g-unsplash.jpg" alt="Portrait behind branches and text">
       <div class="chapter-copy">
-        <p class="kicker">Article II / The Rule</p>
+        <p class="issue-label">Chapter 02</p>
         <h2>Social Constraint</h2>
         <p>Culture turns visibility into a protocol. The face may still look outward, but it looks through posture, costume, ritual, class, and inherited rules of display.</p>
       </div>
     </section>
 
-    <section class="plate-grid" aria-label="Social Constraint image sequence">
-      <figure class="large">
-        <img src="images/labeled/a22-social-constraint-alexander-krivitskiy-gfopukdkmvo-unsplash.jpg" alt="Eye behind lace">
-        <figcaption><strong>A22 / Social Constraint</strong>Lace makes looking intimate and forbidden.</figcaption>
-      </figure>
+    <section class="quote-band issue-page">
+      <p>The gaze is never neutral.</p>
+    </section>
+
+    <section class="editorial-grid constraint-grid issue-page" aria-label="Constraint image sequence">
+      <figure class="feature-card wide"><img src="images/labeled/a25-social-constraint-andrey-zvyagintsev-t8iknlqojcq-unsplash.jpg" alt="Single eye above dark fabric"><figcaption>A25 / One eye keeps watch from behind the rule.</figcaption></figure>
+      <figure><img src="images/labeled/a22-social-constraint-alexander-krivitskiy-gfopukdkmvo-unsplash.jpg" alt="Eye behind lace"><figcaption>A22 / Lace makes looking intimate and forbidden.</figcaption></figure>
+      <figure><img src="images/labeled/a52-social-constraint-lorraine-hill-4dyxkga2gxa-unsplash.jpg" alt="Eye through torn opening"><figcaption>A52 / Protection and surveillance share the same hole.</figcaption></figure>
       <article class="text-card">
-        <p class="plate-label">Sequence 02</p>
         <h3>Rules of display</h3>
         <p>Constraint does not erase agency. It redirects it. The viewer is constrained too, taught by repetition, obstruction, pose, and symbol.</p>
       </article>
-      <figure class="small">
-        <img src="images/labeled/a52-social-constraint-lorraine-hill-4dyxkga2gxa-unsplash.jpg" alt="Eye visible through a torn opening">
-        <figcaption><strong>A52 / Social Constraint</strong>Protection and surveillance share the same opening.</figcaption>
-      </figure>
-      <figure class="small">
-        <img src="images/labeled/a64-social-constraint-umanoide-xjp9ak1oqhw-unsplash.jpg" alt="Portrait with false eyes covering the real gaze">
-        <figcaption><strong>A64 / Social Constraint</strong>False eyes perform the act of seeing.</figcaption>
-      </figure>
-      <figure class="full">
-        <img src="images/labeled/a37-social-constraint-elias-maurer-ssplu7ipc8g-unsplash.jpg" alt="Portrait obscured by branches and text">
-        <figcaption><strong>A37 / Social Constraint</strong>Text covers the face, but the eye reads back through the surface.</figcaption>
-      </figure>
+      <figure><img src="images/labeled/a09-social-constraint-adobestock-140076283.jpg" alt="Hands partially covering face"><figcaption>A09 / Hiding becomes visible.</figcaption></figure>
+      <figure><img src="images/labeled/a64-social-constraint-umanoide-xjp9ak1oqhw-unsplash.jpg" alt="Portrait with false eyes"><figcaption>A64 / False eyes perform the act of seeing.</figcaption></figure>
+      <figure class="wide"><img src="images/labeled/a18-social-constraint-adobestock-730927617.jpg" alt="Repeated faces"><figcaption>A18 / Many eyes, no single witness.</figcaption></figure>
     </section>
 
-    <section class="quote-band" aria-label="Key thesis quote">
-      <blockquote>The gaze is never neutral.</blockquote>
-    </section>
-
-    <section class="essay">
-      <div>
-        <p class="folio">03 / The Social Eye</p>
-        <h2>The viewer is trained too.</h2>
-      </div>
-      <div class="essay-body">
-        <p class="lead">Repeated crops, poses, costumes, and symbols teach the eye what to expect from a body.</p>
-        <p>Mulley’s study of Laura Muntz gives this history an emotional and domestic register through maternity, loss, care, and symbolic burden. Morrissy’s work on Una Watters adds the ordinary weather of daily life, labor, street movement, and social atmosphere.</p>
-        <p>The image becomes a record of how a culture teaches visibility to behave.</p>
-      </div>
-    </section>
-
-    <section class="chapter" id="mediation">
-      <div class="chapter-media">
-        <img src="images/labeled/a66-mediation-woman-obscured-by-white-flowers-creating-a-dreamy-and-surreal-portrait-a.jpg" alt="Portrait obscured by white flowers against a dark green background">
-      </div>
+    <section class="chapter spread issue-page" id="mediation">
+      <img src="images/labeled/a66-mediation-woman-obscured-by-white-flowers-creating-a-dreamy-and-surreal-portrait-a.jpg" alt="Portrait obscured by white flowers">
       <div class="chapter-copy">
-        <p class="kicker">Article III / The Veil</p>
+        <p class="issue-label">Chapter 03</p>
         <h2>Mediation</h2>
         <p>The veil is an editing system, not a disappearance. Lace, shadow, fabric, blur, flowers, hair, hands, and darkness decide how slowly a person can be read.</p>
       </div>
     </section>
 
-    <section class="plate-grid" aria-label="Mediation image sequence">
-      <figure class="small">
-        <img src="images/labeled/a47-mediation-igor-rand-giw9ccl3hxa-unsplash.jpg" alt="Portrait mediated by surface interruption">
-        <figcaption><strong>A47 / Mediation</strong>Surface slows recognition.</figcaption>
-      </figure>
-      <figure class="large">
-        <img src="images/labeled/a50-mediation-jr-korpa-0lokelbdsbw-unsplash.jpg" alt="Double face portrait">
-        <figcaption><strong>A50 / Mediation</strong>The face appears twice and still refuses certainty.</figcaption>
-      </figure>
-      <article class="text-card">
-        <p class="plate-label">Sequence 03</p>
+    <section class="editorial-grid mediation-grid issue-page" aria-label="Mediation image sequence">
+      <figure><img src="images/labeled/a47-mediation-igor-rand-giw9ccl3hxa-unsplash.jpg" alt="Mediated portrait"><figcaption>A47 / Surface slows recognition.</figcaption></figure>
+      <figure class="wide"><img src="images/labeled/a50-mediation-jr-korpa-0lokelbdsbw-unsplash.jpg" alt="Double face portrait"><figcaption>A50 / The face appears twice and still refuses certainty.</figcaption></figure>
+      <figure><img src="images/labeled/a35-mediation-darius-bashar-3xegkkbinck-unsplash.jpg" alt="Motion-blurred face"><figcaption>A35 / The eye becomes the anchor.</figcaption></figure>
+      <article class="text-card tall">
         <h3>The veil controls access</h3>
-        <p>A hidden gaze makes the viewer work harder. The spread makes that effort visible. What is withheld is not absence; it is the part of the image still being decided.</p>
+        <p>A hidden gaze makes the viewer work harder. The spread makes that effort visible.</p>
       </article>
-      <figure class="small">
-        <img src="images/labeled/a35-mediation-darius-bashar-3xegkkbinck-unsplash.jpg" alt="Motion-blurred face with one eye as anchor">
-        <figcaption><strong>A35 / Mediation</strong>The eye becomes the anchor.</figcaption>
-      </figure>
-      <figure class="small">
-        <img src="images/labeled/a53-mediation-mahdi-bafande-rw-azxeky7q-unsplash.jpg" alt="Light crossing one eye">
-        <figcaption><strong>A53 / Mediation</strong>Light cuts across the eye.</figcaption>
-      </figure>
-      <figure class="medium">
-        <img src="images/labeled/a56-mediation-noah-buscher-11ldehfy-ha-unsplash.jpg" alt="Portrait interrupted by a playful object">
-        <figcaption><strong>A56 / Mediation</strong>Sweetness performs concealment.</figcaption>
-      </figure>
+      <figure><img src="images/labeled/a53-mediation-mahdi-bafande-rw-azxeky7q-unsplash.jpg" alt="Light across eye"><figcaption>A53 / Light cuts across the eye.</figcaption></figure>
+      <figure><img src="images/labeled/a56-mediation-noah-buscher-11ldehfy-ha-unsplash.jpg" alt="Playful obstruction"><figcaption>A56 / Sweetness performs concealment.</figcaption></figure>
+      <figure class="wide"><img src="images/labeled/a62-mediation-the-new-york-public-library-ndjv4ntdf6g-unsplash.jpg" alt="Mediated archival image"><figcaption>A62 / The surface asks the viewer to return.</figcaption></figure>
     </section>
 
-    <section class="essay dark" id="synthesis">
-      <div>
-        <p class="folio">04 / Unresolved Sight</p>
-        <h2>No single force wins.</h2>
-      </div>
-      <div class="essay-body">
-        <p class="lead">Sight becomes psychologically charged when the body, the rule, and the veil remain active together.</p>
-        <p>Portraiture gives the issue its body. Symbolism gives it inward meaning. Surrealist image logic gives it obstruction and displacement. Together, they let the magazine study sight as perception, not decoration.</p>
-        <p>The reader sees, hesitates, compares, and returns. That return is the anatomy of looking.</p>
+    <section class="chapter spread reverse issue-page" id="synthesis">
+      <img src="images/labeled/a23-mediation-allef-vinicius-dkrntf-jgtw-unsplash.jpg" alt="Portrait mediated by leaves">
+      <div class="chapter-copy">
+        <p class="issue-label">Closing Essay</p>
+        <h2>Unresolved Sight</h2>
+        <p>Sight becomes psychologically charged when the body, the rule, and the veil remain active together. No single force wins.</p>
       </div>
     </section>
 
-    <section class="references" id="references">
+    <section class="closing essay-spread issue-page">
+      <div class="folio">10 / Closing</div>
+      <h2>The reader sees, hesitates, compares, and returns.</h2>
+      <p>Portraiture gives the issue its body. Symbolism gives it inward meaning. Surrealist image logic gives it obstruction and displacement. Together, they let the magazine study sight as perception, not decoration.</p>
+      <blockquote>That return is the anatomy of looking.</blockquote>
+    </section>
+
+    <section class="references issue-page" id="references">
       <div>
-        <p class="folio">Back Matter</p>
-        <h2>References</h2>
-        <p>Writing, sequencing, and web presentation by Brooke Chauntel Howard. Everett Community College, 2026.</p>
-        <p class="source-note">Image files are presented as local project plates. Third-party image assets remain subject to their original licenses and should be verified before print or commercial release.</p>
+        <p class="issue-label">References</p>
+        <h2>Source Notes</h2>
+        <p>Writing, sequencing, and web presentation by Brooke Chauntel. Everett Community College, 2026. Third-party image assets remain subject to their original source licenses.</p>
       </div>
       <ol>
-        <li id="ref-1">LeRoy McDermott. “Self-Representation in Upper Paleolithic Female Figurines.” <em>Current Anthropology</em>, vol. 37, no. 2, Apr. 1996, pp. 227–275. JSTOR.</li>
-        <li id="ref-2">Elizabeth Mulley. “Madonna/Mother/Death and Child: Laura Muntz and the Representation of Maternity.” <em>RACAR: revue d'art canadienne / Canadian Art Review</em>, vol. 25, no. 1/2, 1998, pp. 84–93. JSTOR.</li>
-        <li id="ref-3">Mary Morrissy. “Una Watters: Everywoman Caught in the Rain.” <em>New Hibernia Review / Iris Éireannach Nua</em>, vol. 25, no. 3, Fall 2021, pp. 39–53. JSTOR.</li>
-        <li id="ref-4">The Metropolitan Museum of Art. “Surrealism.” <em>Heilbrunn Timeline of Art History</em>.</li>
-        <li id="ref-5">The Metropolitan Museum of Art. “Symbolism.” <em>Heilbrunn Timeline of Art History</em>.</li>
+        <li>LeRoy McDermott. “Self-Representation in Upper Paleolithic Female Figurines.” <em>Current Anthropology</em>, 1996.</li>
+        <li>Elizabeth Mulley. “Madonna/Mother/Death and Child: Laura Muntz and the Representation of Maternity.” <em>RACAR</em>, 1998.</li>
+        <li>Mary Morrissy. “Una Watters: Everywoman Caught in the Rain.” <em>New Hibernia Review</em>, 2021.</li>
+        <li>The Metropolitan Museum of Art. “Surrealism.” <em>Heilbrunn Timeline of Art History</em>.</li>
+        <li>The Metropolitan Museum of Art. “Symbolism.” <em>Heilbrunn Timeline of Art History</em>.</li>
       </ol>
     </section>
   </main>
 
-  <footer class="footer">
-    <strong>The Visceral Theory of Sight</strong>
-    <span>Brooke Chauntel Howard / Everett Community College / 2026</span>
-  </footer>
+  <div class="page-count" aria-live="polite">Page <span id="current-page">1</span> / <span id="total-pages">12</span></div>
+  <div class="issue-controls" aria-label="Issue page controls">
+    <button type="button" class="page-prev" aria-label="Previous page">‹</button>
+    <button type="button" class="page-next" aria-label="Next page">›</button>
+  </div>
 
-  <script>
-    const menuButton = document.querySelector('.menu-button');
-    const nav = document.querySelector('#site-nav');
-
-    if (menuButton && nav) {
-      menuButton.addEventListener('click', () => {
-        const isOpen = nav.classList.toggle('is-open');
-        menuButton.setAttribute('aria-expanded', String(isOpen));
-      });
-
-      nav.addEventListener('click', event => {
-        if (event.target.closest('a')) {
-          nav.classList.remove('is-open');
-          menuButton.setAttribute('aria-expanded', 'false');
-        }
-      });
-    }
-  </script>
+  <script src="scripts/site.js"></script>
 </body>
 </html>
