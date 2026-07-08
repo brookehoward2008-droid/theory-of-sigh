@@ -10,6 +10,50 @@
   <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300;400;600;700&family=Sree+Krushnadevaraya&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/site.css">
   <link rel="stylesheet" href="styles/masthead-fix.css">
+  <style>
+    .image-essay {
+      grid-template-columns: minmax(280px, 4fr) minmax(0, 5fr);
+    }
+
+    .image-essay .essay-image {
+      grid-column: 1;
+      grid-row: 1 / span 4;
+      min-height: min(72vh, 760px);
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid rgba(240, 232, 220, .16);
+      background: var(--panel);
+    }
+
+    .image-essay .folio,
+    .image-essay h2,
+    .image-essay p,
+    .image-essay blockquote {
+      grid-column: 2;
+    }
+
+    .image-essay blockquote {
+      max-width: 12ch;
+      margin-left: 0;
+      text-align: left;
+    }
+
+    @media (max-width: 760px) {
+      .image-essay .essay-image,
+      .image-essay .folio,
+      .image-essay h2,
+      .image-essay p,
+      .image-essay blockquote {
+        grid-column: auto;
+        grid-row: auto;
+      }
+
+      .image-essay .essay-image {
+        min-height: 58vh;
+        margin-bottom: 24px;
+      }
+    }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#issue">Skip to issue</a>
@@ -40,8 +84,11 @@
       </div>
     </section>
 
-    <section class="opening essay-spread issue-page">
+    <section class="opening essay-spread image-essay issue-page">
       <div class="folio">01 / Opening Thesis</div>
+      <figure class="essay-image">
+        <img src="images/labeled/a01-mediation-a-photograph-of-an-attractive-woman-with-a-white-lace-blindfold-roses-on.jpg" alt="Portrait with white lace blindfold and roses">
+      </figure>
       <h2>The anatomy of looking is a pressure system.</h2>
       <p>This issue follows the female image through body, rule, veil, symbol, and response. It studies sight as behavior: what asks to be seen, what is blocked, and what the viewer has been trained to notice.</p>
       <blockquote>The eye arrives before permission.</blockquote>
@@ -126,8 +173,11 @@
       </div>
     </section>
 
-    <section class="closing essay-spread issue-page">
+    <section class="closing essay-spread image-essay issue-page">
       <div class="folio">10 / Closing</div>
+      <figure class="essay-image">
+        <img src="images/labeled/a65-mediation-umesh-soni-hpklbuuel-k-unsplash.jpg" alt="Mediated portrait in shadow and light">
+      </figure>
       <h2>The reader sees, hesitates, compares, and returns.</h2>
       <p>Portraiture gives the issue its body. Symbolism gives it inward meaning. Surrealist image logic gives it obstruction and displacement. Together, they let the magazine study sight as perception, not decoration.</p>
       <blockquote>That return is the anatomy of looking.</blockquote>
