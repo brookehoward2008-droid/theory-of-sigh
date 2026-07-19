@@ -2,18 +2,18 @@
   "document": {
     "trim": {
       "name": "A4 portrait",
-      "width_pt": 595.2755905511812,
-      "height_pt": 841.8897637795277,
+      "width_pt": 792.0,
+      "height_pt": 612.0000000000001,
       "width_mm": 210,
       "height_mm": 297
     },
     "bleed": {
       "all_sides_mm": 3,
-      "all_sides_pt": 8.503937007874017
+      "all_sides_pt": 9.0
     },
     "media": {
-      "width_pt": 612.2834645669292,
-      "height_pt": 858.8976377952757
+      "width_pt": 810.0,
+      "height_pt": 630.0000000000001
     },
     "orientation": "portrait",
     "pages": 50
@@ -26,12 +26,12 @@
     "inner_margin_percent_of_width": 10,
     "top_margin_percent_of_height": 7,
     "bottom_margin_percent_of_height": 7,
-    "outer_margin_pt": 44.645669291338585,
-    "inner_margin_pt": 59.52755905511812,
-    "top_margin_pt": 58.93228346456694,
-    "bottom_margin_pt": 58.93228346456694,
-    "live_width_pt": 491.10236220472444,
-    "column_width_pt": 27.933070866141733
+    "outer_margin_pt": 45.35433070866142,
+    "inner_margin_pt": 45.35433070866142,
+    "top_margin_pt": 45.35433070866142,
+    "bottom_margin_pt": 45.35433070866142,
+    "live_width_pt": 701.2913385826771,
+    "column_width_pt": 45.448818897637786
   },
   "modules": {
     "standard_text_block": "3-4 columns wide, variable height",

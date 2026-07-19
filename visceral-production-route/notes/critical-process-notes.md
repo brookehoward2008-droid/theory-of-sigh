@@ -33,7 +33,7 @@ the page system behave like the argument: body, rule, surface.
 
 ## Image Grouping
 
-Local image assets scanned: 64.
+Local image assets scanned: 63.
 
 - Group 1: Raw Agency - body, hand, eye, facial pressure, physical presence.
 - Group 2: Social Constraint - pose, object, mirror, rank, display, discipline.
