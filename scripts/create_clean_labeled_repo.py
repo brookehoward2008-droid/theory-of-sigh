@@ -7,14 +7,15 @@ from pathlib import Path
 
 from PIL import Image, ImageOps
 
+from scripts.shared.paths import LEDGER_OUT, ROOT, ROUTE
+
 try:
     from scripts.build_visceral_book import ARTICLE_BODIES
 except ModuleNotFoundError:
     from build_visceral_book import ARTICLE_BODIES
 
 
-ROOT = Path(__file__).resolve().parents[1]
-LEDGER = ROOT / "visceral-production-route" / "ledgers" / "source-image-ledger.csv"
+LEDGER = LEDGER_OUT / "source-image-ledger.csv"
 IMAGE_OUT = ROOT / "images" / "labeled"
 DATA_OUT = ROOT / "data"
 STYLE_OUT = ROOT / "styles"

@@ -1,29 +1,15 @@
-VISceral Theory of Sight — Geometry Report
-Generated: Sat Jun 13 2026 15:25:01 GMT-0700
+The Visceral Theory of Sight — Layout Geometry Notes
+Author: Brooke Chauntel
 
-Document: A4 portrait, 210 mm x 297 mm, facing pages ON
-Pages: 50
-Bleed: 3 mm all sides
-Margins: inside 21 mm, outside 16 mm, top/bottom 21 mm
-Grid: 12 columns, 5 mm gutters
-Calculated column width: 9.833 mm
-Baseline: starts at 21 mm, increment 4 mm
-Asset folder: C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets
+Document setup:
+- Format: A4 portrait
+- Pages: 50
+- Facing pages: On
+- Bleed: 3 mm all sides
+- Margins: inside 21 mm, outside 16 mm, top 21 mm, bottom 21 mm
+- Grid: 12 columns
+- Gutter: 5 mm
+- Calculated column width: 9.833 mm
+- Baseline grid: starts at 21 mm, 4 mm increment
 
-Expected images: 44
-Missing exact-name matches: 15
-MISSING: A photograph of an attractive woman with a white lace blindfold, roses on her headband, long blonde hair, soft features.jpeg
-MISSING: Abstract Female Portrait Hidden Vision, Pink and Black.jpeg
-MISSING: Abstract Monochrome Portrait of a Woman A Study in Light and Shadow.jpeg
-MISSING: AdobeStock_720156988.jpeg
-MISSING: AdobeStock_987045868.jpeg
-MISSING: AdobeStock_1985396810.jpeg
-MISSING: houcine-ncib-J3fKbg3mkJs-unsplash.jpg
-MISSING: Mysterious Woman with Blood Tears and Lace Blindfold Against a Crimson Background.jpeg
-MISSING: Woman obscured by white flowers, creating a dreamy and surreal portrait against a dark green background.jpeg
-MISSING: A photograph of an attractive woman with a white lace blindfold, roses on her headband, long blonde hair, soft features.jpeg
-MISSING: Abstract Female Portrait Hidden Vision, Pink and Black.jpeg
-MISSING: Abstract Monochrome Portrait of a Woman A Study in Light and Shadow.jpeg
-MISSING: AdobeStock_720156988.jpeg
-MISSING: AdobeStock_987045868.jpeg
-MISSING: Woman obscured by white flowers, creating a dreamy and surreal portrait against a dark green background.jpeg
+This note keeps the publication geometry only. Private production paths, generated timestamps, and local asset-tracking details have been removed from the public repository.

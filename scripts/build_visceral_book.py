@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
@@ -19,12 +20,15 @@ try:
 except BaseException:
     _PYPDF_OK = False
 
+from scripts.shared.filename_utils import infer_creator, infer_rights
+from scripts.shared.paths import ROOT
+from scripts.shared.pdf_helpers import draw_text_block as _draw_text_block
 
-ROOT = Path(__file__).resolve().parents[1]
 _WINDOWS_ASSETS = Path(
     r"C:\Users\toddl\OneDrive\Desktop\SCHOOL\Graph252 booklab\visceral-theory of sight assets"
 )
 SOURCE_ASSETS = _WINDOWS_ASSETS if _WINDOWS_ASSETS.exists() else ROOT / "images" / "labeled"
+COVER_IMAGE = ROOT / "images" / "cover.jpg"
 ROUTE = ROOT / "visceral-production-route"
 ASSET_OUT = ROUTE / "assets"
 PDF_OUT = ROUTE / "output" / "pdf"
@@ -35,17 +39,28 @@ MANIFEST_OUT = ROUTE / "manifest"
 TEMPLATE_OUT = ROUTE / "templates"
 REPORTS_OUT = ROUTE / "reports"
 
-TRIM_W, TRIM_H = A4
-BLEED = 3 * mm
+# US Letter landscape trim. Matches the InDesign preflight-safe route and the
+# committed 50pp proof: facing pages, multi-image spreads, full-bleed section
+# title pages.
+TRIM_W, TRIM_H = 279.4 * mm, 215.9 * mm  # 11 x 8.5 in
+BLEED = 3.175 * mm
 PAGE_W, PAGE_H = TRIM_W + (2 * BLEED), TRIM_H + (2 * BLEED)
-OUTER_MARGIN = TRIM_W * 0.075
-INNER_MARGIN = TRIM_W * 0.10
-TOP_MARGIN = TRIM_H * 0.07
-BOTTOM_MARGIN = TRIM_H * 0.07
+MARGIN = 16 * mm
 GUTTER = 5 * mm
 COLUMNS = 12
-LIVE_W = TRIM_W - INNER_MARGIN - OUTER_MARGIN
+# Safe content rectangle in page (bleed-inclusive) coordinates.
+CONTENT_L = BLEED + MARGIN
+CONTENT_R = PAGE_W - BLEED - MARGIN
+CONTENT_B = BLEED + MARGIN
+CONTENT_T = PAGE_H - BLEED - MARGIN
+LIVE_W = CONTENT_R - CONTENT_L
+LIVE_H = CONTENT_T - CONTENT_B
 COLUMN_W = (LIVE_W - (GUTTER * (COLUMNS - 1))) / COLUMNS
+# Legacy aliases (kept so any stray references stay valid).
+OUTER_MARGIN = MARGIN
+INNER_MARGIN = MARGIN
+TOP_MARGIN = MARGIN
+BOTTOM_MARGIN = MARGIN
 INK = colors.HexColor("#11100E")
 CREAM = colors.HexColor("#F3EBDD")
 GOLD = colors.HexColor("#A58242")
@@ -55,86 +70,77 @@ SOFT_BLACK = colors.HexColor("#1C1B19")
 
 ARTICLE_BODIES = {
     "Agency": (
-        "The body becomes the first instrument of authorship before it becomes a subject for interpretation. "
-        "In the first movement of this book, sight begins with bodily insistence: a hand, a shoulder, a mouth, "
-        "an eye, or a turned face does not wait for culture to explain it. The figure enters as pressure. It "
-        "occupies the page with the blunt force of being present, and that presence matters because the viewer "
-        "has not yet been given a stable rule for reading it.\n\n"
-        "The scholarly route through McDermott is used here as a verified-to-be-checked framework rather than as "
-        "a source of direct quotation. The working idea is that early bodily images can be read as more than passive "
-        "objects of display. They carry agency through scale, fragment, gesture, and emphasis. A figure can be partial "
-        "and still be active. A cropped body can still claim space. The page therefore treats the body as origin, not "
-        "because origin is simple, but because every later system of looking must first meet the fact of the body.\n\n"
-        "Agency in this layout is close, image-led, and slightly uncomfortable. The images press into the margins. "
-        "Captions cross edges. Text is broken into short forceful passages so the reader feels the body interrupting "
-        "analysis. The design does not let the article become smooth because smoothness would weaken the argument. "
-        "The body is not introduced as an illustration of theory. It is introduced as the condition that makes theory "
-        "necessary.\n\n"
-        "This is also where the neural learning backdrop enters quietly: looking is not passive reception. The eye "
-        "learns by comparing pressure, repetition, interruption, and contrast. A body seen once is an image. A body "
-        "seen across a sequence becomes a pattern the reader has to train against. The first article therefore builds "
-        "a visual lesson in agency: presence arrives before permission."
+        "The body becomes the first instrument of authorship before it becomes a subject for "
+        "interpretation. A hand, a shoulder, a mouth, a turned face: the figure enters as pressure, "
+        "not as explanation. It claims the page by being present, and that presence unsettles the "
+        "viewer who has not yet been handed a rule for reading it.\n\n"
+        "This is the oldest grammar of looking. In LeRoy McDermott's study of Upper Paleolithic "
+        "female figurines, the strange proportions of the earliest carved bodies read not as another "
+        "person's gaze but as self-representation, the body seen from within by the one who inhabits "
+        "it.[1] Sight begins as ownership before it becomes display.\n\n"
+        "A figure can be partial and still be active. A cropped body still claims space; a single eye "
+        "still returns the look. So the opening pages stay close, image-led, and a little "
+        "uncomfortable, letting presence arrive before permission. Looking here is not passive "
+        "reception. The eye learns by pressure, repetition, and contrast, and a body seen across a "
+        "sequence becomes a pattern the viewer is slowly trained to recognize. Before culture explains "
+        "the figure, the figure has already insisted on being seen."
     ),
     "Constraint": (
-        "Culture turns visibility into a protocol. The second movement begins when bodily force is no longer allowed "
-        "to stand alone. The figure becomes arranged by posture, costume, rank, gender, ritual, and inherited rules of "
-        "display. A face can still look outward, but it now looks through an architecture of expectation. A body can "
-        "still occupy the frame, but the frame has begun to instruct it.\n\n"
-        "The Havelock and Reeder route is treated as a scholarly placeholder for the cultural body: Greek art, social "
-        "posture, public presentation, and the disciplined relation between figure and viewer. No direct quotation is "
-        "used here because the source texts are not supplied in the workspace. Instead, the article synthesizes the "
-        "assigned idea: visibility becomes social when a culture teaches bodies how to appear, and teaches viewers how "
-        "to approve that appearance.\n\n"
-        "Constraint does not erase agency. It redirects it. The body still carries force, but that force is shaped by "
-        "protocol. The page system responds by tightening. Columns become more formal. Panels sit closer to the grid. "
-        "Accent color marks pressure points, especially where the terms agency and constraint appear together. This "
-        "section should feel less wild than the first, but more tense. The reader should sense that the body has entered "
-        "a room where every gesture is already being measured.\n\n"
-        "This matters to the theory of sight because the viewer is also constrained. We do not only look at the ruled "
-        "body; we learn the rule by looking. The layout asks the reader to notice that training. Each repeated crop, "
-        "caption, and column teaches a visual habit. The eye becomes disciplined alongside the figure. Seeing is no "
-        "longer just contact. It is compliance, resistance, and learned interpretation happening at the same time."
+        "Culture turns visibility into a protocol. Bodily force is no longer allowed to stand alone; "
+        "it is arranged by posture, costume, rank, ritual, maternity, and inherited rules of display. "
+        "A face still looks outward, but now it looks through an architecture of expectation.\n\n"
+        "Elizabeth Mulley's study of Laura Muntz gives this constraint an intimate register: womanhood "
+        "represented through maternity, care, loss, and symbolic burden, the body made legible by the "
+        "roles it is asked to carry.[2] Mary Morrissy's account of Una Watters adds the everyday, where "
+        "the woman is set inside ordinary weather, labor, and street life rather than idealized apart "
+        "from it.[3]\n\n"
+        "Constraint does not erase agency; it redirects it. The body still carries force, but that "
+        "force is shaped by who is permitted to look and who is expected to be seen. The viewer is "
+        "disciplined too. Each repeated crop, pose, and symbol teaches a visual habit, until seeing is "
+        "no longer simple contact but compliance, resistance, and learned interpretation happening at "
+        "once. The room has rules, and the eye has already agreed to most of them before it knows "
+        "that it is choosing to obey."
     ),
     "Mediation": (
-        "The veil is an editing system, not a disappearance. The third movement begins where the body and the rule meet "
-        "a surface that can interrupt both. Lace, shadow, fabric, blur, flowers, hair, hands, and darkness all become "
-        "interfaces. They do not simply hide the figure. They decide how slowly the figure can arrive.\n\n"
-        "The veiling route is held through iconography, Vera Icona, lace, secrecy, and the larger problem of mediated "
-        "access. The key point is not that the viewer is denied. The key point is that denial becomes structure. A veil "
-        "produces a special kind of attention because the eye has to work without full possession. It keeps searching, "
-        "comparing edges, reading textures, and inventing continuity from fragments.\n\n"
-        "This section opens the grid. The design becomes more atmospheric, with more negative space and more surface "
-        "interruption. Images are allowed to feel secretive. Text becomes quieter, more breath-based, but it still carries "
-        "an argument: mediation is the place where agency and constraint become visible as tension. The body wants to "
-        "appear. The rule wants to organize appearance. The veil controls the tempo of access.\n\n"
-        "For an ADHD reader, this section should not become vague. The idea stays modular: surface, delay, pressure, "
-        "partial access. Those repeated terms create a learning path through the atmosphere. The reader can feel the "
-        "mystery without getting lost inside it. The veil does not remove meaning. It makes meaning arrive through effort."
+        "The veil is an editing system, not a disappearance. Where the body and the rule meet a "
+        "surface that can interrupt both, lace, shadow, fabric, blur, flowers, hair, and darkness "
+        "become interfaces. They do not simply hide the figure; they decide how slowly it is allowed "
+        "to arrive.\n\n"
+        "A blocked face increases attention, because the viewer has to complete the missing "
+        "information. Denial becomes structure. This is the logic the art of obstruction has always "
+        "understood: Symbolism treats the visible world as a carrier for inward states, and Surrealism "
+        "turns ordinary surfaces into dream pressure and psychological interruption.[4][5] The covered "
+        "eye and the displaced face push the viewer toward interpretation rather than recognition.\n\n"
+        "So this section opens its grid and lets the images feel secretive, with more negative space "
+        "and more surface. The body wants to appear; the rule wants to organize appearance; the veil "
+        "controls the tempo of access. The point is not mystery for its own sake but cognitive "
+        "pressure. A hidden gaze makes the eye work, and meaning arrives only through that effort. What "
+        "is withheld is not absence; it is the part of the image still being decided."
     ),
     "Synthesis": (
-        "Sight becomes visceral when these forces remain active together. The final movement refuses to solve the body, "
-        "the rule, and the veil into a clean hierarchy. Agency begins the argument, constraint disciplines it, and "
-        "mediation keeps it unresolved. The image becomes powerful because no single force wins.\n\n"
-        "This is the core thesis of the book: psychological pressure does not come from clear depiction alone. It comes "
-        "from calculated revelation. The viewer feels the image because the image negotiates what can be seen, how quickly "
-        "it can be seen, and what remains withheld even after attention has been spent. The body is present, but not fully "
-        "available. Culture is legible, but not neutral. The veil interrupts, but also teaches the eye how to continue.\n\n"
-        "The synthesis pages therefore break the grid most visibly. Large images take authority. Text floats beside them "
-        "or presses into panels that seem slightly displaced. The asymmetry is not decoration. It is the final proof of "
-        "the argument. A symmetrical page would imply that sight has settled. This book needs sight to remain unstable, "
-        "because unstable sight is where learning happens.\n\n"
-        "The conclusion keeps the claims rights-sensitive and citation-safe. It does not invent quotations, publication "
-        "details, or license certainty. It names the scholarly routes that still need final verification and holds the "
-        "visual argument as the completed local production route. What remains is deliberate: source checking, instructor "
-        "review, and final export. The theory, however, is already visible in the structure."
+        "Sight becomes visceral when these forces remain active together. The final movement refuses "
+        "to resolve the body, the rule, and the veil into a clean hierarchy. Agency begins the "
+        "argument, constraint disciplines it, and mediation keeps it unresolved, and the image grows "
+        "powerful precisely because no single force wins.\n\n"
+        "This is the thesis the whole issue has been building toward: psychological pressure does not "
+        "come from clear depiction. It comes from calculated revelation, the image negotiating what "
+        "can be seen, how quickly, and what stays withheld even after attention has been spent. The "
+        "body is present but not fully available. Culture is legible but never neutral. The veil "
+        "interrupts, yet it also teaches the eye how to continue.\n\n"
+        "So the closing pages keep the layout asymmetrical. Large images take authority; text presses "
+        "beside them, slightly displaced. A symmetrical page would imply that sight had settled, and "
+        "this argument needs sight to stay unstable, because instability is where looking turns into "
+        "learning. The anatomy of looking is never finished. It only changes the surface it has to "
+        "cross next, and asks the eye to begin the work again."
     ),
 }
 
+# First *content* page of each section (the page after its full-bleed title page).
 SECTION_PAGE_START = {
-    "Agency": 8,
-    "Constraint": 17,
-    "Mediation": 27,
-    "Synthesis": 39,
+    "Agency": 9,
+    "Constraint": 18,
+    "Mediation": 28,
+    "Synthesis": 40,
 }
 
 
@@ -151,6 +157,8 @@ class Asset:
     creator: str
     title: str
     reason: str
+    caption: str = ""
+    short_caption: str = ""
 
 
 def ensure_dirs() -> None:
@@ -208,25 +216,6 @@ def apply_print_boxes(pdf_path: Path) -> None:
         writer.write(f)
 
 
-def infer_rights(name: str) -> str:
-    lowered = name.lower()
-    if "unsplash" in lowered:
-        return "Unsplash filename present; verify source URL and license before final export."
-    if "adobestock" in lowered:
-        return "Adobe Stock filename present; verify local license before final export."
-    return "Local/generated/unknown source; verify creator, source, and usage rights before final export."
-
-
-def infer_creator(name: str) -> str:
-    lowered = name.lower()
-    if "unsplash" in lowered:
-        slug = name.split("-unsplash")[0]
-        return slug.replace("-", " ").title() + " / Unsplash filename"
-    if "adobestock" in lowered:
-        return "Adobe Stock contributor not verified"
-    return "Creator not verified"
-
-
 def infer_group(index: int, name: str) -> str:
     lowered = name.lower()
     if any(term in lowered for term in ["lace", "veil", "blindfold", "flowers", "obscured"]):
@@ -248,12 +237,113 @@ def infer_reason(group: str, name: str) -> str:
     return "Fabric, lace, blur, flower, veil, or partial face makes sight mediated rather than simply hidden."
 
 
+CAPTION_MANIFEST = ROOT / "data" / "visceral-caption-manifest.csv"
+_CAPTION_FALLBACK = {
+    "Agency": "Presence arrives before permission; the body speaks first.",
+    "Constraint": "The pose turns looking into a rule already agreed to.",
+    "Mediation": "A surface intervenes, and sight has to earn the face.",
+}
+
+
+def _norm(text: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", text.lower())
+
+
+def _asset_core(filename: str) -> str:
+    """Strip the repo 'aNN-theme-' prefix so the original name can match the manifest."""
+    stem = filename.rsplit(".", 1)[0]
+    stem = re.sub(r"^a\d+-(mediation|social-constraint|raw-agency)-", "", stem)
+    return _norm(stem)
+
+
+def load_caption_index() -> list[tuple[str, str, str]]:
+    index: list[tuple[str, str, str]] = []
+    if not CAPTION_MANIFEST.exists():
+        return index
+    with CAPTION_MANIFEST.open("r", encoding="utf-8-sig", newline="") as handle:
+        for row in csv.DictReader(handle):
+            name = (row.get("filename") or "").strip()
+            if name:
+                index.append(
+                    (
+                        _norm(name.rsplit(".", 1)[0]),
+                        (row.get("short_caption") or "").strip(),
+                        (row.get("caption") or "").strip(),
+                    )
+                )
+    return index
+
+
+def caption_for(asset: Asset, index: list[tuple[str, str, str]]) -> tuple[str, str]:
+    """Return (short_caption, caption) for an asset, matched by original filename."""
+    core = _asset_core(asset.filename)
+    best: tuple[str, str] | None = None
+    best_len = 0
+    for key, short_cap, full_cap in index:
+        if key and (key in core or core in key) and len(key) > best_len:
+            best = (short_cap, full_cap)
+            best_len = len(key)
+    if best:
+        return best
+    group = "Agency" if "Agency" in asset.group else "Constraint" if "Constraint" in asset.group else "Mediation"
+    fallback = _CAPTION_FALLBACK[group]
+    return (fallback, fallback)
+
+
+def make_cover_asset(fallback: Asset) -> Asset:
+    """Use images/cover.jpg as the front-cover image when present, else the fallback plate."""
+    if not COVER_IMAGE.exists():
+        return fallback
+    with Image.open(COVER_IMAGE) as img:
+        width, height = img.size
+    return Asset(
+        id="COVER",
+        source_path=COVER_IMAGE,
+        local_path=COVER_IMAGE,
+        filename=COVER_IMAGE.name,
+        width=width,
+        height=height,
+        group="Mediation",
+        rights="",
+        creator="",
+        title="Cover",
+        reason="",
+    )
+
+
+def _canonical_cores() -> set[str]:
+    """Original-name cores of the canonical plates (the repo's 64-image labeled set)."""
+    repo_dir = ROOT / "images" / "labeled"
+    cores: set[str] = set()
+    if repo_dir.exists():
+        for p in repo_dir.iterdir():
+            if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}:
+                cores.add(_asset_core(p.name))
+    return cores
+
+
+def _filter_to_canonical(files: list[Path]) -> list[Path]:
+    """Keep only source files matching a canonical plate, so a full-res source folder
+    that still holds the deleted originals (67) is locked back to the published 64."""
+    cores = _canonical_cores()
+    if not cores:
+        return files
+    kept: list[Path] = []
+    for p in files:
+        core = _asset_core(p.name)
+        if any(c and (c in core or core in c) for c in cores):
+            kept.append(p)
+    return kept
+
+
 def scan_assets() -> list[Asset]:
     files = sorted(
         [p for p in SOURCE_ASSETS.iterdir() if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}],
         key=lambda p: p.name.lower(),
     )
+    files = _filter_to_canonical(files)
     assets: list[Asset] = []
+    caption_index = load_caption_index()
     for i, path in enumerate(files, start=1):
         out_name = f"asset-{i:02d}{path.suffix.lower()}"
         local = ASSET_OUT / out_name
@@ -262,26 +352,27 @@ def scan_assets() -> list[Asset]:
             width, height = img.size
         group = infer_group(i, path.name)
         title = path.stem
-        assets.append(
-            Asset(
-                id=f"A{i:02d}",
-                source_path=path,
-                local_path=local,
-                filename=path.name,
-                width=width,
-                height=height,
-                group=group,
-                rights=infer_rights(path.name),
-                creator=infer_creator(path.name),
-                title=title,
-                reason=infer_reason(group, path.name),
-            )
+        asset = Asset(
+            id=f"A{i:02d}",
+            source_path=path,
+            local_path=local,
+            filename=path.name,
+            width=width,
+            height=height,
+            group=group,
+            rights=infer_rights(path.name),
+            creator=infer_creator(path.name),
+            title=title,
+            reason=infer_reason(group, path.name),
         )
+        asset.short_caption, asset.caption = caption_for(asset, caption_index)
+        assets.append(asset)
     return assets
 
 
-def draw_bg(c: canvas.Canvas, dark: bool = False) -> None:
-    c.setFillColor(SOFT_BLACK if dark else CREAM)
+def draw_bg(c: canvas.Canvas, dark: bool = True) -> None:
+    # Whole magazine runs black-background / white-text.
+    c.setFillColor(SOFT_BLACK)
     c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
 
 
@@ -294,23 +385,12 @@ def draw_text_block(
     leading: float = 14,
     size: float = 10,
     font: str = "Times-Roman",
-    color=INK,
+    color=CREAM,
     max_lines: int | None = None,
 ) -> float:
-    c.setFont(font, size)
-    c.setFillColor(color)
-    lines: list[str] = []
-    for para in text.split("\n"):
-        if not para.strip():
-            lines.append("")
-        else:
-            lines.extend(wrap(para, width=width_chars))
-    if max_lines is not None:
-        lines = lines[:max_lines]
-    for line in lines:
-        c.drawString(x, y, line)
-        y -= leading
-    return y
+    return _draw_text_block(
+        c, text, x, y, width_chars, leading, size, font, color, max_lines,
+    )
 
 
 def draw_label(c: canvas.Canvas, text: str, x: float, y: float, color=GOLD) -> None:
@@ -319,7 +399,7 @@ def draw_label(c: canvas.Canvas, text: str, x: float, y: float, color=GOLD) -> N
     c.drawString(x, y, text.upper())
 
 
-def draw_page_number(c: canvas.Canvas, page: int, dark: bool = False) -> None:
+def draw_page_number(c: canvas.Canvas, page: int, dark: bool = True) -> None:
     c.setFont("Helvetica", 7)
     c.setFillColor(CREAM if dark else INK)
     c.drawRightString(PAGE_W - 36, 24, f"{page:02d}")
@@ -342,9 +422,9 @@ def image_box(c: canvas.Canvas, asset: Asset, x: float, y: float, w: float, h: f
 
 def image_caption(c: canvas.Canvas, asset: Asset, x: float, y: float, w: float, dark: bool = False) -> None:
     c.setFillColor(CREAM if dark else INK)
-    c.setFont("Helvetica", 6.5)
-    caption = f"{asset.id} / {asset.title[:68]} / rights: verify"
-    c.drawString(x, y, caption[:100])
+    c.setFont("Helvetica-Oblique", 6.5)
+    caption = f"{asset.id} / {(asset.short_caption or asset.caption)}"
+    c.drawString(x, y, caption[:104])
     c.setStrokeColor(GOLD)
     c.setLineWidth(0.4)
     c.line(x, y - 5, x + w, y - 5)
@@ -365,8 +445,8 @@ def overlay_caption(c: canvas.Canvas, asset: Asset, x: float, y: float, w: float
     c.setFont("Helvetica-Bold", 6.5)
     c.setFillColor(CREAM if dark else INK)
     c.drawString(x, y + 2, f"{asset.id} / {asset.group.split(': ')[-1].upper()}")
-    c.setFont("Helvetica", 6.2)
-    c.drawString(x, y - 7, "caption crosses the image edge; rights verify before final export")
+    c.setFont("Helvetica-Oblique", 6.2)
+    c.drawString(x, y - 7, (asset.short_caption or asset.caption)[:80])
 
 
 def draw_pull_quote(c: canvas.Canvas, lines: list[str], y: float, dark: bool = False) -> None:
@@ -384,8 +464,9 @@ def intro_copy() -> str:
     return (
         "Sight is never only an act of seeing. It is a negotiation between the body "
         "that appears, the culture that disciplines appearance, and the surface that "
-        "decides what can be touched by the eye. This book moves through agency, "
-        "constraint, and mediation as one visual pressure system."
+        "decides what the eye is allowed to touch. This issue moves through agency, "
+        "constraint, and mediation as one continuous pressure system: the anatomy of "
+        "looking, traced from the body outward to the veil."
     )
 
 
@@ -393,46 +474,164 @@ def section_copy(section: str) -> str:
     return ARTICLE_BODIES[section]
 
 
-def article_excerpt(section: str, page: int, target_chars: int = 520) -> str:
+def _article_chunks(section: str, words_per_page: int = 86) -> list[str]:
+    """Split a section body into sequential, sentence-aligned chunks (one per page)."""
     words = ARTICLE_BODIES[section].replace("\n", " ").split()
-    if not words:
-        return ""
+    chunks: list[str] = []
+    i = 0
+    while i < len(words):
+        end = min(i + words_per_page, len(words))
+        while end < len(words) and words[end - 1][-1] not in ".!?":
+            end += 1
+        chunks.append(" ".join(words[i:end]))
+        i = end
+    return chunks
+
+
+def article_excerpt(section: str, page: int, target_chars: int = 520) -> str:
+    """Sequential article text for a content page; empty once the article is spent."""
     start_page = SECTION_PAGE_START[section]
     offset = max(0, page - start_page)
-    words_per_page = max(55, target_chars // 6)
-    start = min(offset * words_per_page, max(0, len(words) - words_per_page))
-    excerpt_words = words[start : start + words_per_page]
-    return " ".join(excerpt_words)
+    chunks = _article_chunks(section)
+    return chunks[offset] if offset < len(chunks) else ""
+
+
+def scrim(c: canvas.Canvas, alpha: float = 0.42, dark: bool = True) -> None:
+    """Full-page wash over an image so overlaid type stays legible."""
+    c.saveState()
+    base = 0.04 if dark else 0.95
+    c.setFillColor(colors.Color(base, base, base, alpha=alpha))
+    c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+    c.restoreState()
+
+
+SECTION_TITLES = {
+    "Agency": ("I", "Agency", "The Body / presence before permission"),
+    "Constraint": ("II", "Constraint", "The Rule / visibility as protocol"),
+    "Mediation": ("III", "Mediation", "The Veil / the tempo of access"),
+    "Synthesis": ("IV", "Synthesis", "Sight that refuses to settle"),
+}
+
+# One-sentence meaning printed under each section title.
+SECTION_BLURB = {
+    "Agency": (
+        "Agency is the body as its own first statement: a hand, an eye, a turned "
+        "face that claims attention as pressure, before any rule arrives to explain it."
+    ),
+    "Constraint": (
+        "Constraint is culture turning visibility into protocol: pose, costume, rank, "
+        "and ritual teach a body how it may appear, and teach the viewer how to approve it."
+    ),
+    "Mediation": (
+        "Mediation is the veil as an editing system: lace, shadow, fabric, and blur do "
+        "not simply hide the body, they decide how slowly it is allowed to be seen."
+    ),
+    "Synthesis": (
+        "Synthesis is sight that refuses to settle: body, rule, and veil stay active at "
+        "once, so looking stays unfinished and the image keeps its pressure."
+    ),
+}
+
+
+def draw_section_title(c: canvas.Canvas, page: int, section: str, asset: Asset) -> None:
+    """Full-bleed image spread carrying the section title and its meaning."""
+    numeral, title, sub = SECTION_TITLES.get(section, ("", section, ""))
+    blurb = SECTION_BLURB.get(section, "")
+    image_box(c, asset, 0, 0, PAGE_W, PAGE_H)
+    scrim(c, alpha=0.56, dark=True)
+    x = CONTENT_L
+    c.setFillColor(GOLD)
+    c.setFont("Helvetica-Bold", 14)
+    c.drawString(x, CONTENT_B + 230, "ARTICLE " + numeral)
+    c.setStrokeColor(GOLD)
+    c.setLineWidth(1.4)
+    c.line(x, CONTENT_B + 214, x + 150, CONTENT_B + 214)
+    c.setFillColor(CREAM)
+    c.setFont("Helvetica-Bold", 54)
+    c.drawString(x, CONTENT_B + 150, title)
+    c.setFont("Times-Italic", 15)
+    c.drawString(x, CONTENT_B + 120, sub)
+    # Subtext under the title: what this section means.
+    draw_text_block(c, blurb, x, CONTENT_B + 92, width_chars=74, leading=15, size=10.5, color=CREAM)
+    draw_page_number(c, page, dark=True)
 
 
 def draw_cover(c: canvas.Canvas, asset: Asset, page_num: int | None = None) -> None:
-    draw_bg(c, dark=True)
-    image_box(c, asset, 66, 138, PAGE_W - 132, PAGE_H * 0.68)
-    c.setFillColor(CREAM)
-    c.setFont("Helvetica-Bold", 37)
-    c.drawCentredString(PAGE_W / 2, 103, "THE VISCERAL")
-    c.drawCentredString(PAGE_W / 2, 66, "THEORY OF SIGHT")
-    c.setFont("Times-Roman", 10)
-    c.drawCentredString(PAGE_W / 2, 43, "the body, the gaze, and the veil")
+    image_box(c, asset, 0, 0, PAGE_W, PAGE_H)
+    scrim(c, alpha=0.34, dark=True)
+    x = CONTENT_L
+    c.setFillColor(GOLD)
+    c.setFont("Helvetica-Bold", 11)
+    c.drawString(x, CONTENT_B + 150, "THE ANATOMY OF LOOKING")
     c.setStrokeColor(GOLD)
-    c.setLineWidth(1)
-    c.line(138, 124, PAGE_W - 138, 124)
+    c.setLineWidth(1.2)
+    c.line(x, CONTENT_B + 134, x + 260, CONTENT_B + 134)
+    c.setFillColor(CREAM)
+    c.setFont("Helvetica-Bold", 52)
+    c.drawString(x, CONTENT_B + 78, "THE VISCERAL")
+    c.drawString(x, CONTENT_B + 30, "THEORY OF SIGHT")
+    c.setFont("Times-Roman", 13)
+    c.drawString(x, CONTENT_B + 8, "the body, the gaze, and the veil")
+    c.setFillColor(GOLD)
+    c.setFont("Helvetica-Bold", 13)
+    c.drawString(x, CONTENT_B - 22, "BROOKE CHAUNTEL")
     if page_num:
         draw_page_number(c, page_num, dark=True)
 
 
+def draw_title_spread(c: canvas.Canvas, asset: Asset, side: str) -> None:
+    """Two-page title spread: full-bleed image (left page) facing the title (right page)."""
+    if side == "left":
+        image_box(c, asset, 0, 0, PAGE_W, PAGE_H)
+        scrim(c, alpha=0.42, dark=True)
+        draw_label(c, "the anatomy of looking", CONTENT_L, CONTENT_B + 40, color=GOLD)
+        draw_page_number(c, 2, dark=True)
+    else:
+        draw_bg(c, dark=True)
+        c.setFillColor(GOLD)
+        c.setFont("Helvetica-Bold", 11)
+        c.drawString(CONTENT_L, CONTENT_T - 30, "TITLE")
+        c.setFillColor(CREAM)
+        c.setFont("Helvetica-Bold", 56)
+        c.drawString(CONTENT_L, CONTENT_T - 132, "THE VISCERAL")
+        c.drawString(CONTENT_L, CONTENT_T - 190, "THEORY OF SIGHT")
+        c.setFont("Times-Italic", 15)
+        c.drawString(CONTENT_L, CONTENT_T - 222, "A visual psychology issue on gaze, image memory, and the veil.")
+        c.setFillColor(GOLD)
+        c.setFont("Helvetica-Bold", 14)
+        c.drawString(CONTENT_L, CONTENT_T - 252, "Brooke Chauntel")
+        c.setFillColor(MIST)
+        c.setFont("Helvetica", 10)
+        c.drawString(CONTENT_L, CONTENT_T - 270, "Everett Community College · 2026")
+        text = (
+            "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets "
+            "require license and source verification before public release; locally generated or unknown "
+            "files require creator and usage confirmation. Citations are real and listed in Works "
+            "Consulted; exact editions, page ranges, and licenses are confirmed before final print."
+        )
+        draw_text_block(c, text, CONTENT_L, CONTENT_B + 116, width_chars=70, leading=13, size=9.5, color=MIST)
+        draw_page_number(c, 3, dark=True)
+
+
 def draw_title_page(c: canvas.Canvas) -> None:
     draw_bg(c)
-    draw_label(c, "title page", 72, PAGE_H - 90)
-    c.setFillColor(INK)
-    c.setFont("Helvetica-Bold", 40)
-    c.drawString(72, PAGE_H - 185, "The Visceral")
-    c.drawString(72, PAGE_H - 228, "Theory of Sight")
-    c.setFont("Times-Roman", 13)
-    c.drawString(74, PAGE_H - 270, "A 50-page editorial art book on controlled revelation.")
-    c.setFont("Helvetica", 8)
-    c.drawString(74, 90, "Compiled and designed as an alternate local production route.")
-    c.drawString(74, 76, "All citations and rights marked for verification before final export.")
+    draw_label(c, "title page", CONTENT_L, CONTENT_T - 6)
+    c.setFillColor(CREAM)
+    c.setFont("Helvetica-Bold", 46)
+    c.drawString(CONTENT_L, CONTENT_T - 120, "The Visceral")
+    c.drawString(CONTENT_L, CONTENT_T - 168, "Theory of Sight")
+    c.setFont("Times-Roman", 14)
+    c.drawString(CONTENT_L, CONTENT_T - 200, "A 50-page editorial art book on controlled revelation.")
+    c.setFillColor(CREAM)
+    c.setFont("Helvetica-Bold", 14)
+    c.drawString(CONTENT_L, CONTENT_T - 232, "Brooke Chauntel")
+    c.setFillColor(MIST)
+    c.setFont("Helvetica", 10)
+    c.drawString(CONTENT_L, CONTENT_T - 252, "Everett Community College · 2026")
+    c.setFillColor(CREAM)
+    c.setFont("Helvetica", 8.5)
+    c.drawString(CONTENT_L, CONTENT_B + 30, "Compiled and designed as an alternate local production route.")
+    c.drawString(CONTENT_L, CONTENT_B + 16, "All citations and rights marked for verification before final export.")
     draw_page_number(c, 2)
 
 
@@ -449,207 +648,278 @@ def draw_legal(c: canvas.Canvas) -> None:
         "lace, and mediation theory. Exact article titles, page numbers, and quotations remain verify "
         "before final export unless source PDFs are added to the workspace."
     )
-    draw_text_block(c, text, 78, 185, width_chars=78, leading=13, size=9)
+    draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=108, leading=14, size=10)
     draw_page_number(c, 3)
 
 
 def draw_toc(c: canvas.Canvas) -> None:
-    draw_bg(c)
-    draw_label(c, "contents", 72, PAGE_H - 90)
-    c.setFont("Helvetica-Bold", 30)
-    c.setFillColor(INK)
-    c.drawString(72, PAGE_H - 150, "Body / Rule / Veil")
+    draw_bg(c, dark=True)
+    draw_label(c, "contents", CONTENT_L, CONTENT_T - 6, color=GOLD)
+    c.setFillColor(CREAM)
+    c.setFont("Helvetica-Bold", 34)
+    c.drawString(CONTENT_L, CONTENT_T - 64, "Agency / Constraint / Mediation")
     entries = [
-        ("Front Matter", "01-04"),
-        ("Introduction: The Visceral Theory of Sight", "05-07"),
-        ("I. The Body", "08-16"),
-        ("II. The Constraint", "17-26"),
-        ("III. The Veil", "27-38"),
-        ("Synthesis and Reflection", "39-45"),
-        ("Back Matter", "46-50"),
+        ("Front Matter", "01"),
+        ("Introduction: The Visceral Theory of Sight", "05"),
+        ("I. Agency", "08"),
+        ("II. Constraint", "17"),
+        ("III. Mediation", "27"),
+        ("IV. Synthesis", "39"),
+        ("Back Matter", "46"),
     ]
-    x_positions = [72, 245, 420]
-    y = PAGE_H - 235
-    for i, (title, pages) in enumerate(entries):
-        x = x_positions[i % 3]
-        if i and i % 3 == 0:
-            y -= 115
-        c.setFont("Helvetica-Bold", 11)
-        c.setFillColor(GOLD if i % 2 else INK)
-        c.drawString(x, y, pages)
-        c.setFont("Times-Roman", 11)
-        c.setFillColor(INK)
-        draw_text_block(c, title, x, y - 19, width_chars=19, leading=12, size=10)
+    y = CONTENT_T - 122
+    for title, page in entries:
+        c.setFont("Times-Roman", 14)
+        c.setFillColor(CREAM)
+        c.drawString(CONTENT_L, y, title)
+        title_w = c.stringWidth(title, "Times-Roman", 14)
+        c.setStrokeColor(MIST)
+        c.setLineWidth(0.6)
+        c.setDash([1, 3])
+        c.line(CONTENT_L + title_w + 12, y + 3, CONTENT_R - 34, y + 3)
+        c.setDash([])
+        c.setFont("Helvetica-Bold", 13)
+        c.setFillColor(GOLD)
+        c.drawRightString(CONTENT_R, y, page)
+        y -= 36
     draw_page_number(c, 4)
 
 
 def draw_intro(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
-    draw_bg(c, dark=page == 6)
-    dark = page == 6
+    dark = True
+    draw_bg(c, dark=dark)
     if page == 5:
-        image_box(c, assets[0], 54, 370, 190, 285)
-        image_box(c, assets[5], 260, 300, 285, 175)
-        image_box(c, assets[10], 340, 500, 170, 130)
-        draw_label(c, "introduction", 72, 250)
-        c.setFont("Helvetica-Bold", 30)
-        c.setFillColor(INK)
-        c.drawString(72, 212, "The Visceral Theory")
-        c.drawString(72, 178, "of Sight")
-        draw_text_block(c, intro_copy(), 74, 138, width_chars=70, leading=13, size=9.5)
-    elif page == 6:
-        image_box(c, assets[2], 48, 118, PAGE_W - 96, PAGE_H - 190)
+        draw_label(c, "introduction", CONTENT_L, CONTENT_T - 6)
         c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 24)
-        c.drawString(72, PAGE_H - 88, "The image does not give itself all at once.")
-        draw_text_block(c, "Controlled revelation is the method. Tension is the evidence.", 74, 92, 62, 13, 10, color=CREAM)
+        c.setFont("Helvetica-Bold", 34)
+        c.drawString(CONTENT_L, CONTENT_T - 72, "The Visceral Theory")
+        c.drawString(CONTENT_L, CONTENT_T - 110, "of Sight")
+        draw_text_block(c, intro_copy(), CONTENT_L, CONTENT_T - 156, width_chars=44, leading=14, size=10.5)
+        # Staggered image cluster fills the right half of the landscape spread.
+        image_box(c, assets[0], 432, CONTENT_T - 250, 196, 250)
+        image_box(c, assets[5 % len(assets)], 638, CONTENT_T - 250, 118, 250)
+        image_box(c, assets[10 % len(assets)], 432, CONTENT_B, 324, 168)
+        overlay_caption(c, assets[0], 444, CONTENT_T - 236, 170, dark=True)
+    elif page == 6:
+        image_box(c, assets[2 % len(assets)], 0, 0, PAGE_W, PAGE_H)
+        scrim(c, alpha=0.5, dark=True)
+        c.setFillColor(CREAM)
+        c.setFont("Helvetica-Bold", 30)
+        c.drawString(CONTENT_L, CONTENT_T - 44, "The image does not give")
+        c.drawString(CONTENT_L, CONTENT_T - 80, "itself all at once.")
+        draw_text_block(c, "Controlled revelation is the method. Tension is the evidence.", CONTENT_L, CONTENT_B + 44, width_chars=78, leading=14, size=11, color=CREAM)
     else:
-        cols = [(72, 510), (246, 430), (420, 350)]
+        draw_label(c, "the three pressures", CONTENT_L, CONTENT_T - 6)
+        cols = [CONTENT_L, CONTENT_L + 238, CONTENT_L + 476]
         labels = [("AGENCY", "body as force"), ("CONSTRAINT", "body as protocol"), ("MEDIATION", "veil as edit")]
-        for (x, y), (head, sub) in zip(cols, labels):
+        top = CONTENT_T - 48
+        for x, (head, sub) in zip(cols, labels):
             c.setFillColor(GOLD)
-            c.rect(x, y, 92, 3, fill=1, stroke=0)
-            c.setFillColor(INK)
-            c.setFont("Helvetica-Bold", 16)
-            c.drawString(x, y - 32, head)
+            c.rect(x, top, 92, 3, fill=1, stroke=0)
+            c.setFillColor(CREAM)
+            c.setFont("Helvetica-Bold", 18)
+            c.drawString(x, top - 30, head)
             c.setFont("Times-Roman", 11)
-            c.drawString(x, y - 51, sub)
-        draw_text_block(c, intro_copy(), 72, 235, width_chars=76, leading=14, size=10)
+            c.drawString(x, top - 48, sub)
+        image_box(c, assets[7 % len(assets)], CONTENT_L, CONTENT_B + 92, LIVE_W, 150)
+        draw_text_block(c, intro_copy(), CONTENT_L, CONTENT_B + 70, width_chars=112, leading=13, size=9.5)
     draw_page_number(c, page, dark=dark)
 
 
-def draw_article_page(c: canvas.Canvas, page: int, section: str, asset: Asset, variant: int) -> None:
-    dark = variant in {2, 5}
+def draw_plate_page(c: canvas.Canvas, page: int, section: str, a0: Asset, a1: Asset, a2: Asset, accent, offset: int) -> None:
+    """Image-forward plate page used once a section's article text is spent."""
+    draw_bg(c, dark=True)
+    if offset % 2 == 1:
+        gap = 16
+        iw = (LIVE_W - 2 * gap) / 3
+        ih = LIVE_H * 0.66
+        ytop = CONTENT_T - ih
+        for k, a in enumerate((a0, a1, a2)):
+            image_box(c, a, CONTENT_L + k * (iw + gap), ytop, iw, ih)
+        draw_label(c, section.upper() + " / sequence", CONTENT_L, ytop - 24, color=accent)
+        overlay_caption(c, a0, CONTENT_L + 14, ytop + 12, 180, dark=True)
+    else:
+        image_box(c, a0, 0, 0, PAGE_W, PAGE_H)
+        scrim(c, alpha=0.32, dark=True)
+        draw_label(c, section.upper() + " / sequence", CONTENT_L, CONTENT_T - 6, color=GOLD)
+        overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 240, dark=True)
+    draw_page_number(c, page, dark=True)
+
+
+def draw_article_page(c: canvas.Canvas, page: int, section: str, section_assets: list[Asset], offset: int) -> None:
+    """Landscape editorial page. Variants 1 and 3 carry multiple images per spread."""
+    variant = offset % 5
+    dark = True
     draw_bg(c, dark=dark)
     fg = CREAM if dark else INK
-    accent = GOLD if section != "Mediation" else SLATE
+    accent = SLATE if section == "Mediation" else GOLD
     body_text = article_excerpt(section, page)
+    n = len(section_assets)
+    a0 = section_assets[offset % n]
+    a1 = section_assets[(offset + 1) % n]
+    a2 = section_assets[(offset + 2) % n]
+    if not body_text:
+        draw_plate_page(c, page, section, a0, a1, a2, accent, offset)
+        return
     if variant == 0:
-        image_box(c, asset, 48, 170, 356, 510)
-        translucent_panel(c, 360, 470, 178, 155, dark=dark, alpha=0.88)
-        c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 24)
-        c.drawString(374, 590, section.upper())
-        draw_text_block(c, body_text, 376, 552, 29, 12.2, 8.2, color=fg)
-        overlay_caption(c, asset, 72, 186, 210, dark=True)
-    elif variant == 1:
-        image_box(c, asset, 176, 238, 390, 365)
+        # Dominant image left, text column right.
+        iw = LIVE_W * 0.56
+        image_box(c, a0, CONTENT_L, CONTENT_B, iw, LIVE_H)
+        tx = CONTENT_L + iw + 26
         c.setFillColor(accent)
-        c.rect(64, 112, 104, 548, fill=1, stroke=0)
-        c.setFillColor(CREAM)
-        c.setFont("Helvetica-Bold", 25)
-        c.saveState()
-        c.translate(105, 180)
-        c.rotate(90)
-        c.drawString(0, 0, section.upper())
-        c.restoreState()
-        translucent_panel(c, 148, 188, 345, 86, dark=dark, alpha=0.80)
-        draw_text_block(c, body_text, 164, 250, 55, 11, 7.7, color=fg, max_lines=8)
-        overlay_caption(c, asset, 408, 252, 138, dark=True)
+        c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
+        c.setFillColor(fg)
+        c.setFont("Helvetica-Bold", 26)
+        c.drawString(tx, CONTENT_T - 64, section.upper())
+        draw_text_block(c, body_text, tx, CONTENT_T - 96, width_chars=31, leading=14.5, size=10.4, color=fg)
+        overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 220, dark=True)
+    elif variant == 1:
+        # Two stacked images left, text right.
+        iw = LIVE_W * 0.46
+        h = (LIVE_H - 18) / 2
+        image_box(c, a0, CONTENT_L, CONTENT_B + h + 18, iw, h)
+        image_box(c, a1, CONTENT_L, CONTENT_B, iw, h)
+        tx = CONTENT_L + iw + 30
+        c.setFillColor(accent)
+        c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
+        c.setFillColor(fg)
+        c.setFont("Helvetica-Bold", 26)
+        c.drawString(tx, CONTENT_T - 64, section.upper())
+        draw_text_block(c, body_text, tx, CONTENT_T - 96, width_chars=37, leading=14.5, size=10.4, color=fg)
+        overlay_caption(c, a1, CONTENT_L + 14, CONTENT_B + 16, 200, dark=True)
     elif variant == 2:
-        image_box(c, asset, 0, 0, PAGE_W, PAGE_H)
-        c.setFillColor(colors.Color(0, 0, 0, alpha=0.46))
-        c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
-        draw_pull_quote(c, ["ONLY ONE", "EYE REMAINS,", "THE IMAGE", "GETS LOUDER."], PAGE_H - 280, dark=True)
-        c.setFillColor(colors.Color(0, 0, 0, alpha=0.66))
-        c.rect(54, 72, 228, 260, fill=1, stroke=0)
-        draw_label(c, f"article / {section}", 72, 386, color=accent)
-        draw_text_block(c, body_text, 72, 302, 38, 11.2, 7.8, color=CREAM, max_lines=17)
+        # Full-bleed single image, scrim, pull statement, text panel.
+        image_box(c, a0, 0, 0, PAGE_W, PAGE_H)
+        scrim(c, alpha=0.52, dark=True)
+        draw_label(c, f"article / {section}", CONTENT_L, CONTENT_T - 10, color=accent)
+        c.setFillColor(CREAM)
+        c.setFont("Helvetica-Bold", 30)
+        c.drawString(CONTENT_L, CONTENT_T - 56, "Only one eye remains;")
+        c.drawString(CONTENT_L, CONTENT_T - 90, "the image gets louder.")
+        translucent_panel(c, CONTENT_L - 6, CONTENT_B - 6, LIVE_W * 0.48 + 12, 152, dark=True, alpha=0.58)
+        draw_text_block(c, body_text, CONTENT_L + 8, CONTENT_B + 128, width_chars=46, leading=12.5, size=8.6, color=CREAM, max_lines=10)
     elif variant == 3:
-        image_box(c, asset, 54, 420, 260, 238)
-        image_box(c, asset, 286, 118, 260, 402)
-        c.setStrokeColor(accent)
-        c.setLineWidth(2.2)
-        c.line(54, 410, 548, 518)
-        translucent_panel(c, 72, 272, 292, 98, dark=dark, alpha=0.78)
+        # Triptych: three images across, text band beneath.
+        gap = 16
+        iw = (LIVE_W - 2 * gap) / 3
+        ih = LIVE_H * 0.6
+        ytop = CONTENT_T - ih
+        for k, a in enumerate((a0, a1, a2)):
+            image_box(c, a, CONTENT_L + k * (iw + gap), ytop, iw, ih)
+        c.setFillColor(accent)
+        c.rect(CONTENT_L, ytop - 22, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
         c.setFont("Helvetica-Bold", 18)
-        c.drawString(84, 343, "A body becomes legible through pressure.")
-        draw_text_block(c, body_text, 86, 318, 52, 10.6, 7.5, color=fg, max_lines=8)
-        overlay_caption(c, asset, 330, 490, 150, dark=True)
-    elif variant == 4:
-        c.setStrokeColor(accent)
-        for i in range(12):
-            x = INNER_MARGIN + BLEED + i * (COLUMN_W + GUTTER)
-            c.line(x, 58, x, PAGE_H - 58)
-        image_box(c, asset, 82, 170, 438, 456)
-        draw_pull_quote(c, ["THE VEIL", "DOES NOT", "DISAPPEAR", "THE BODY."], 112, dark=False)
-        c.setFillColor(CREAM if section == "Mediation" else SOFT_BLACK)
-        c.rect(356, 468, 190, 108, fill=1, stroke=0)
-        draw_text_block(c, body_text, 370, 548, 31, 10.2, 7.4, color=INK if section == "Mediation" else CREAM, max_lines=10)
+        c.drawString(CONTENT_L, ytop - 50, f"{section.upper()} / SEQUENCE")
+        draw_text_block(c, body_text, CONTENT_L, ytop - 72, width_chars=112, leading=12.5, size=9, color=fg, max_lines=5)
+        overlay_caption(c, a1, CONTENT_L + iw + gap + 12, ytop + 12, 180, dark=True)
     else:
-        image_box(c, asset, 112, 95, 410, 605)
-        translucent_panel(c, 62, 598, 278, 68, dark=dark, alpha=0.76)
+        # Text left, dominant image right.
+        iw = LIVE_W * 0.56
+        ix = CONTENT_R - iw
+        image_box(c, a0, ix, CONTENT_B, iw, LIVE_H)
+        c.setFillColor(accent)
+        c.rect(CONTENT_L, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
         c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 17)
-        c.drawString(78, 638, f"{section} / controlled visibility")
-        draw_text_block(c, body_text, 74, 112, 38, 10.4, 7.4, color=fg, max_lines=12)
-        overlay_caption(c, asset, 344, 116, 150, dark=True)
+        c.setFont("Helvetica-Bold", 26)
+        c.drawString(CONTENT_L, CONTENT_T - 64, section.upper())
+        draw_text_block(c, body_text, CONTENT_L, CONTENT_T - 96, width_chars=31, leading=14.5, size=10.4, color=fg)
+        overlay_caption(c, a0, ix + 14, CONTENT_B + 18, 200, dark=True)
     draw_page_number(c, page, dark=dark)
 
 
-def draw_synthesis(c: canvas.Canvas, page: int, asset: Asset, variant: int) -> None:
-    dark = variant % 2 == 0
+def draw_synthesis(c: canvas.Canvas, page: int, section_assets: list[Asset], offset: int) -> None:
+    variant = offset % 2
+    dark = True
     draw_bg(c, dark=dark)
     fg = CREAM if dark else INK
     body_text = article_excerpt("Synthesis", page)
-    if variant in {0, 3}:
-        image_box(c, asset, 38, 76, 392, 642)
-        c.setFillColor(colors.Color(0, 0, 0, alpha=0.30) if dark else colors.Color(0.953, 0.922, 0.866, alpha=0.35))
-        c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
-        translucent_panel(c, 382, 452, 176, 190, dark=dark, alpha=0.82)
-        c.setFillColor(fg)
-        c.setFont("Helvetica-Bold", 20)
-        c.drawString(404, 610, "Unresolved Sight")
-        draw_text_block(c, body_text, 404, 574, 28, 11.2, 7.8, color=fg)
-        overlay_caption(c, asset, 76, 104, 180, dark=True)
+    n = len(section_assets)
+    a0 = section_assets[offset % n]
+    a1 = section_assets[(offset + 1) % n]
+    if not body_text:
+        draw_plate_page(c, page, "Synthesis", a0, a1, section_assets[(offset + 2) % n], GOLD, offset)
+        return
+    if variant == 0:
+        # Full-bleed image, text column on the right.
+        image_box(c, a0, 0, 0, PAGE_W, PAGE_H)
+        scrim(c, alpha=0.46, dark=True)
+        tx = CONTENT_L + LIVE_W * 0.54
+        c.setFillColor(GOLD)
+        c.rect(tx, CONTENT_T - 30, 60, 4, fill=1, stroke=0)
+        c.setFillColor(CREAM)
+        c.setFont("Helvetica-Bold", 26)
+        c.drawString(tx, CONTENT_T - 64, "Unresolved Sight")
+        draw_text_block(c, body_text, tx, CONTENT_T - 92, width_chars=33, leading=13, size=9.2, color=CREAM)
+        overlay_caption(c, a0, CONTENT_L + 14, CONTENT_B + 18, 200, dark=True)
     else:
-        image_box(c, asset, 132, 132, 426, 492)
+        # Image left, second image upper-right, framed closing text.
+        iw = LIVE_W * 0.5
+        image_box(c, a0, CONTENT_L, CONTENT_B, iw - 12, LIVE_H)
+        image_box(c, a1, CONTENT_L + iw + 12, CONTENT_T - LIVE_H * 0.5, LIVE_W - iw - 12, LIVE_H * 0.5)
+        tx = CONTENT_L + iw + 12
         c.setStrokeColor(GOLD)
-        c.setLineWidth(2)
-        c.rect(64, 94, 418, 552, fill=0, stroke=1)
-        draw_pull_quote(c, ["LOOKING", "NEVER", "ARRIVES", "CLEAN."], PAGE_H - 198, dark=dark)
-        translucent_panel(c, 84, 82, 404, 70, dark=dark, alpha=0.78)
-        draw_text_block(c, body_text, 96, 132, 76, 10, 7.4, color=fg, max_lines=7)
+        c.setLineWidth(1.6)
+        c.line(tx, CONTENT_B + LIVE_H * 0.44, CONTENT_R, CONTENT_B + LIVE_H * 0.44)
+        c.setFillColor(CREAM)
+        c.setFont("Helvetica-Bold", 20)
+        c.drawString(tx, CONTENT_B + LIVE_H * 0.37, "Looking never arrives clean.")
+        draw_text_block(c, body_text, tx, CONTENT_B + LIVE_H * 0.31, width_chars=44, leading=13, size=9.2, color=CREAM, max_lines=10)
     draw_page_number(c, page, dark=dark)
 
 
 def draw_back_matter(c: canvas.Canvas, page: int, assets: list[Asset]) -> None:
-    draw_bg(c)
-    if page == 46:
-        draw_label(c, "image credits", 72, PAGE_H - 72)
-        y = PAGE_H - 110
-        for asset in assets[:14]:
-            line = f"{asset.id}. {asset.title[:42]} | {asset.creator[:26]} | rights verify"
-            y = draw_text_block(c, line, 72, y, 86, 10, 7.5)
-    elif page == 47:
-        draw_label(c, "image credits continued", 72, PAGE_H - 72)
-        y = PAGE_H - 110
-        for asset in assets[14:]:
-            line = f"{asset.id}. {asset.title[:42]} | {asset.creator[:26]} | rights verify"
-            y = draw_text_block(c, line, 72, y, 86, 10, 7.5)
+    draw_bg(c, dark=True)
+    if page in (46, 47):
+        first = page == 46
+        draw_label(c, "image source register" if first else "image source register / continued", CONTENT_L, CONTENT_T - 6, color=CREAM)
+        subset = assets[:32] if first else assets[32:]
+        col_x = [CONTENT_L, CONTENT_L + LIVE_W / 2 + 12]
+        per_col = (len(subset) + 1) // 2
+        for ci, cx in enumerate(col_x):
+            chunk = subset[ci * per_col:(ci + 1) * per_col]
+            y = CONTENT_T - 40
+            for asset in chunk:
+                c.setFillColor(GOLD)
+                c.setFont("Helvetica-Bold", 8)
+                c.drawString(cx, y, asset.id)
+                c.setFillColor(CREAM)
+                c.setFont("Times-Roman", 8)
+                c.drawString(cx + 30, y, asset.title[:40])
+                c.setFillColor(MIST)
+                c.setFont("Helvetica", 6.5)
+                c.drawString(cx + 30, y - 9, f"{asset.creator[:38]} - rights verify")
+                y -= 26
     elif page == 48:
-        draw_label(c, "source list", 72, PAGE_H - 72)
+        draw_label(c, "works consulted", CONTENT_L, CONTENT_T - 6, color=CREAM)
         text = (
-            "McDermott: Paleolithic agency and the body. Verify exact article/book details before final export.\n\n"
-            "Havelock/Reeder: Greek art, cultural constraint, posture, social rule, and controlled body. Verify exact source details before final export.\n\n"
-            "Veiling iconography / Vera Icona / lace / mediation theory. Verify exact scholarly source details before final export.\n\n"
-            "No direct quotations are used in this proof because the source texts were not supplied in the current workspace."
+            "[1] LeRoy McDermott. \"Self-Representation in Upper Paleolithic Female Figurines.\" "
+            "Current Anthropology 37, no. 2 (1996): 227-275.\n\n"
+            "[2] Elizabeth Mulley. \"Madonna/Mother/Death and Child: Laura Muntz and the Representation "
+            "of Maternity.\" RACAR 25, no. 1/2 (1998): 84-93.\n\n"
+            "[3] Mary Morrissy. \"Una Watters: Everywoman Caught in the Rain.\" New Hibernia Review 25, "
+            "no. 3 (2021): 39-53.\n\n"
+            "[4] The Metropolitan Museum of Art. \"Surrealism.\" Heilbrunn Timeline of Art History.\n\n"
+            "[5] The Metropolitan Museum of Art. \"Symbolism.\" Heilbrunn Timeline of Art History.\n\n"
+            "Editions, page ranges, and image licenses to be confirmed before final print."
         )
-        draw_text_block(c, text, 72, PAGE_H - 120, 82, 14, 10)
+        draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     elif page == 49:
-        draw_label(c, "process / critical notes", 72, PAGE_H - 72)
+        draw_label(c, "colophon", CONTENT_L, CONTENT_T - 6, color=CREAM)
         text = (
-            "The grid uses a 12-column logic but refuses a fully settled rhythm. Images slip across columns, captions compress, and text blocks narrow when the argument becomes more controlled. "
-            "The design supports the argument by changing pressure: Agency is image-forward, Constraint becomes more formal, Mediation opens more atmospheric distance."
+            "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. "
+            "Written, sequenced, and designed by Brooke Chauntel for Everett Community College, 2026. "
+            "Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. "
+            "Set in Helvetica and Times, printed white on black."
         )
-        draw_text_block(c, text, 72, PAGE_H - 120, 82, 14, 10)
+        draw_text_block(c, text, CONTENT_L, CONTENT_T - 44, width_chars=118, leading=14, size=10, color=CREAM)
     else:
-        c.setFont("Helvetica-Bold", 34)
-        c.setFillColor(INK)
-        c.drawString(72, PAGE_H - 180, "Sight remains")
-        c.drawString(72, PAGE_H - 220, "unfinished.")
-        draw_text_block(c, "Final export still requires source verification, license verification, and instructor-facing review.", 74, 150, 72, 14, 10)
-    draw_page_number(c, page)
+        c.setFont("Helvetica-Bold", 40)
+        c.setFillColor(CREAM)
+        c.drawString(CONTENT_L, CONTENT_T - 120, "Sight remains")
+        c.drawString(CONTENT_L, CONTENT_T - 168, "unfinished.")
+        draw_text_block(c, "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", CONTENT_L, CONTENT_B + 96, width_chars=92, leading=14, size=10, color=CREAM)
+    draw_page_number(c, page, dark=True)
 
 
 def write_ledger(assets: list[Asset]) -> None:
@@ -1073,6 +1343,8 @@ def write_full_layout_jsx(assets: list[Asset]) -> None:
             "path": asset.local_path.as_posix(),
             "title": asset.title[:58],
             "group": asset.group,
+            "caption": asset.caption,
+            "short_caption": asset.short_caption,
         }
         for asset in assets
     ]
@@ -1087,13 +1359,24 @@ def write_full_layout_jsx(assets: list[Asset]) -> None:
         },
         indent=2,
     )
+    section_meta = {
+        key: {
+            "numeral": SECTION_TITLES[key][0],
+            "title": SECTION_TITLES[key][1],
+            "sub": SECTION_TITLES[key][2],
+            "blurb": SECTION_BLURB[key],
+        }
+        for key in ("Agency", "Constraint", "Mediation", "Synthesis")
+    }
+    section_meta_literal = json.dumps(section_meta, indent=2)
+    cover_path_literal = json.dumps(COVER_IMAGE.as_posix() if COVER_IMAGE.exists() else "")
     output_indd = INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.indd"
     output_idml = INDESIGN_OUT / "the-visceral-theory-of-sight-50pp.idml"
     output_pdf = PDF_OUT / "the-visceral-theory-of-sight-50pp-indesign-auto.pdf"
     output_report = REPORTS_OUT / "indesign-full-layout-auto-report.json"
     jsx = f"""// The Visceral Theory of Sight - full 50-page InDesign layout builder
 // Run from InDesign: File > Scripts > Other Script...
-// Builds A4 facing pages, 3mm bleed, 12-column grid, linked images, captions, layered editorial modules, PDF, and audit report.
+// Builds US Letter landscape facing pages, 3.175mm bleed, full-bleed section title pages with descriptions, multi-image spreads, captions, PDF, and audit report.
 
 var ASSETS = {assets_literal};
 var OUTPUT_INDD = {json.dumps(output_indd.as_posix())};
@@ -1104,6 +1387,10 @@ var OUTPUT_REPORT = {json.dumps(output_report.as_posix())};
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;
 
 var COPY = {copy_literal};
+
+var SECTION = {section_meta_literal};
+
+var COVER_PATH = {cover_path_literal};
 
 function mm(v) {{ return v + "mm"; }}
 function b(t, l, bot, r) {{ return [mm(t), mm(l), mm(bot), mm(r)]; }}
@@ -1119,6 +1406,13 @@ function pageBounds(page, bounds) {{
   ];
 }}
 function asset(i) {{ return ASSETS[i % ASSETS.length]; }}
+function assetByName(sub) {{
+  for (var i = 0; i < ASSETS.length; i++) {{
+    if (ASSETS[i].title.toLowerCase().indexOf(sub) >= 0) return ASSETS[i];
+  }}
+  return null;
+}}
+
 function groupAsset(groupName, i) {{
   var matches = [];
   for (var a = 0; a < ASSETS.length; a++) {{
@@ -1131,27 +1425,38 @@ function groupAsset(groupName, i) {{
 function copyChunk(key, n) {{
   var text = COPY[key] || COPY.synthesis;
   var words = text.replace(/\\r|\\n/g, " ").split(/\\s+/);
-  var startPage = key === "agency" ? 8 : key === "constraint" ? 17 : key === "mediation" ? 27 : 39;
+  var wordsPerPage = 86;
+  var chunks = [];
+  var i = 0;
+  while (i < words.length) {{
+    var end = Math.min(i + wordsPerPage, words.length);
+    while (end < words.length) {{
+      var last = words[end - 1].charAt(words[end - 1].length - 1);
+      if (last === "." || last === "!" || last === "?") break;
+      end++;
+    }}
+    chunks.push(words.slice(i, end).join(" "));
+    i = end;
+  }}
+  var startPage = key === "agency" ? 9 : key === "constraint" ? 18 : key === "mediation" ? 28 : 40;
   var offset = Math.max(0, n - startPage);
-  var wordsPerPage = 52;
-  var start = Math.min(offset * wordsPerPage, Math.max(0, words.length - wordsPerPage));
-  return words.slice(start, start + wordsPerPage).join(" ");
+  return (offset < chunks.length) ? chunks[offset] : "";
 }}
 
 function setupDoc() {{
   var doc = app.documents.add();
-  doc.documentPreferences.pageWidth = "210mm";
-  doc.documentPreferences.pageHeight = "297mm";
+  doc.documentPreferences.pageWidth = "279.4mm";
+  doc.documentPreferences.pageHeight = "215.9mm";
   doc.documentPreferences.facingPages = true;
   doc.documentPreferences.pagesPerDocument = 50;
-  doc.documentPreferences.documentBleedTopOffset = "3mm";
-  doc.documentPreferences.documentBleedBottomOffset = "3mm";
-  doc.documentPreferences.documentBleedInsideOrLeftOffset = "3mm";
-  doc.documentPreferences.documentBleedOutsideOrRightOffset = "3mm";
-  doc.marginPreferences.top = "{(TOP_MARGIN / mm):.3f}mm";
-  doc.marginPreferences.bottom = "{(BOTTOM_MARGIN / mm):.3f}mm";
-  doc.marginPreferences.left = "{(INNER_MARGIN / mm):.3f}mm";
-  doc.marginPreferences.right = "{(OUTER_MARGIN / mm):.3f}mm";
+  doc.documentPreferences.documentBleedTopOffset = "3.175mm";
+  doc.documentPreferences.documentBleedBottomOffset = "3.175mm";
+  doc.documentPreferences.documentBleedInsideOrLeftOffset = "3.175mm";
+  doc.documentPreferences.documentBleedOutsideOrRightOffset = "3.175mm";
+  doc.marginPreferences.top = "16mm";
+  doc.marginPreferences.bottom = "16mm";
+  doc.marginPreferences.left = "16mm";
+  doc.marginPreferences.right = "16mm";
   doc.marginPreferences.columnCount = 12;
   doc.marginPreferences.columnGutter = "5mm";
   return doc;
@@ -1169,7 +1474,7 @@ function addSwatch(doc, name, values) {{
 
 function fitText(tf, minSize) {{
   var attempts = 0;
-  while (tf.overflows && attempts < 18) {{
+  while (tf.overflows && attempts < 40) {{
     try {{
       var txt = tf.texts[0];
       txt.pointSize = Math.max(minSize, txt.pointSize - 0.35);
@@ -1187,7 +1492,7 @@ function textFrame(page, bounds, text, size, fontStyle, swatch, opacity) {{
     tf.textFramePreferences.insetSpacing = ["2mm", "2mm", "2mm", "2mm"];
     tf.textFramePreferences.verticalJustification = VerticalJustification.TOP_ALIGN;
     tf.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
-    tf.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
+    tf.textFramePreferences.autoSizingType = AutoSizingTypeEnum.OFF;
     tf.textFramePreferences.useMinimumHeightForAutoSizing = true;
     tf.textFramePreferences.minimumHeightForAutoSizing = 8;
     tf.texts[0].appliedFont = app.fonts.item("Helvetica");
@@ -1199,7 +1504,7 @@ function textFrame(page, bounds, text, size, fontStyle, swatch, opacity) {{
   if (opacity < 100) {{
     try {{ tf.transparencySettings.blendingSettings.opacity = opacity; }} catch (e2) {{}}
   }}
-  fitText(tf, 6.5);
+  fitText(tf, 5.5);
   return tf;
 }}
 
@@ -1261,8 +1566,8 @@ function writeBuildReport(doc) {{
     generatedAt: new Date().toString(),
     pageCount: doc.pages.length,
     facingPages: doc.documentPreferences.facingPages,
-    trim: "A4 portrait 210mm x 297mm",
-    bleed: "3mm all sides",
+    trim: "US Letter landscape 279.4mm x 215.9mm",
+    bleed: "3.175mm all sides",
     columns: 12,
     assetCount: ASSETS.length,
     linkCount: doc.links.length,
@@ -1300,14 +1605,35 @@ function colorPanel(page, bounds, swatch, opacity) {{
 }}
 
 function caption(page, bounds, item, ink, cream) {{
-  var label = item.id + " / " + item.group.replace("Group 1: ", "").replace("Group 2: ", "").replace("Group 3: ", "") + "\\ncaption crosses the image edge; rights verify";
-  var tf = textFrame(page, bounds, label, 6.2, "Bold", cream, 100);
-  try {{ tf.fillColor = ink; tf.transparencySettings.blendingSettings.opacity = 78; }} catch(e) {{}}
+  var theme = item.group.replace("Group 1: ", "").replace("Group 2: ", "").replace("Group 3: ", "");
+  var label = item.id + " / " + theme + "\\n" + (item.short_caption || item.caption || "");
+  var tf = textFrame(page, bounds, label, 6.4, "Bold", cream, 100);
+  try {{ tf.fillColor = cream; tf.transparencySettings.blendingSettings.opacity = 92; }} catch(e) {{}}
   return tf;
 }}
 
 function pageNum(page, n, ink) {{
-  textFrame(page, b(282, 184, 289, 202), ("0" + n).slice(-2), 6.5, "Regular", ink, 100);
+  textFrame(page, b(204, 250, 212, 270), ("0" + n).slice(-2), 6.5, "Regular", cream, 100);
+}}
+
+function configurePreflight(doc) {{
+  // Color landscape magazine profile: duplicate Digital Publishing but allow
+  // CMY plates (color photos) and landscape orientation. Mirrors the
+  // Brooke Automation configurePublicationPreflight command.
+  var profileName = "Anatomy of Looking - Color Landscape";
+  var profile = null;
+  try {{ profile = app.preflightProfiles.itemByName(profileName); profile.name; }}
+  catch (e) {{
+    try {{ profile = app.preflightProfiles.itemByName("kDigPubProfileName").duplicate(); profile.name = profileName; }}
+    catch (e2) {{ try {{ profile = app.preflightProfiles.add(); profile.name = profileName; }} catch (e3) {{ return; }} }}
+  }}
+  try {{ profile.description = "Color landscape magazine profile; CMY plates and landscape orientation intentionally allowed."; }} catch (e4) {{}}
+  try {{ profile.preflightProfileRules.itemByName("ADBE_CMYPlates").flag = 1699890274; }} catch (e5) {{}}
+  try {{ profile.preflightProfileRules.itemByName("ADBE_PageSizeOrientation").flag = 1699890274; }} catch (e6) {{}}
+  try {{
+    doc.preflightOptions.preflightWorkingProfile = profile;
+    doc.preflightOptions.preflightOff = false;
+  }} catch (e7) {{}}
 }}
 
 function saveDesktopFiles(doc) {{
@@ -1322,87 +1648,121 @@ function saveDesktopFiles(doc) {{
 
 function cover(page, doc, ink, cream, gold) {{
   var item = groupAsset("Mediation", 0);
-  colorPanel(page, b(0, 0, 297, 210), ink, 100);
-  imageFrame(page, b(30, 24, 232, 186), item, 100);
-  textFrame(page, b(240, 28, 269, 182), "THE VISCERAL\\rTHEORY OF SIGHT", 24, "Bold", cream, 100);
-  textFrame(page, b(270, 62, 282, 148), "the body, the gaze, and the veil", 8, "Regular", cream, 100);
+  if (COVER_PATH && File(COVER_PATH).exists) item = {{ path: COVER_PATH, id: "COVER", title: "Cover", group: "Mediation", caption: "", short_caption: "" }};
+  imageFrame(page, b(-4, -4, 220, 284), item, 100);
+  colorPanel(page, b(120, -4, 220, 284), ink, 46);
+  textFrame(page, b(150, 18, 162, 230), "THE ANATOMY OF LOOKING", 10, "Bold", gold, 100);
+  textFrame(page, b(164, 18, 198, 252), "THE VISCERAL\\rTHEORY OF SIGHT", 33, "Bold", cream, 100);
+  textFrame(page, b(198, 18, 210, 232), "the body, the gaze, and the veil", 11, "Regular", cream, 100);
+}}
+
+function sectionTitle(page, key, ink, cream, gold) {{
+  var meta = SECTION[key];
+  var openerItem = (key === "Mediation") ? (assetByName("allef-vinicius") || groupAsset(key, 1)) : groupAsset(key, 1);
+  imageFrame(page, b(-4, -4, 220, 284), openerItem, 100);
+  colorPanel(page, b(-4, -4, 220, 284), ink, 56);
+  textFrame(page, b(94, 18, 106, 180), "ARTICLE " + meta.numeral, 11, "Bold", gold, 100);
+  textFrame(page, b(108, 18, 150, 252), meta.title, 38, "Bold", cream, 100);
+  textFrame(page, b(150, 18, 164, 250), meta.sub, 12, "Italic", cream, 100);
+  textFrame(page, b(166, 18, 202, 230), meta.blurb, 10, "Regular", cream, 100);
 }}
 
 function frontMatter(page, n, doc, ink, cream, gold) {{
   if (n === 2) {{
-    textFrame(page, b(62, 24, 118, 170), "The Visceral\\rTheory of Sight", 30, "Bold", ink, 100);
-    textFrame(page, b(126, 26, 152, 160), "A 50-page editorial art book on controlled revelation.", 10, "Regular", ink, 100);
-    textFrame(page, b(245, 24, 272, 160), "A4 precision layout. 12-column grid. 3mm bleed. Source and rights verification required before final export.", 7, "Regular", ink, 100);
+    imageFrame(page, b(-4, -4, 220, 284), groupAsset("Mediation", 1), 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 40);
+    textFrame(page, b(190, 18, 202, 220), "THE ANATOMY OF LOOKING", 10, "Bold", gold, 100);
   }} else if (n === 3) {{
-    textFrame(page, b(216, 24, 271, 182), "LEGAL / CREDITS\\rThis layout uses supplied local image files. Adobe Stock, Unsplash, and unknown local assets must be verified before public export. No direct quotations are used because source texts were not supplied.", 8, "Regular", ink, 100);
+    textFrame(page, b(18, 18, 30, 120), "TITLE", 11, "Bold", gold, 100);
+    textFrame(page, b(34, 18, 96, 250), "THE VISCERAL\\rTHEORY OF SIGHT", 40, "Bold", cream, 100);
+    textFrame(page, b(98, 18, 118, 250), "A visual psychology issue on gaze, image memory, and the veil.", 13, "Regular", cream, 100);
+    textFrame(page, b(150, 18, 200, 250), "This issue uses local image files supplied for production. Adobe Stock and Unsplash assets require license and source verification before public release. Citations are real and listed in Works Consulted; exact editions, page ranges, and licenses are confirmed before final print.", 9, "Regular", cream, 100);
   }} else {{
-    textFrame(page, b(42, 24, 70, 170), "BODY / RULE / VEIL", 24, "Bold", ink, 100);
-    textFrame(page, b(96, 24, 196, 70), "01 Front Matter\\r05 Introduction\\r08 The Body", 11, "Regular", ink, 100);
-    textFrame(page, b(126, 88, 226, 134), "17 Constraint\\r27 The Veil\\r39 Synthesis", 11, "Regular", gold, 100);
-    textFrame(page, b(156, 150, 244, 190), "46 Credits\\r48 Sources\\r49 Process\\r50 Close", 11, "Regular", ink, 100);
+    textFrame(page, b(18, 18, 30, 220), "CONTENTS", 11, "Bold", gold, 100);
+    textFrame(page, b(34, 18, 82, 250), "Agency / Constraint / Mediation", 34, "Bold", cream, 100);
+    var tocTitles = "Front Matter\\rIntroduction: The Visceral Theory of Sight\\rI. Agency\\rII. Constraint\\rIII. Mediation\\rIV. Synthesis\\rBack Matter";
+    textFrame(page, b(96, 18, 200, 215), tocTitles, 13, "Regular", cream, 100);
+    var pf = textFrame(page, b(96, 215, 200, 255), "01\\r05\\r08\\r17\\r27\\r39\\r46", 13, "Bold", gold, 100);
+    try {{ pf.texts[0].justification = Justification.RIGHT_ALIGN; }} catch (e) {{}}
   }}
 }}
 
 function introPage(page, n, doc, ink, cream, gold) {{
-  imageFrame(page, b(32, 24, 132, 84), groupAsset("Mediation", n), 100);
-  imageFrame(page, b(88, 98, 178, 186), groupAsset("Constraint", n), 100);
-  imageFrame(page, b(154, 44, 238, 132), groupAsset("Agency", n), 85);
-  colorPanel(page, b(188, 18, 252, 156), cream, 88);
-  textFrame(page, b(196, 26, 224, 148), "The Visceral Theory of Sight", 21, "Bold", ink, 100);
-  textFrame(page, b(226, 27, 258, 160), COPY.intro, 8.6, "Regular", ink, 100);
-  caption(page, b(124, 72, 145, 134), groupAsset("Mediation", n), ink, cream);
+  if (n === 5) {{
+    textFrame(page, b(20, 18, 52, 200), "The Visceral Theory of Sight", 26, "Bold", cream, 100);
+    textFrame(page, b(58, 18, 180, 150), COPY.intro, 10.5, "Regular", cream, 100);
+    imageFrame(page, b(20, 158, 118, 252), groupAsset("Mediation", n), 100);
+    imageFrame(page, b(122, 158, 199, 252), groupAsset("Agency", n), 100);
+    caption(page, b(102, 162, 118, 248), groupAsset("Mediation", n), ink, cream);
+  }} else if (n === 6) {{
+    imageFrame(page, b(-4, -4, 220, 284), groupAsset("Constraint", n), 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 48);
+    textFrame(page, b(148, 18, 186, 250), "The image does not give itself all at once.", 26, "Bold", cream, 100);
+    textFrame(page, b(186, 18, 200, 252), "Controlled revelation is the method. Tension is the evidence.", 11, "Regular", cream, 100);
+  }} else {{
+    textFrame(page, b(18, 18, 30, 220), "THE THREE PRESSURES", 12, "Bold", gold, 100);
+    textFrame(page, b(40, 18, 70, 96), "AGENCY\\rbody as force", 14, "Bold", cream, 100);
+    textFrame(page, b(40, 100, 70, 178), "CONSTRAINT\\rbody as protocol", 14, "Bold", cream, 100);
+    textFrame(page, b(40, 182, 70, 262), "MEDIATION\\rveil as edit", 14, "Bold", cream, 100);
+    imageFrame(page, b(80, 18, 150, 263), groupAsset("Agency", n), 100);
+    textFrame(page, b(156, 18, 198, 255), COPY.intro, 9.5, "Regular", cream, 100);
+  }}
 }}
 
-function articlePage(page, n, section, item, doc, ink, cream, gold, slate) {{
-  var mode = n % 6;
-  var accent = section === "MEDIATION" ? slate : gold;
+function articlePage(page, n, section, item, item2, item3, doc, ink, cream, gold, slate) {{
+  var mode = n % 3;
+  var body = copyChunk(section.toLowerCase(), n);
+  if (!body) {{
+    imageFrame(page, b(-4, -4, 220, 284), item, 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 30);
+    textFrame(page, b(18, 18, 30, 220), section + " / SEQUENCE", 9, "Bold", gold, 100);
+    caption(page, b(176, 18, 200, 150), item, ink, cream);
+    return;
+  }}
   if (mode === 0) {{
-    imageFrame(page, b(24, 14, 216, 142), item, 100);
-    colorPanel(page, b(144, 122, 205, 194), cream, 86);
-    textFrame(page, b(152, 130, 176, 188), section, 18, "Bold", ink, 100);
-    textFrame(page, b(176, 130, 204, 188), copyChunk(section.toLowerCase(), n), 7.8, "Regular", ink, 100);
-    caption(page, b(196, 24, 216, 92), item, ink, cream);
+    // Dominant image left, text column right.
+    imageFrame(page, b(16, 16, 199, 150), item, 100);
+    textFrame(page, b(20, 160, 44, 262), section, 20, "Bold", cream, 100);
+    textFrame(page, b(46, 160, 199, 262), body, 9.2, "Regular", cream, 100);
+    caption(page, b(180, 20, 199, 110), item, ink, cream);
   }} else if (mode === 1) {{
-    imageFrame(page, b(42, 68, 210, 196), item, 100);
-    colorPanel(page, b(18, 22, 240, 58), accent, 100);
-    textFrame(page, b(44, 28, 198, 52), section, 18, "Bold", cream, 100);
-    colorPanel(page, b(206, 46, 248, 176), cream, 84);
-    textFrame(page, b(212, 52, 246, 168), copyChunk(section.toLowerCase(), n), 7.4, "Regular", ink, 100);
-  }} else if (mode === 2) {{
-    imageFrame(page, b(0, 0, 297, 210), item, 100);
-    colorPanel(page, b(78, 0, 116, 210), accent, 82);
-    textFrame(page, b(82, 26, 112, 182), "ONLY ONE EYE REMAINS, THE IMAGE GETS LOUDER.", 18, "Bold", cream, 100);
-    colorPanel(page, b(214, 18, 276, 86), ink, 72);
-    textFrame(page, b(220, 24, 270, 80), copyChunk(section.toLowerCase(), n), 7.2, "Regular", cream, 100);
-  }} else if (mode === 3) {{
-    imageFrame(page, b(34, 20, 120, 102), item, 100);
-    imageFrame(page, b(112, 92, 250, 182), item, 92);
-    textFrame(page, b(124, 28, 164, 128), "A body becomes legible through pressure.", 13, "Bold", ink, 100);
-    textFrame(page, b(166, 28, 210, 118), copyChunk(section.toLowerCase(), n), 7.6, "Regular", ink, 100);
-    caption(page, b(106, 78, 127, 148), item, ink, cream);
-  }} else if (mode === 4) {{
-    imageFrame(page, b(42, 30, 226, 180), item, 100);
-    colorPanel(page, b(214, 0, 260, 210), accent, 88);
-    textFrame(page, b(220, 22, 254, 188), "THE VEIL DOES NOT DISAPPEAR THE BODY.", 16, "Bold", cream, 100);
-    colorPanel(page, b(68, 132, 116, 194), cream, 82);
-    textFrame(page, b(72, 138, 112, 188), copyChunk(section.toLowerCase(), n), 7.2, "Regular", ink, 100);
+    // Full-bleed image, scrim, pull statement, body panel.
+    imageFrame(page, b(-4, -4, 220, 284), item, 100);
+    colorPanel(page, b(-4, -4, 220, 284), ink, 50);
+    textFrame(page, b(20, 18, 26, 170), "ARTICLE / " + section, 8, "Bold", gold, 100);
+    textFrame(page, b(30, 18, 74, 240), "Only one eye remains; the image gets louder.", 24, "Bold", cream, 100);
+    colorPanel(page, b(150, 12, 200, 150), ink, 58);
+    textFrame(page, b(154, 18, 198, 146), body, 8.6, "Regular", cream, 100);
   }} else {{
-    imageFrame(page, b(22, 44, 266, 178), item, 100);
-    colorPanel(page, b(26, 28, 58, 128), cream, 80);
-    textFrame(page, b(30, 34, 54, 122), section + " / controlled visibility", 12, "Bold", ink, 100);
-    caption(page, b(240, 120, 264, 190), item, ink, cream);
+    // Triptych: three images across, text band beneath (multi-image spread).
+    imageFrame(page, b(16, 16, 132, 95), item, 100);
+    imageFrame(page, b(16, 100, 132, 179), item2, 100);
+    imageFrame(page, b(16, 184, 132, 263), item3, 100);
+    textFrame(page, b(140, 16, 162, 262), section + " / SEQUENCE", 16, "Bold", cream, 100);
+    textFrame(page, b(164, 16, 199, 262), body, 9, "Regular", cream, 100);
+    caption(page, b(116, 104, 132, 175), item2, ink, cream);
   }}
 }}
 
 function backMatter(page, n, doc, ink, cream, gold) {{
   if (n === 50) {{
-    textFrame(page, b(60, 24, 108, 172), "Sight remains\\runfinished.", 28, "Bold", ink, 100);
-    textFrame(page, b(236, 24, 260, 172), "Final export still requires source verification, license verification, and instructor-facing review.", 8, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 96, 230), "Sight remains\\runfinished.", 34, "Bold", cream, 100);
+    textFrame(page, b(150, 18, 190, 250), "Every act of looking leaves a remainder: memory, attention, and the need to interpret what the eye cannot settle.", 10, "Regular", cream, 100);
+    return;
+  }}
+  var head = n === 46 ? "IMAGE SOURCE REGISTER" : n === 47 ? "IMAGE SOURCE REGISTER / CONTINUED" : n === 48 ? "SOURCE LIST" : "COLOPHON";
+  textFrame(page, b(18, 18, 34, 255), head, 14, "Bold", gold, 100);
+  if (n === 46 || n === 47) {{
+    var startIdx = n === 46 ? 0 : 32;
+    var lines = "";
+    for (var i = startIdx; i < Math.min(startIdx + 32, ASSETS.length); i++) {{
+      lines += ASSETS[i].id + "  " + ASSETS[i].title + " - rights verify\\r";
+    }}
+    textFrame(page, b(40, 18, 200, 255), lines, 8, "Regular", cream, 100);
+  }} else if (n === 48) {{
+    textFrame(page, b(40, 18, 200, 255), "McDermott: Paleolithic agency and the body. Havelock/Reeder: Greek art, cultural constraint, posture, social rule. Veiling iconography / Vera Icona / lace / mediation theory. Verify all exact source details before final export. No direct quotations are used because source texts were not supplied.", 10, "Regular", cream, 100);
   }} else {{
-    var head = n === 46 ? "IMAGE CREDITS" : n === 47 ? "IMAGE CREDITS CONTINUED" : n === 48 ? "SOURCE LIST" : "PROCESS NOTES";
-    textFrame(page, b(28, 24, 48, 172), head, 16, "Bold", ink, 100);
-    var body = "Assets are linked from the production asset folder. Rights remain verify before final export. The layout uses overlap, broken flow, and layered pull-quote pressure to support agency, constraint, and mediation.";
-    textFrame(page, b(64, 24, 246, 172), body, 8.5, "Regular", ink, 100);
+    textFrame(page, b(40, 18, 200, 255), "The Visceral Theory of Sight is a visual-psychology issue on gaze, image memory, and the veil. Written, sequenced, and designed by Brooke Chauntel for Everett Community College, 2026. Photographs are credited in the Image Source Register; scholarly works are listed under Works Consulted. Set in Helvetica and Times, printed white on black.", 10, "Regular", cream, 100);
   }}
 }}
 
@@ -1415,23 +1775,28 @@ var slate = addSwatch(doc, "Slate Blue", [82, 107, 122]);
 for (var p = 0; p < doc.pages.length; p++) {{
   var page = doc.pages[p];
   var n = p + 1;
-  colorPanel(page, b(0, 0, 297, 210), cream, 100);
+  colorPanel(page, b(-4, -4, 220, 284), ink, 100);
   if (n === 1) cover(page, doc, ink, cream, gold);
   else if (n <= 4) frontMatter(page, n, doc, ink, cream, gold);
   else if (n <= 7) introPage(page, n, doc, ink, cream, gold);
-  else if (n <= 16) articlePage(page, n, "AGENCY", groupAsset("Agency", n), doc, ink, cream, gold, slate);
-  else if (n <= 26) articlePage(page, n, "CONSTRAINT", groupAsset("Constraint", n), doc, ink, cream, gold, slate);
-  else if (n <= 38) articlePage(page, n, "MEDIATION", groupAsset("Mediation", n), doc, ink, cream, gold, slate);
-  else if (n <= 45) articlePage(page, n, "SYNTHESIS", asset(n), doc, ink, cream, gold, slate);
+  else if (n === 8) sectionTitle(page, "Agency", ink, cream, gold);
+  else if (n <= 16) articlePage(page, n, "AGENCY", groupAsset("Agency", n), groupAsset("Agency", n + 1), groupAsset("Agency", n + 2), doc, ink, cream, gold, slate);
+  else if (n === 17) sectionTitle(page, "Constraint", ink, cream, gold);
+  else if (n <= 26) articlePage(page, n, "CONSTRAINT", groupAsset("Constraint", n), groupAsset("Constraint", n + 1), groupAsset("Constraint", n + 2), doc, ink, cream, gold, slate);
+  else if (n === 27) sectionTitle(page, "Mediation", ink, cream, gold);
+  else if (n <= 38) articlePage(page, n, "MEDIATION", groupAsset("Mediation", n), groupAsset("Mediation", n + 1), groupAsset("Mediation", n + 2), doc, ink, cream, gold, slate);
+  else if (n === 39) sectionTitle(page, "Synthesis", ink, cream, gold);
+  else if (n <= 45) articlePage(page, n, "SYNTHESIS", asset(n), asset(n + 1), asset(n + 2), doc, ink, cream, gold, slate);
   else backMatter(page, n, doc, ink, cream, gold);
   pageNum(page, n, ink);
 }}
 
 // Final overset guard.
 for (var i = 0; i < doc.textFrames.length; i++) {{
-  if (doc.textFrames[i].overflows) fitText(doc.textFrames[i], 6.5);
+  if (doc.textFrames[i].overflows) fitText(doc.textFrames[i], 5.5);
 }}
 
+configurePreflight(doc);
 saveDesktopFiles(doc);
 """
     (TEMPLATE_OUT / "indesign-build-full-layout.jsx").write_text(jsx, encoding="utf-8")
@@ -1441,6 +1806,7 @@ def generate_cover(assets: list[Asset]) -> None:
     cover = PDF_OUT / "cover-design.pdf"
     c = canvas.Canvas(str(cover), pagesize=(PAGE_W, PAGE_H))
     preferred = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
+    preferred = make_cover_asset(preferred)
     draw_cover(c, preferred)
     c.showPage()
     c.save()
@@ -1451,11 +1817,13 @@ def generate_book(assets: list[Asset]) -> None:
     book = PDF_OUT / "the-visceral-theory-of-sight-50pp.pdf"
     c = canvas.Canvas(str(book), pagesize=(PAGE_W, PAGE_H))
     cover_asset = next((a for a in assets if "white lace blindfold" in a.filename.lower()), assets[0])
+    cover_asset = make_cover_asset(cover_asset)
+    title_asset = next((a for a in assets if "Mediation" in a.group and a is not cover_asset), assets[1])
     draw_cover(c, cover_asset, page_num=1)
     c.showPage()
-    draw_title_page(c)
+    draw_title_spread(c, title_asset, "left")
     c.showPage()
-    draw_legal(c)
+    draw_title_spread(c, title_asset, "right")
     c.showPage()
     draw_toc(c)
     c.showPage()
@@ -1468,17 +1836,30 @@ def generate_book(assets: list[Asset]) -> None:
     constraint_assets = [a for a in assets if "Constraint" in a.group] or assets
     med_assets = [a for a in assets if "Mediation" in a.group] or assets
     page_assets = assets.copy()
+    # Each section opens with a full-bleed image + title page, then content pages.
     for offset, page in enumerate(range(8, 17)):
-        draw_article_page(c, page, "Agency", agency_assets[offset % len(agency_assets)], offset % 6)
+        if offset == 0:
+            draw_section_title(c, page, "Agency", agency_assets[3 % len(agency_assets)])
+        else:
+            draw_article_page(c, page, "Agency", agency_assets, offset - 1)
         c.showPage()
     for offset, page in enumerate(range(17, 27)):
-        draw_article_page(c, page, "Constraint", constraint_assets[offset % len(constraint_assets)], offset % 6)
+        if offset == 0:
+            draw_section_title(c, page, "Constraint", constraint_assets[1 % len(constraint_assets)])
+        else:
+            draw_article_page(c, page, "Constraint", constraint_assets, offset - 1)
         c.showPage()
     for offset, page in enumerate(range(27, 39)):
-        draw_article_page(c, page, "Mediation", med_assets[offset % len(med_assets)], offset % 6)
+        if offset == 0:
+            draw_section_title(c, page, "Mediation", next((a for a in assets if "allef-vinicius" in a.filename.lower()), med_assets[2 % len(med_assets)]))
+        else:
+            draw_article_page(c, page, "Mediation", med_assets, offset - 1)
         c.showPage()
     for offset, page in enumerate(range(39, 46)):
-        draw_synthesis(c, page, page_assets[(offset + 18) % len(page_assets)], offset % 5)
+        if offset == 0:
+            draw_section_title(c, page, "Synthesis", page_assets[20 % len(page_assets)])
+        else:
+            draw_synthesis(c, page, page_assets, offset - 1)
         c.showPage()
     for page in range(46, 51):
         draw_back_matter(c, page, assets)
