@@ -2,9 +2,9 @@
 name: Deploy Jekyll with GitHub Pages dependencies preinstalled
 
 on:
-  # Runs on pushes targeting the default branch
+  # Deploy the default branch and Brooke's active GitHub Desktop branch.
   push:
-    branches: ["main"]
+    branches: ["main", "claude/gallant-ptolemy-k0zpgr"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
