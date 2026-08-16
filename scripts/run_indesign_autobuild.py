@@ -73,8 +73,8 @@ def regenerate_layout() -> int:
         b.generate_book(assets)
         import export_facing_pages
         export_facing_pages.export_facing_pages()
-    except Exception as exc:  # proof is a bonus; never block the InDesign run
-        print(f"  (reportlab proof regen skipped: {exc})")
+    except Exception as exc:
+        print(f"  WARNING: reportlab proof regen skipped: {type(exc).__name__}: {exc}")
     print(f"  regenerated builder JSX and copied {len(assets)} assets")
     return len(assets)
 
@@ -157,8 +157,8 @@ def main() -> int:
     app = connect_indesign()
     try:
         app.ScriptPreferences.UserInteractionLevel = NEVER_INTERACT
-    except Exception:
-        pass
+    except Exception as exc:
+        print(f"  WARNING: could not set UserInteractionLevel: {exc}")
 
     start = time.time()
     try:
